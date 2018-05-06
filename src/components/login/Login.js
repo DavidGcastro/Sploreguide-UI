@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Dimensions, StyleSheet, Text, TextInput, View, AsyncStorage } from 'react-native'
+import { Button, Dimensions, StyleSheet, Text, TextInput, View, AsyncStorage, TouchableOpacity } from 'react-native'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
@@ -22,7 +22,7 @@ const loginMutation = gql`
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(184, 0, 43)',
+    backgroundColor: '#c70039',
     paddingLeft: 30,
     paddingRight: 30,
     alignItems: 'center',
@@ -39,6 +39,15 @@ const styles = StyleSheet.create({
   row: {
     marginTop: 15,
   },
+  passwordHolder: {
+    position: 'relative',
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  passwordBox: {
+    alignSelf: 'stretch',
+    paddingVertical: 0,
+  },
   textInput: {
     height: 50,
     width: Dimensions.get('window').width * 0.8,
@@ -47,10 +56,26 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
+  visibilityBtn:{
+    position: 'absolute',
+    right: 5,
+    height: 40,
+    width: 50,
+    padding: 5
+  },
   logInButton: {
-    width: Dimensions.get('window').width * 0.4,
+    width: Dimensions.get('window').width * 0.13,
+    paddingLeft: 18,
+    paddingBottom: 5,
     backgroundColor: '#fff',
     borderRadius: 30,
+  },
+  logInArrow: {
+    color: '#c70039',
+    fontSize: 35
+  },
+  logInButtonWrapper: {
+    alignSelf: 'flex-end'
   },
   fyg: {
     opacity: 0.5,
@@ -68,7 +93,8 @@ const LoginText = ({ children }) => (
 class Login extends Component {
   state = {
     email: '',
-    password: ''
+    password: '',
+    hidePassword: true
   }
   static navigationOptions = {
     title: 'Log in',
@@ -106,9 +132,14 @@ class Login extends Component {
       */
   }
 
+  managePasswordVisibility = () => {
+    this.setState({ hidePassword: !this.state.hidePassword });
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.row}/>
         <View style={[styles.fbButton, styles.row]}>
           <Button
             title="LOG IN WITH FACEBOOK"
@@ -117,12 +148,15 @@ class Login extends Component {
           />
         </View>
 
+        <View style={styles.row}/>
+        
         <View style={styles.row}>
           <LoginText>or</LoginText>
         </View>
-
+        
+        <View style={styles.row}/>
+        
         <View>
-          {/* eslint-disable*/}
           <TextInput
             style={[styles.row, styles.textInput]}
             onChangeText={email => this.setState({ email })}
@@ -134,25 +168,33 @@ class Login extends Component {
               this.refs.password.focus()
             }}
           />
-          <TextInput
-            ref='password'
-            style={[styles.row, styles.textInput]}
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-            placeholder="Password"
-            placeholderTextColor="#fff"
-            returnKeyType="done"
-            secureTextEntry
-          />
-          {/* eslint-enable */}
+          <View style={styles.row}/>
+          <View style={styles.passwordHolder}>
+            <TextInput
+              ref='password'
+              style={[styles.row, styles.textInput, styles.passwordBox]}
+              onChangeText={password => this.setState({ password })}
+              value={this.state.password}
+              placeholder="Password"
+              placeholderTextColor="#fff"
+              returnKeyType="done"
+              secureTextEntry = { this.state.hidePassword }
+            />
+            <TouchableOpacity activeOpacity = { 0.8 } style = { styles.visibilityBtn } onPress = { this.managePasswordVisibility }>
+              {this.state.hidePassword ? <LoginText>Show</LoginText> : <LoginText>Hide</LoginText>}
+            </TouchableOpacity>
+          </View>
         </View>
+        
+        <View style={styles.row}/>
 
-        <View style={[styles.row, styles.logInButton]}>
-          <Button
-            title="LOG IN"
+        <View style={[styles.row, styles.logInButtonWrapper]}>
+          <TouchableOpacity
             onPress={this.handleLogin}// if authenticate will be able to go to home, else nothing
-            color="rgb(184, 0, 43)"
-          />
+            style={styles.logInButton}
+          >
+          <Text style={styles.logInArrow}>{"\u003E"}</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.row} />
         <View style={[styles.row, styles.fyg]}>
