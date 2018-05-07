@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
-import { Dimensions, Image, StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import { Dimensions, 
+  Image, 
+  StyleSheet, 
+  View, 
+  TouchableOpacity, 
+  Text,
+  StatusBar
+} from 'react-native'
+
 import { Video } from 'expo'
 import PropTypes from 'prop-types'
 
+
 import logo from '../../images/spglogo.png'
-import bgVideo from '../../assets/SGVideo.mp4'
+import bgVideo from '../../assets/sploreguide_Video.mp4'
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +24,7 @@ const styles = StyleSheet.create({
 
   colorButton: {
     width: 300,
-    backgroundColor: 'rgba(241, 30, 94, .8)',
+    backgroundColor: 'rgb(199, 0, 57)',
     borderRadius: 25,
     paddingVertical: 9,
   },
@@ -49,19 +58,39 @@ const styles = StyleSheet.create({
   },
 
   logoWrapper: {
-    flex: 2,
+    flex: 8,
   },
 
   signUpWrapper: {
-    flex: 1.5,
+    flex: 4.5,
   },
+
+  // background color for toolbar
+  content: {
+    backgroundColor: '#33373B',
+  },  
+
 })
 
+
+
+
+  //Toolbar look into props; I know Remel code is not organized 
+  const MyStatusBar = ({backgroundColor, ...props}) => (
+    <View style={{ backgroundColor }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  );
+
+
+
 export class Welcome extends Component {
+
   static navigationOptions = {
     header: null,
   }
 
+  //what does this mean ? 
   static propTypes = {
     navigation: PropTypes.object.isRequired
   }
@@ -69,6 +98,7 @@ export class Welcome extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <MyStatusBar backgroundColor="#5E8D48" barStyle="light-content" />
         <Video
           isLooping
           source={bgVideo}

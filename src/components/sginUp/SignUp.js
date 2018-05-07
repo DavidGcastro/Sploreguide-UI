@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(184, 0, 43)',
     paddingLeft: 30,
     paddingRight: 30,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   text: {
     color: '#fff',
@@ -62,9 +62,9 @@ const Tcpp = ({ children }) => (
 // Main Component
 export class SignUp extends Component {
   state = {
-    email: '',
-    password: '',
-    confirmPass: ''
+    firstname: '',
+    lastname: '',
+    dob: ''
   }
 
   static navigationOptions = {
@@ -78,6 +78,7 @@ export class SignUp extends Component {
     },
   }
 
+  //Should I remove ref from lastanme on 113 and 
   render() {
     return (
       <View style={styles.container}>
@@ -91,41 +92,41 @@ export class SignUp extends Component {
         </View>
 
         <View style={styles.row}>
-          <SignText>or with email</SignText>
+          <SignText>Hey</SignText>
         </View>
 
         <View>
           {/* eslint-disable*/}
           <TextInput
             style={[styles.row, styles.textInput]}
-            onChangeText={email => this.setState({ email })}
-            value={this.state.email}
-            placeholder="Email"
+            onChangeText={firstname => this.setState({ firstname})}
+            value={this.state.firstname}
+            placeholder="First Name"
             placeholderTextColor="#fff"
             returnKeyType="next"
             onSubmitEditing={(event) => {
-              this.refs.password.focus();
+              this.refs.lastname.focus();
             }}
           />
           <TextInput
-            ref='password'
+            ref='lastname'
             style={[styles.row, styles.textInput]}
-            onChangeText={password => this.setState({ password })}
-            value={this.state.password}
-            placeholder="Password"
+            onChangeText={lastname => this.setState({ lastname })}
+            value={this.state.lastname}
+            placeholder="Last Name"
             placeholderTextColor="#fff"
             returnKeyType="next"
             onSubmitEditing={(event) => {
-              this.refs.confirmPassword.focus();
+              this.refs.dob.focus();
             }}
             secureTextEntry
           />
           <TextInput
-            ref='confirmPassword'
+            ref='dob'
             style={[styles.row, styles.textInput]}
-            onChangeText={confirmPass => this.setState({ confirmPass })}
-            value={this.state.confirmPass}
-            placeholder="Confirm password"
+            onChangeText={dob => this.setState({ dob })}
+            value={this.state.dob}
+            placeholder="Date Of Birth"
             placeholderTextColor="#fff"
             returnKeyType="done"
             secureTextEntry
