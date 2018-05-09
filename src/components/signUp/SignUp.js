@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { Button, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback, Keyboard, AsyncStorage } from 'react-native'
 import PropTypes from 'prop-types'
 
 // Styles
@@ -76,13 +76,9 @@ const Tcpp = ({ children }) => (
 // Main Component
 export class SignUp extends Component {
   state = {
-    firstHalf: true,
     fname: '',
     lname: '',
     dob: '',
-    email: '',
-    password: '',
-    confirmPass: ''
   }
 
   static navigationOptions = {
@@ -96,41 +92,51 @@ export class SignUp extends Component {
     },
   }
 
-  handleSignUp = () => {
-    const { fname, lname, dob, email, password, confirmPass } = this.state
-    alert(`First Name: ${fname}\n
-          LastName: ${lname}\n
-          DOB: ${dob}\n
-          email: ${email}\n
-          password: ${password}\n
-          confirmPass: ${confirmPass}
-          `
-        )
+  handleFirstNameChange = (fname) => {
+    this.setState({ fname })
+  }
+
+  handleLastNameChange = (lname) => {
+    this.setState({ lname })
+  }
+
+  handleDoBChange = (dob) => {
+    this.setState({ dob })
+  }
+
+  handleSubmit = () => {
+    const { fname, lname, dob, } = this.state
+    AsyncStorage.setItem('fname_signup', fname)
+    AsyncStorage.setItem('lname_signup', lname)
+    AsyncStorage.setItem('dob_signup', dob)
+
+    console.log(fname, lname, dob)
+    this.props.navigation.navigate('SignUp2')
+
   }
 
   render() {
-    const { firstHalf, fname, lname, dob, email, password, confirmPass } = this.state
+    const { fname, lname, dob } = this.state
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-        <View style={[styles.fbButton, styles.row]}>
-          <Button
-            title="SIGN UP WITH FACEBOOK"
-            color="#fff"
-            onPress={() => {}}
-          />
-        </View>
+          <View style={[styles.fbButton, styles.row]}>
+            <Button
+              title="SIGN UP WITH FACEBOOK"
+              color="#fff"
+              onPress={() => {}}
+            />
+          </View>
 
-        <View style={styles.row}>
-          <SignText>or with email</SignText>
-        </View>
+          <View style={styles.row}>
+            <SignText>or with email</SignText>
+          </View>
 
-        <View>
-          {firstHalf ?
+          <View>
             <View style={[styles.row, styles.logInButtonWrapper]}>
               <TextInput
               style={[styles.row, styles.textInput]}
-              onChangeText={fname => this.setState({ fname })}
+              onChangeText={fname => this.handleFirstNameChange(fname)}
               value={this.state.fname}
               placeholder="FIRST NAME"
               placeholderTextColor="#fff"
@@ -142,7 +148,7 @@ export class SignUp extends Component {
               <TextInput
               ref='lname'
               style={[styles.row, styles.textInput]}
-              onChangeText={lname => this.setState({ lname })}
+              onChangeText={lname => this.handleLastNameChange(lname)}
               value={this.state.lname}
               placeholder="LAST NAME"
               placeholderTextColor="#fff"
@@ -154,7 +160,7 @@ export class SignUp extends Component {
               <TextInput
               ref='dob'
               style={[styles.row, styles.textInput]}
-              onChangeText={dob => this.setState({ dob })}
+              onChangeText={dob => this.handleDoBChange(dob)}
               value={this.state.dob}
               placeholder="DATE OF BIRTH"
               placeholderTextColor="#fff"
@@ -164,78 +170,14 @@ export class SignUp extends Component {
 
               <View style={[styles.row, styles.logInButtonWrapper]}>
                 <TouchableOpacity
-                  onPress={() => {this.setState({firstHalf: false})}} // gets the next set of input fields
-                  style={styles.logInButton}
-                >
-                <Text style={styles.logInArrow}>{"\u003E"}</Text>
-                </TouchableOpacity>
-              </View>
-            </View> : 
-            <View>
-              <TextInput
-              style={[styles.row, styles.textInput]}
-              onChangeText={email => this.setState({ email })}
-              value={this.state.email}
-              placeholder="EMAIL"
-              placeholderTextColor="#fff"
-              returnKeyType="next"
-              onSubmitEditing={(event) => {
-                this.refs.password.focus();
-              }}
-              />
-              <TextInput
-                ref='password'
-                style={[styles.row, styles.textInput]}
-                onChangeText={password => this.setState({ password })}
-                value={this.state.password}
-                placeholder="PASSWORD"
-                placeholderTextColor="#fff"
-                returnKeyType="next"
-                onSubmitEditing={(event) => {
-                  this.refs.confirmPassword.focus();
-                }}
-                secureTextEntry
-              />
-              <TextInput
-                ref='confirmPassword'
-                style={[styles.row, styles.textInput]}
-                onChangeText={confirmPass => this.setState({ confirmPass })}
-                value={this.state.confirmPass}
-                placeholder="CONFIRM PASSWORD"
-                placeholderTextColor="#fff"
-                returnKeyType="done"
-                secureTextEntry
-              />
-              <View style={styles.row}/>
-
-              <View style={[styles.row, styles.logInButtonWrapper]}>
-                <TouchableOpacity
-                  onPress={this.handleSignUp}
+                  onPress={() => this.handleSubmit()} // gets the next set of input fields
                   style={styles.logInButton}
                 >
                 <Text style={styles.logInArrow}>{"\u003E"}</Text>
                 </TouchableOpacity>
               </View>
             </View>
-          }
-        </View>
-
-        <View style={styles.row} />
-        {
-          firstHalf ? null :
-          <View style={styles.row}>
-            <Tcpp style={styles}>
-              <Text>By signing up, you agree to our </Text>
-              <TouchableOpacity onPress={() => {}}>
-                <Text style={styles.tols}>Terms &amp; Conditions</Text>
-              </TouchableOpacity>
-              <Text> and </Text>
-              <TouchableOpacity onPress={() => {}}>
-                <Text style={styles.tols}>Privacy Policy</Text>
-              </TouchableOpacity>
-            </Tcpp>
           </View>
-        }
         </View>
       </TouchableWithoutFeedback>
     )
@@ -250,4 +192,6 @@ SignText.propTypes = {
 Tcpp.propTypes = {
   children: PropTypes.array.isRequired,
 }
+
+export { styles, SignText, Tcpp }
 
