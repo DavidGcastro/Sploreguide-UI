@@ -3,7 +3,6 @@ import { Button, Dimensions, StyleSheet, Text, TextInput, View, AsyncStorage, To
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
-import ValidationComponent from 'react-native-form-validator';
 
 // GQL
 const loginMutation = gql`
@@ -137,20 +136,6 @@ class Login extends Component {
     this.setState({ hidePassword: !this.state.hidePassword });
   }
 
-
-  constructor(props) {
-    super(props);
-    //this.state = { email: "test@gmail.com" };
-}
-
-
-_onPressButton() {
-    // Call ValidationComponent validate method
-    this.validate({
-    email: {email: true},
-    });
-}
-
   render() {
     return (
       <View style={styles.container}>
@@ -164,13 +149,13 @@ _onPressButton() {
         </View>
 
         <View style={styles.row}/>
-        
+
         <View style={styles.row}>
           <LoginText>or</LoginText>
         </View>
-        
+
         <View style={styles.row}/>
-        
+
         <View>
           <TextInput
             ref="email"
@@ -196,24 +181,21 @@ _onPressButton() {
               returnKeyType="done"
               secureTextEntry = { this.state.hidePassword }
             />
-            
             <TouchableOpacity activeOpacity = { 0.8 } style = { styles.visibilityBtn } onPress = { this.managePasswordVisibility }>
               {this.state.hidePassword ? <LoginText>Show</LoginText> : <LoginText>Hide</LoginText>}
             </TouchableOpacity>
           </View>
         </View>
-        
+
         <View style={styles.row}/>
 
         <View style={[styles.row, styles.logInButtonWrapper]}>
           <TouchableOpacity
-            onPress={this._onPressButton}// if authenticate will be able to go to home, else nothing
+            onPress={this.handleLogin}// if authenticate will be able to go to home, else nothing
             style={styles.logInButton}
           >
           <Text style={styles.logInArrow}>{"\u003E"}</Text>
           </TouchableOpacity>
-
-
         </View>
         <View style={styles.row} />
         <View style={[styles.row, styles.fyg]}>

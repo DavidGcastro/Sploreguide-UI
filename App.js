@@ -5,12 +5,11 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-//Question: Why doesn't Login have curly braces
 import { Welcome } from './src/components/welcome/Welcome'
 import { Home } from './src/components/home/Home'
 import Login from './src/components/login/Login'
-import { SignUp } from './src/components/sginUp/SignUp'
-
+import { SignUp } from './src/components/signUp/SignUp'
+import { SignUp2 } from './src/components/signUp/SignUp2'
 
 const httpLink = new HttpLink({ uri: 'http:192.168.1.142:3000/graphql' })
 const client = new ApolloClient({
@@ -23,6 +22,7 @@ const AppNavigator = StackNavigator(
     Welcome: { screen: Welcome },
     Login: { screen: Login },
     SignUp: { screen: SignUp },
+    SignUp2: { screen: SignUp2 },
     Home: { screen: Home }
   },
   {

@@ -1,17 +1,15 @@
 import React, { Component } from 'react'
-import { Dimensions, 
-  Image, 
-  StyleSheet, 
-  View, 
-  TouchableOpacity, 
+import { Dimensions,
+  Image,
+  StyleSheet,
+  View,
+  TouchableOpacity,
   Text,
   StatusBar
 } from 'react-native'
 
 import { Video } from 'expo'
 import PropTypes from 'prop-types'
-
-
 import logo from '../../images/spglogo.png'
 import bgVideo from '../../assets/sploreguide_Video.mp4'
 
@@ -63,24 +61,14 @@ const styles = StyleSheet.create({
 
   signUpWrapper: {
     flex: 4.5,
-  },
-
-  // background color for toolbar
-  content: {
-    backgroundColor: '#33373B',
-  },  
-
+  }
 })
 
-
-
-
-  //Toolbar look into props; I know Remel code is not organized 
-  const MyStatusBar = ({backgroundColor, ...props}) => (
-    <View style={{ backgroundColor }}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-    </View>
-  );
+const MyStatusBar = ({backgroundColor, ...props}) => (
+  <View style={{ backgroundColor }}>
+    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+  </View>
+);
 
 
 
@@ -90,7 +78,6 @@ export class Welcome extends Component {
     header: null,
   }
 
-  //what does this mean ? 
   static propTypes = {
     navigation: PropTypes.object.isRequired
   }
@@ -134,7 +121,3 @@ export class Welcome extends Component {
     )
   }
 }
-
-// Welcome.propTypes = {
-//   navigation: PropTypes.object.isRequired,
-// };
