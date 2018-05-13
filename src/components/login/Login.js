@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Dimensions, StyleSheet, Text, TextInput, View, AsyncStorage, TouchableOpacity } from 'react-native'
+import { Button, Dimensions, StyleSheet, Text, TextInput, View, AsyncStorage, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
@@ -138,6 +138,7 @@ class Login extends Component {
 
   render() {
     return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.row}/>
         <View style={[styles.fbButton, styles.row]}>
@@ -206,6 +207,7 @@ class Login extends Component {
           />
         </View>
       </View>
+    </TouchableWithoutFeedback>
     )
   }
 }
