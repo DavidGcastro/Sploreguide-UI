@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
-import { Button, Dimensions, StyleSheet, Text, TextInput, View, AsyncStorage, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { Button, Dimensions, StyleSheet, Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
+
+import deviceStorage from '../../../services/deviceStorage'
+import { JWT } from '../../../constants'
 
 // GQL
 const loginMutation = gql`
   mutation Login($email: String!, $password: String!) {
   login(input:{email: $email, password: $password}) {
     token
-    user {
-      firstName
-      lastName
-      email
-    }
   }
 }
 `
@@ -110,26 +108,13 @@ class Login extends Component {
   handleLogin = () => {
     const { email, password } = this.state
     this.props.login(email, password)
-      .then((response) => { console.log(response) })
-      .catch((response) => { console.log(response) })
-
-      /* The returned response looks like object below -- save JWT in Async Storage and user object appropriately
-      Object {
-        "data": Object {
-          "login": Object {
-            "__typename": "AuthPayload",
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YWRiYjI2MDY5ZTM5ZDMxZTAzZDQxYTciLCJlbWFpbCI6Imt3YWR3b25AZ21haWwuY29tIiwiaWF0IjoxNTI1MjE4NTQzfQ.-Zb8vdCegw3nBySZYTJNTX5cEdutqHM4HVcfUnOd438",
-            "user": Object {
-              "__typename": "User",
-              "email": "kwadwon@gmail.com",
-              "firstName": "Kwadwo",
-              "lastName": "Nyarko",
-            },
-          },
-        },
-      }
-
-      */
+      .then(async (response) => {
+        let { data } = response
+        await deviceStorage.saveItem(JWT, data.login.token)
+        this.props.screenProps.saveJWT(data.login.token)
+      }).catch((error) => {
+        console.log(error)
+      })
   }
 
   managePasswordVisibility = () => {
@@ -163,7 +148,7 @@ class Login extends Component {
             style={[styles.row, styles.textInput]}
             onChangeText={(email) => this.setState({ email })}
             value={this.state.email}
-            placeholder="Email"
+            placeholder="EMAIL"
             placeholderTextColor="#fff"
             returnKeyType={ "next" }
             onSubmitEditing={(event) => {
@@ -177,7 +162,7 @@ class Login extends Component {
               style={[styles.row, styles.textInput, styles.passwordBox]}
               onChangeText={password => this.setState({ password })}
               value={this.state.password}
-              placeholder="Password"
+              placeholder="PASSWORD"
               placeholderTextColor="#fff"
               returnKeyType="done"
               secureTextEntry = { this.state.hidePassword }

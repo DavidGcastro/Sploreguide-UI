@@ -1,7 +1,21 @@
 import React, { Component } from 'react'
 import { Button, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback, Keyboard, AsyncStorage } from 'react-native'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
 import { styles, SignText, Tcpp } from './SignUp'
+
+import deviceStorage from '../../../services/deviceStorage'
+import { JWT, FNAME, LNAME, DOB } from '../../../constants'
+
+// GQL
+const signupMutation = gql`
+  mutation SignUp($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
+    signup(input: {email: $email, password: $password, firstName: $firstName, lastName: $lastName}) {
+      token
+    }
+  }
+`
 
 // Main Component
 export class SignUp2 extends Component {
@@ -9,6 +23,7 @@ export class SignUp2 extends Component {
     email: '',
     password: '',
     confirmPass: '',
+    hidePassword: true
   }
 
   static navigationOptions = {
@@ -36,9 +51,21 @@ export class SignUp2 extends Component {
 
   handleSignUp = async () => {
     const { email, password, confirmPass, } = this.state
-    let firstName = await AsyncStorage.getItem('fname_signup')
-    let lastName = await AsyncStorage.getItem('lname_signup')
-    let dob = await AsyncStorage.getItem('dob_signup')
+    let firstName = await deviceStorage.getItem(FNAME)
+    let lastName = await deviceStorage.getItem(LNAME)
+    let dob = await deviceStorage.getItem(DOB)
+    console.log(this.props)
+    this.props.signup(email, password, firstName, lastName)
+      .then(async (response) => {
+        let { data } = response
+        console.log(data)
+        await deviceStorage.saveItem(JWT, data.signup.token)
+        await deviceStorage.deleteMultipleItems([FNAME,LNAME,DOB])
+        this.props.screenProps.saveJWT(data.signup.token)
+      }).catch((error) => {
+        console.log(error)
+      })
+
 
     console.log(email, password, confirmPass, firstName, lastName, dob)
   }
@@ -69,6 +96,7 @@ export class SignUp2 extends Component {
               placeholder="PASSWORD"
               placeholderTextColor="#fff"
               returnKeyType="next"
+              secureTextEntry = { this.state.hidePassword }
               onSubmitEditing={(event) => {
                 this.refs.confirmPass.focus();
               }}
@@ -81,6 +109,7 @@ export class SignUp2 extends Component {
               placeholder="CONFIRM PASSWORD"
               placeholderTextColor="#fff"
               returnKeyType="done"
+              secureTextEntry = { this.state.hidePassword }
               />
               <View style={styles.row}/>
 
@@ -99,3 +128,12 @@ export class SignUp2 extends Component {
     )
   }
 }
+
+export default graphql (
+  signupMutation,
+  {
+    props: ({ mutate }) => ({
+      signup: (email, password, firstName, lastName) => mutate({ variables: { email, password, firstName, lastName } })
+    }),
+  },
+)(SignUp2)

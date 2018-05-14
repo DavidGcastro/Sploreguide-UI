@@ -10,8 +10,8 @@ import { Dimensions,
 
 import { Video } from 'expo'
 import PropTypes from 'prop-types'
-import logo from '../../images/spglogo.png'
-import bgVideo from '../../assets/sploreguide_Video.mp4'
+import logo from '../../../images/spglogo.png'
+import bgVideo from '../../../assets/sploreguide_Video.mp4'
 
 const styles = StyleSheet.create({
   container: {
