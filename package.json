@@ -23,6 +23,7 @@
     "@babel/core": "^7.0.0-beta.38",
     "apollo-boost": "^0.1.4",
     "dotenv": "^5.0.1",
+    "email-validator": "^2.0.3",
     "expo": "^27.0.1",
     "fs": "0.0.1-security",
     "graphql": "^0.13.2",

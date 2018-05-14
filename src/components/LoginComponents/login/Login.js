@@ -5,7 +5,8 @@ import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
 
 import deviceStorage from '../../../services/deviceStorage'
-import { JWT } from '../../../constants'
+import { JWT, EMAIL_REQUIRED, PASSWORD_REQUIRED, EMAIL_MALFORMED, GRAPHQL_ERROR_NO_USER_FOUND, GRAPHQL_ERROR_INVALID_PASSWORD } from '../../../constants'
+import { validateEmail } from '../../../helpers/validators'
 
 // GQL
 const loginMutation = gql`
@@ -30,7 +31,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   fbButton: {
-    backgroundColor: '#4267b2',
+    //backgroundColor: '#4267b2',
+    backgroundColor: '#fff',
     borderRadius: 30,
     width: Dimensions.get('window').width * 0.7,
   },
@@ -78,6 +80,9 @@ const styles = StyleSheet.create({
   fyg: {
     opacity: 0.5,
   },
+  error: {
+    fontWeight: 'bold'
+  }
 })
 // end of styles
 
@@ -91,7 +96,9 @@ const LoginText = ({ children }) => (
 class Login extends Component {
   state = {
     email: '',
+    emailError: '',
     password: '',
+    passwordError: '',
     hidePassword: true
   }
   static navigationOptions = {
@@ -105,15 +112,45 @@ class Login extends Component {
     },
   }
 
+  updateEmail = (email) => {
+    let emailError = ''
+    this.setState({ email, emailError })
+  }
+
+  updatePassword = (password) => {
+    let passwordError = ''
+    this.setState({ password, passwordError })
+  }
+
   handleLogin = () => {
-    const { email, password } = this.state
+    let { email, password } = this.state
+
+    email = email.toLowerCase()
+
+    //handle validation
+    if (!email) {
+      return this.setState({emailError: EMAIL_REQUIRED})
+    } else if (!password) {
+      return this.setState({passwordError: PASSWORD_REQUIRED})
+    } else if(! validateEmail(email)) {
+      return this.setState({emailError: EMAIL_MALFORMED})
+    }
+
     this.props.login(email, password)
       .then(async (response) => {
         let { data } = response
         await deviceStorage.saveItem(JWT, data.login.token)
         this.props.screenProps.saveJWT(data.login.token)
       }).catch((error) => {
-        console.log(error)
+        if (error && error.graphQLErrors) {
+          if (error.graphQLErrors[0].message === GRAPHQL_ERROR_NO_USER_FOUND) {
+            let emailError = GRAPHQL_ERROR_NO_USER_FOUND
+            return this.setState({emailError})
+          } else if (error.graphQLErrors[0].message === GRAPHQL_ERROR_INVALID_PASSWORD) {
+            let passwordError = GRAPHQL_ERROR_INVALID_PASSWORD
+            return this.setState({passwordError})
+          }
+        }
       })
   }
 
@@ -122,6 +159,8 @@ class Login extends Component {
   }
 
   render() {
+    let { emailError, passwordError } = this.state
+
     return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -129,11 +168,10 @@ class Login extends Component {
         <View style={[styles.fbButton, styles.row]}>
           <Button
             title="LOG IN WITH FACEBOOK"
-            color="#fff"
+            color="#c70039"
             onPress={() => {}}
           />
         </View>
-
         <View style={styles.row}/>
 
         <View style={styles.row}>
@@ -146,7 +184,7 @@ class Login extends Component {
           <TextInput
             ref="email"
             style={[styles.row, styles.textInput]}
-            onChangeText={(email) => this.setState({ email })}
+            onChangeText={(email) => this.updateEmail(email)}
             value={this.state.email}
             placeholder="EMAIL"
             placeholderTextColor="#fff"
@@ -155,12 +193,17 @@ class Login extends Component {
               this.refs.password.focus()
             }}
           />
+
+          <View>
+            <Text style={styles.error}>{emailError}</Text>
+          </View>
+
           <View style={styles.row}/>
           <View style={styles.passwordHolder}>
             <TextInput
               ref='password'
               style={[styles.row, styles.textInput, styles.passwordBox]}
-              onChangeText={password => this.setState({ password })}
+              onChangeText={password => this.updatePassword(password)}
               value={this.state.password}
               placeholder="PASSWORD"
               placeholderTextColor="#fff"
@@ -171,13 +214,18 @@ class Login extends Component {
               {this.state.hidePassword ? <LoginText>Show</LoginText> : <LoginText>Hide</LoginText>}
             </TouchableOpacity>
           </View>
+
+          <View >
+            <Text style={styles.error}>{passwordError}</Text>
+          </View>
         </View>
+
 
         <View style={styles.row}/>
 
         <View style={[styles.row, styles.logInButtonWrapper]}>
           <TouchableOpacity
-            onPress={this.handleLogin}// if authenticate will be able to go to home, else nothing
+            onPress={this.handleLogin}
             style={styles.logInButton}
           >
           <Text style={styles.logInArrow}>{"\u003E"}</Text>
@@ -196,7 +244,6 @@ class Login extends Component {
     )
   }
 }
-// Main Component
 
 // PropTypes
 LoginText.propTypes = {
