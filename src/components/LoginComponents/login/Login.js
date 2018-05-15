@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Dimensions, StyleSheet, Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
 
+import { handleFBLogin } from '../../../services/facebook'
 import deviceStorage from '../../../services/deviceStorage'
 import { JWT, EMAIL_REQUIRED, PASSWORD_REQUIRED, EMAIL_MALFORMED, GRAPHQL_ERROR_NO_USER_FOUND, GRAPHQL_ERROR_INVALID_PASSWORD } from '../../../constants'
 import { validateEmail } from '../../../helpers/validators'
@@ -15,6 +16,14 @@ const loginMutation = gql`
     token
   }
 }
+`
+
+const fbLoginMutation = gql`
+  mutation FBLogin($email: String!, $first_name: String!, $last_name: String!, $id: ID!, $token: String!) {
+    loginWithFacebook(input: {email: $email, first_name: $first_name, last_name: $last_name, id: $id, token: $token}) {
+      token
+    }
+  }
 `
 
 // Styles
@@ -122,7 +131,9 @@ class Login extends Component {
     this.setState({ password, passwordError })
   }
 
-  handleLogin = () => {
+  handleFBLogin = handleFBLogin.bind(this)
+
+  handleLogin = async () => {
     let { email, password } = this.state
 
     email = email.toLowerCase()
@@ -169,7 +180,7 @@ class Login extends Component {
           <Button
             title="LOG IN WITH FACEBOOK"
             color="#c70039"
-            onPress={() => {}}
+            onPress={this.handleFBLogin}
           />
         </View>
         <View style={styles.row}/>
@@ -250,11 +261,23 @@ LoginText.propTypes = {
   children: PropTypes.string.isRequired,
 }
 
-export default graphql(
+const login = graphql(
   loginMutation,
   {
     props: ({ mutate }) => ({
       login: (email, password) => mutate({ variables: { email, password } }),
     }),
   },
-)(Login)
+)
+
+const fbLogin = graphql(
+  fbLoginMutation,
+  {
+    props: ({ mutate }) => ({
+      fbLogin: (email, first_name, last_name, id, token) => mutate({ variables: { email, first_name, last_name, id, token } }),
+    }),
+  },
+)
+
+export default compose(login, fbLogin)(Login)
+
