@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
-import { Dimensions,
-  Image,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  StatusBar
-} from 'react-native'
+import { Dimensions, Image, StyleSheet, View, TouchableOpacity, Text, StatusBar } from 'react-native'
 
+import { handleFBLogin } from '../../../services/facebook'
+import deviceStorage from '../../../services/deviceStorage'
+import { fbLogin } from '../login/Login'
 import { Video } from 'expo'
 import PropTypes from 'prop-types'
 import logo from '../../../images/spglogo.png'
 import bgVideo from '../../../assets/sploreguide_Video.mp4'
+import graphql from 'graphql-anywhere';
 
 const styles = StyleSheet.create({
   container: {
@@ -72,7 +69,7 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 
 
 
-export class Welcome extends Component {
+class Welcome extends Component {
 
   static navigationOptions = {
     header: null,
@@ -81,6 +78,8 @@ export class Welcome extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired
   }
+
+  handleFBLogin = handleFBLogin.bind(this)
 
   render() {
     return (
@@ -106,7 +105,7 @@ export class Welcome extends Component {
         </View>
 
         <View style={styles.signUpWrapper}>
-          <TouchableOpacity style={styles.colorButton}>
+          <TouchableOpacity style={styles.colorButton} onPress={this.handleFBLogin}>
             <Text style={styles.buttonText}> Continue with Facebook </Text>
           </TouchableOpacity>
 
@@ -121,3 +120,6 @@ export class Welcome extends Component {
     )
   }
 }
+
+
+export default fbLogin(Welcome)

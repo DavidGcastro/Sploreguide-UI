@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
-import { Button, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback, Keyboard, AsyncStorage } from 'react-native'
+import { Platform, Button, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback, Keyboard, AsyncStorage, DatePickerIOS } from 'react-native'
 import PropTypes from 'prop-types'
+import moment from 'moment'
+
+import { makeFirstLetterUpperCase } from '../../../helpers/strings'
+import { LNAME_ERROR_MISSING, FNAME_ERROR_MISSING } from '../../../constants'
 
 // Styles
 const styles = StyleSheet.create({
@@ -16,7 +20,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   fbButton: {
-    backgroundColor: '#4267b2',
+    backgroundColor: '#fff',
     borderRadius: 30,
     width: Dimensions.get('window').width * 0.7,
   },
@@ -78,7 +82,10 @@ export class SignUp extends Component {
   state = {
     fname: '',
     lname: '',
-    dob: '',
+    dob: moment().subtract(19, 'years'),
+    fnameError: '',
+    lnameError: '',
+    showDatePicker: false
   }
 
   static navigationOptions = {
@@ -92,6 +99,12 @@ export class SignUp extends Component {
     },
   }
 
+  showDatePicker = (show) => {
+    if (show === this.state.showDatePicker) return
+    console.log('has focus')
+    this.setState({showDatePicker: show})
+  }
+
   handleFirstNameChange = (fname) => {
     this.setState({ fname })
   }
@@ -101,29 +114,39 @@ export class SignUp extends Component {
   }
 
   handleDoBChange = (dob) => {
-    this.setState({ dob })
+    this.setState({ dob: moment(dob) })
   }
 
   handleSubmit = () => {
-    const { fname, lname, dob, } = this.state
+    let { fname, lname, dob, } = this.state
+
+    if (!fname) {
+      return this.setState({fnameError: FNAME_ERROR_MISSING})
+    } else if (!lname) {
+      return this.setState({lnameError: LNAME_ERROR_MISSING})
+    }
+
+    fname = makeFirstLetterUpperCase(fname)
+    lname = makeFirstLetterUpperCase(lname)
+
     AsyncStorage.setItem('fname_signup', fname)
     AsyncStorage.setItem('lname_signup', lname)
     AsyncStorage.setItem('dob_signup', dob)
 
-    console.log(fname, lname, dob)
     this.props.navigation.navigate('SignUp2')
 
   }
 
   render() {
-    const { fname, lname, dob } = this.state
+    const { fname, lname, dob, showDatePicker } = this.state
+
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss(); this.showDatePicker(false)}}>
         <View style={styles.container}>
           <View style={[styles.fbButton, styles.row]}>
             <Button
               title="SIGN UP WITH FACEBOOK"
-              color="#fff"
+              color="#c70039"
               onPress={() => {}}
             />
           </View>
@@ -137,7 +160,8 @@ export class SignUp extends Component {
               <TextInput
               style={[styles.row, styles.textInput]}
               onChangeText={fname => this.handleFirstNameChange(fname)}
-              value={this.state.fname}
+              onFocus={() => this.showDatePicker(false)}
+              value={fname}
               placeholder="FIRST NAME"
               placeholderTextColor="#fff"
               returnKeyType="next"
@@ -148,24 +172,32 @@ export class SignUp extends Component {
               <TextInput
               ref='lname'
               style={[styles.row, styles.textInput]}
+              onFocus={() => this.showDatePicker(false)}
               onChangeText={lname => this.handleLastNameChange(lname)}
-              value={this.state.lname}
+              value={lname}
               placeholder="LAST NAME"
               placeholderTextColor="#fff"
               returnKeyType="next"
               onSubmitEditing={(event) => {
-                this.refs.dob.focus();
+                Keyboard.dismiss();
+                this.showDatePicker(true)
               }}
               />
               <TextInput
               ref='dob'
               style={[styles.row, styles.textInput]}
-              onChangeText={dob => this.handleDoBChange(dob)}
-              value={this.state.dob}
+              onFocus={() => {Keyboard.dismiss(); this.showDatePicker(true)}}
+              value={dob.calendar()}
               placeholder="DATE OF BIRTH"
               placeholderTextColor="#fff"
               returnKeyType="done"
               />
+              {showDatePicker &&
+              <DatePickerIOS
+                date={dob.toDate()}
+                mode='date'
+                onDateChange={this.handleDoBChange}
+              />}
               <View style={styles.row}/>
 
               <View style={[styles.row, styles.logInButtonWrapper]}>

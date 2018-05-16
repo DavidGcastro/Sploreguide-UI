@@ -1,5 +1,5 @@
 import { StackNavigator } from 'react-navigation'
-import { Welcome } from './welcome/Welcome'
+import Welcome from './welcome/Welcome'
 import Login from './login/Login'
 import { SignUp } from './signUp/SignUp'
 import SignUp2 from './signUp/SignUp2'

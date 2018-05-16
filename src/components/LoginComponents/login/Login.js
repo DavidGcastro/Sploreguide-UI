@@ -270,7 +270,7 @@ const login = graphql(
   },
 )
 
-const fbLogin = graphql(
+export const fbLogin = graphql(
   fbLoginMutation,
   {
     props: ({ mutate }) => ({

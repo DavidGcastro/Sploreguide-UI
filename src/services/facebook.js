@@ -3,10 +3,10 @@ import { Facebook } from 'expo'
 import deviceStorage from './deviceStorage'
 import { JWT } from '../constants'
 
-const APPID = '' //make sure to remove
+const APPID = '' // make sure to remove
 const FB_FN_LN_EMAIL_URL = 'https://graph.facebook.com/me?fields=first_name,last_name,email&access_token='
 
-async function loginWithFacebook()  {
+async function loginWithFacebook () {
   const { type, token } = await Facebook.logInWithReadPermissionsAsync(APPID, {
     permissions: ['public_profile', 'email']
   })
@@ -20,11 +20,12 @@ async function loginWithFacebook()  {
   }
 }
 
-async function handleFBLogin()  {
+async function handleFBLogin () {
   let { graphDetails, token } = await loginWithFacebook()
-  let { email, first_name, last_name, id } = graphDetails
 
   if (token) {
+    let { email, first_name, last_name, id } = graphDetails
+
     this.props.fbLogin(email, first_name, last_name, id, token)
       .then(async (response) => {
         let { data } = response
