@@ -4,9 +4,10 @@ import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
 
+import LogoLoading from '../../LogoLoading'
 import { handleFBLogin } from '../../../services/facebook'
 import deviceStorage from '../../../services/deviceStorage'
-import { JWT, EMAIL_REQUIRED, PASSWORD_REQUIRED, EMAIL_MALFORMED, GRAPHQL_ERROR_NO_USER_FOUND, GRAPHQL_ERROR_INVALID_PASSWORD } from '../../../constants'
+import { JWT, EMAIL_REQUIRED, PASSWORD_REQUIRED, EMAIL_MALFORMED, GRAPHQL_ERROR_NO_USER_FOUND, GRAPHQL_ERROR_INVALID_PASSWORD, NETWORK_ERROR } from '../../../constants'
 import { validateEmail } from '../../../helpers/validators'
 
 // GQL
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
   },
   textInput: {
-    height: 50,
+    height: 30,
     width: Dimensions.get('window').width * 0.8,
     borderBottomColor: '#fff',
     borderBottomWidth: 1,
@@ -88,9 +89,6 @@ const styles = StyleSheet.create({
   },
   fyg: {
     opacity: 0.5,
-  },
-  error: {
-    fontWeight: 'bold'
   }
 })
 // end of styles
@@ -108,7 +106,9 @@ class Login extends Component {
     emailError: '',
     password: '',
     passwordError: '',
-    hidePassword: true
+    generalError: '',
+    hidePassword: true,
+    loading: false
   }
   static navigationOptions = {
     title: 'Log in',
@@ -123,15 +123,22 @@ class Login extends Component {
 
   updateEmail = (email) => {
     let emailError = ''
-    this.setState({ email, emailError })
+    let generalError = ''
+    this.setState({ email, emailError, generalError })
   }
 
   updatePassword = (password) => {
     let passwordError = ''
-    this.setState({ password, passwordError })
+    let generalError = ''
+    this.setState({ password, passwordError, generalError })
   }
 
   handleFBLogin = handleFBLogin.bind(this)
+
+  useFB = () => {
+    this.setState({loading: true})
+    this.handleFBLogin()
+  }
 
   handleLogin = async () => {
     let { email, password } = this.state
@@ -141,19 +148,21 @@ class Login extends Component {
     //handle validation
     if (!email) {
       return this.setState({emailError: EMAIL_REQUIRED})
-    } else if (!password) {
-      return this.setState({passwordError: PASSWORD_REQUIRED})
     } else if(! validateEmail(email)) {
       return this.setState({emailError: EMAIL_MALFORMED})
-    }
+    } else if (!password) {
+      return this.setState({passwordError: PASSWORD_REQUIRED})
+    } 
 
     this.props.login(email, password)
       .then(async (response) => {
         let { data } = response
         await deviceStorage.saveItem(JWT, data.login.token)
+        
+        // update App state with jwt and rerender
         this.props.screenProps.saveJWT(data.login.token)
       }).catch((error) => {
-        if (error && error.graphQLErrors) {
+        if (error && error.graphQLErrors > 1) {
           if (error.graphQLErrors[0].message === GRAPHQL_ERROR_NO_USER_FOUND) {
             let emailError = GRAPHQL_ERROR_NO_USER_FOUND
             return this.setState({emailError})
@@ -161,6 +170,10 @@ class Login extends Component {
             let passwordError = GRAPHQL_ERROR_INVALID_PASSWORD
             return this.setState({passwordError})
           }
+        } else if (error && error.networkError) {
+          console.log(error)
+          let generalError = NETWORK_ERROR
+          return this.setState({generalError})
         }
       })
   }
@@ -170,88 +183,93 @@ class Login extends Component {
   }
 
   render() {
-    let { emailError, passwordError } = this.state
+    let { emailError, generalError, passwordError, loading } = this.state
 
-    return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <View style={styles.row}/>
-        <View style={[styles.fbButton, styles.row]}>
-          <Button
-            title="LOG IN WITH FACEBOOK"
-            color="#c70039"
-            onPress={this.handleFBLogin}
-          />
-        </View>
-        <View style={styles.row}/>
+    return ( loading ? 
+      <LogoLoading />
+      :
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <View style={styles.row}/>
+          <View style={[styles.fbButton, styles.row]}>
+            <Button
+              title="LOG IN WITH FACEBOOK"
+              color="#c70039"
+              onPress={this.useFB}
+            />
+          </View>
+          <View style={styles.row}/>
 
-        <View style={styles.row}>
-          <LoginText>or</LoginText>
-        </View>
-
-        <View style={styles.row}/>
-
-        <View>
-          <TextInput
-            ref="email"
-            style={[styles.row, styles.textInput]}
-            onChangeText={(email) => this.updateEmail(email)}
-            value={this.state.email}
-            placeholder="EMAIL"
-            placeholderTextColor="#fff"
-            returnKeyType={ "next" }
-            onSubmitEditing={(event) => {
-              this.refs.password.focus()
-            }}
-          />
-
-          <View>
-            <Text style={styles.error}>{emailError}</Text>
+          <View style={styles.row}>
+            <LoginText>or</LoginText>
           </View>
 
           <View style={styles.row}/>
-          <View style={styles.passwordHolder}>
+
+          <View>
             <TextInput
-              ref='password'
-              style={[styles.row, styles.textInput, styles.passwordBox]}
-              onChangeText={password => this.updatePassword(password)}
-              value={this.state.password}
-              placeholder="PASSWORD"
+              ref="email"
+              style={[styles.row, styles.textInput]}
+              onChangeText={(email) => this.updateEmail(email)}
+              value={this.state.email}
+              placeholder="EMAIL"
               placeholderTextColor="#fff"
-              returnKeyType="done"
-              secureTextEntry = { this.state.hidePassword }
+              returnKeyType={ "next" }
+              onSubmitEditing={(event) => {
+                this.refs.password.focus()
+              }}
             />
-            <TouchableOpacity activeOpacity = { 0.8 } style = { styles.visibilityBtn } onPress = { this.managePasswordVisibility }>
-              {this.state.hidePassword ? <LoginText>Show</LoginText> : <LoginText>Hide</LoginText>}
+
+            <View>
+              <Text>{emailError}</Text>
+            </View>
+
+            <View style={styles.row}/>
+            <View style={styles.passwordHolder}>
+              <TextInput
+                ref='password'
+                style={[styles.row, styles.textInput, styles.passwordBox]}
+                onChangeText={password => this.updatePassword(password)}
+                value={this.state.password}
+                placeholder="PASSWORD"
+                placeholderTextColor="#fff"
+                returnKeyType="done"
+                secureTextEntry = { this.state.hidePassword }
+              />
+              <TouchableOpacity activeOpacity = { 0.8 } style = { styles.visibilityBtn } onPress = { this.managePasswordVisibility }>
+                {this.state.hidePassword ? <LoginText>Show</LoginText> : <LoginText>Hide</LoginText>}
+              </TouchableOpacity>
+            </View>
+
+            <View >
+              <Text>{passwordError}</Text>
+            </View>
+            <View >
+              <Text>{generalError}</Text>
+            </View>
+          </View>
+
+
+          <View style={styles.row}/>
+
+          <View style={[styles.row, styles.logInButtonWrapper]}>
+            <TouchableOpacity
+              onPress={this.handleLogin}
+              style={styles.logInButton}
+            >
+            <Text style={styles.logInArrow}>{"\u003E"}</Text>
             </TouchableOpacity>
           </View>
-
-          <View >
-            <Text style={styles.error}>{passwordError}</Text>
+          <View style={styles.row} />
+          <View style={[styles.row, styles.fyg]}>
+            <Button
+              title="Forgot your password?"
+              color="#fff"
+              onPress={() => {}}
+            />
           </View>
         </View>
-
-
-        <View style={styles.row}/>
-
-        <View style={[styles.row, styles.logInButtonWrapper]}>
-          <TouchableOpacity
-            onPress={this.handleLogin}
-            style={styles.logInButton}
-          >
-          <Text style={styles.logInArrow}>{"\u003E"}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.row} />
-        <View style={[styles.row, styles.fyg]}>
-          <Button
-            title="Forgot your password?"
-            color="#fff"
-            onPress={() => {}}
-          />
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
     )
   }
 }

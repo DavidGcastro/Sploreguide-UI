@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { Dimensions, Image, StyleSheet, View, TouchableOpacity, Text, StatusBar } from 'react-native'
+import graphql from 'graphql-anywhere'
+import PropTypes from 'prop-types'
+import { Video } from 'expo'
 
+import LogoLoading from '../../LogoLoading'
 import { handleFBLogin } from '../../../services/facebook'
 import deviceStorage from '../../../services/deviceStorage'
 import { fbLogin } from '../login/Login'
-import { Video } from 'expo'
-import PropTypes from 'prop-types'
 import logo from '../../../images/spglogo.png'
 import bgVideo from '../../../assets/sploreguide_Video.mp4'
-import graphql from 'graphql-anywhere';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,7 +17,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-
   colorButton: {
     width: 300,
     backgroundColor: 'rgb(199, 0, 57)',
@@ -70,6 +70,9 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 
 
 class Welcome extends Component {
+  state = {
+    loading: false
+  }
 
   static navigationOptions = {
     header: null,
@@ -81,10 +84,19 @@ class Welcome extends Component {
 
   handleFBLogin = handleFBLogin.bind(this)
 
+  useFB = () => {
+    this.setState({loading: true})
+    this.handleFBLogin()
+  }
+
   render() {
-    return (
+    const { loading } = this.state
+
+    return ( loading ?        
+      <LogoLoading />
+      :
       <View style={styles.container}>
-        <MyStatusBar backgroundColor="#5E8D48" barStyle="light-content" />
+        <MyStatusBar barStyle="light-content" />
         <Video
           isLooping
           source={bgVideo}
@@ -105,7 +117,7 @@ class Welcome extends Component {
         </View>
 
         <View style={styles.signUpWrapper}>
-          <TouchableOpacity style={styles.colorButton} onPress={this.handleFBLogin}>
+          <TouchableOpacity style={styles.colorButton} onPress={this.useFB}>
             <Text style={styles.buttonText}> Continue with Facebook </Text>
           </TouchableOpacity>
 

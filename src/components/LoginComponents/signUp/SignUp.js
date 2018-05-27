@@ -3,8 +3,11 @@ import { Platform, Button, Dimensions, StyleSheet, Text, TextInput, TouchableOpa
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
+import LogoLoading from '../../LogoLoading'
+import { handleFBLogin } from '../../../services/facebook'
+import { fbLogin } from '../login/Login'
 import { makeFirstLetterUpperCase } from '../../../helpers/strings'
-import { LNAME_ERROR_MISSING, FNAME_ERROR_MISSING } from '../../../constants'
+import { LNAME_ERROR_MISSING, FNAME_ERROR_MISSING, DOB_ERROR_MISSING, DOB, LNAME, FNAME } from '../../../constants'
 
 // Styles
 const styles = StyleSheet.create({
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   textInput: {
-    height: 50,
+    height: 30,
     width: Dimensions.get('window').width * 0.8,
     borderBottomColor: '#fff',
     borderBottomWidth: 1,
@@ -82,10 +85,11 @@ export class SignUp extends Component {
   state = {
     fname: '',
     lname: '',
-    dob: moment().subtract(19, 'years'),
+    dob: '',
     fnameError: '',
     lnameError: '',
-    showDatePicker: false
+    dobError: '',
+    loading: false
   }
 
   static navigationOptions = {
@@ -99,22 +103,23 @@ export class SignUp extends Component {
     },
   }
 
-  showDatePicker = (show) => {
-    if (show === this.state.showDatePicker) return
-    console.log('has focus')
-    this.setState({showDatePicker: show})
-  }
-
   handleFirstNameChange = (fname) => {
-    this.setState({ fname })
+    this.setState({ fname, fnameError:'' })
   }
 
   handleLastNameChange = (lname) => {
-    this.setState({ lname })
+    this.setState({ lname, lnameError: '' })
   }
 
   handleDoBChange = (dob) => {
-    this.setState({ dob: moment(dob) })
+    this.setState({ dob: moment(dob), dobError: '' })
+  }
+
+  handleFBLogin = handleFBLogin.bind(this)
+
+  useFB = () => {
+    this.setState({loading: true})
+    this.handleFBLogin()
   }
 
   handleSubmit = () => {
@@ -124,30 +129,34 @@ export class SignUp extends Component {
       return this.setState({fnameError: FNAME_ERROR_MISSING})
     } else if (!lname) {
       return this.setState({lnameError: LNAME_ERROR_MISSING})
+    } else if (!dob) {
+      return this.setState({dobError: DOB_ERROR_MISSING})
     }
 
     fname = makeFirstLetterUpperCase(fname)
     lname = makeFirstLetterUpperCase(lname)
 
-    AsyncStorage.setItem('fname_signup', fname)
-    AsyncStorage.setItem('lname_signup', lname)
-    AsyncStorage.setItem('dob_signup', dob)
+    AsyncStorage.setItem(FNAME, fname)
+    AsyncStorage.setItem(LNAME, lname)
+    AsyncStorage.setItem(DOB, dob.toDate().getTime().toString())
 
     this.props.navigation.navigate('SignUp2')
 
   }
 
   render() {
-    const { fname, lname, dob, showDatePicker } = this.state
+    const { fname, lname, dob, fnameError, lnameError, dobError, loading } = this.state
 
-    return (
-      <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss(); this.showDatePicker(false)}}>
+    return ( loading ? 
+      <LogoLoading />
+      :
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
           <View style={[styles.fbButton, styles.row]}>
             <Button
               title="SIGN UP WITH FACEBOOK"
               color="#c70039"
-              onPress={() => {}}
+              onPress={this.useFB}
             />
           </View>
 
@@ -155,12 +164,13 @@ export class SignUp extends Component {
             <SignText>or with email</SignText>
           </View>
 
+          <View style={styles.row}/>
+
           <View>
-            <View style={[styles.row, styles.logInButtonWrapper]}>
+            <View>
               <TextInput
-              style={[styles.row, styles.textInput]}
+              style={[styles.textInput]}
               onChangeText={fname => this.handleFirstNameChange(fname)}
-              onFocus={() => this.showDatePicker(false)}
               value={fname}
               placeholder="FIRST NAME"
               placeholderTextColor="#fff"
@@ -169,10 +179,14 @@ export class SignUp extends Component {
                 this.refs.lname.focus();
               }}
               />
+              <View>
+                <Text style={styles.error}>{fnameError}</Text>
+              </View>
+              <View style={styles.row}/>
+
               <TextInput
               ref='lname'
-              style={[styles.row, styles.textInput]}
-              onFocus={() => this.showDatePicker(false)}
+              style={[styles.textInput]}
               onChangeText={lname => this.handleLastNameChange(lname)}
               value={lname}
               placeholder="LAST NAME"
@@ -180,25 +194,37 @@ export class SignUp extends Component {
               returnKeyType="next"
               onSubmitEditing={(event) => {
                 Keyboard.dismiss();
-                this.showDatePicker(true)
               }}
               />
+              <View>
+                <Text style={styles.error}>{lnameError}</Text>
+              </View>
+              <View style={styles.row}/>
+
               <TextInput
               ref='dob'
-              style={[styles.row, styles.textInput]}
-              onFocus={() => {Keyboard.dismiss(); this.showDatePicker(true)}}
-              value={dob.calendar()}
+              style={[styles.textInput]}
+              onFocus={() => Keyboard.dismiss()}
+              // dob is moment object
+              value={(dob && dob.calendar())}
+              editable={false}
               placeholder="DATE OF BIRTH"
               placeholderTextColor="#fff"
               returnKeyType="done"
               />
-              {showDatePicker &&
-              <DatePickerIOS
-                date={dob.toDate()}
-                mode='date'
-                onDateChange={this.handleDoBChange}
-              />}
+              <View>
+                <Text style={styles.error}>{dobError}</Text>
+              </View>
               <View style={styles.row}/>
+              
+              <DatePickerIOS
+                ref='dobpicker'
+                // change moment to js date
+                date={(dob && dob.toDate()) || moment().subtract(19, 'years').toDate()}
+                mode='date'
+                maximumDate={moment().toDate()}
+                onDateChange={this.handleDoBChange}
+              />
 
               <View style={[styles.row, styles.logInButtonWrapper]}>
                 <TouchableOpacity
@@ -226,4 +252,5 @@ Tcpp.propTypes = {
 }
 
 export { styles, SignText, Tcpp }
+export default fbLogin(SignUp)
 
