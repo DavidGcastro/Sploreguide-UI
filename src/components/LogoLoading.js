@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Animated, Easing } from 'react-native'
-import logo from '../images/sg_symbol.png'
+import logo from '../images/sg_icon.png'
 
 
 const styles = StyleSheet.create({
@@ -27,7 +27,7 @@ class LogoLoading extends Component {
       this.state.spinValue,
       {
         toValue: finish,
-        duration: 1500,
+        duration: 2000,
         easing: Easing.linear,                
         useNativeDriver: true
       }
@@ -44,8 +44,8 @@ class LogoLoading extends Component {
 
     return (
       <View style={styles.loadingContainer}>
-        <View style={styles.loadingSymbolWrapper}>
-          <Animated.Image style={{transform: [{rotate: spin}]}} source={logo} />
+        <View>
+          <Animated.Image style={{flex: 0.6, transform: [{rotate: spin}]}} source={logo} resizeMode="contain"/>
         </View>
       </View>
     )
