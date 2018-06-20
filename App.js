@@ -4,6 +4,8 @@ import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import StorybookUI from './storybook';
+
 
 import LoginAppNavigator from './src/components/LoginComponents'
 import MainAppNavigator from './src/components/MainAppComponents'
@@ -15,7 +17,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -53,3 +55,5 @@ export default class App extends React.Component {
     }
   }
 }
+
+module.exports = __DEV__ ? StorybookUI : App
