@@ -3,7 +3,7 @@ import { Facebook } from 'expo'
 import deviceStorage from './deviceStorage'
 import { JWT } from '../constants'
 
-const APPID = '' // make sure to remove
+const APPID = '2107662222838481'
 const FB_FN_LN_EMAIL_URL = 'https://graph.facebook.com/me?fields=first_name,last_name,email&access_token='
 
 async function loginWithFacebook () {
@@ -26,6 +26,8 @@ async function handleFBLogin () {
   if (token) {
     let { email, first_name, last_name, id } = graphDetails
 
+    email = email.toLowerCase()
+
     this.props.fbLogin(email, first_name, last_name, id, token)
       .then(async (response) => {
         let { data } = response
@@ -34,6 +36,8 @@ async function handleFBLogin () {
       }).catch((error) => {
         console.log(error)
       })
+  } else {
+    this.setState({loading: false})
   }
 }
 

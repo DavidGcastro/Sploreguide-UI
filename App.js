@@ -11,7 +11,8 @@ import LoginAppNavigator from './src/components/LoginComponents'
 import MainAppNavigator from './src/components/MainAppComponents'
 import deviceStorage from './src/services/deviceStorage'
 
-const httpLink = new HttpLink({ uri: 'http:192.168.1.4:3000/graphql' })
+const httpLink = new HttpLink({ uri: `http:${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:3000/graphql` })
+
 const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache()
