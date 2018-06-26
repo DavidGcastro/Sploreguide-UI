@@ -3,7 +3,7 @@ import { Platform, Button, Dimensions, StyleSheet, Text, TextInput, TouchableOpa
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
-import LogoLoading from '../../LogoLoading'
+import LogoLoading from '../../../components/LogoLoading'
 import { handleFBLogin } from '../../../services/facebook'
 import { fbLogin } from '../login/Login'
 import { makeFirstLetterUpperCase } from '../../../helpers/strings'

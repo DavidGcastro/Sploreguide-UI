@@ -4,7 +4,7 @@ import graphql from 'graphql-anywhere'
 import PropTypes from 'prop-types'
 import { Video } from 'expo'
 
-import LogoLoading from '../../LogoLoading'
+import LogoLoading from '../../../components/LogoLoading'
 import { handleFBLogin } from '../../../services/facebook'
 import deviceStorage from '../../../services/deviceStorage'
 import { fbLogin } from '../login/Login'
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   colorButton: {
     width: 300,
-    backgroundColor: 'rgb(199, 0, 57)',
+    backgroundColor: '#a76eff',
     borderRadius: 25,
     paddingVertical: 9,
   },

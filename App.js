@@ -7,8 +7,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import StorybookUI from './storybook';
 
 
-import LoginAppNavigator from './src/components/LoginComponents'
-import MainAppNavigator from './src/components/MainAppComponents'
+import LoginAppNavigator from './src/screens/LoginScreens'
+import MainAppNavigator from './src/screens/MainAppComponents'
 import deviceStorage from './src/services/deviceStorage'
 
 const httpLink = new HttpLink({ uri: `http:${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:3000/graphql` })
@@ -57,4 +57,5 @@ class App extends React.Component {
   }
 }
 
-module.exports = __DEV__ ? StorybookUI : App
+//module.exports = __DEV__ ? StorybookUI : App
+module.exports = App
