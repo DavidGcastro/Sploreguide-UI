@@ -7,8 +7,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import StorybookUI from './storybook';
 
 
-import LoginAppNavigator from './src/screens/LoginScreens'
-import MainAppNavigator from './src/screens/MainAppComponents'
+import LoginAndSignupNavigator from './src/navigators/LoginAndSignupNavigator'
+import AppLandingNavigator from './src/navigators/AppLandingNavigator'
 import deviceStorage from './src/services/deviceStorage'
 
 const httpLink = new HttpLink({ uri: `http:${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:3000/graphql` })
@@ -44,13 +44,13 @@ class App extends React.Component {
     if (jwt) {
       return (
         <ApolloProvider client={client}>
-          <MainAppNavigator screenProps={{deleteJWT: this.deleteJWT}}/>
+          <AppLandingNavigator screenProps={{deleteJWT: this.deleteJWT}}/>
         </ApolloProvider>
       )
     } else {
       return (
         <ApolloProvider client={client}>
-          <LoginAppNavigator screenProps={{saveJWT: this.saveJWT}}/>
+          <LoginAndSignupNavigator screenProps={{saveJWT: this.saveJWT}}/>
         </ApolloProvider>
       )
     }

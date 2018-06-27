@@ -37,7 +37,7 @@ async function handleFBLogin () {
         console.log(error)
       })
   } else {
-    this.setState({loading: false})
+    setTimeout(() => { this.setState({loading: false}) }, 500)
   }
 }
 

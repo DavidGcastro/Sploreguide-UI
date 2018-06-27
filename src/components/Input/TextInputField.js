@@ -6,34 +6,40 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Keyboard
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { EvilIcons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
+import { Entypo } from '@expo/vector-icons'
 
 export default class TextInputField extends Component {
   static propTypes = {
     borderBottomColor:propTypes.string,
-    inputType: propTypes.string.isRequired,
+    secureInput: propTypes.bool,
     innerOnChangeText: propTypes.func.isRequired,
     innerReturnKeyType: propTypes.string.isRequired,
     inputIcon: propTypes.string,
     placeholderText: propTypes.node,
     innerValue: propTypes.node,
     innerOnSubmitEditing: propTypes.func,
-    inputError: propTypes.string
+    inputError: propTypes.string,
+    notEditable: propTypes.bool,
+    innerOnFocus: propTypes.func
   }
 
   state = {
-    secureInput: 
-      this.props.inputType === 'text' || 
-      this.props.inputType === 'name' || 
-      this.props.inputType ==='email' 
-      ? false : true,
+    secureInput: this.props.secureInput,
+    secureText: 'Show'
   }
 
   toggleShowPassword = () => {
-    this.setState({ secureInput: !this.state.secureInput });
+    if (this.state.secureText === 'Show')
+      return this.setState({ secureInput: !this.state.secureInput, secureText: 'Hide' })
+
+    return this.setState({ secureInput: !this.state.secureInput, secureText: 'Show' })
+  
   }
 
   getFocus = (event) => {
@@ -47,10 +53,12 @@ export default class TextInputField extends Component {
   render () {
     const { 
       borderBottomColor, inputError,
-      inputType, innerOnSubmitEditing, innerReturnKeyType, 
-      inputIcon, innerValue, placeholderText } = this.props
+      innerOnSubmitEditing, innerReturnKeyType, 
+      inputIcon, innerValue, placeholderText, 
+      notEditable, innerOnFocus } = this.props
     const borderBottom = borderBottomColor || colors.gray
-    const { secureInput } = this.state
+    const { secureInput, secureText } = this.state
+    let editable = (notEditable) ? false : true
 
     return (
       <View style={styles.wrapper}>
@@ -61,8 +69,18 @@ export default class TextInputField extends Component {
         { inputIcon && inputIcon === 'unlock' &&
           <EvilIcons name="unlock" size={30} color="gray" style={styles.inputIconLock} />
         }
+        { inputIcon && inputIcon === 'ios-person-outline' &&
+          <Ionicons name="ios-person-outline" size={25} color="gray" style={styles.nameIcon} />
+        }
+        { inputIcon && inputIcon === 'calendar' &&
+          <EvilIcons name="calendar" size={25} color="gray" style={styles.calendarIcon} />
+        }
+        { inputIcon && inputIcon === 'v-card' &&
+          <Entypo name="v-card" size={17} color="gray" style={styles.genderIcon} />
+        }
 
         <TextInput
+          {...this.props}
           ref='innerTextInput'
           value={innerValue}
           onChangeText={this.updateText}
@@ -70,13 +88,15 @@ export default class TextInputField extends Component {
           style={[{borderBottomColor: borderBottom}, styles.inputField]}
           placeholder={placeholderText}
           onSubmitEditing={innerOnSubmitEditing}
+          editable={editable}
+          onFocus={innerOnFocus}
           secureTextEntry={secureInput}/>
 
-          {inputType === 'password' ? 
+          { this.props.secureInput ? 
             <TouchableOpacity 
               style={styles.showButton}
               onPress={this.toggleShowPassword}>
-              <Text style={styles.showButtonText}>{secureInput ? 'Show' : 'Hide'}</Text>
+              <Text style={styles.showButtonText}>{secureText}</Text>
             </TouchableOpacity>
             :null
           }
@@ -114,6 +134,19 @@ const styles = StyleSheet.create({
     position: 'absolute', 
     top: -5,
     left: 49
+  },
+  nameIcon: {
+    position: 'absolute',
+    top: -4,
+    left: 56,
+  },
+  calendarIcon:{
+    position: 'absolute',
+    left: 52,
+  },
+  genderIcon:{
+    position: 'absolute',
+    left: 56,    
   },
   showButton:{
     position: 'absolute',
