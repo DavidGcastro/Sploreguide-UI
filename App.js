@@ -57,5 +57,5 @@ class App extends React.Component {
   }
 }
 
-//module.exports = __DEV__ ? StorybookUI : App
-module.exports = App
+module.exports = __DEV__ ? StorybookUI : App
+//module.exports = App
