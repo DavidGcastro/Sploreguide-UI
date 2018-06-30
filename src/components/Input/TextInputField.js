@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import propTypes from 'prop-types'
 import colors from '../../styles/colors'
 import {

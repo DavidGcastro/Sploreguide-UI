@@ -11,64 +11,6 @@ import { fbLogin } from '../login/Login'
 import logo from '../../assets/images/spglogo.png'
 import bgVideo from '../../assets/videos/sploreguide_Video.mp4'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  colorButton: {
-    width: 300,
-    backgroundColor: '#a76eff',
-    borderRadius: 25,
-    paddingVertical: 9,
-  },
-
-  transButton: {
-    width: 300,
-    backgroundColor: 'rgba(0, 0, 0, .3)',
-    borderRadius: 25,
-    marginVertical: 25,
-    paddingVertical: 9,
-  },
-
-  buttonText: {
-    fontSize: 24,
-    fontWeight: '500',
-    color: '#ffffff',
-    textAlign: 'center',
-  },
-
-  logo: {
-    width: Dimensions.get('window').width * 1.25,
-    height: 100,
-  },
-
-  logInWrapper: {
-    flex: 1,
-    flexDirection: 'row',
-    marginVertical: 35,
-    marginHorizontal: 15,
-    alignSelf: 'flex-end',
-  },
-
-  logoWrapper: {
-    flex: 8,
-  },
-
-  signUpWrapper: {
-    flex: 4.5,
-  }
-})
-
-const MyStatusBar = ({backgroundColor, ...props}) => (
-  <View style={{ backgroundColor }}>
-    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-  </View>
-);
-
-
-
 class Welcome extends Component {
   state = {
     loading: false
@@ -133,5 +75,60 @@ class Welcome extends Component {
   }
 }
 
-
 export default fbLogin(Welcome)
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  colorButton: {
+    width: 300,
+    backgroundColor: '#a76eff',
+    borderRadius: 25,
+    paddingVertical: 9,
+  },
+
+  transButton: {
+    width: 300,
+    backgroundColor: 'rgba(0, 0, 0, .3)',
+    borderRadius: 25,
+    marginVertical: 25,
+    paddingVertical: 9,
+  },
+
+  buttonText: {
+    fontSize: 24,
+    fontWeight: '500',
+    color: '#ffffff',
+    textAlign: 'center',
+  },
+
+  logo: {
+    width: Dimensions.get('window').width * 1.25,
+    height: 100,
+  },
+
+  logInWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    marginVertical: 35,
+    marginHorizontal: 15,
+    alignSelf: 'flex-end',
+  },
+
+  logoWrapper: {
+    flex: 8,
+  },
+
+  signUpWrapper: {
+    flex: 4.5,
+  }
+})
+
+const MyStatusBar = ({backgroundColor, ...props}) => (
+  <View style={{ backgroundColor }}>
+    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+  </View>
+);

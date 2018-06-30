@@ -1,5 +1,4 @@
 import React from 'react'
-import { Text } from 'react-native'
 
 import { storiesOf } from '@storybook/react-native'
 import { action } from '@storybook/addon-actions'
@@ -10,5 +9,8 @@ import Welcome from './Welcome'
 
 import Input from './Input'
 import Button from './Button'
+import Experience from './Experience'
+import Text from './Text'
+import Screen from './Screen'
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />)

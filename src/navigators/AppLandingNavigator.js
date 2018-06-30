@@ -4,7 +4,10 @@ import Explore from '../screens/explore/Explore'
 const AppLandingNavigator = TabNavigator(
   {
     Explore: { screen: Explore },
-    Explore2: { screen: Explore }
+    Trips: { screen: Explore },
+    Personalized: { screen: Explore },
+    Inbox: { screen: Explore },
+    Profile: { screen: Explore }
   }
 )
 

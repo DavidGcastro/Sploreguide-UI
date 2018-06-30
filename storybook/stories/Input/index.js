@@ -5,9 +5,9 @@ import { storiesOf } from '@storybook/react-native'
 import CenterView from '../CenterView'
 
 import colors from '../../../src/styles/colors'
-import { TextInputField } from '../../../src/components/Input'
+import { TextInputField, Search } from '../../../src/components/Input'
 
-storiesOf('Text Input', module)
+storiesOf('Input/Text Input', module)
   .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
   .add('with no icon', () => (
     <View style={{width: 300}}>
@@ -79,5 +79,12 @@ storiesOf('Text Input', module)
         placeholderText='Password'
         inputIcon={'unlock'}
         secureInput />
+    </View>
+  ))
+
+storiesOf('Input/Search', module)
+  .add('basic search', () => (
+    <View style={{width: 300}}>
+      <Search />
     </View>
   ))
