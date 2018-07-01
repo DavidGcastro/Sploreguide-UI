@@ -12,5 +12,6 @@ import Button from './Button'
 import Experience from './Experience'
 import Text from './Text'
 import Screen from './Screen'
+import Review from './Review'
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />)

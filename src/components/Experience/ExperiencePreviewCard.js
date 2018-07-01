@@ -3,6 +3,7 @@ import propTypes from 'prop-types'
 import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import OpenSansText from '../Text'
+import { Stars } from '../Review'
 
 export default class ExperiencePreivewCard extends Component {
   render () {
@@ -73,11 +74,7 @@ export default class ExperiencePreivewCard extends Component {
             </OpenSansText>
           </View>
           <View style={styles.starsContainer}>
-            <Ionicons name={'ios-star'} size={11} color={'white'} />
-            <Ionicons name={'ios-star'} size={11} color={'white'} />
-            <Ionicons name={'ios-star'} size={11} color={'white'} />
-            <Ionicons name={'ios-star'} size={11} color={'white'} />
-            <Ionicons name={'ios-star-outline'} size={11} color={'white'} />
+            <Stars quantity={4} color={'white'} />
           </View>
           <View style={styles.reviewsContainer}>
             <OpenSansText fontSize={11} color='white'>
