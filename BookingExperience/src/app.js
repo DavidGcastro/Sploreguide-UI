@@ -6,11 +6,8 @@
 */
 
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { Font } from 'expo';
+import { Font, AppLoading } from 'expo';
 import MainNavigator from './navigators/MainNavigator';
-import { AppLoading } from 'expo';
-
 export default class App extends Component {
   state = {
     fontLoaded: false

@@ -12,7 +12,7 @@ import { LinearGradient } from 'expo';
 import styles from '../styles/login';
 import buttonStyles from '../styles/buttons';
 
-const Login = () => {
+const Home = () => {
   return (
     <ImageBackground
       source={require('../assets/img/login-noOverlay.jpg')}
@@ -61,4 +61,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Home;
