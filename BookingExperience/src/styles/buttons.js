@@ -1,8 +1,7 @@
 const buttonStyles = {
   transparentButton: {
     borderColor: 'white',
-    borderWidth: 1,
-    borderRadius: 25,
+    borderRadius: 5,
     paddingHorizontal: 45,
     paddingVertical: 12,
     backgroundColor: 'rgba(255,255,255, .8)'

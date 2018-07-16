@@ -10,7 +10,7 @@
     "icon": "",
     "splash": {
       "image": "./src/assets/img/Splash.png",
-      "resizeMode": "cover",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {

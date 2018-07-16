@@ -4,15 +4,14 @@ import {
   ImageBackground,
   View,
   Image,
-  TouchableOpacity,
   SafeAreaView,
   TouchableHighlight
 } from 'react-native';
 import { LinearGradient } from 'expo';
-import styles from '../styles/login';
+import styles from '../styles/home';
 import buttonStyles from '../styles/buttons';
 
-const Home = () => {
+const Home = props => {
   return (
     <ImageBackground
       source={require('../assets/img/login-noOverlay.jpg')}
@@ -43,7 +42,7 @@ const Home = () => {
             <SafeAreaView style={styles.bottomChild}>
               <TouchableHighlight
                 underlayColor="white"
-                onPress={() => console.log('Login')}
+                onPress={() => handleLogin(props)}
                 style={buttonStyles.transparentButton}>
                 <Text style={buttonStyles.transparentButtonText}>LOGIN</Text>
               </TouchableHighlight>
@@ -59,6 +58,11 @@ const Home = () => {
       </LinearGradient>
     </ImageBackground>
   );
+};
+
+const handleLogin = props => {
+  let navigate = props.navigation.navigate;
+  navigate('Login');
 };
 
 export default Home;
