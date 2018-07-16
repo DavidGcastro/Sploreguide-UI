@@ -6,11 +6,9 @@
 */
 
 import React, { Component } from 'react';
-import {
-  Text, View
-} from 'react-native'
+import { Text, View } from 'react-native';
 import { Font } from 'expo';
-import PreviewNavigator from './navigators/PreviewNavigator'
+import PreviewNavigator from './navigators/PreviewNavigator';
 // import Movies from './components/Movies';
 // import NavigationExperimental, { Navigator } from 'react-native-deprecated-custom-components';
 
@@ -25,7 +23,7 @@ import PreviewNavigator from './navigators/PreviewNavigator'
 
 export default class App extends Component {
   state = {
-    fontLoaded: false,
+    fontLoaded: false
   };
 
   async componentDidMount() {
@@ -41,16 +39,14 @@ export default class App extends Component {
   }
 
   render() {
-    return this.state.fontLoaded 
-      ?
-        (
-          /*
+    return this.state.fontLoaded ? (
+      /*
           <Text style={{fontFamily: 'SF-UI-Text-Regular', fontSize: 40}}>
             Hello World
           </Text> 
           */
 
-          /*
+      /*
           <Navigator
           // Default to movies route
           initialRoute={{ name: 'movies' }}
@@ -60,11 +56,9 @@ export default class App extends Component {
           renderScene={RouteMapper}
           />
           */
-          <PreviewNavigator/>
-        )
-      : 
-        (
-            <View></View>
-        )
+      <PreviewNavigator />
+    ) : (
+      <View />
+    );
   }
 }

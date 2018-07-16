@@ -13,7 +13,7 @@ import buttonStyles from '../styles/buttons';
 const Login = () => {
   return (
     <ImageBackground
-      source={require('../assets/images/login.png')}
+      source={require('../assets/img/login.png')}
       style={styles.image}>
       {/* PARENT */}
       <View
@@ -31,7 +31,7 @@ const Login = () => {
             <Image
               resizeMode="contain"
               style={styles.logo}
-              source={require('../assets/icons/Logo-Icon.png')}
+              source={require('../assets/img/Logo-Icon.png')}
             />
             <Text style={styles.title}> EMBARK </Text>
             <Text style={styles.subtitle}> EXPERIENCE ALL WALKS OF LIFE</Text>

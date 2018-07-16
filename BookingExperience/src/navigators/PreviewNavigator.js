@@ -5,26 +5,33 @@
 * @Last Modified time: 2018-07-08 13:58:11
 */
 
-import { createStackNavigator } from 'react-navigation'
-import PreviewScreen from '../screens/PreviewScreen'
-import ExperienceScreen from '../screens/ExperienceScreen'
+import { createStackNavigator } from 'react-navigation';
+import PreviewScreen from '../screens/PreviewScreen';
+import ExperienceScreen from '../screens/ExperienceScreen';
+import Login from '../screens/Login';
 
 const PreviewNavigator = createStackNavigator(
   {
-    Preview		:	{ 
-    	screen				: PreviewScreen,
-		navigationOptions	: {
-			header	:	null
-		}
+    Preview: {
+      screen: PreviewScreen,
+      navigationOptions: {
+        header: null
+      }
     },
-    Experience 	:	{
-    	screen				:	ExperienceScreen,
-    	navigationOptions	: 	{
-			header	:	null
-		}
+    Experience: {
+      screen: ExperienceScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        header: null
+      }
     }
   },
-  { initialRouteName: 'Preview' }
-)
+  { initialRouteName: 'Login' }
+);
 
 export default PreviewNavigator;
