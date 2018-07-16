@@ -8,18 +8,8 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Font } from 'expo';
-import PreviewNavigator from './navigators/PreviewNavigator';
-// import Movies from './components/Movies';
-// import NavigationExperimental, { Navigator } from 'react-native-deprecated-custom-components';
-
-// const RouteMapper = (route, navigator) => {
-//   console.log(route.name);
-//   if (route.name === 'movies') {
-//     return <Movies navigator={navigator} />;
-//   } else if (route.name === 'experience') {
-//     console.log("heyo");
-//   }
-// };
+import MainNavigator from './navigators/MainNavigator';
+import { AppLoading } from 'expo';
 
 export default class App extends Component {
   state = {
@@ -39,26 +29,6 @@ export default class App extends Component {
   }
 
   render() {
-    return this.state.fontLoaded ? (
-      /*
-          <Text style={{fontFamily: 'SF-UI-Text-Regular', fontSize: 40}}>
-            Hello World
-          </Text> 
-          */
-
-      /*
-          <Navigator
-          // Default to movies route
-          initialRoute={{ name: 'movies' }}
-          // Use FloatFromBottom transition between screens
-          configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromBottom}
-          // Pass a route mapper functions
-          renderScene={RouteMapper}
-          />
-          */
-      <PreviewNavigator />
-    ) : (
-      <View />
-    );
+    return this.state.fontLoaded ? <MainNavigator /> : <AppLoading />;
   }
 }

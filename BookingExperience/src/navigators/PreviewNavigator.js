@@ -8,7 +8,6 @@
 import { createStackNavigator } from 'react-navigation';
 import PreviewScreen from '../screens/PreviewScreen';
 import ExperienceScreen from '../screens/ExperienceScreen';
-import Login from '../screens/Login';
 
 const PreviewNavigator = createStackNavigator(
   {
@@ -23,15 +22,9 @@ const PreviewNavigator = createStackNavigator(
       navigationOptions: {
         header: null
       }
-    },
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        header: null
-      }
     }
   },
-  { initialRouteName: 'Login' }
+  { initialRouteName: 'Preview' }
 );
 
 export default PreviewNavigator;
