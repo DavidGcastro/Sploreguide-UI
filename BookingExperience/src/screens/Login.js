@@ -5,21 +5,23 @@ import {
   View,
   Image,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
+  TouchableHighlight
 } from 'react-native';
+import { LinearGradient } from 'expo';
 import styles from '../styles/login';
 import buttonStyles from '../styles/buttons';
 
 const Login = () => {
   return (
     <ImageBackground
-      source={require('../assets/img/login.png')}
+      source={require('../assets/img/login-noOverlay.jpg')}
       style={styles.image}>
       {/* PARENT */}
-      <View
-        style={{
-          flex: 1
-        }}>
+      <LinearGradient
+        style={{ flex: 1 }}
+        colors={['rgba(48, 35, 174, 0.75)', 'rgba(83, 160, 253, 0.5)']}
+        start={[0, 0]}>
         {/* OUTER*/}
         <View
           style={{
@@ -39,16 +41,22 @@ const Login = () => {
           {/* bottom child*/}
           <SafeAreaView style={{ flexDirection: 'row' }}>
             <SafeAreaView style={styles.bottomChild}>
-              <TouchableOpacity style={buttonStyles.transparentButton}>
-                <Text style={buttonStyles.transparentButtonText}>Login</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={buttonStyles.transparentButton}>
-                <Text style={buttonStyles.transparentButtonText}>Sign Up</Text>
-              </TouchableOpacity>
+              <TouchableHighlight
+                underlayColor="white"
+                onPress={() => console.log('Login')}
+                style={buttonStyles.transparentButton}>
+                <Text style={buttonStyles.transparentButtonText}>LOGIN</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                underlayColor="white"
+                onPress={() => console.log('Sign up')}
+                style={buttonStyles.transparentButton}>
+                <Text style={buttonStyles.transparentButtonText}>SIGN UP</Text>
+              </TouchableHighlight>
             </SafeAreaView>
           </SafeAreaView>
         </View>
-      </View>
+      </LinearGradient>
     </ImageBackground>
   );
 };
