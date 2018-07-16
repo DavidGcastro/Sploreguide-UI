@@ -8,7 +8,7 @@ import {
   SafeAreaView
 } from 'react-native';
 import styles from '../styles/login';
-import buttonStyles from '../styles/transparentButtons';
+import buttonStyles from '../styles/buttons';
 
 const Login = () => {
   return (
