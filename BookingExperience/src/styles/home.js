@@ -1,3 +1,7 @@
+import { Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+console.log(height);
 const styles = {
   image: {
     width: '100%',
@@ -13,21 +17,20 @@ const styles = {
     alignContent: 'center',
     alignItems: 'center',
     //CHANGE AS NEEDED
-    marginBottom: 350,
+    marginBottom: height / 2,
     justifyContent: 'center'
   },
   topChildLogin: {
     flex: 1,
+    
     alignContent: 'center',
     alignItems: 'center',
-    //CHANGE AS NEEDED
-    marginBottom: 350,
-    justifyContent: 'center'
+    flexDirection: 'column'
   },
   bottomChild: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     //CHANGE AS NEEDED
     marginBottom: 30
   },
@@ -52,7 +55,7 @@ const styles = {
     letterSpacing: 3
   },
   subtitleLogin: {
-    color: 'black',
+    color: 'rgba(74, 74, 74, 1)',
     paddingTop: 10,
     paddingBottom: 20,
     fontSize: 12,
