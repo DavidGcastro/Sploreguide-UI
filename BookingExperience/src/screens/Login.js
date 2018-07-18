@@ -5,21 +5,17 @@ import {
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity,
-  TextInput
+  TouchableOpacity
 } from 'react-native';
 import { LinearGradient } from 'expo';
-import LoginFrom from '../components/LoginForm';
 
-import { Form, Item, Input, Label, Icon } from 'native-base';
-
-//borrowing from home - styles for logo and title placement
-import styles from '../styles/home';
+import styles from '../styles/login';
 import LoginForm from '../components/LoginForm';
 
 const Login = props => {
   return (
     <SafeAreaView>
+
       <ImageBackground
         source={require('../assets/img/login-noOverlay.jpg')}
         style={styles.image}>
@@ -53,13 +49,7 @@ const Login = props => {
               </Text>
             </View>
             {/*SECOND CHILD*/}
-            <View
-              style={{
-                width: '60%',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignContent: 'flex-start'
-              }}>
+            <View style={styles.secondChild}>
               <TouchableOpacity>
                 <Image
                   style={styles.socialIcons}
@@ -92,11 +82,11 @@ const Login = props => {
             <View
               style={{
                 flex: 1,
-                justifyContent: 'center',
+                justifyContent: 'space-around',
                 width: '80%'
               }}>
               <LinearGradient
-                style={{borderRadius: 5}}
+                style={{ borderRadius: 5 }}
                 colors={['rgba(48, 35, 174, 1)', 'rgba(83, 160, 253, 1)']}
                 start={[0, 0.5]}
                 end={[0.5, 1]}>

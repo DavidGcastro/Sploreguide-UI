@@ -20,13 +20,7 @@ const styles = {
     marginBottom: height / 2,
     justifyContent: 'center'
   },
-  topChildLogin: {
-    flex: 1,
-    
-    alignContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column'
-  },
+
   bottomChild: {
     flex: 1,
     flexDirection: 'row',
@@ -41,26 +35,13 @@ const styles = {
     fontSize: 30,
     fontWeight: '500'
   },
-  titleLogin: {
-    textAlign: 'center',
-    color: 'black',
-    letterSpacing: 30,
-    fontSize: 30,
-    fontWeight: '500'
-  },
   subtitle: {
     color: 'white',
     paddingTop: 10,
     fontSize: 12,
     letterSpacing: 3
   },
-  subtitleLogin: {
-    color: 'rgba(74, 74, 74, 1)',
-    paddingTop: 10,
-    paddingBottom: 20,
-    fontSize: 12,
-    letterSpacing: 3
-  },
+
   socialIcons: {
     width: 29
   }
