@@ -87,15 +87,18 @@ const Signup = props => {
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-end'
                 }}>
                 <InlineFormGenerator
                   name="Sex"
+                  type="inline"
                   IconTag="Ionicons"
                   iconName="ios-transgender"
                 />
                 <InlineFormGenerator
                   name="Age"
+                  type="inline"
                   IconTag="FontAwesome"
                   iconName="birthday-cake"
                 />

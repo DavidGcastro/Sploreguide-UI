@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TextInput } from 'react-native';
+import { Text, View, TextInput, Dimensions } from 'react-native';
 import {
   Feather,
   MaterialCommunityIcons,
@@ -7,7 +7,7 @@ import {
   FontAwesome,
   SimpleLineIcons
 } from '@expo/vector-icons';
-
+let { width } = Dimensions.get('screen');
 const InlineFromGenerator = props => {
   let IconTag = props.IconTag;
   let Component = '';
@@ -78,14 +78,25 @@ const InlineFromGenerator = props => {
           borderBottomColor: 'rgba(237, 237, 237, 1)'
         }}>
         {Component}
-
-        <TextInput
-          placeholder={`Type your ${props.name}`}
-          style={{
-            fontSize: 13,
-            height: '100%'
-          }}
-        />
+        {props.type === 'inline' ? (
+          <TextInput
+            placeholder={`Type your ${props.name}`}
+            style={{
+              fontSize: 13,
+              height: '100%',
+              width: width / 2 - 80
+            }}
+          />
+        ) : (
+          <TextInput
+            placeholder={`Type your ${props.name}`}
+            style={{
+              fontSize: 13,
+              height: '100%',
+              width: '100%'
+            }}
+          />
+        )}
       </View>
     </View>
   );
