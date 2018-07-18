@@ -48,7 +48,7 @@ const Home = props => {
               </TouchableHighlight>
               <TouchableHighlight
                 underlayColor="white"
-                onPress={() => console.log('Sign up')}
+                onPress={() => handleSignup(props)}
                 style={buttonStyles.transparentButton}>
                 <Text style={buttonStyles.transparentButtonText}>SIGN UP</Text>
               </TouchableHighlight>
@@ -64,5 +64,10 @@ const handleLogin = props => {
   let navigate = props.navigation.navigate;
   navigate('Login');
 };
+const handleSignup = props => {
+  let navigate = props.navigation.navigate;
+  navigate('Signup');
+};
+
 
 export default Home;

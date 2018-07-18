@@ -7,9 +7,8 @@ import {
   Dimensions
 } from 'react-native';
 import { Icon } from 'native-base';
-let { width } = Dimensions.get('window');
 
-console.log(width - 175);
+let { width } = Dimensions.get('window');
 
 const LoginForm = props => {
   return (
@@ -62,17 +61,3 @@ const LoginForm = props => {
 };
 
 export default LoginForm;
-
-// {props.name === 'Email' ? (
-//   <TextInput
-//     textContentType="emailAddress"
-//     keyboardType="email-address"
-//     placeholder={`Type your ${props.name}`}
-//     style={{
-//       fontSize: 13,
-//       backgroundColor: 'red',
-//       width: '100%',
-//       height: '100%'
-//     }}
-//   />
-// ) :

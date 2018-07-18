@@ -9,13 +9,12 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import { LinearGradient } from 'expo';
-import { Feather } from '@expo/vector-icons';
 import Hr from '../components/Hr';
-
+import { Feather } from '@expo/vector-icons';
 import styles from '../styles/login';
-import LoginForm from '../components/LoginForm';
+import SignupForm from '../components/SignupForm';
 
-const Login = props => {
+const Signup = props => {
   return (
     <SafeAreaView>
       <ImageBackground
@@ -78,11 +77,42 @@ const Login = props => {
               </TouchableOpacity>
             </View>
             {/*THIRD CHILD*/}
-            <Hr text={'OR'} />
+            <Hr text="OR" />
             {/*FOURTH CHILD*/}
             <View style={{ width: '80%' }}>
-              <LoginForm name="Email" icon="person" />
-              <LoginForm name="Password" icon="lock" />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignContent: 'center',
+                  alignItems: 'center'
+                }}>
+                <SignupForm
+                  name="Name"
+                  IconTag="Ionicons"
+                  iconName="ios-person-outline"
+                />
+                <SignupForm
+                  name="Age"
+                  IconTag="FontAwesome"
+                  iconName="birthday-cake"
+                />
+              </View>
+              <SignupForm
+                name="Sex"
+                IconTag="Ionicons"
+                iconName="ios-transgender"
+              />
+              <SignupForm
+                name="Email"
+                IconTag="Ionicons"
+                iconName="ios-mail-open-outline"
+              />
+              <SignupForm
+                name="Password"
+                IconTag="Ionicons"
+                iconName="ios-lock-outline"
+              />
             </View>
 
             {/*Last CHILD*/}
@@ -106,7 +136,7 @@ const Login = props => {
                       alignItems: 'center'
                     }}>
                     <Text style={{ letterSpacing: 1, color: 'white' }}>
-                      Login
+                      Sign Up
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -119,4 +149,4 @@ const Login = props => {
   );
 };
 
-export default Login;
+export default Signup;
