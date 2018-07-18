@@ -16,7 +16,8 @@ const Hr = props => {
         style={{
           borderWidth: 0.75,
           borderColor: 'rgba(237, 237, 237, 1)',
-          width: width / 2 - 100
+          /*CHANGE AS NEEDED*/
+          width: width / 2 - 60
         }}
       />
       <Text
@@ -32,7 +33,8 @@ const Hr = props => {
         style={{
           borderWidth: 0.75,
           borderColor: 'rgba(237, 237, 237, 1)',
-          width: width / 2 - 100
+          /*CHANGE AS NEEDED*/
+          width: width / 2 - 60
         }}
       />
     </View>

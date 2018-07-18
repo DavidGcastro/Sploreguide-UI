@@ -24,7 +24,7 @@ const MainNavigator = createStackNavigator(
       }
     }
   },
-  { initialRouteName: 'Signup' }
+  { initialRouteName: 'Home' }
 );
 
 export default MainNavigator;
