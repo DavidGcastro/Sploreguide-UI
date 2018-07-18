@@ -8,21 +8,23 @@ const styles = {
     borderColor: 'pink',
     alignContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   },
   titleLogin: {
     textAlign: 'center',
     color: 'black',
     letterSpacing: 30,
     fontSize: 30,
-    fontWeight: '500'
+    fontWeight: '500',
+    paddingBottom: 10
   },
   subtitleLogin: {
     color: 'rgba(74, 74, 74, 1)',
-    paddingTop: 10,
-    paddingBottom: 20,
+
     fontSize: 12,
-    letterSpacing: 3
+    letterSpacing: 3,
+    paddingBottom: 20
   },
   secondChild: {
     width: '60%',

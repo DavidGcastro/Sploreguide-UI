@@ -8,6 +8,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { LinearGradient } from 'expo';
+import { Feather } from '@expo/vector-icons';
+import Hr from '../components/Hr';
 
 import styles from '../styles/login';
 import LoginForm from '../components/LoginForm';
@@ -15,7 +17,6 @@ import LoginForm from '../components/LoginForm';
 const Login = props => {
   return (
     <SafeAreaView>
-
       <ImageBackground
         source={require('../assets/img/login-noOverlay.jpg')}
         style={styles.image}>
@@ -26,9 +27,11 @@ const Login = props => {
           locations={[0, 0.5]}>
           {/* OUTER*/}
           <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
-            <Image
+            <Feather
+              name="arrow-left"
+              size={32}
+              color="white"
               style={{ marginTop: 40, marginLeft: 20 }}
-              source={require('../assets/img/back-icon.png')}
             />
           </TouchableOpacity>
           <View style={styles.topChildLogin}>
@@ -36,7 +39,8 @@ const Login = props => {
             <View
               style={{
                 alignItems: 'center',
-                alignContent: 'center'
+                alignContent: 'center',
+                justifyContent: 'center'
               }}>
               <Image
                 resizeMode="contain"
@@ -73,7 +77,7 @@ const Login = props => {
               </TouchableOpacity>
             </View>
             {/*THIRD CHILD*/}
-
+            <Hr text={'OR'} />
             <View style={{ width: '80%' }}>
               <LoginForm name="Email" icon="person" />
               <LoginForm name="Password" icon="lock" />

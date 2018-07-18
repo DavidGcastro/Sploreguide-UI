@@ -4,7 +4,7 @@ import { Icon } from 'native-base';
 
 const LoginForm = props => {
   return (
-    <View style={{ paddingBottom: 30 }}>
+    <View style={{ paddingTop: 20 }}>
       <Text
         style={{
           fontSize: 13,
