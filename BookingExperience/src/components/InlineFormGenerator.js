@@ -8,7 +8,7 @@ import {
   SimpleLineIcons
 } from '@expo/vector-icons';
 
-const SignupForm = props => {
+const InlineFromGenerator = props => {
   let IconTag = props.IconTag;
   let Component = '';
 
@@ -83,7 +83,7 @@ const SignupForm = props => {
           placeholder={`Type your ${props.name}`}
           style={{
             fontSize: 13,
-            height: '100%',
+            height: '100%'
           }}
         />
       </View>
@@ -91,4 +91,4 @@ const SignupForm = props => {
   );
 };
 
-export default SignupForm;
+export default InlineFromGenerator;

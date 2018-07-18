@@ -5,15 +5,14 @@ import {
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity,
-  KeyboardAvoidingView
+  TouchableOpacity
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Feather } from '@expo/vector-icons';
 import Hr from '../components/Hr';
 
 import styles from '../styles/login';
-import LoginForm from '../components/LoginForm';
+import InlineFromGenerator from '../components/InlineFormGenerator';
 
 const Login = props => {
   return (
@@ -78,11 +77,19 @@ const Login = props => {
               </TouchableOpacity>
             </View>
             {/*THIRD CHILD*/}
-            <Hr text={'OR'} />
+            <Hr text="OR" />
             {/*FOURTH CHILD*/}
             <View style={{ width: '80%' }}>
-              <LoginForm name="Email" icon="person" />
-              <LoginForm name="Password" icon="lock" />
+              <InlineFromGenerator
+                name="Email"
+                IconTag="Ionicons"
+                iconName="ios-mail-open-outline"
+              />
+              <InlineFromGenerator
+                name="Password"
+                IconTag="Ionicons"
+                iconName="ios-lock-outline"
+              />
             </View>
 
             {/*Last CHILD*/}

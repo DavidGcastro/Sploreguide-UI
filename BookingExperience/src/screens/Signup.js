@@ -5,14 +5,13 @@ import {
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity,
-  KeyboardAvoidingView
+  TouchableOpacity
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
 import { Feather } from '@expo/vector-icons';
 import styles from '../styles/login';
-import SignupForm from '../components/SignupForm';
+import InlineFormGenerator from '../components/InlineFormGenerator';
 
 const Signup = props => {
   return (
@@ -80,7 +79,7 @@ const Signup = props => {
             <Hr text="OR" />
             {/*FOURTH CHILD*/}
             <View style={{ width: '80%' }}>
-              <SignupForm
+              <InlineFormGenerator
                 name="Name"
                 IconTag="Ionicons"
                 iconName="ios-person-outline"
@@ -88,27 +87,26 @@ const Signup = props => {
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
-                 
+                  justifyContent: 'space-between'
                 }}>
-                <SignupForm
+                <InlineFormGenerator
                   name="Sex"
                   IconTag="Ionicons"
                   iconName="ios-transgender"
                 />
-                <SignupForm
+                <InlineFormGenerator
                   name="Age"
                   IconTag="FontAwesome"
                   iconName="birthday-cake"
                 />
               </View>
 
-              <SignupForm
+              <InlineFormGenerator
                 name="Email"
                 IconTag="Ionicons"
                 iconName="ios-mail-open-outline"
               />
-              <SignupForm
+              <InlineFormGenerator
                 name="Password"
                 IconTag="Ionicons"
                 iconName="ios-lock-outline"
