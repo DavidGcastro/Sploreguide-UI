@@ -80,17 +80,21 @@ const Signup = props => {
             <Hr text="OR" />
             {/*FOURTH CHILD*/}
             <View style={{ width: '80%' }}>
+              <SignupForm
+                name="Name"
+                IconTag="Ionicons"
+                iconName="ios-person-outline"
+              />
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  alignContent: 'center',
-                  alignItems: 'center'
+                 
                 }}>
                 <SignupForm
-                  name="Name"
+                  name="Sex"
                   IconTag="Ionicons"
-                  iconName="ios-person-outline"
+                  iconName="ios-transgender"
                 />
                 <SignupForm
                   name="Age"
@@ -98,11 +102,7 @@ const Signup = props => {
                   iconName="birthday-cake"
                 />
               </View>
-              <SignupForm
-                name="Sex"
-                IconTag="Ionicons"
-                iconName="ios-transgender"
-              />
+
               <SignupForm
                 name="Email"
                 IconTag="Ionicons"

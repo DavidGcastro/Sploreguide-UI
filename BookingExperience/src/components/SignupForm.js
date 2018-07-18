@@ -83,7 +83,7 @@ const SignupForm = props => {
           placeholder={`Type your ${props.name}`}
           style={{
             fontSize: 13,
-            height: '100%'
+            height: '100%',
           }}
         />
       </View>
