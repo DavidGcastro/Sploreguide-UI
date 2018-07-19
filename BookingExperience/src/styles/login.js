@@ -5,10 +5,9 @@ const styles = {
   },
   topChildLogin: {
     flex: 1,
-    borderColor: 'pink',
     alignContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column',
+    // backgroundColor: 'pink',
     justifyContent: 'space-between'
   },
   titleLogin: {

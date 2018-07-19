@@ -12,6 +12,8 @@ import Hr from '../components/Hr';
 import { Feather } from '@expo/vector-icons';
 import styles from '../styles/login';
 import InlineFormGenerator from '../components/InlineFormGenerator';
+import GradientButton from '../components/GradientButton';
+import GoBack from '../components/GoBack';
 
 const Signup = props => {
   return (
@@ -26,12 +28,7 @@ const Signup = props => {
           locations={[0, 0.5]}>
           {/* OUTER*/}
           <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
-            <Feather
-              name="arrow-left"
-              size={32}
-              color="white"
-              style={{ marginTop: 40, marginLeft: 20 }}
-            />
+            <GoBack />
           </TouchableOpacity>
           <View style={styles.topChildLogin}>
             {/*FIRST CHILD*/}
@@ -117,32 +114,7 @@ const Signup = props => {
             </View>
 
             {/*Last CHILD*/}
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'space-around',
-                width: '80%'
-              }}>
-              <LinearGradient
-                style={{ borderRadius: 5 }}
-                colors={['rgba(48, 35, 174, 1)', 'rgba(83, 160, 253, 1)']}
-                start={[0, 0.5]}
-                end={[0.5, 1]}>
-                >
-                <TouchableOpacity>
-                  <View
-                    style={{
-                      padding: 15,
-                      borderRadius: 10,
-                      alignItems: 'center'
-                    }}>
-                    <Text style={{ letterSpacing: 1, color: 'white' }}>
-                      Sign Up
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </LinearGradient>
-            </View>
+            <GradientButton text="Sign Up" />
           </View>
         </LinearGradient>
       </ImageBackground>
