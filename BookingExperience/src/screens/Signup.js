@@ -5,7 +5,8 @@ import {
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity,
+  keyboardAvoidingView
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';

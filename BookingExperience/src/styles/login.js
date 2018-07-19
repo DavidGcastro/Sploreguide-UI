@@ -7,6 +7,7 @@ const styles = {
     flex: 1,
     alignContent: 'center',
     alignItems: 'center',
+   
     // backgroundColor: 'pink',
     justifyContent: 'space-between'
   },
