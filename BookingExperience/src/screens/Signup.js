@@ -6,7 +6,7 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
-  keyboardAvoidingView
+  KeyboardAvoidingView
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
@@ -32,90 +32,103 @@ const Signup = props => {
             <GoBack />
           </TouchableOpacity>
           <View style={styles.topChildLogin}>
-            {/*FIRST CHILD*/}
-            <View
-              style={{
-                alignItems: 'center',
+            <KeyboardAvoidingView
+              contentContainerStyle={{
+                justifyContent: 'center',
                 alignContent: 'center',
-                justifyContent: 'center'
-              }}>
-              <Image
-                resizeMode="contain"
-                style={styles.logo}
-                source={require('../assets/img/Logo-Icon-gradient.png')}
-              />
-              <Text style={styles.titleLogin}> EMBARK </Text>
-              <Text style={styles.subtitleLogin}>
-                EXPERIENCE ALL WALKS OF LIFE
-              </Text>
-            </View>
-            {/*SECOND CHILD*/}
-            <View style={styles.secondChild}>
-              <TouchableOpacity>
-                <Image
-                  style={styles.socialIcons}
-                  resizeMode="contain"
-                  source={require('../assets/img/facebook.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  style={styles.socialIcons}
-                  resizeMode="contain"
-                  source={require('../assets/img/twitter.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  style={styles.socialIcons}
-                  resizeMode="contain"
-                  source={require('../assets/img/googleplus.png')}
-                />
-              </TouchableOpacity>
-            </View>
-            {/*THIRD CHILD*/}
-            <Hr text="OR" />
-            {/*FOURTH CHILD*/}
-            <View style={{ width: '80%' }}>
-              <InlineFormGenerator
-                name="Name"
-                IconTag="Ionicons"
-                iconName="ios-person-outline"
-              />
+                alignItems: 'center'
+              }}
+              keyboardVerticalOffset={50}
+              behavior="position">
+              {/*FIRST CHILD*/}
               <View
                 style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-end'
+                  alignItems: 'center',
+                  alignContent: 'center',
+                  justifyContent: 'center'
+                }}>
+                <Image
+                  resizeMode="contain"
+                  style={styles.logo}
+                  source={require('../assets/img/Logo-Icon-gradient.png')}
+                />
+                <Text style={styles.titleLogin}> EMBARK </Text>
+                <Text style={styles.subtitleLogin}>
+                  EXPERIENCE ALL WALKS OF LIFE
+                </Text>
+              </View>
+              {/*SECOND CHILD*/}
+              <View style={styles.secondChild}>
+                <TouchableOpacity>
+                  <Image
+                    style={styles.socialIcons}
+                    resizeMode="contain"
+                    source={require('../assets/img/facebook.png')}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image
+                    style={styles.socialIcons}
+                    resizeMode="contain"
+                    source={require('../assets/img/twitter.png')}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image
+                    style={styles.socialIcons}
+                    resizeMode="contain"
+                    source={require('../assets/img/googleplus.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+              {/*THIRD CHILD*/}
+              <Hr text="OR" />
+              {/*FOURTH CHILD*/}
+
+              <View
+                style={{
+                  width: '80%'
                 }}>
                 <InlineFormGenerator
-                  name="Sex"
-                  type="inline"
+                  name="Name"
                   IconTag="Ionicons"
-                  iconName="ios-transgender"
+                  iconName="ios-person-outline"
+                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-end'
+                  }}>
+                  <InlineFormGenerator
+                    name="Sex"
+                    type="inline"
+                    IconTag="Ionicons"
+                    iconName="ios-transgender"
+                  />
+                  <InlineFormGenerator
+                    name="Age"
+                    type="inline"
+                    IconTag="FontAwesome"
+                    iconName="birthday-cake"
+                  />
+                </View>
+
+                <InlineFormGenerator
+                  name="Email"
+                  IconTag="Ionicons"
+                  iconName="ios-mail-open-outline"
                 />
                 <InlineFormGenerator
-                  name="Age"
-                  type="inline"
-                  IconTag="FontAwesome"
-                  iconName="birthday-cake"
+                  name="Password"
+                  IconTag="Ionicons"
+                  iconName="ios-lock-outline"
                 />
               </View>
 
-              <InlineFormGenerator
-                name="Email"
-                IconTag="Ionicons"
-                iconName="ios-mail-open-outline"
-              />
-              <InlineFormGenerator
-                name="Password"
-                IconTag="Ionicons"
-                iconName="ios-lock-outline"
-              />
-            </View>
-
-            {/*Last CHILD*/}
-            <GradientButton text="Sign Up" />
+              {/*Last CHILD*/}
+              <GradientButton text="Sign Up" />
+            </KeyboardAvoidingView>
           </View>
         </LinearGradient>
       </ImageBackground>

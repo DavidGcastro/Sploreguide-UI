@@ -5,7 +5,8 @@ import {
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity,
+  KeyboardAvoidingView
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
@@ -39,65 +40,74 @@ export default class Login extends React.Component {
               <GoBack />
             </TouchableOpacity>
             <View style={styles.topChildLogin}>
-              {/*FIRST CHILD*/}
-              <View
-                style={{
-                  alignItems: 'center',
-                  alignContent: 'center',
+              <KeyboardAvoidingView
+                contentContainerStyle={{
                   justifyContent: 'center',
-                  top: this.state.top
-                }}>
-                <Image
-                  resizeMode="contain"
-                  style={styles.logo}
-                  source={require('../assets/img/Logo-Icon-gradient.png')}
-                />
-                <Text style={styles.titleLogin}> EMBARK </Text>
-                <Text style={styles.subtitleLogin}>
-                  EXPERIENCE ALL WALKS OF LIFE
-                </Text>
-              </View>
-              {/*SECOND CHILD*/}
-              <View style={styles.secondChild}>
-                <TouchableOpacity>
+                  alignContent: 'center',
+                  alignItems: 'center'
+                }}
+                keyboardVerticalOffset={0}
+                behavior="position">
+                {/*FIRST CHILD*/}
+                <View
+                  style={{
+                    alignItems: 'center',
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                    top: this.state.top
+                  }}>
                   <Image
-                    style={styles.socialIcons}
                     resizeMode="contain"
-                    source={require('../assets/img/facebook.png')}
+                    style={styles.logo}
+                    source={require('../assets/img/Logo-Icon-gradient.png')}
                   />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    style={styles.socialIcons}
-                    resizeMode="contain"
-                    source={require('../assets/img/twitter.png')}
+                  <Text style={styles.titleLogin}> EMBARK </Text>
+                  <Text style={styles.subtitleLogin}>
+                    EXPERIENCE ALL WALKS OF LIFE
+                  </Text>
+                </View>
+                {/*SECOND CHILD*/}
+                <View style={styles.secondChild}>
+                  <TouchableOpacity>
+                    <Image
+                      style={styles.socialIcons}
+                      resizeMode="contain"
+                      source={require('../assets/img/facebook.png')}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image
+                      style={styles.socialIcons}
+                      resizeMode="contain"
+                      source={require('../assets/img/twitter.png')}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Image
+                      style={styles.socialIcons}
+                      resizeMode="contain"
+                      source={require('../assets/img/googleplus.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
+                {/*THIRD CHILD*/}
+                <Hr text="OR" />
+                {/*FOURTH CHILD*/}
+                <View style={{ width: '80%' }}>
+                  <InlineFromGenerator
+                    name="Email"
+                    IconTag="Ionicons"
+                    iconName="ios-mail-open-outline"
                   />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    style={styles.socialIcons}
-                    resizeMode="contain"
-                    source={require('../assets/img/googleplus.png')}
+                  <InlineFromGenerator
+                    name="Password"
+                    IconTag="Ionicons"
+                    iconName="ios-lock-outline"
                   />
-                </TouchableOpacity>
-              </View>
-              {/*THIRD CHILD*/}
-              <Hr text="OR" />
-              {/*FOURTH CHILD*/}
-              <View style={{ width: '80%' }}>
-                <InlineFromGenerator
-                  name="Email"
-                  IconTag="Ionicons"
-                  iconName="ios-mail-open-outline"
-                />
-                <InlineFromGenerator
-                  name="Password"
-                  IconTag="Ionicons"
-                  iconName="ios-lock-outline"
-                />
-              </View>
-              {/*Last CHILD*/}
-              <GradientButton text="Login" />
+                </View>
+                {/*Last CHILD*/}
+                <GradientButton text="Login" />
+              </KeyboardAvoidingView>
             </View>
           </LinearGradient>
         </ImageBackground>

@@ -7,9 +7,7 @@ const styles = {
     flex: 1,
     alignContent: 'center',
     alignItems: 'center',
-   
-    // backgroundColor: 'pink',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
   },
   titleLogin: {
     textAlign: 'center',
@@ -21,7 +19,6 @@ const styles = {
   },
   subtitleLogin: {
     color: 'rgba(74, 74, 74, 1)',
-
     fontSize: 12,
     letterSpacing: 3,
     paddingBottom: 20
