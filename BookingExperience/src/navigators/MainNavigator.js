@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Signup from '../screens/Signup';
+import Search from '../screens/Search';
 
 const MainNavigator = createStackNavigator(
   {
@@ -22,9 +23,15 @@ const MainNavigator = createStackNavigator(
       navigationOptions: {
         header: null
       }
+    },
+    Search: {
+      screen: Search,
+      navigationOptions: {
+        header: null
+      }
     }
   },
-  { initialRouteName: 'Home' }
+  { initialRouteName: 'Search' }
 );
 
 export default MainNavigator;
