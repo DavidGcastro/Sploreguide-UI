@@ -12,10 +12,7 @@ export default class SearchInput extends Component {
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'center',
-          alignContent: 'center',
-          alignItems: 'flex-end',
-          width: width - 60
+          alignItems: 'flex-end'
         }}>
         <Image
           resizeMode="contain"

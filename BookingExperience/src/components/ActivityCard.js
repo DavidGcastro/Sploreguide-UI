@@ -1,5 +1,6 @@
-import React from 'react';
 import { View, Text } from 'react-native';
+import React from 'react';
+
 import {
   EvilIcons,
   Feather,
@@ -9,17 +10,16 @@ import {
   SimpleLineIcons
 } from '@expo/vector-icons';
 
-const InlineIcon = props => {
+const ActivityCard = props => {
   //Dynamically generates Icons
   let { IconTag } = props;
   let Component = '';
   if (IconTag === 'Feather') {
     Component = (
       <Feather
-        size={18}
+        size={25}
         name={props.iconName}
         style={{
-          paddingRight: 3,
           color: 'rgba(132, 146, 166, 1)'
         }}
       />
@@ -27,50 +27,71 @@ const InlineIcon = props => {
   } else if (IconTag === 'MaterialCommunityIcons') {
     Component = (
       <MaterialCommunityIcons
-        size={18}
+        size={25}
         name={props.iconName}
-        style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
+        style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
     );
   } else if (IconTag === 'Ionicons') {
     Component = (
       <Ionicons
-        size={18}
+        size={25}
         name={props.iconName}
-        style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
+        style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
     );
   } else if (IconTag === 'FontAwesome') {
     Component = (
       <FontAwesome
-        size={18}
+        size={25}
         name={props.iconName}
-        style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
+        style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
     );
   } else if (IconTag === 'SimpleLineIcons') {
     Component = (
       <SimpleLineIcons
-        size={18}
+        size={25}
         name={props.iconName}
-        style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
+        style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
     );
   } else if (IconTag === 'EvilIcons') {
     Component = (
       <EvilIcons
-        size={18}
+        size={25}
         name={props.iconName}
-        style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
+        style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
     );
   }
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginBottom: 10 }}>
+    <View
+      style={{
+        borderRadius: 5,
+        borderColor: 'rgba(132, 146, 166, .2)',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 1,
+        height: 70,
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        backgroundColor: 'white',
+        shadowOffset: { width: 3, height: 3},
+        shadowColor: 'grey',
+        shadowOpacity: 0.5,
+        margin: 3
+      }}>
       {Component}
-      <Text style={{color: 'rgba(132, 146, 166, 1)', fontSize: 13}}> {props.label} </Text>
+      <Text
+        style={{
+          color: 'rgba(132, 146, 166, 1)',
+          fontSize: 15
+        }}>
+        {props.label}
+      </Text>
     </View>
   );
 };
 
-export default InlineIcon;
+export default ActivityCard;

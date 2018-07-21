@@ -6,9 +6,10 @@ const GradientButton = props => {
   return (
     <View
       style={{
-        flex: 1,
+        // flex: 1,
         justifyContent: 'space-around',
-        width: '80%'
+        //ADJUST
+        width: '90%'
       }}>
       <LinearGradient
         style={{ borderRadius: 5 }}
