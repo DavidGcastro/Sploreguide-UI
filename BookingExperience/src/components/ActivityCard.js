@@ -70,12 +70,12 @@ const ActivityCard = props => {
       style={{
         borderRadius: 5,
         borderColor: 'rgba(132, 146, 166, .2)',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
         height: 70,
-        paddingHorizontal: 20,
-        paddingVertical: 15,
+        width: 80,
+ 
         backgroundColor: 'white',
         shadowOffset: { width: 3, height: 3},
         shadowColor: 'grey',
@@ -86,7 +86,7 @@ const ActivityCard = props => {
       <Text
         style={{
           color: 'rgba(132, 146, 166, 1)',
-          fontSize: 15
+          fontSize: 12
         }}>
         {props.label}
       </Text>

@@ -7,7 +7,7 @@ import CalendarStrip from 'react-native-calendar-strip';
 import GradientButton from '../components/GradientButton';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
-let { width, height } = Dimensions.get('window');
+let { width } = Dimensions.get('window');
 
 export default class Search extends Component {
   constructor() {
@@ -42,8 +42,9 @@ export default class Search extends Component {
             style={{
               paddingLeft: 10,
               fontSize: 26,
+              fontWeight: 'bold',
               color: 'rgba(48, 55, 64, 1)',
-              fontWeight: '500',
+
               width: '100%'
             }}
           />
@@ -80,28 +81,19 @@ export default class Search extends Component {
             }}>
             <ActivityCard
               IconTag="Ionicons"
-              iconName="ios-color-palette-outline"
-              label="Arts"
+              iconName="ios-hammer-outline"
+              label="Workshops"
             />
             <ActivityCard
               IconTag="Ionicons"
               iconName="ios-color-palette-outline"
               label="Arts"
             />
+
             <ActivityCard
-              IconTag="Ionicons"
-              iconName="ios-color-palette-outline"
-              label="Arts"
-            />
-            <ActivityCard
-              IconTag="Ionicons"
-              iconName="ios-color-palette-outline"
-              label="Arts"
-            />
-            <ActivityCard
-              IconTag="Ionicons"
-              iconName="ios-color-palette-outline"
-              label="Arts"
+              IconTag="MaterialCommunityIcons"
+              iconName="swim"
+              label="Surfing"
             />
             <ActivityCard
               IconTag="Ionicons"
@@ -131,8 +123,8 @@ export default class Search extends Component {
               letterSpacing: 2,
               fontSize: 13
             }}
-            highlightDateNameStyle={{}}
-            highlightDateNumberStyle={{}}
+            highlightDateNameStyle={{ color: 'rgba(48, 35, 174, 1)' }}
+            highlightDateNumberStyle={{ color: 'rgba(48, 35, 174, 1)' }}
             styleWeekend={false}
             innerStyle={{
               width: width - 30,
@@ -150,8 +142,12 @@ export default class Search extends Component {
             iconName="money"
             label="Price Range"
           />
+
           <MultiSlider
             values={[0, 100]}
+            selectedStyle={{
+              backgroundColor: 'rgba(48, 35, 174, 1)'
+            }}
             sliderLength={width - 60}
             onValuesChange={this.multiSliderValuesChange}
             min={0}
@@ -159,6 +155,10 @@ export default class Search extends Component {
             step={1}
             allowOverlap
             snapped
+            trackStyle={{
+              height: 3,
+              backgroundColor: 'rgba(83, 160, 253, 1)'
+            }}
           />
         </View>
         <GradientButton text="SHOW RESULTS" />
