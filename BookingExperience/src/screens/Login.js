@@ -106,7 +106,14 @@ export default class Login extends React.Component {
                   />
                 </View>
                 {/*Last CHILD*/}
-                <GradientButton text="Login" />
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    width: '80%'
+                  }}>
+                  <GradientButton text="Login" />
+                </View>
               </KeyboardAvoidingView>
             </View>
           </LinearGradient>

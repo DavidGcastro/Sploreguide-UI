@@ -8,43 +8,59 @@
 import moment from 'moment';
 
 // Hardcode days for the sake of simplicity
-const days = [ 'Today', 'Tomorrow', moment().add(2, 'days').format('ddd, MMM D') ];
+const days = [
+  'Today',
+  'Tomorrow',
+  moment()
+    .add(2, 'days')
+    .format('ddd, MMM D')
+];
 // Same for times
-const times = [ '9:00 AM', '11:10 AM', '12:00 PM', '1:50 PM', '4:30 PM', '6:00 PM', '7:10 PM', '9:45 PM' ];
+const times = [
+  '9:00 AM',
+  '11:10 AM',
+  '12:00 PM',
+  '1:50 PM',
+  '4:30 PM',
+  '6:00 PM',
+  '7:10 PM',
+  '9:45 PM'
+];
 
 const price = {
-  single  : 10,
-  group   : 8
-}
+  single: 10,
+  group: 8
+};
 const location = {
-  borough : 'brooklyn',
-  city    : 'new york',
-  country : 'u s a'
-}
+  borough: 'brooklyn',
+  city: 'new york',
+  country: 'u s a'
+};
 const duration = 4; // in hours by default
 const language = ['english'];
 const activity_type = 'nightlife';
 const reviews = [
-      {
-        stars : 4,
-        review : 'text'
-      }, 
-      {
-        stars : 4,
-        review : 'text'
-      }, 
-      {
-        stars : 4,
-        review : 'text'
-      }, 
-      {
-        stars : 4,
-        review : 'text'
-      }
-    ];
+  {
+    stars: 4,
+    review: 'text'
+  },
+  {
+    stars: 4,
+    review: 'text'
+  },
+  {
+    stars: 4,
+    review: 'text'
+  },
+  {
+    stars: 4,
+    review: 'text'
+  }
+];
 const included = ['free shots', 'food', 'entry'];
-const overview = "\"Forgot all the common touristy sites. I'm going to show you how we really party \
-                  in New York City. They dont call it \"the city that never sleeps\" for nothing.\"";
+const overview =
+  '"Forgot all the common touristy sites. I\'m going to show you how we really party \
+                  in New York City. They dont call it "the city that never sleeps" for nothing."';
 const images = [
   'https://s-media-cache-ak0.pinimg.com/originals/40/4f/83/404f83e93175630e77bc29b3fe727cbe.jpg',
   'https://s-media-cache-ak0.pinimg.com/originals/8d/1a/da/8d1adab145a2d606c85e339873b9bb0e.jpg',
@@ -57,7 +73,7 @@ const color = 'red';
 
 export const experiences = [
   {
-    title: 'Discover the City\'s Party Scene',
+    title: "Discover the City's Party Scene",
     poster: 'https://i.imgur.com/po7UezG.jpg',
     genre: 'Drama/Romance',
     days,
@@ -361,5 +377,5 @@ export const experiences = [
     overview,
     images,
     color
-  },
+  }
 ];

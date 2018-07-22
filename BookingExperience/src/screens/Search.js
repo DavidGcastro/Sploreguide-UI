@@ -6,13 +6,17 @@ import Location from '../components/Location';
 import CalendarStrip from 'react-native-calendar-strip';
 import GradientButton from '../components/GradientButton';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-
 let { width } = Dimensions.get('window');
 
 export default class Search extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      name: '',
+      activity: '',
+      date: '',
+      priceRange: ''
+    };
   }
   render() {
     return (
@@ -23,7 +27,7 @@ export default class Search extends Component {
           alignContent: 'center',
           alignItems: 'center',
           paddingTop: 30,
-          justifyContent: 'space-evenly'
+          justifyContent: 'space-around'
         }}>
         {/*SEARCH*/}
         <View
@@ -149,7 +153,6 @@ export default class Search extends Component {
               backgroundColor: 'rgba(48, 35, 174, 1)'
             }}
             sliderLength={width - 60}
-            onValuesChange={this.multiSliderValuesChange}
             min={0}
             max={10}
             step={1}
@@ -161,7 +164,13 @@ export default class Search extends Component {
             }}
           />
         </View>
-        <GradientButton text="SHOW RESULTS" />
+        <View
+          style={{
+            justifyContent: 'center',
+            width: '90%'
+          }}>
+          <GradientButton text="SHOW RESULTS" />
+        </View>
       </View>
     );
   }
