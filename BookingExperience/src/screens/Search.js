@@ -23,18 +23,19 @@ export default class Search extends Component {
       <View
         style={{
           flex: 1,
+          paddingVertical: 20,
           backgroundColor: 'rgba(246, 247, 249, 1)',
           alignContent: 'center',
           alignItems: 'center',
-          paddingTop: 30,
-          justifyContent: 'space-around'
+          justifyContent: 'space-evenly'
         }}>
         {/*SEARCH*/}
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'flex-end',
-            width: '90%'
+            width: '90%',
+            paddingBottom: 10
           }}>
           <Image
             resizeMode="contain"
@@ -56,7 +57,8 @@ export default class Search extends Component {
         {/*LOCATIONS*/}
         <View
           style={{
-            width: '90%'
+            width: '90%',
+            paddingBottom: 10
           }}>
           <InlineIcon
             IconTag="EvilIcons"
@@ -71,7 +73,8 @@ export default class Search extends Component {
         {/*Activities*/}
         <View
           style={{
-            width: '90%'
+            width: '90%',
+            paddingBottom: 10
           }}>
           <InlineIcon
             IconTag="FontAwesome"
@@ -111,7 +114,7 @@ export default class Search extends Component {
             />
           </ScrollView>
         </View>
-        <View style={{}}>
+        <View style={{ paddingBottom: 10 }}>
           <InlineIcon IconTag="EvilIcons" iconName="clock" label="Dates" />
           <CalendarStrip
             dateNameStyle={{

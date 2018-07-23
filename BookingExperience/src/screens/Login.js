@@ -101,6 +101,7 @@ export default class Login extends React.Component {
                   />
                   <InlineFromGenerator
                     name="Password"
+                    type="login"
                     IconTag="Ionicons"
                     iconName="ios-lock-outline"
                   />

@@ -1,5 +1,11 @@
 import React from 'react';
-import { Text, View, TextInput, Dimensions } from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  Dimensions,
+  TouchableOpacity
+} from 'react-native';
 import {
   Feather,
   MaterialCommunityIcons,
@@ -11,6 +17,18 @@ let { width } = Dimensions.get('screen');
 const InlineFromGenerator = props => {
   let IconTag = props.IconTag;
   let Component = '';
+  let type = props.type;
+
+  let passwordReset =
+    type === 'login' ? (
+      <TouchableOpacity>
+        <Text style={{ fontSize: 12, color: 'rgba(132,146,166,1)' }}>
+          Forgot?
+        </Text>
+      </TouchableOpacity>
+    ) : (
+      ''
+    );
 
   //Dynamically generates Icons
   if (IconTag === 'Feather') {
@@ -71,13 +89,12 @@ const InlineFromGenerator = props => {
       <View
         style={{
           flexDirection: 'row',
-          alignContent: 'flex-start',
+          justifyContent: 'center',
           alignItems: 'center',
           borderBottomWidth: 1,
           paddingBottom: 5,
           borderBottomColor: 'rgba(237, 237, 237, 1)'
         }}>
-        {Component}
         {props.type === 'inline' ? (
           <TextInput
             placeholder={`Type your ${props.name}`}
@@ -88,14 +105,25 @@ const InlineFromGenerator = props => {
             }}
           />
         ) : (
-          <TextInput
-            placeholder={`Type your ${props.name}`}
+          <View
             style={{
-              fontSize: 13,
-              height: '100%',
-              width: '100%'
-            }}
-          />
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '100%',
+              alignItems: 'center'
+            }}>
+            <View style={{ flexDirection: 'row' }}>
+              {Component}
+              <TextInput
+                placeholder={`Type your ${props.name}`}
+                style={{
+                  fontSize: 13
+                }}
+              />
+            </View>
+            {passwordReset}
+
+          </View>
         )}
       </View>
     </View>
