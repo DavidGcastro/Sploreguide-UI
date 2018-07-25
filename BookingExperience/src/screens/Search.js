@@ -6,6 +6,7 @@ import Location from '../components/Location';
 import CalendarStrip from 'react-native-calendar-strip';
 import GradientButton from '../components/GradientButton';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import styles from '../styles/search/';
 let { width } = Dimensions.get('window');
 
 export default class Search extends Component {
@@ -20,46 +21,21 @@ export default class Search extends Component {
   }
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          paddingVertical: 20,
-          backgroundColor: 'rgba(246, 247, 249, 1)',
-          alignContent: 'center',
-          alignItems: 'center',
-          justifyContent: 'space-evenly'
-        }}>
+      <View style={styles.parent}>
         {/*SEARCH*/}
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-            width: '90%',
-            paddingBottom: 10
-          }}>
+        <View style={styles.firstChild}>
           <Image
             resizeMode="contain"
-            style={{ width: 25, height: 30 }}
+            style={styles.searchImage}
             source={require('../assets/img/Search.png')}
           />
           <TextInput
             placeholder="Search by City or Activity"
-            style={{
-              paddingLeft: 10,
-              fontSize: 26,
-              fontWeight: 'bold',
-              color: 'rgba(48, 55, 64, 1)',
-
-              width: '100%'
-            }}
+            style={styles.input}
           />
         </View>
         {/*LOCATIONS*/}
-        <View
-          style={{
-            width: '90%',
-            paddingBottom: 10
-          }}>
+        <View style={styles.divider}>
           <InlineIcon
             IconTag="EvilIcons"
             iconName="location"
@@ -71,11 +47,7 @@ export default class Search extends Component {
           <Location location="Brooklyn, New York" />
         </View>
         {/*Activities*/}
-        <View
-          style={{
-            width: '90%',
-            paddingBottom: 10
-          }}>
+        <View style={styles.divider}>
           <InlineIcon
             IconTag="FontAwesome"
             iconName="bolt"
@@ -114,7 +86,7 @@ export default class Search extends Component {
             />
           </ScrollView>
         </View>
-        <View style={{ paddingBottom: 10 }}>
+        <View style={styles.divider}>
           <InlineIcon IconTag="EvilIcons" iconName="clock" label="Dates" />
           <CalendarStrip
             dateNameStyle={{
@@ -133,17 +105,11 @@ export default class Search extends Component {
             highlightDateNameStyle={{ color: 'rgba(48, 35, 174, 1)' }}
             highlightDateNumberStyle={{ color: 'rgba(48, 35, 174, 1)' }}
             styleWeekend={false}
-            innerStyle={{
-              width: width - 30,
-              borderWidth: 1,
-              borderRadius: 5,
-              borderColor: 'white',
-              backgroundColor: 'white'
-            }}
+            innerStyle={styles.calenderStyle}
           />
         </View>
 
-        <View style={{}}>
+        <View>
           <InlineIcon
             IconTag="FontAwesome"
             iconName="money"
@@ -167,11 +133,7 @@ export default class Search extends Component {
             }}
           />
         </View>
-        <View
-          style={{
-            justifyContent: 'center',
-            width: '90%'
-          }}>
+        <View style={styles.divider}>
           <GradientButton text="SHOW RESULTS" />
         </View>
       </View>
