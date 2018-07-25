@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-
+import styles from '../styles/activityCard';
 import {
   EvilIcons,
   Feather,
@@ -66,22 +66,7 @@ const ActivityCard = props => {
     );
   }
   return (
-    <View
-      style={{
-        borderRadius: 5,
-        borderColor: 'rgba(132, 146, 166, .2)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 1,
-        height: 70,
-        width: 80,
- 
-        backgroundColor: 'white',
-        shadowOffset: { width: 3, height: 3},
-        shadowColor: 'grey',
-        shadowOpacity: 0.5,
-        margin: 3
-      }}>
+    <View style={styles}>
       {Component}
       <Text
         style={{

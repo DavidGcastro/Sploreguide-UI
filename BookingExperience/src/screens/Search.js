@@ -6,6 +6,7 @@ import Location from '../components/Location';
 import CalendarStrip from 'react-native-calendar-strip';
 import GradientButton from '../components/GradientButton';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import LinearGradientBorder from '../components/LinearGradientBorder';
 import styles from '../styles/search/';
 let { width } = Dimensions.get('window');
 
@@ -41,7 +42,9 @@ export default class Search extends Component {
             iconName="location"
             label="Location"
           />
-          <Location location="New York, New York" />
+          <LinearGradientBorder>
+            <Location location="New York, New York" />
+          </LinearGradientBorder>
           <Location location="Los Angeles, California" />
           <Location location="New Orleans, Louisiana" />
           <Location location="Brooklyn, New York" />
@@ -58,11 +61,13 @@ export default class Search extends Component {
             contentContainerStyle={{
               flexDirection: 'row'
             }}>
-            <ActivityCard
-              IconTag="Ionicons"
-              iconName="ios-hammer-outline"
-              label="Workshops"
-            />
+            <LinearGradientBorder>
+              <ActivityCard
+                IconTag="Ionicons"
+                iconName="ios-hammer-outline"
+                label="Workshops"
+              />
+            </LinearGradientBorder>
             <ActivityCard
               IconTag="Ionicons"
               iconName="ios-color-palette-outline"
