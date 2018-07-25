@@ -7,6 +7,9 @@ const defaultStyles = {
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center'
+  },
+  greyText: {
+    color: 'rgba(132, 146, 166, 1)'
   }
 };
 
