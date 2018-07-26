@@ -2,7 +2,7 @@
 * @Author: Abhi
 * @Date:   2018-07-14 15:14:45
 * @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-15 22:55:04
+* @Last Modified time: 2018-07-26 13:14:03
 */
 
 /*
@@ -189,7 +189,7 @@ export default class Pagination extends Component {
 			} = this.props;
     const { imageArray, barArray } = this.getPaginationElements(experience);
     return (
-    	<Animated.View style={[styles.headerBackground, this.animateHeader, { height: max-150 }]}>;
+    	<Animated.View style={[styles.headerBackground, this.animateHeader, { height: max }]}>;
     			<View style={styles.container}>
 		        <ScrollView
 		          horizontal
@@ -207,7 +207,7 @@ export default class Pagination extends Component {
 
 
 		      	{/* Column flex doesnt work when the view is 'absolutely' positioned idk y so used height percentages instead*/}
-		        <View style={{flex: 1, flexDirection: 'column', zIndex:2, position:'absolute'}}>
+		        <View style={{flex: 1, flexDirection: 'column', position:'absolute',  zIndex: 2}}>
 			        
 			        {/* Top Bar */}
 			        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', backgroundColor: 'transparent', width:width, marginTop: isIphoneX() ? 55 : 30}}> {/* marginTop should be 55 for iPhone X */}
@@ -225,7 +225,7 @@ export default class Pagination extends Component {
 			        </View>
 
 			        {/* Share and Heart */}
-			        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end', width:width, height: height/2.0675}}>  {/*have to figure out the correct height/2.0675*/}
+			        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end', width:width, height: height/2.0675}}>  {/*have to figure out the correct height/2.0675 for iPhoneX and /2.2 for iPhone8*/}
 			        	<View style={{marginRight: 22}}>
 	                <Ionicons name={'ios-share-outline'} size={26} color={'white'} />
 	              </View>

@@ -2,7 +2,7 @@
 * @Author: Abhi
 * @Date:   2018-07-09 14:15:21
 * @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-15 22:57:32
+* @Last Modified time: 2018-07-26 12:33:40
 */
 
 import React, { Component } from 'react';
@@ -108,7 +108,7 @@ export  default class Experience extends Component {
 			            <ItemInScroll numberOfItem={1} />
 
 			        </Animated.ScrollView> 
-	       			<Pagination experience={experience} animationRange={this.animationRange} max={height} min={height/2} onBackPress={this.props.onBackPress}/>
+	       			<Pagination experience={experience} animationRange={this.animationRange} max={height/1.25} min={height/3.35} onBackPress={this.props.onBackPress}/>
        			</View>
 
        			<View style={{flex: .075}}>
