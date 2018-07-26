@@ -2,7 +2,7 @@
 * @Author: Abhi
 * @Date:   2018-07-09 14:15:21
 * @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-15 03:32:21
+* @Last Modified time: 2018-07-15 22:57:32
 */
 
 import React, { Component } from 'react';
@@ -54,7 +54,7 @@ export  default class Experience extends Component {
 	};
 
 	static defaultProps = {
-	    scrollRangeForAnimation	:	200,
+	    scrollRangeForAnimation	:	height,
 	    _scrollView				:	null,
 	};
 
@@ -104,8 +104,8 @@ export  default class Experience extends Component {
 			            >
 
 			        	{/* Map each experience Detail to an Item in Scroll */}
-			            <ItemInScroll numberOfItem={1} />
 			            <ItemInScroll numberOfItem={2} />
+			            <ItemInScroll numberOfItem={1} />
 
 			        </Animated.ScrollView> 
 	       			<Pagination experience={experience} animationRange={this.animationRange} max={height} min={height/2} onBackPress={this.props.onBackPress}/>

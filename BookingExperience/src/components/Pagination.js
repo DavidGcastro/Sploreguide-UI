@@ -2,7 +2,7 @@
 * @Author: Abhi
 * @Date:   2018-07-14 15:14:45
 * @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-15 14:17:51
+* @Last Modified time: 2018-07-15 22:55:04
 */
 
 /*
@@ -20,7 +20,8 @@ import {
 	Image, 
 	Dimensions, 
 	ScrollView,
-	Text
+	Text,
+	ImageBackground
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -32,8 +33,9 @@ import Reviews from './subheadings/Reviews';
 import Duration from './subheadings/Duration';
 import Language from './subheadings/Language';
 
-import { isIphoneX } from 'react-native-iphone-x-helper'
-import { Ionicons } from '@expo/vector-icons'
+import { isIphoneX } from 'react-native-iphone-x-helper';
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo';
 
 const { width, height } = Dimensions.get('window');
 // design tip - should cap images to 10
@@ -92,21 +94,21 @@ export default class Pagination extends Component {
 				overview,
 				images
 			} = experience;
-  	const numItems = images.length;
+		const _images = [poster, ...images];
+  	const numItems = _images.length;
   	const FIXED_BAR_WIDTH = width-9*BAR_SPACE-(numItems > THRESHOLD ? (numItems-THRESHOLD)*BAR_SPACE : 0);
   	const itemWidth = (FIXED_BAR_WIDTH / numItems);
 
     let imageArray = []
     let barArray = []
 
-		images.forEach((image, i) => {
-      console.log(image, i)
+
+		_images.forEach((image, i) => {
       const thisImage = (
-        <Image
-          key={`image${i}`}
-          source={{uri: image}}
-          style={{ width: width }}
-        />
+	        <ImageBackground key={`image${i}`} source={{uri: image}} style={{ width: width }}>
+	        	<LinearGradient colors={['transparent', 'rgba(0,0,0,1.0)']} start={[0.5,0.2]} end={[0.5, 1.0]} style={{width: width, flex:1}}>
+						</LinearGradient>
+					</ImageBackground>	
       )
       imageArray.push(thisImage)
 

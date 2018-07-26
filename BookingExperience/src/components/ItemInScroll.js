@@ -2,7 +2,7 @@
 * @Author: Abhi
 * @Date:   2018-07-09 00:03:04
 * @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-14 15:08:24
+* @Last Modified time: 2018-07-15 22:50:49
 */
 
 import React from 'react';
@@ -13,7 +13,7 @@ const { width, height } = Dimensions.get('window');
 
 const calcColor = (numberOfItem) => {
     if (numberOfItem%2 === 0) {
-        return '#b1b1c1';
+        return 'rgba(0,0,0,1.0)';
     }
     else {
         return '#d1d1d8';
