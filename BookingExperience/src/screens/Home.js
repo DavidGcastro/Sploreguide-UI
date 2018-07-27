@@ -69,4 +69,5 @@ const handleSignup = props => {
   navigate('Signup');
 };
 
+
 export default Home;

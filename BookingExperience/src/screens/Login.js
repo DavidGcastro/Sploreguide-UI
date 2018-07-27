@@ -39,7 +39,6 @@ export default class Login extends React.Component {
             <View style={styles.topChildLogin}>
               <KeyboardAvoidingView
                 contentContainerStyle={{
-                  justifyContent: 'space-between',
                   alignContent: 'center',
                   alignItems: 'center'
                 }}
@@ -50,8 +49,7 @@ export default class Login extends React.Component {
                   style={{
                     alignItems: 'center',
                     alignContent: 'center',
-                    justifyContent: 'center',
-                    top: this.state.top
+                    justifyContent: 'center'
                   }}>
                   <Image
                     resizeMode="contain"
