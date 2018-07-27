@@ -17,7 +17,14 @@ const GradientButton = props => {
             borderRadius: 10,
             alignItems: 'center'
           }}>
-          <Text style={{ letterSpacing: 2, color: 'white' }}>{props.text}</Text>
+          <Text
+            style={{
+              letterSpacing: 2,
+              color: 'white',
+              fontFamily: 'SF-UI-Text-Regular'
+            }}>
+            {props.text}
+          </Text>
         </View>
       </TouchableOpacity>
     </LinearGradient>

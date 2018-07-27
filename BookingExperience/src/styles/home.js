@@ -31,7 +31,9 @@ const styles = {
   title: {
     textAlign: 'center',
     color: 'white',
-    letterSpacing: 30,
+    letterSpacing: 10,
+    fontFamily: 'SF-UI-Text-Regular',
+
     fontSize: 30,
     fontWeight: '500'
   },

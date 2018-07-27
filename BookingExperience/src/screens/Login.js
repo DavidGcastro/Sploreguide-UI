@@ -11,7 +11,6 @@ import {
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
 import GradientButton from '../components/GradientButton';
-import { Feather } from '@expo/vector-icons';
 import styles from '../styles/login';
 import InlineFromGenerator from '../components/InlineFormGenerator';
 import GoBack from '../components/GoBack';
@@ -21,7 +20,6 @@ export default class Login extends React.Component {
     super();
     this.state = {};
   }
-
   render() {
     return (
       <SafeAreaView>
@@ -34,7 +32,6 @@ export default class Login extends React.Component {
             colors={['rgba(255, 255, 255, .7)', 'rgba(255, 255, 255, 1)']}
             locations={[0, 0.5]}>
             {/* OUTER*/}
-
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('Home')}>
               <GoBack />
@@ -42,7 +39,7 @@ export default class Login extends React.Component {
             <View style={styles.topChildLogin}>
               <KeyboardAvoidingView
                 contentContainerStyle={{
-                  justifyContent: 'center',
+                  justifyContent: 'space-between',
                   alignContent: 'center',
                   alignItems: 'center'
                 }}
@@ -61,7 +58,7 @@ export default class Login extends React.Component {
                     style={styles.logo}
                     source={require('../assets/img/Logo-Icon-gradient.png')}
                   />
-                  <Text style={styles.titleLogin}> EMBARK </Text>
+                  <Text style={styles.titleLogin}> SploreGuide</Text>
                   <Text style={styles.subtitleLogin}>
                     EXPERIENCE ALL WALKS OF LIFE
                   </Text>
@@ -109,9 +106,9 @@ export default class Login extends React.Component {
                 {/*Last CHILD*/}
                 <View
                   style={{
-                    flex: 1,
+                    height: 300,
                     justifyContent: 'center',
-                    width: '80%'
+                    width: '90%'
                   }}>
                   <GradientButton text="Login" />
                 </View>

@@ -52,7 +52,7 @@ const Signup = props => {
                   style={styles.logo}
                   source={require('../assets/img/Logo-Icon-gradient.png')}
                 />
-                <Text style={styles.titleLogin}> EMBARK </Text>
+                <Text style={styles.titleLogin}> SploreGuide </Text>
                 <Text style={styles.subtitleLogin}>
                   EXPERIENCE ALL WALKS OF LIFE
                 </Text>

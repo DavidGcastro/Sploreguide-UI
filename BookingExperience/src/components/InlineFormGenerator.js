@@ -99,6 +99,7 @@ const InlineFromGenerator = props => {
           <TextInput
             placeholder={`Type your ${props.name}`}
             style={{
+              fontFamily: 'SF-UI-Text-Regular',
               fontSize: 13,
               height: '100%',
               width: width / 2 - 80
@@ -122,7 +123,6 @@ const InlineFromGenerator = props => {
               />
             </View>
             {passwordReset}
-
           </View>
         )}
       </View>

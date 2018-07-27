@@ -7,22 +7,26 @@ const styles = {
     flex: 1,
     alignContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-between'
   },
   titleLogin: {
     textAlign: 'center',
     color: 'black',
-    letterSpacing: 30,
+    letterSpacing: 10,
+    fontFamily: 'SF-UI-Text-Regular',
+
     fontSize: 30,
-    fontWeight: '500',
-    paddingBottom: 10
+    fontWeight: '500'
   },
   subtitleLogin: {
+    fontFamily: 'SF-UI-Text-Regular',
     color: 'rgba(74, 74, 74, 1)',
+    paddingLeft: 12,
+    paddingTop: 10,
     fontSize: 12,
-    letterSpacing: 3,
-    paddingBottom: 20
+    letterSpacing: 3
   },
+
   secondChild: {
     width: '60%',
     flexDirection: 'row',

@@ -34,7 +34,7 @@ const Home = props => {
               style={styles.logo}
               source={require('../assets/img/Logo-Icon.png')}
             />
-            <Text style={styles.title}> EMBARK </Text>
+            <Text style={styles.title}> SploreGuide </Text>
             <Text style={styles.subtitle}> EXPERIENCE ALL WALKS OF LIFE</Text>
           </View>
           {/* bottom child*/}
