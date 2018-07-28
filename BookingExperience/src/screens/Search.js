@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Image, TextInput, Dimensions } from 'react-native';
+import {
+  View,
+  ScrollView,
+  Image,
+  TextInput,
+  Dimensions,
+  Text
+} from 'react-native';
 import InlineIcon from '../components/InlineIcon';
 import ActivityCard from '../components/ActivityCard';
 import Location from '../components/Location';
@@ -8,22 +15,71 @@ import GradientButton from '../components/GradientButton';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import LinearGradientBorder from '../components/LinearGradientBorder';
 import styles from '../styles/search/';
+import defaultStyles from '../styles/styles';
+const data = [
+  {
+    location: 'New York, New York',
+    activity: 'tiger',
+    date: 'July 29, 2018',
+    price: 100
+  },
+  {
+    location: 'Queens, New York',
+    activity: 'Art',
+    date: 'July 29, 2018',
+    price: 100
+  },
+  {
+    location: 'Bronx, New York',
+    activity: 'Dog',
+    date: 'July 29, 2018',
+    price: 100
+  },
+  {
+    location: 'Los Angeles, California',
+    activity: 'cat',
+    date: 'July 29, 2018',
+    price: 100
+  },
+  {
+    location: 'Long Island, New York',
+    activity: 'bird',
+    date: 'July 29, 2018',
+    price: 100
+  },
+  {
+    location: 'Austin, Texas',
+    activity: 'Art',
+    date: 'July 29, 2018',
+    price: 100
+  }
+];
+
 let { width } = Dimensions.get('window');
 
 export default class Search extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
+      location: 'New York',
       activity: '',
       date: '',
       priceRange: ''
     };
   }
+
   render() {
+    let locations = data
+      .filter(x => {
+        return x.location
+          .toLowerCase()
+          .includes(this.state.location.toLowerCase());
+      })
+      .slice(0, 4);
     return (
       <View style={styles.parent}>
         {/*SEARCH*/}
+
         <View style={styles.firstChild}>
           <Image
             resizeMode="contain"
@@ -31,8 +87,10 @@ export default class Search extends Component {
             source={require('../assets/img/Search.png')}
           />
           <TextInput
+            onChangeText={value => this.setState({ location: value })}
             placeholder="Search by City or Activity"
             style={styles.input}
+            value={this.state.location}
           />
         </View>
         {/*LOCATIONS*/}
@@ -42,12 +100,15 @@ export default class Search extends Component {
             iconName="location"
             label="Location"
           />
-          <LinearGradientBorder>
-            <Location location="New York, New York" />
-          </LinearGradientBorder>
-          <Location location="Los Angeles, California" />
-          <Location location="New Orleans, Louisiana" />
-          <Location location="Brooklyn, New York" />
+          {locations.length > 0 ? (
+            locations.map((x, y) => {
+              return <Location key={x + y} location={x.location} />;
+            })
+          ) : (
+            <Text style={defaultStyles.informativeText}>
+              No Locations or Activities Found.
+            </Text>
+          )}
         </View>
         {/*Activities*/}
         <View style={styles.divider}>
@@ -61,34 +122,26 @@ export default class Search extends Component {
             contentContainerStyle={{
               flexDirection: 'row'
             }}>
-            <LinearGradientBorder>
-              <ActivityCard
-                IconTag="Ionicons"
-                iconName="ios-hammer-outline"
-                label="Workshops"
-              />
-            </LinearGradientBorder>
-            <ActivityCard
-              IconTag="Ionicons"
-              iconName="ios-color-palette-outline"
-              label="Arts"
-            />
-
-            <ActivityCard
-              IconTag="MaterialCommunityIcons"
-              iconName="swim"
-              label="Surfing"
-            />
-            <ActivityCard
-              IconTag="Ionicons"
-              iconName="ios-color-palette-outline"
-              label="Arts"
-            />
-            <ActivityCard
-              IconTag="Ionicons"
-              iconName="ios-color-palette-outline"
-              label="Arts"
-            />
+            {locations &&
+              locations.map(
+                (x, y) =>
+                  (y === 0 ? (
+                    <LinearGradientBorder key={x.location + y}>
+                      <ActivityCard
+                        IconTag="Ionicons"
+                        iconName="ios-hammer-outline"
+                        label={x.activity}
+                      />
+                    </LinearGradientBorder>
+                  ) : (
+                    <ActivityCard
+                      key={x.location + y}
+                      IconTag="Ionicons"
+                      iconName="ios-hammer-outline"
+                      label={x.activity}
+                    />
+                  ))
+              )}
           </ScrollView>
         </View>
         <View style={styles.divider}>

@@ -1,10 +1,11 @@
 import { Dimensions } from 'react-native';
-let { width } = Dimensions.get('window');
+let { width, height } = Dimensions.get('window');
+console.log();
 
 const styles = {
   parent: {
     flex: 1,
-    paddingVertical: 20,
+    paddingTop: 20,
     backgroundColor: 'rgba(246, 247, 249, 1)',
     alignContent: 'center',
     alignItems: 'center',
@@ -18,6 +19,7 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'flex-end',
     width: '90%',
+    justifyContent: 'space-between',
     paddingBottom: 10
   },
   input: {
@@ -29,6 +31,7 @@ const styles = {
   },
   divider: {
     width: '90%',
+
     paddingBottom: 10
   },
   calenderStyle: {
