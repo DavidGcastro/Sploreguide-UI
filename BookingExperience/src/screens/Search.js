@@ -71,9 +71,12 @@ export default class Search extends Component {
   render() {
     let locations = data
       .filter(x => {
-        return x.location
-          .toLowerCase()
-          .includes(this.state.location.toLowerCase());
+        return (
+          x.location
+            .toLowerCase()
+            .includes(this.state.location.toLowerCase()) ||
+          x.activity.toLowerCase().includes(this.state.location.toLowerCase())
+        );
       })
       .slice(0, 4);
     return (
@@ -122,10 +125,10 @@ export default class Search extends Component {
             contentContainerStyle={{
               flexDirection: 'row'
             }}>
-            {locations &&
+            {locations.length > 0 ? (
               locations.map(
                 (x, y) =>
-                  (y === 0 ? (
+                  y === 0 ? (
                     <LinearGradientBorder key={x.location + y}>
                       <ActivityCard
                         IconTag="Ionicons"
@@ -140,8 +143,13 @@ export default class Search extends Component {
                       iconName="ios-hammer-outline"
                       label={x.activity}
                     />
-                  ))
-              )}
+                  )
+              )
+            ) : (
+              <Text style={defaultStyles.informativeText}>
+                No Locations or Activities Found.
+              </Text>
+            )}
           </ScrollView>
         </View>
         <View style={styles.divider}>
