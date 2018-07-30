@@ -31,7 +31,7 @@ const MainNavigator = createStackNavigator(
       }
     }
   },
-  { initialRouteName: 'Search' }
+  { initialRouteName: 'Home' }
 );
 
 export default MainNavigator;
