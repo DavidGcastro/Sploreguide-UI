@@ -3,6 +3,7 @@ import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Signup from '../screens/Signup';
 import Search from '../screens/Search';
+import Landing from '../screens/Landing';
 
 const MainNavigator = createStackNavigator(
   {
@@ -29,9 +30,15 @@ const MainNavigator = createStackNavigator(
       navigationOptions: {
         header: null
       }
+    },
+    Landing: {
+      screen: Landing,
+      navigationOptions: {
+        header: null
+      }
     }
   },
-  { initialRouteName: 'Search' }
+  { initialRouteName: 'Landing' }
 );
 
 export default MainNavigator;
