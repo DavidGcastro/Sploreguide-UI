@@ -152,6 +152,45 @@ export default class Search extends Component {
             )}
           </ScrollView>
         </View>
+        <View>
+          <InlineIcon
+            IconTag="FontAwesome"
+            iconName="money"
+            label="Price Range"
+          />
+
+          <MultiSlider
+            values={[0, 100]}
+            selectedStyle={{
+              // backgroundColor: 'rgba(48, 35, 174, 1)'
+            }}
+            sliderLength={width - 60}
+            min={0}
+            max={10}
+            step={1}
+            allowOverlap
+            snapped
+            markerOffsetX={20}
+            markerStyle={{
+              height: 12,
+              width: 12,
+              borderColor: 'rgba(83, 160, 253, 1)',
+              borderWidth: 2,
+              backgroundColor: 'rgba(48, 35, 174, 1)',
+  
+              shadowOffset: {
+                width: 0,
+                height: 0
+              },
+              shadowRadius: 2,
+              shadowOpacity: 10
+            }}
+            trackStyle={{
+              height: 3,
+              backgroundColor: 'rgba(83, 160, 253, 1)'
+            }}
+          />
+        </View>
         <View style={styles.divider}>
           <InlineIcon IconTag="EvilIcons" iconName="clock" label="Dates" />
           <CalendarStrip
@@ -175,30 +214,6 @@ export default class Search extends Component {
           />
         </View>
 
-        <View>
-          <InlineIcon
-            IconTag="FontAwesome"
-            iconName="money"
-            label="Price Range"
-          />
-
-          <MultiSlider
-            values={[0, 100]}
-            selectedStyle={{
-              backgroundColor: 'rgba(48, 35, 174, 1)'
-            }}
-            sliderLength={width - 60}
-            min={0}
-            max={10}
-            step={1}
-            allowOverlap
-            snapped
-            trackStyle={{
-              height: 3,
-              backgroundColor: 'rgba(83, 160, 253, 1)'
-            }}
-          />
-        </View>
         <View style={styles.divider}>
           <GradientButton text="SHOW RESULTS" />
         </View>

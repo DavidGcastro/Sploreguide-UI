@@ -17,7 +17,7 @@ const ActivityCard = props => {
   if (IconTag === 'Feather') {
     Component = (
       <Feather
-        size={25}
+        size={35}
         name={props.iconName}
         style={{
           color: 'rgba(132, 146, 166, 1)'
@@ -27,7 +27,7 @@ const ActivityCard = props => {
   } else if (IconTag === 'MaterialCommunityIcons') {
     Component = (
       <MaterialCommunityIcons
-        size={25}
+        size={35}
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
@@ -35,7 +35,7 @@ const ActivityCard = props => {
   } else if (IconTag === 'Ionicons') {
     Component = (
       <Ionicons
-        size={25}
+        size={35}
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
@@ -43,7 +43,7 @@ const ActivityCard = props => {
   } else if (IconTag === 'FontAwesome') {
     Component = (
       <FontAwesome
-        size={25}
+        size={35}
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
@@ -51,7 +51,7 @@ const ActivityCard = props => {
   } else if (IconTag === 'SimpleLineIcons') {
     Component = (
       <SimpleLineIcons
-        size={25}
+        size={35}
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
@@ -59,7 +59,7 @@ const ActivityCard = props => {
   } else if (IconTag === 'EvilIcons') {
     Component = (
       <EvilIcons
-        size={25}
+        size={35}
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
