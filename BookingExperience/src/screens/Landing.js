@@ -13,7 +13,9 @@ export default class Landing extends Component {
           alignContent: 'center',
           alignItems: 'center'
         }}>
-        <MainSearch />
+        <View onTouchEnd={() => this.props.navigation.navigate('Search')}>
+          <MainSearch />
+        </View>
         <View>
           <Text>Content Goes Here </Text>
         </View>

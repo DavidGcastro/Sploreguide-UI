@@ -29,9 +29,9 @@ const styles = {
   }
 };
 
-const MainSearch = () => {
+const MainSearch = props => {
   return (
-    <View style={styles.container} onTouchEnd={() => alert('Hello...')}>
+    <View style={styles.container}>
       <Image
         style={styles.searchImage}
         resizeMode="contain"
