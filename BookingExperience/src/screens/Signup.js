@@ -1,24 +1,25 @@
 import React from 'react';
 import {
-  Text,
   ImageBackground,
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity,
-  KeyboardAvoidingView
+  TouchableOpacity
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
-import { Feather } from '@expo/vector-icons';
+import GradientButton from '../components/GradientButton';
 import styles from '../styles/login';
 import InlineFormGenerator from '../components/InlineFormGenerator';
-import GradientButton from '../components/GradientButton';
 import GoBack from '../components/GoBack';
 
-const Signup = props => {
-  return (
-    <SafeAreaView>
+export default class Signup extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {};
+  }
+  render() {
+    return (
       <ImageBackground
         source={require('../assets/img/login-noOverlay.jpg')}
         style={styles.image}>
@@ -27,38 +28,26 @@ const Signup = props => {
           style={{ flex: 1 }}
           colors={['rgba(255, 255, 255, .7)', 'rgba(255, 255, 255, 1)']}
           locations={[0, 0.5]}>
-          {/* OUTER*/}
-          <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
+          <TouchableOpacity
+            style={{ marginBottom: 51 }}
+            onPress={() => this.props.navigation.navigate('Home')}>
             <GoBack />
           </TouchableOpacity>
-          <View style={styles.topChildLogin}>
-            <KeyboardAvoidingView
-              contentContainerStyle={{
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center'
-              }}
-              keyboardVerticalOffset={50}
-              behavior="position">
-              {/*FIRST CHILD*/}
-              <View
-                style={{
-                  alignItems: 'center',
-                  alignContent: 'center',
-                  justifyContent: 'center'
-                }}>
-                <Image
-                  resizeMode="contain"
-                  style={styles.logo}
-                  source={require('../assets/img/Logo-Icon-gradient.png')}
-                />
-                <Text style={styles.titleLogin}> SploreGuide </Text>
-                <Text style={styles.subtitleLogin}>
-                  EXPERIENCE ALL WALKS OF LIFE
-                </Text>
-              </View>
-              {/*SECOND CHILD*/}
-              <View style={styles.secondChild}>
+          <SafeAreaView style={styles.container}>
+            <View style={styles.wrapper}>
+              <Image
+                resizeMode="contain"
+                style={styles.logo}
+                source={require('../assets/img/Logo-Blue.png')}
+              />
+              <Image
+                resizeMode="contain"
+                style={{ width: 201, height: 40 }}
+                source={require('../assets/img/title-gradient.png')}
+              />
+            </View>
+            <View style={styles.iconParent}>
+              <View style={styles.iconContainer}>
                 <TouchableOpacity>
                   <Image
                     style={styles.socialIcons}
@@ -81,14 +70,18 @@ const Signup = props => {
                   />
                 </TouchableOpacity>
               </View>
-              {/*THIRD CHILD*/}
               <Hr text="OR" />
-              {/*FOURTH CHILD*/}
+            </View>
 
-              <View
-                style={{
-                  width: '80%'
-                }}>
+            <View
+              style={{
+                marginBottom: '10%',
+                justifyContent: 'center',
+                alignContent: 'center',
+                alignItems: 'center',
+                width: '100%'
+              }}>
+              <View style={{ width: '80%', justifyContent: 'space-between' }}>
                 <InlineFormGenerator
                   name="Name"
                   IconTag="Ionicons"
@@ -125,22 +118,15 @@ const Signup = props => {
                   iconName="ios-lock-outline"
                 />
               </View>
-
-              {/*Last CHILD*/}
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  width: '80%'
-                }}>
-                <GradientButton text="Signup" />
-              </View>
-            </KeyboardAvoidingView>
-          </View>
+            </View>
+            <TouchableOpacity
+              style={{ width: '90%' }}
+              onPress={() => this.props.navigation.navigate('Landing')}>
+              <GradientButton text="SIGNUP" />
+            </TouchableOpacity>
+          </SafeAreaView>
         </LinearGradient>
       </ImageBackground>
-    </SafeAreaView>
-  );
-};
-
-export default Signup;
+    );
+  }
+}

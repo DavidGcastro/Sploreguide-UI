@@ -1,6 +1,6 @@
 import React from 'react';
 import { LinearGradient } from 'expo';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 const GradientButton = props => {
   return (
@@ -10,24 +10,22 @@ const GradientButton = props => {
       start={[0, 0.5]}
       end={[0.5, 1]}>
       >
-      <TouchableOpacity
-        onPress={() => props.props.navigation.navigate('Landing')}>
-        <View
+      <View
+        style={{
+          padding: 15,
+          borderRadius: 10,
+          alignItems: 'center'
+        }}>
+        <Text
           style={{
-            padding: 15,
-            borderRadius: 10,
-            alignItems: 'center'
+            color: 'white',
+            fontSize: 16,
+            fontFamily: 'SF-UI-Text-Medium',
+            letterSpacing: 2
           }}>
-          <Text
-            style={{
-              letterSpacing: 2,
-              color: 'white',
-              fontFamily: 'SF-UI-Text-Regular'
-            }}>
-            {props.text}
-          </Text>
-        </View>
-      </TouchableOpacity>
+          {props.text}
+        </Text>
+      </View>
     </LinearGradient>
   );
 };

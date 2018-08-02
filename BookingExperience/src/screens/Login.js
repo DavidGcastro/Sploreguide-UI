@@ -1,18 +1,18 @@
 import React from 'react';
 import {
-  Text,
+ 
   ImageBackground,
   View,
   Image,
   SafeAreaView,
   TouchableOpacity,
-  KeyboardAvoidingView
+
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
 import GradientButton from '../components/GradientButton';
 import styles from '../styles/login';
-import InlineFromGenerator from '../components/InlineFormGenerator';
+import InlineFormGenerator from '../components/InlineFormGenerator';
 import GoBack from '../components/GoBack';
 
 export default class Login extends React.Component {
@@ -77,12 +77,12 @@ export default class Login extends React.Component {
 
             <View style={styles.formParent}>
               <View style={{ width: '80%', justifyContent: 'space-between' }}>
-                <InlineFromGenerator
+                <InlineFormGenerator
                   name="Email"
                   IconTag="Ionicons"
                   iconName="ios-mail-open-outline"
                 />
-                <InlineFromGenerator
+                <InlineFormGenerator
                   name="Password"
                   type="login"
                   IconTag="Ionicons"
@@ -90,13 +90,11 @@ export default class Login extends React.Component {
                 />
               </View>
             </View>
-            <View
-              style={{
-                justifyContent: 'center',
-                width: '90%'
-              }}>
-              <GradientButton text="Login" />
-            </View>
+            <TouchableOpacity
+              style={{ width: '90%' }}
+              onPress={() => this.props.navigation.navigate('Landing')}>
+              <GradientButton text="LOGIN" />
+            </TouchableOpacity>
           </SafeAreaView>
         </LinearGradient>
       </ImageBackground>

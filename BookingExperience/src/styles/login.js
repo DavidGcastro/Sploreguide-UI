@@ -1,3 +1,5 @@
+import { Dimensions } from 'react-native';
+let { width, height } = Dimensions.get('window');
 const styles = {
   image: {
     width: '100%',
@@ -28,6 +30,7 @@ const styles = {
   },
 
   iconContainer: {
+    paddingVertical: 20,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
@@ -35,7 +38,7 @@ const styles = {
     width: 29,
     height: 29
   },
-  formParent:{
+  formParent: {
     marginBottom: '25%',
     justifyContent: 'center',
     alignContent: 'center',
