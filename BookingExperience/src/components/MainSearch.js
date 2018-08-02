@@ -13,7 +13,7 @@ const styles = {
   container: {
     borderWidth: 1,
     borderColor: 'rgba(132, 146, 166, .2)',
-    paddingVertical: 15,
+    paddingVertical: 5,
     paddingHorizontal: 10,
     flexDirection: 'row',
     backgroundColor: 'white',

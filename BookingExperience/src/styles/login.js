@@ -1,5 +1,4 @@
 import { Dimensions } from 'react-native';
-let { width, height } = Dimensions.get('window');
 const styles = {
   image: {
     width: '100%',
@@ -30,7 +29,7 @@ const styles = {
   },
 
   iconContainer: {
-    paddingVertical: 20,
+    paddingVertical: 30,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
