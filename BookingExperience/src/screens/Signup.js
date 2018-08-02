@@ -42,7 +42,7 @@ export default class Signup extends React.Component {
               />
               <Image
                 resizeMode="contain"
-                style={{ width: 201, height: 40 }}
+                style={{ width: 201, height: 40}}
                 source={require('../assets/img/title-gradient.png')}
               />
             </View>

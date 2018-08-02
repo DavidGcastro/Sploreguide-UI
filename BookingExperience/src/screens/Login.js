@@ -1,12 +1,10 @@
 import React from 'react';
 import {
- 
   ImageBackground,
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity,
-
+  TouchableOpacity
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
@@ -44,7 +42,7 @@ export default class Login extends React.Component {
               />
               <Image
                 resizeMode="contain"
-                style={{ width: 201, height: 40 }}
+                style={{ width: 201, height: 40}}
                 source={require('../assets/img/title-gradient.png')}
               />
             </View>

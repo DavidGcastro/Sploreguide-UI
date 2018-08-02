@@ -6,7 +6,8 @@ const styles = {
   },
   logo: {
     height: 61,
-    width: 50
+    width: 80,
+   
   },
   container: {
     flex: 1,
@@ -19,12 +20,13 @@ const styles = {
     width: '90%',
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    alignContent: 'center',
+    justifyContent: 'center'
   },
 
   iconParent: {
     justifyContent: 'space-between',
-    width: '75%',
+    width: '65%',
     height: 100
   },
 
