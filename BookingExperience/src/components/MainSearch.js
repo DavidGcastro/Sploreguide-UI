@@ -25,7 +25,8 @@ const styles = {
   },
   searchImage: {
     width: 25,
-    height: 30
+    height: 30,
+    tintColor: '#9b9b9b'
   }
 };
 

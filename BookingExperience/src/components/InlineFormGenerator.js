@@ -14,7 +14,7 @@ import {
   SimpleLineIcons
 } from '@expo/vector-icons';
 let { width } = Dimensions.get('screen');
-const InlineFromGenerator = props => {
+const InlineFormGenerator = props => {
   let IconTag = props.IconTag;
   let Component = '';
   let type = props.type;
@@ -119,7 +119,7 @@ const InlineFromGenerator = props => {
                 placeholder={`Type your ${props.name}`}
                 style={{
                   fontSize: 13,
-                  width: width
+                  width: '80%'
                 }}
               />
             </View>
@@ -131,4 +131,4 @@ const InlineFromGenerator = props => {
   );
 };
 
-export default InlineFromGenerator;
+export default InlineFormGenerator;
