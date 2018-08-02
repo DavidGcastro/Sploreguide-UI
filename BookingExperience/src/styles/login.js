@@ -3,38 +3,44 @@ const styles = {
     width: '100%',
     height: '100%'
   },
-  topChildLogin: {
+  logo: {
+    height: 61,
+    width: 50
+  },
+  container: {
     flex: 1,
     alignContent: 'center',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20
+  },
+  wrapper: {
+    width: '90%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+
+  iconParent: {
+    justifyContent: 'space-between',
+    width: '75%',
+    height: 100
+  },
+
+  iconContainer: {
+    flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  titleLogin: {
-    textAlign: 'center',
-    color: 'black',
-    letterSpacing: 10,
-    fontFamily: 'SF-UI-Text-Regular',
-
-    fontSize: 30,
-    fontWeight: '500'
-  },
-  subtitleLogin: {
-    fontFamily: 'SF-UI-Text-Regular',
-    color: 'rgba(74, 74, 74, 1)',
-    paddingLeft: 12,
-    paddingTop: 10,
-    fontSize: 12,
-    letterSpacing: 3
-  },
-
-  secondChild: {
-    width: '60%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignContent: 'flex-start'
-  },
   socialIcons: {
-    width: 29
+    width: 29,
+    height: 29
+  },
+  formParent:{
+    marginBottom: '25%',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    width: '100%'
   }
 };
 

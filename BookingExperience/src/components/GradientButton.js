@@ -10,7 +10,8 @@ const GradientButton = props => {
       start={[0, 0.5]}
       end={[0.5, 1]}>
       >
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => props.props.navigation.navigate('Landing')}>
         <View
           style={{
             padding: 15,

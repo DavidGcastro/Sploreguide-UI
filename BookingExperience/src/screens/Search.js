@@ -68,7 +68,7 @@ export default class Search extends Component {
     };
   }
 
-  render() {
+  render(props) {
     let locations = data
       .filter(x => {
         return (
@@ -161,9 +161,11 @@ export default class Search extends Component {
 
           <MultiSlider
             values={[0, 100]}
-            selectedStyle={{
-              // backgroundColor: 'rgba(48, 35, 174, 1)'
-            }}
+            selectedStyle={
+              {
+                // backgroundColor: 'rgba(48, 35, 174, 1)'
+              }
+            }
             sliderLength={width - 60}
             min={0}
             max={10}
@@ -177,7 +179,7 @@ export default class Search extends Component {
               borderColor: 'rgba(83, 160, 253, 1)',
               borderWidth: 2,
               backgroundColor: 'rgba(48, 35, 174, 1)',
-  
+
               shadowOffset: {
                 width: 0,
                 height: 0
@@ -215,7 +217,7 @@ export default class Search extends Component {
         </View>
 
         <View style={styles.divider}>
-          <GradientButton text="SHOW RESULTS" />
+          <GradientButton text="SHOW RESULTS" props={this.props} />
         </View>
       </View>
     );

@@ -77,7 +77,7 @@ const InlineFromGenerator = props => {
   }
 
   return (
-    <View style={{ paddingTop: 10 }}>
+    <View style={{ paddingTop: 20 }}>
       <Text
         style={{
           fontSize: 13,
@@ -118,7 +118,8 @@ const InlineFromGenerator = props => {
               <TextInput
                 placeholder={`Type your ${props.name}`}
                 style={{
-                  fontSize: 13
+                  fontSize: 13,
+                  width: width
                 }}
               />
             </View>

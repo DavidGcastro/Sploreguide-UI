@@ -35,7 +35,6 @@ const Home = props => {
               source={require('../assets/img/Logo-Icon.png')}
             />
             <Text style={styles.title}> SploreGuide </Text>
-            <Text style={styles.subtitle}> EXPERIENCE ALL WALKS OF LIFE</Text>
           </View>
           {/* bottom child*/}
           <SafeAreaView style={{ flexDirection: 'row' }}>
@@ -68,6 +67,5 @@ const handleSignup = props => {
   let navigate = props.navigation.navigate;
   navigate('Signup');
 };
-
 
 export default Home;

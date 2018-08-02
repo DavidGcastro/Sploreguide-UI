@@ -22,99 +22,84 @@ export default class Login extends React.Component {
   }
   render() {
     return (
-      <SafeAreaView>
-        <ImageBackground
-          source={require('../assets/img/login-noOverlay.jpg')}
-          style={styles.image}>
-          {/* PARENT */}
-          <LinearGradient
-            style={{ flex: 1 }}
-            colors={['rgba(255, 255, 255, .7)', 'rgba(255, 255, 255, 1)']}
-            locations={[0, 0.5]}>
-            {/* OUTER*/}
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Home')}>
-              <GoBack />
-            </TouchableOpacity>
-            <View style={styles.topChildLogin}>
-              <KeyboardAvoidingView
-                contentContainerStyle={{
-                  alignContent: 'center',
-                  alignItems: 'center'
-                }}
-                keyboardVerticalOffset={0}
-                behavior="position">
-                {/*FIRST CHILD*/}
-                <View
-                  style={{
-                    alignItems: 'center',
-                    alignContent: 'center',
-                    justifyContent: 'center'
-                  }}>
-                  <Image
-                    resizeMode="contain"
-                    style={styles.logo}
-                    source={require('../assets/img/Logo-Icon-gradient.png')}
-                  />
-                  <Text style={styles.titleLogin}> SploreGuide</Text>
-                  <Text style={styles.subtitleLogin}>
-                    EXPERIENCE ALL WALKS OF LIFE
-                  </Text>
-                </View>
-                {/*SECOND CHILD*/}
-                <View style={styles.secondChild}>
-                  <TouchableOpacity>
-                    <Image
-                      style={styles.socialIcons}
-                      resizeMode="contain"
-                      source={require('../assets/img/facebook.png')}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image
-                      style={styles.socialIcons}
-                      resizeMode="contain"
-                      source={require('../assets/img/twitter.png')}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Image
-                      style={styles.socialIcons}
-                      resizeMode="contain"
-                      source={require('../assets/img/googleplus.png')}
-                    />
-                  </TouchableOpacity>
-                </View>
-                {/*THIRD CHILD*/}
-                <Hr text="OR" />
-                {/*FOURTH CHILD*/}
-                <View style={{ width: '80%' }}>
-                  <InlineFromGenerator
-                    name="Email"
-                    IconTag="Ionicons"
-                    iconName="ios-mail-open-outline"
-                  />
-                  <InlineFromGenerator
-                    name="Password"
-                    type="login"
-                    IconTag="Ionicons"
-                    iconName="ios-lock-outline"
-                  />
-                </View>
-                {/*Last CHILD*/}
-                <View
-                  style={{
-                    height: 300,
-                    justifyContent: 'center',
-                    width: '90%'
-                  }}>
-                  <GradientButton text="Login" />
-                </View>
-              </KeyboardAvoidingView>
+      <ImageBackground
+        source={require('../assets/img/login-noOverlay.jpg')}
+        style={styles.image}>
+        {/* PARENT */}
+        <LinearGradient
+          style={{ flex: 1 }}
+          colors={['rgba(255, 255, 255, .7)', 'rgba(255, 255, 255, 1)']}
+          locations={[0, 0.5]}>
+          <TouchableOpacity
+            style={{ marginBottom: 61 }}
+            onPress={() => this.props.navigation.navigate('Home')}>
+            <GoBack />
+          </TouchableOpacity>
+          <SafeAreaView style={styles.container}>
+            <View style={styles.wrapper}>
+              <Image
+                resizeMode="contain"
+                style={styles.logo}
+                source={require('../assets/img/Logo-Blue.png')}
+              />
+              <Image
+                resizeMode="contain"
+                style={{ width: 201, height: 40 }}
+                source={require('../assets/img/title-gradient.png')}
+              />
             </View>
-          </LinearGradient>
-        </ImageBackground>
-      </SafeAreaView>
+            <View style={styles.iconParent}>
+              <View style={styles.iconContainer}>
+                <TouchableOpacity>
+                  <Image
+                    style={styles.socialIcons}
+                    resizeMode="contain"
+                    source={require('../assets/img/facebook.png')}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image
+                    style={styles.socialIcons}
+                    resizeMode="contain"
+                    source={require('../assets/img/twitter.png')}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image
+                    style={styles.socialIcons}
+                    resizeMode="contain"
+                    source={require('../assets/img/googleplus.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+              <Hr text="OR" />
+            </View>
+
+            <View style={styles.formParent}>
+              <View style={{ width: '80%', justifyContent: 'space-between' }}>
+                <InlineFromGenerator
+                  name="Email"
+                  IconTag="Ionicons"
+                  iconName="ios-mail-open-outline"
+                />
+                <InlineFromGenerator
+                  name="Password"
+                  type="login"
+                  IconTag="Ionicons"
+                  iconName="ios-lock-outline"
+                />
+              </View>
+            </View>
+            <View
+              style={{
+                justifyContent: 'center',
+                width: '90%'
+              }}>
+              <GradientButton text="Login" />
+            </View>
+          </SafeAreaView>
+        </LinearGradient>
+      </ImageBackground>
     );
   }
 }

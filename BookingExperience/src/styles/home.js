@@ -17,6 +17,7 @@ const styles = {
     alignContent: 'center',
     alignItems: 'center',
     //CHANGE AS NEEDED
+    flexDirection: 'row',
     marginBottom: height / 2,
     justifyContent: 'center'
   },
@@ -31,10 +32,8 @@ const styles = {
   title: {
     textAlign: 'center',
     color: 'white',
-    letterSpacing: 10,
-    fontFamily: 'SF-UI-Text-Regular',
-
-    fontSize: 30,
+    fontFamily: 'SF-UI-Text-Heavy',
+    fontSize: 40,
     fontWeight: '500'
   },
   subtitle: {
