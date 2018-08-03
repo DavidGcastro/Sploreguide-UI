@@ -32,7 +32,7 @@ const Home = props => {
             <Image
               resizeMode="contain"
               style={styles.logo}
-              source={require('../assets/img/Logo-Icon.png')}
+              source={require('../assets/img/logo-large.png')}
             />
             <Text style={styles.title}> SploreGuide </Text>
           </View>

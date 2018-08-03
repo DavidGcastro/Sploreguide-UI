@@ -9,7 +9,8 @@ const styles = {
   },
 
   logo: {
-    marginBottom: 10
+    marginBottom: 10,
+    width: 50
   },
 
   topChild: {

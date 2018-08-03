@@ -5,7 +5,7 @@ const styles = {
     height: '100%'
   },
   logo: {
-    height: 61,
+    height: 50,
     width: 80,
    
   },
