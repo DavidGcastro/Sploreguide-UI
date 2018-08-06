@@ -42,3 +42,27 @@ const MainNavigator = createStackNavigator(
 );
 
 export default MainNavigator;
+
+
+// const MainCardNavigator = StackNavigator(
+//   {
+//     Home: { screen: Home },
+//     CardScreen1: { screen: CardScreen1 },
+//     CardScreen2: { screen: CardScreen2 },
+//   },
+//   {
+//     headerMode: 'none',
+//   },
+// );
+
+// const MainModalNavigator = StackNavigator(
+//   {
+//     MainCardNavigator: { screen: MainCardNavigator }
+//     ModalScreen1: { screen: ModalScreen1 },
+//     ModalScreen2: { screen: ModalScreen2 },
+//   },
+//   {
+//     mode: 'modal',
+//     headerMode: 'none',
+//   },
+// );
