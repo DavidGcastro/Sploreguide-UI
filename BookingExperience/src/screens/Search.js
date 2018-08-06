@@ -5,7 +5,8 @@ import {
   Image,
   TextInput,
   Dimensions,
-  Text
+  Text,
+  TouchableOpacity
 } from 'react-native';
 import InlineIcon from '../components/InlineIcon';
 import ActivityCard from '../components/ActivityCard';
@@ -217,7 +218,9 @@ export default class Search extends Component {
         </View>
 
         <View style={styles.divider}>
-          <GradientButton text="SHOW RESULTS" props={this.props} />
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <GradientButton text="SHOW RESULTS" />
+          </TouchableOpacity>
         </View>
       </View>
     );

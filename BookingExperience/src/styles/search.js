@@ -1,6 +1,5 @@
 import { Dimensions } from 'react-native';
 let { width, height } = Dimensions.get('window');
-console.log();
 
 const styles = {
   parent: {

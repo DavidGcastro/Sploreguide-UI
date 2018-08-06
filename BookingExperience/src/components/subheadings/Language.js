@@ -6,29 +6,29 @@
 */
 
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text
-} from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { defaultStyles } from '../../styles/styles';
 
 export default class Duration extends Component {
-
   titleCase(str) {
-    console.log(str);
-      var str = str.toLowerCase().split(' ');
-      for (var i = 0; i < str.length; i++) {
-        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
-      } return str.join(' ');
+    var str = str.toLowerCase().split(' ');
+    for (var i = 0; i < str.length; i++) {
+      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+    }
+    return str.join(' ');
   }
-	// Component prop types
-	static propTypes = {
-		language	: PropTypes.array.isRequired,
-		style		: PropTypes.object.isRequired
-	}
+  // Component prop types
+  static propTypes = {
+    language: PropTypes.array.isRequired,
+    style: PropTypes.object.isRequired
+  };
 
-	render() {
-		return <Text style={this.props.style}>{`${this.titleCase(this.props.language[0])}`}</Text>
-	}
+  render() {
+    return (
+      <Text style={this.props.style}>{`${this.titleCase(
+        this.props.language[0]
+      )}`}</Text>
+    );
+  }
 }

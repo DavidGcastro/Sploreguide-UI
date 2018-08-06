@@ -10,74 +10,55 @@ import {
   View
 } from 'react-native';
 const darkColor = 'black',
-      lightColor = 'white',
-      // Import randomcolor from 'randomcolor';
-      { width, height } = Dimensions.get('window');
+  lightColor = 'white',
+  // Import randomcolor from 'randomcolor';
+  { width, height } = Dimensions.get('window');
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 export default class RobotItem extends Component {
   render() {
-
-    const {
-      key,
-      image,
-      title,
-      color,
-      description,
-      type,
-      city
-    } = this.props;
-    console.log(' key: ', key);
+    const { key, image, title, color, description, type, city } = this.props;
     return (
-      <View style={{
-        flex: 1,
+      <View
+        style={{
+          flex: 1,
 
-        /*
+          /*
          * MarginTop:40,
          * hei:40,
          */
-        backgroundColor: color,
-        opacity: 0.9,
-        width,
-        // Margin:5,
-        borderRadius: 5
-      }}
-        >
+          backgroundColor: color,
+          opacity: 0.9,
+          width,
+          // Margin:5,
+          borderRadius: 5
+        }}>
         <View style={{ flexDirection: 'row' }}>
           <Image
-              style={s.profilePicture} source={{ height: 80,
+            style={s.profilePicture}
+            source={{
+              height: 80,
               width: 80,
-              uri: image }}
-            />
-          <Text style={s.displayName}>
-                {title}
-            </Text>
+              uri: image
+            }}
+          />
+          <Text style={s.displayName}>{title}</Text>
           <View style={s.badgeSection}>
-                <View style={[
-              s.badgeSlug,
-              { backgroundColor: 'white' }
-            ]}
-            >
-              <Text style={[
-                s.badgeText,
-                { color: 'red' }
-              ]}
-                    >
-                  ff
-                        {city}
-                    </Text>
-            </View>
+            <View style={[s.badgeSlug, { backgroundColor: 'white' }]}>
+              <Text style={[s.badgeText, { color: 'red' }]}>
+                ff
+                {city}
+              </Text>
             </View>
           </View>
+        </View>
         <View>
-          <Text style={s.bodyText}>
-            {description}
-            </Text>
-          </View>
-            <View style={s.reactionBox}>
-              <TouchableHighlight
-                  underlayColor="transparent"
-                  onPress={() => {
+          <Text style={s.bodyText}>{description}</Text>
+        </View>
+        <View style={s.reactionBox}>
+          <TouchableHighlight
+            underlayColor="transparent"
+            onPress={() => {
               LayoutAnimation.easeInEaseOut();
 
               /*
@@ -85,32 +66,26 @@ export default class RobotItem extends Component {
                * footerText: this.state.footerText + 1
                * })
                */
-}}
-                >
-            <Text style={[
-              s.description,
-              {
-                textShadowColor: darkColor
-              }
-            ]}
-              >
+            }}>
+            <Text
+              style={[
+                s.description,
+                {
+                  textShadowColor: darkColor
+                }
+              ]}>
               {city}
--
-                  {description}
-              </Text>
-                </TouchableHighlight>
-          <Text style={[
-            s.footerText,
-            { color: darkColor }
-          ]}
-                >
+              -
+              {description}
+            </Text>
+          </TouchableHighlight>
+          <Text style={[s.footerText, { color: darkColor }]}>
             {description}
-                </Text>
+          </Text>
         </View>
-        </View>
+      </View>
     );
-
-}
+  }
 }
 const s = StyleSheet.create({
   bodyText: {
@@ -199,7 +174,6 @@ RobotItem.propTypes = {
   email: PropTypes.string
 };
 RobotItem.DefaultProps = {
-
   /*
    * Title:PropTypes.string,
    * image:PropTypes.string,

@@ -121,7 +121,9 @@ export default class Landing extends Component {
         </View>
         <View style={landingStyles.wrapper}>
           <Text style={landingStyles.TopText}>Top Trending</Text>
-          <TouchableOpacity style={landingStyles.viewAll}>
+          <TouchableOpacity
+            style={landingStyles.viewAll}
+            onPress={() => this.props.navigation.navigate('Preview')}>
             <Text style={landingStyles.viewAllText}>View All</Text>
             <Ionicons
               name="md-arrow-forward"

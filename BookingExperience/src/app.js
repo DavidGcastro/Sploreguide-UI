@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import { Font, AppLoading } from 'expo';
-import MainNavigator from './navigators/MainNavigator';
+import RootNavigator from './navigators/RootNavigator';
 export default class App extends Component {
   state = {
     fontLoaded: false
@@ -21,12 +21,11 @@ export default class App extends Component {
       'SF-UI-Text-Bold': require('./assets/fonts/SF-UI-Text-Bold.otf'),
       'SF-UI-Text-Heavy': require('./assets/fonts/SF-UI-Text-Heavy.otf'),
       'SF-UI-Text-Semibold': require('./assets/fonts/SF-UI-Text-Semibold.otf')
-      
     });
     this.setState({ fontLoaded: true });
   }
 
   render() {
-    return this.state.fontLoaded ? <MainNavigator /> : <AppLoading />;
+    return this.state.fontLoaded ? <RootNavigator /> : <AppLoading />;
   }
 }

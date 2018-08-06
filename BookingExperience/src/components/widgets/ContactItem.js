@@ -40,7 +40,6 @@ export default class ListItem extends Component {
       onPressItem,
       description
     } = this.props;
-    // Console.log(" this.props: ",this.props);
     let TagColor = '#33333';
     if (color) TagColor = color;
     if (!color && tag) TagColor = this.stringToHex(this.props.tag);
@@ -53,8 +52,7 @@ export default class ListItem extends Component {
             alignItems: 'center'
           }
         ]}
-        onPress={item => onPressItem(item)}
-      >
+        onPress={item => onPressItem(item)}>
         <View
           style={{
             paddingBottom: 15,
@@ -65,14 +63,12 @@ export default class ListItem extends Component {
             borderBottomWidth: 1,
             opacity: 0.5,
             borderColor: '#e3e3e3'
-          }}
-        >
+          }}>
           <View
             style={{
               alignSelf: 'center',
               justifyContent: 'center'
-            }}
-          >
+            }}>
             <View
               style={{
                 borderRadius: 5,
@@ -81,8 +77,7 @@ export default class ListItem extends Component {
                 backgroundColor: TagColor,
                 alignSelf: 'center',
                 justifyContent: 'center'
-              }}
-            >
+              }}>
               <Text
                 style={{
                   padding: 1,
@@ -90,8 +85,7 @@ export default class ListItem extends Component {
                   fontWeight: '400',
                   color: '#fff',
                   fontSize: 10
-                }}
-              >
+                }}>
                 {tag}
               </Text>
             </View>
@@ -113,21 +107,18 @@ export default class ListItem extends Component {
             style={{
               alignSelf: 'center',
               justifyContent: 'center'
-            }}
-          >
+            }}>
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 width: 210
-              }}
-            >
+              }}>
               <Text
                 style={{
                   fontWeight: '600',
                   color: TagColor
-                }}
-              >
+                }}>
                 {name}
               </Text>
             </View>
@@ -138,8 +129,7 @@ export default class ListItem extends Component {
                   fontSize: 12,
                   fontWeight: '300',
                   color: TagColor
-                }}
-              >
+                }}>
                 {' '}
                 {description}
               </Text>

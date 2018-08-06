@@ -10,14 +10,13 @@ import {
   View
 } from 'react-native';
 const darkColor = 'black',
-      lightColor = 'white',
-      // Import randomcolor from 'randomcolor';
-      { width, height } = Dimensions.get('window');
+  lightColor = 'white',
+  // Import randomcolor from 'randomcolor';
+  { width, height } = Dimensions.get('window');
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 export default class Tweet extends Component {
   render() {
-
     const {
       id,
       index,
@@ -29,66 +28,48 @@ export default class Tweet extends Component {
       description,
       image
     } = this.props;
-    // Console.warn(" image: ",image);
     return (
-      <View style={{
-        flex: 1,
-        // MarginTop:40,
-        backgroundColor: color,
-        opacity: 0.9,
-        width,
-        // Margin:5,
-        borderRadius: 5
-      }}
-        >
-            <View style={{ padding: 5,
-          marginTop: 35,
-          margin: 5,
-          flexDirection: 'row' }}
-        >
+      <View
+        style={{
+          flex: 1,
+          // MarginTop:40,
+          backgroundColor: color,
+          opacity: 0.9,
+          width,
+          // Margin:5,
+          borderRadius: 5
+        }}>
+        <View
+          style={{
+            padding: 5,
+            marginTop: 35,
+            margin: 5,
+            flexDirection: 'row'
+          }}>
           <Image
-                  style={s.profilePicture} source={{ height: 80,
+            style={s.profilePicture}
+            source={{
+              height: 80,
               width: 80,
-              uri: image }}
-                />
-          <Text style={[
-            s.displayName,
-            { flex: 1 }
-          ]}
-                >
-            {title}
-                </Text>
-          <View style={[
-            { height: 20 },
-            s.badgeSection
-          ]}
-                >
-            <View style={[
-              s.badgeSlug,
-              { backgroundColor: 'white' }
-            ]}
-              >
-                  <Text style={[
-                s.badgeText,
-                { color: 'rgba(0,0,0,.6)' }
-              ]}
-              >
-                  (
-                  {index}
-) in
-                {' '}
-                  {city}
+              uri: image
+            }}
+          />
+          <Text style={[s.displayName, { flex: 1 }]}>{title}</Text>
+          <View style={[{ height: 20 }, s.badgeSection]}>
+            <View style={[s.badgeSlug, { backgroundColor: 'white' }]}>
+              <Text style={[s.badgeText, { color: 'rgba(0,0,0,.6)' }]}>
+                (
+                {index}
+                ) in {city}
               </Text>
             </View>
-                </View>
+          </View>
         </View>
         <View>
-          <Text style={s.bodyText}>
-                {description}
-            </Text>
-          </View>
+          <Text style={s.bodyText}>{description}</Text>
+        </View>
         <View style={s.reactionBox}>
-              <TouchableHighlight
+          <TouchableHighlight
             underlayColor="transparent"
             onPress={() => {
               LayoutAnimation.easeInEaseOut();
@@ -98,23 +79,22 @@ export default class Tweet extends Component {
                * footerText: this.state.footerText + 1
                * })
                */
-            }}
-          >
-              <Text style={[
-              s.description,
-              {
-                textShadowColor: darkColor
-              },
-              { color: darkColor }
-            ]}
-            >
+            }}>
+            <Text
+              style={[
+                s.description,
+                {
+                  textShadowColor: darkColor
+                },
+                { color: darkColor }
+              ]}>
               {description}
             </Text>
           </TouchableHighlight>
-          </View>
         </View>
+      </View>
     );
-}
+  }
 }
 const s = StyleSheet.create({
   bodyText: {
@@ -210,7 +190,6 @@ Tweet.propTypes = {
   image: PropTypes.string
 };
 Tweet.DefaultProps = {
-
   /*
    * Title:PropTypes.string,
    * image:PropTypes.string,
