@@ -17,73 +17,30 @@ import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import LinearGradientBorder from '../components/LinearGradientBorder';
 import styles from '../styles/search/';
 import defaultStyles from '../styles/styles';
-const data = [
-  {
-    location: 'New York, New York',
-    activity: 'tiger',
-    date: 'July 29, 2018',
-    price: 100
-  },
-  {
-    location: 'Queens, New York',
-    activity: 'Art',
-    date: 'July 29, 2018',
-    price: 100
-  },
-  {
-    location: 'Bronx, New York',
-    activity: 'Dog',
-    date: 'July 29, 2018',
-    price: 100
-  },
-  {
-    location: 'Los Angeles, California',
-    activity: 'cat',
-    date: 'July 29, 2018',
-    price: 100
-  },
-  {
-    location: 'Long Island, New York',
-    activity: 'bird',
-    date: 'July 29, 2018',
-    price: 100
-  },
-  {
-    location: 'Austin, Texas',
-    activity: 'Art',
-    date: 'July 29, 2018',
-    price: 100
-  }
-];
-
+import LandingData from '../landingData';
 let { width } = Dimensions.get('window');
 
 export default class Search extends Component {
   constructor() {
     super();
     this.state = {
-      location: 'New York',
-      activity: '',
+      location: 'New York, New York',
+      activityType: '',
       date: '',
-      priceRange: ''
+      priceRangeMin: '0',
+      priceRangeMax: '0'
     };
   }
-
-  render(props) {
-    let locations = data
-      .filter(x => {
-        return (
-          x.location
-            .toLowerCase()
-            .includes(this.state.location.toLowerCase()) ||
-          x.activity.toLowerCase().includes(this.state.location.toLowerCase())
-        );
-      })
-      .slice(0, 4);
+  render() {
+    let locations = LandingData.filter(x => {
+      return (
+        x.location.toLowerCase().includes(this.state.location.toLowerCase()) ||
+        x.activityType.toLowerCase().includes(this.state.location.toLowerCase())
+      );
+    }).slice(0, 4);
     return (
       <View style={styles.parent}>
         {/*SEARCH*/}
-
         <View style={styles.firstChild}>
           <Image
             resizeMode="contain"
@@ -129,12 +86,12 @@ export default class Search extends Component {
             {locations.length > 0 ? (
               locations.map(
                 (x, y) =>
-                  y === 0 ? (
+                  (y === 0 ? (
                     <LinearGradientBorder key={x.location + y}>
                       <ActivityCard
                         IconTag="Ionicons"
                         iconName="ios-hammer-outline"
-                        label={x.activity}
+                        label={x.activityType}
                       />
                     </LinearGradientBorder>
                   ) : (
@@ -142,9 +99,9 @@ export default class Search extends Component {
                       key={x.location + y}
                       IconTag="Ionicons"
                       iconName="ios-hammer-outline"
-                      label={x.activity}
+                      label={x.activityType}
                     />
-                  )
+                  ))
               )
             ) : (
               <Text style={defaultStyles.informativeText}>
@@ -159,28 +116,27 @@ export default class Search extends Component {
             iconName="money"
             label="Price Range"
           />
-
           <MultiSlider
-            values={[0, 100]}
-            selectedStyle={
-              {
-                // backgroundColor: 'rgba(48, 35, 174, 1)'
-              }
-            }
+            onValuesChange={values => {
+              this.setState({
+                priceRangeMax: values[1],
+                priceRangeMin: values[0]
+              });
+            }}
+            values={[0, 1000]}
             sliderLength={width - 60}
             min={0}
-            max={10}
+            max={1000}
             step={1}
             allowOverlap
             snapped
-            markerOffsetX={20}
+            markerOffsetX={0}
             markerStyle={{
               height: 12,
               width: 12,
               borderColor: 'rgba(83, 160, 253, 1)',
               borderWidth: 2,
               backgroundColor: 'rgba(48, 35, 174, 1)',
-
               shadowOffset: {
                 width: 0,
                 height: 0

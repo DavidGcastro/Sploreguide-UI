@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, SafeAreaView } from 'react-native';
 import PreviewCard from './PreviewCard';
 import PropTypes from 'prop-types';
 

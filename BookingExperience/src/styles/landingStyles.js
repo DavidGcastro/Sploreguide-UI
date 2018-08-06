@@ -7,11 +7,11 @@ let landingStyles = {
     ...ifIphoneX(
       {
         paddingTop: getStatusBarHeight(),
-        paddingBottom: 60
+        paddingBottom: 0
       },
       {
         paddingTop: 30,
-        paddingBottom: 50
+        paddingBottom: 0
       }
     ),
     alignContent: 'center',

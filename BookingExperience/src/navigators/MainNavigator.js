@@ -23,12 +23,6 @@ const MainNavigator = createStackNavigator(
       navigationOptions: {
         header: null
       }
-    },
-    Landing: {
-      screen: Landing,
-      navigationOptions: {
-        header: null
-      }
     }
   },
   { initialRouteName: 'Home' }
