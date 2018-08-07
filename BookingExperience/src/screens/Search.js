@@ -86,7 +86,7 @@ export default class Search extends Component {
             {locations.length > 0 ? (
               locations.map(
                 (x, y) =>
-                  (y === 0 ? (
+                  y === 0 ? (
                     <LinearGradientBorder key={x.location + y}>
                       <ActivityCard
                         IconTag="Ionicons"
@@ -101,7 +101,7 @@ export default class Search extends Component {
                       iconName="ios-hammer-outline"
                       label={x.activityType}
                     />
-                  ))
+                  )
               )
             ) : (
               <Text style={defaultStyles.informativeText}>

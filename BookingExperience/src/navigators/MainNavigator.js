@@ -18,6 +18,7 @@ const MainNavigator = createStackNavigator(
         header: null
       }
     },
+
     Signup: {
       screen: Signup,
       navigationOptions: {
@@ -25,6 +26,6 @@ const MainNavigator = createStackNavigator(
       }
     }
   },
-  { initialRouteName: 'Home' }
+  { initialRoute: Home }
 );
 export default MainNavigator;
