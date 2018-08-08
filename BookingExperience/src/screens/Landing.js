@@ -57,7 +57,7 @@ export default class Landing extends Component {
                 ${item.basePricePerPerson}
               </Text>
             </View>
-            <View style={landingStyles.bottomContainer}>
+            <View>
               <View style={landingStyles.bottomContainerIcons}>
                 <TouchableOpacity>
                   <Feather
@@ -71,40 +71,42 @@ export default class Landing extends Component {
                   <Ionicons name="md-heart-outline" size={25} color="white" />
                 </TouchableOpacity>
               </View>
-              <View
-                style={{
-                  borderBottomColor: 'rgba(255, 255, 255, .3)',
-                  borderBottomWidth: 1
-                }}>
-                <Text style={landingStyles.location}>{item.location}</Text>
-                <Text style={landingStyles.title}>{item.title}</Text>
-              </View>
-              <View style={landingStyles.lastContainer}>
-                <View style={landingStyles.iconTextContainer}>
-                  <SimpleLineIcons name="hourglass" size={12} color="white" />
-                  <Text style={landingStyles.smallTextBottom}>
-                    {Math.round((item.duration / 60) % 60)}:00
-                  </Text>
+              <View style={landingStyles.bottomContainer}>
+                <View
+                  style={{
+                    borderBottomColor: 'rgba(255, 255, 255, .3)',
+                    borderBottomWidth: 1
+                  }}>
+                  <Text style={landingStyles.location}>{item.location}</Text>
+                  <Text style={landingStyles.title}>{item.title}</Text>
                 </View>
-                <View style={landingStyles.iconTextContainer}>
-                  <Ionicons
-                    name="ios-chatbubbles-outline"
-                    size={12}
-                    color="white"
-                  />
-                  <Text style={landingStyles.smallTextBottom}>
-                    {item.languages}
-                  </Text>
-                </View>
-                <View style={landingStyles.iconTextContainer}>
-                  <Ionicons name="ios-star" size={12} color="white" />
-                  <Ionicons name="ios-star" size={12} color="white" />
-                  <Ionicons name="ios-star" size={12} color="white" />
-                  <Ionicons name="ios-star" size={12} color="white" />
-                  <Ionicons name="ios-star-half" size={12} color="white" />
-                  <Text style={landingStyles.smallTextBottom}>
-                    {item.reviews} Review(s)
-                  </Text>
+                <View style={landingStyles.lastContainer}>
+                  <View style={landingStyles.iconTextContainer}>
+                    <SimpleLineIcons name="hourglass" size={12} color="white" />
+                    <Text style={landingStyles.smallTextBottom}>
+                      {Math.round((item.duration / 60) % 60)}:00
+                    </Text>
+                  </View>
+                  <View style={landingStyles.iconTextContainer}>
+                    <Ionicons
+                      name="ios-chatbubbles-outline"
+                      size={12}
+                      color="white"
+                    />
+                    <Text style={landingStyles.smallTextBottom}>
+                      {item.languages}
+                    </Text>
+                  </View>
+                  <View style={landingStyles.iconTextContainer}>
+                    <Ionicons name="ios-star" size={12} color="white" />
+                    <Ionicons name="ios-star" size={12} color="white" />
+                    <Ionicons name="ios-star" size={12} color="white" />
+                    <Ionicons name="ios-star" size={12} color="white" />
+                    <Ionicons name="ios-star-half" size={12} color="white" />
+                    <Text style={landingStyles.smallTextBottom}>
+                      {item.reviews} Review(s)
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>

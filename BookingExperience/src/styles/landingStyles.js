@@ -17,7 +17,6 @@ let landingStyles = {
     alignContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 1)'
-    
   },
   wrapper: {
     width: width - 45,
@@ -68,11 +67,17 @@ let landingStyles = {
     paddingHorizontal: 20,
     top: 25
   },
-  bottomContainer: { paddingHorizontal: 20, bottom: 25 },
+  bottomContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 25,
+    borderLeftWidth: 5,
+    borderLeftColor: 'rgba(227, 60, 54, 1)'
+  },
   bottomContainerIcons: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingBottom: 20
+    paddingBottom: 20,
+    paddingHorizontal: 20,
   },
 
   location: {

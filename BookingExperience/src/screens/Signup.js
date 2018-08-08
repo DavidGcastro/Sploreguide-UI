@@ -100,7 +100,7 @@ export default class Signup extends React.Component {
                     iconName="ios-transgender"
                   />
                   <InlineFormGenerator
-                    name="Age"
+                    name="Birth Date"
                     type="inline"
                     IconTag="FontAwesome"
                     iconName="birthday-cake"
