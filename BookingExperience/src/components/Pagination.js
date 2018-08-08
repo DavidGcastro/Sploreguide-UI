@@ -2,14 +2,7 @@
 * @Author: Abhi
 * @Date:   2018-07-14 15:14:45
 * @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-15 14:17:51
-*/
-
-/*
-* @Author: Abhi
-* @Date:   2018-07-13 20:25:32
-* @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-14 14:55:30
+* @Last Modified time: 2018-07-26 13:14:03
 */
 
 import React, { Component } from 'react';
@@ -93,7 +86,8 @@ export default class Pagination extends Component {
       overview,
       images
     } = experience;
-    const numItems = images.length;
+    const _images = [poster, ...images];
+    const numItems = _images.length;
     const FIXED_BAR_WIDTH =
       width -
       9 * BAR_SPACE -
@@ -103,13 +97,19 @@ export default class Pagination extends Component {
     let imageArray = [];
     let barArray = [];
 
-    images.forEach((image, i) => {
+    _images.forEach((image, i) => {
       const thisImage = (
-        <Image
+        <ImageBackground
           key={`image${i}`}
           source={{ uri: image }}
-          style={{ width: width }}
-        />
+          style={{ width: width }}>
+          <LinearGradient
+            colors={['transparent', 'rgba(0,0,0,1.0)']}
+            start={[0.5, 0.2]}
+            end={[0.5, 1.0]}
+            style={{ width: width, flex: 1 }}
+          />
+        </ImageBackground>
       );
       imageArray.push(thisImage);
 

@@ -246,7 +246,6 @@ const previewCardStyle = {
     borderBottomRightRadius: 3,
     borderTopLeftRadius: 3,
     borderTopRightRadius: 3,
-    borderBottomLeftRadius: 3,
     justifyContent: 'center',
     alignItems: 'center'
   },
