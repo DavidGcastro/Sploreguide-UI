@@ -5,6 +5,13 @@
 * @Last Modified time: 2018-07-26 13:14:03
 */
 
+/*
+* @Author: Abhi
+* @Date:   2018-07-13 20:25:32
+* @Last Modified by:   Abhi
+* @Last Modified time: 2018-07-14 14:55:30
+*/
+
 import React, { Component } from 'react';
 import {
   Animated,
@@ -13,7 +20,8 @@ import {
   Image,
   Dimensions,
   ScrollView,
-  Text
+  Text,
+  ImageBackground
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -27,6 +35,7 @@ import Language from './subheadings/Language';
 
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo';
 
 const { width, height } = Dimensions.get('window');
 // design tip - should cap images to 10
@@ -146,6 +155,7 @@ export default class Pagination extends Component {
   }
 
   titleCase(str) {
+    console.log(str);
     var str = str.toLowerCase().split(' ');
     for (var i = 0; i < str.length; i++) {
       str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
@@ -188,11 +198,7 @@ export default class Pagination extends Component {
     const { imageArray, barArray } = this.getPaginationElements(experience);
     return (
       <Animated.View
-        style={[
-          styles.headerBackground,
-          this.animateHeader,
-          { height: max - 150 }
-        ]}>
+        style={[styles.headerBackground, this.animateHeader, { height: max }]}>
         ;
         <View style={styles.container}>
           <ScrollView
@@ -211,8 +217,8 @@ export default class Pagination extends Component {
             style={{
               flex: 1,
               flexDirection: 'column',
-              zIndex: 2,
-              position: 'absolute'
+              position: 'absolute',
+              zIndex: 2
             }}>
             {/* Top Bar */}
             <View
@@ -261,7 +267,7 @@ export default class Pagination extends Component {
                 height: height / 2.0675
               }}>
               {' '}
-              {/*have to figure out the correct height/2.0675*/}
+              {/*have to figure out the correct height/2.0675 for iPhoneX and /2.2 for iPhone8*/}
               <View style={{ marginRight: 22 }}>
                 <Ionicons
                   name={'ios-share-outline'}
@@ -431,8 +437,6 @@ const styles = StyleSheet.create({
 });
 
 /*
-
-
 	        				        <View style={styles.barContainer}>
 		          {barArray}
 		        </View>
