@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import MainSearch from '../components/MainSearch';
-import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
+import Carousel from 'react-native-snap-carousel';
 import {
   Text,
   View,
   TouchableOpacity,
   Dimensions,
-  ImageBackground
+  ImageBackground,
+  Image,
+  TextInput
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
@@ -19,10 +20,33 @@ let images = [
   require('../assets/img/nightlife.jpg')
 ];
 
+const styles = {
+  container: {
+    borderWidth: 1,
+    borderColor: 'rgba(132, 146, 166, .2)',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    shadowOffset: { width: 3, height: 3 },
+    shadowColor: 'grey',
+    shadowOpacity: 0.5,
+    width: width - 40
+  },
+  searchImage: {
+    width: 20,
+    height: 30,
+    tintColor: '#9b9b9b'
+  }
+};
+
 export default class Landing extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      search: ''
+    };
   }
 
   _renderItem({ item, index }) {
@@ -84,7 +108,8 @@ export default class Landing extends Component {
                   <View style={landingStyles.iconTextContainer}>
                     <SimpleLineIcons name="hourglass" size={12} color="white" />
                     <Text style={landingStyles.smallTextBottom}>
-                      {Math.round((item.duration / 60) % 60)}:00
+                      {Math.round((item.duration / 60) % 60)}
+                      :00
                     </Text>
                   </View>
                   <View style={landingStyles.iconTextContainer}>
@@ -118,8 +143,29 @@ export default class Landing extends Component {
   render() {
     return (
       <View style={landingStyles.parent}>
-        <View onTouchEnd={() => this.props.navigation.navigate('Search')}>
-          <MainSearch />
+        <View>
+          <View style={styles.container}>
+            <Image
+              style={styles.searchImage}
+              resizeMode="contain"
+              source={require('../assets/img/Search.png')}
+            />
+            <TextInput
+              onChangeText={search => this.setState({ search })}
+              onEndEditing={() => {
+                this.props.navigation.navigate('Search', {
+                  search: this.state.search
+                });
+              }}
+              style={{
+                fontSize: 20,
+                fontWeight: '500',
+                paddingLeft: 10
+              }}
+              placeholder="Search by City or Activity"
+            />
+          </View>
+          />
         </View>
         <View style={landingStyles.wrapper}>
           <Text style={landingStyles.TopText}>Top Trending</Text>

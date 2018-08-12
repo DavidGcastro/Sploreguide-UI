@@ -24,12 +24,16 @@ export default class Search extends Component {
   constructor() {
     super();
     this.state = {
-      location: 'New York, New York',
+      location: '',
       activityType: '',
       date: '',
       priceRangeMin: '0',
       priceRangeMax: '0'
     };
+  }
+  componentDidMount() {
+    let searchInput = this.props.navigation.state.params.search;
+    this.setState({ location: searchInput });
   }
   render() {
     let locations = LandingData.filter(x => {
@@ -174,7 +178,12 @@ export default class Search extends Component {
         </View>
 
         <View style={styles.divider}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+          <TouchableOpacity
+            onPress={() =>
+              this.props.navigation.navigate('Landing', {
+                search: this.state.location
+              })
+            }>
             <GradientButton text="SHOW RESULTS" />
           </TouchableOpacity>
         </View>

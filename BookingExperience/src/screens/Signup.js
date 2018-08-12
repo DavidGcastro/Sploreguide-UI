@@ -4,7 +4,8 @@ import {
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity,
+  DatePickerIOS
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
@@ -16,8 +17,16 @@ import GoBack from '../components/GoBack';
 export default class Signup extends React.Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = {
+      dob: new Date()
+    };
+    this.setDate = this.setDate.bind(this);
   }
+
+  setDate(newDate) {
+    this.setState({ chosenDate: newDate });
+  }
+
   render() {
     return (
       <ImageBackground
@@ -42,7 +51,7 @@ export default class Signup extends React.Component {
               />
               <Image
                 resizeMode="contain"
-                style={{ width: 201, height: 40}}
+                style={{ width: 201, height: 40 }}
                 source={require('../assets/img/title-gradient.png')}
               />
             </View>
@@ -99,6 +108,7 @@ export default class Signup extends React.Component {
                     IconTag="Ionicons"
                     iconName="ios-transgender"
                   />
+
                   <InlineFormGenerator
                     name="Birth Date"
                     type="inline"

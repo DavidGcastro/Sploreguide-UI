@@ -98,6 +98,7 @@ const InlineFormGenerator = props => {
         {props.type === 'inline' ? (
           <TextInput
             placeholder={`Type your ${props.name}`}
+            returnKeyType="next"
             style={{
               fontFamily: 'SF-UI-Text-Regular',
               fontSize: 13,
@@ -116,6 +117,7 @@ const InlineFormGenerator = props => {
             <View style={{ flexDirection: 'row' }}>
               {Component}
               <TextInput
+                returnKeyType="next"
                 placeholder={`Type your ${props.name}`}
                 style={{
                   fontSize: 13,
