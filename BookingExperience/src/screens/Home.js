@@ -34,7 +34,14 @@ const Home = props => {
               style={styles.logo}
               source={require('../assets/img/logo-large.png')}
             />
-            <Text style={styles.title}> SploreGuide </Text>
+            <Image
+              resizeMode="contain"
+              style={{
+                width: 201,
+                height: 40
+              }}
+              source={require('../assets/img/main-logo.png')}
+            />
           </View>
           {/* bottom child*/}
           <SafeAreaView style={{ flexDirection: 'row' }}>
