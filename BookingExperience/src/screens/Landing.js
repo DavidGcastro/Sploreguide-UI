@@ -140,7 +140,12 @@ export default class Landing extends Component {
       </View>
     );
   }
+  componentDidMount() {}
   render() {
+    let search = this.props.navigation.state.params
+      ? this.props.navigation.state.params.search
+      : this.state.search;
+
     return (
       <View style={landingStyles.parent}>
         <View>
@@ -162,6 +167,7 @@ export default class Landing extends Component {
                 fontWeight: '500',
                 paddingLeft: 10
               }}
+              value={search}
               placeholder="Search by City or Activity"
             />
           </View>
