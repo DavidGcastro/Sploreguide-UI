@@ -67,7 +67,13 @@ export default class Search extends Component {
           />
           {locations.length > 0 ? (
             locations.map((x, y) => {
-              return <Location key={x + y} location={x.location} />;
+              return (
+                <TouchableOpacity
+                  key={x + y}
+                  onPress={() => this.setState({ location: x.location })}>
+                  <Location location={x.location} />
+                </TouchableOpacity>
+              );
             })
           ) : (
             <Text style={defaultStyles.informativeText}>
