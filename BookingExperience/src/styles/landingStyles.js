@@ -6,8 +6,7 @@ let landingStyles = {
     flex: 1,
     ...ifIphoneX(
       {
-        paddingTop: getStatusBarHeight(),
-        paddingBottom: 0
+        paddingTop: getStatusBarHeight() + 20
       },
       {
         paddingTop: 30,
@@ -77,7 +76,7 @@ let landingStyles = {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     paddingBottom: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
 
   location: {

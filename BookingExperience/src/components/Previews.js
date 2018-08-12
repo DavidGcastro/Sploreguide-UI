@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, View, SafeAreaView } from 'react-native';
 import PreviewCard from './PreviewCard';
 import PropTypes from 'prop-types';
+import { ifIphoneX, getStatusBarHeight } from 'react-native-iphone-x-helper';
+
 
 export default class Previews extends Component {
   // Component prop types
@@ -34,10 +36,20 @@ export default class Previews extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20 // start below status bar
-  },
+
+    ...ifIphoneX(
+      {
+        paddingTop: getStatusBarHeight() + 20
+      },
+      {
+        paddingTop: 30,
+        paddingBottom: 0
+      }
+    )},
   scrollContent: {
     flexDirection: 'row', // arrange posters in rows
     flexWrap: 'wrap' // allow multiple rows
   }
 });
+
+

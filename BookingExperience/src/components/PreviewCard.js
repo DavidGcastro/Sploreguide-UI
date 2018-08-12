@@ -118,7 +118,8 @@ export default class PreviewCard extends Component {
                 style={{
                   flex: 1,
                   flexDirection: 'row',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  width: 100
                 }}>
                 <Ionicons
                   name={'ios-share-outline'}
@@ -211,7 +212,7 @@ const previewCardStyle = {
     fontSize: 12,
     color: '#ffffff',
     paddingLeft: 24,
-    paddingTop: 80
+    paddingTop: 50
   },
   detailsContainer: {
     flex: 1,
@@ -224,7 +225,7 @@ const previewCardStyle = {
     fontFamily: 'SF-UI-Text-Regular',
     fontSize: 10,
     color: 'rgba(255, 255, 255, 0.7)',
-    paddingTop: 10
+    paddingTop: 5
   },
   reviews: {
     fontFamily: 'SF-UI-Text-Regular',
