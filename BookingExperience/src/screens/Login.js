@@ -4,20 +4,32 @@ import {
   View,
   Image,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity,
+  Text,
+  TextInput
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
 import GradientButton from '../components/GradientButton';
 import styles from '../styles/login';
-import InlineFormGenerator from '../components/InlineFormGenerator';
 import GoBack from '../components/GoBack';
+import { Ionicons } from '@expo/vector-icons';
+import formStyles from '../styles/formStyles';
 
 export default class Login extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
-    this.state = {};
+    this.state = {
+      email: '',
+      password: ''
+    };
+    this.passwordInput = React.createRef();
+    this.focusTextInput = this.focusTextInput.bind(this);
   }
+  focusTextInput() {
+    this.passwordInput.current.focus();
+  }
+
   render() {
     return (
       <ImageBackground
@@ -42,7 +54,7 @@ export default class Login extends React.Component {
               />
               <Image
                 resizeMode="contain"
-                style={{ width: 201, height: 40}}
+                style={{ width: 201, height: 40 }}
                 source={require('../assets/img/title-gradient.png')}
               />
             </View>
@@ -74,18 +86,54 @@ export default class Login extends React.Component {
             </View>
 
             <View style={styles.formParent}>
-              <View style={{ width: '80%', justifyContent: 'space-between' }}>
-                <InlineFormGenerator
-                  name="Email"
-                  IconTag="Ionicons"
-                  iconName="ios-mail-open-outline"
-                />
-                <InlineFormGenerator
-                  name="Password"
-                  type="login"
-                  IconTag="Ionicons"
-                  iconName="ios-lock-outline"
-                />
+              <View style={formStyles.parent}>
+                <View style={{ paddingTop: 20 }}>
+                  <Text style={formStyles.formText}>Email</Text>
+                  <View style={formStyles.inputIconContainer}>
+                    <Ionicons
+                      name="ios-mail-open-outline"
+                      size={18}
+                      style={formStyles.iconStyles}
+                    />
+                    <TextInput
+                      onChangeText={x => this.setState({ email: x })}
+                      returnKeyType="next"
+                      placeholder="Type your Email"
+                      onSubmitEditing={() => this.focusTextInput()}
+                      style={{
+                        fontSize: 13,
+                        width: '80%'
+                      }}
+                    />
+                  </View>
+                </View>
+                <View style={{ paddingTop: 20 }}>
+                  <Text style={formStyles.formText}>Password</Text>
+                  <View style={formStyles.inputIconContainer}>
+                    <Ionicons
+                      name="ios-lock-outline"
+                      size={18}
+                      style={formStyles.iconStyles}
+                    />
+                    <TextInput
+                      onChangeText={x => this.setState({ password: x })}
+                      ref={this.passwordInput}
+                      secureTextEntry={true}
+                      returnKeyType="next"
+                      placeholder="Type your Password"
+                      style={{
+                        fontSize: 13,
+                        width: '80%'
+                      }}
+                    />
+                    <TouchableOpacity>
+                      <Text
+                        style={{ fontSize: 12, color: 'rgba(132,146,166,1)' }}>
+                        Forgot?
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </View>
             <TouchableOpacity

@@ -5,26 +5,36 @@ import {
   Image,
   SafeAreaView,
   TouchableOpacity,
-  DatePickerIOS
+  Text,
+  TextInput
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
 import GradientButton from '../components/GradientButton';
 import styles from '../styles/login';
-import InlineFormGenerator from '../components/InlineFormGenerator';
+import formStyles from '../styles/formStyles';
 import GoBack from '../components/GoBack';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 export default class Signup extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      dob: new Date()
+      name: '',
+      email: '',
+      Password: '',
+      sex: '',
+      dob: ''
     };
-    this.setDate = this.setDate.bind(this);
+    this.sexInput = React.createRef();
+    this.birthInput = React.createRef();
+    this.emailInput = React.createRef();
+    this.passwordInput = React.createRef();
+    this.focusTextInput = this.focusTextInput.bind(this);
   }
 
-  setDate(newDate) {
-    this.setState({ chosenDate: newDate });
+  focusTextInput(inputToFocus) {
+    inputToFocus.current.focus();
   }
 
   render() {
@@ -90,43 +100,140 @@ export default class Signup extends React.Component {
                 alignItems: 'center',
                 width: '100%'
               }}>
-              <View style={{ width: '80%', justifyContent: 'space-between' }}>
-                <InlineFormGenerator
-                  name="Name"
-                  IconTag="Ionicons"
-                  iconName="ios-person-outline"
-                />
+              <View style={formStyles.parent}>
+                {/*FIRST FORM*/}
+                <View style={{ paddingTop: 20 }}>
+                  <Text style={formStyles.formText}>Name</Text>
+                  <View style={formStyles.inputIconContainer}>
+                    <Ionicons
+                      name="ios-person-outline"
+                      size={18}
+                      style={formStyles.iconStyles}
+                    />
+                    <TextInput
+                      onChangeText={x => this.setState({ name: x })}
+                      onSubmitEditing={() => this.focusTextInput(this.sexInput)}
+                      returnKeyType="next"
+                      placeholder="Type your Name"
+                      style={{
+                        fontSize: 13,
+                        width: '80%'
+                      }}
+                    />
+                  </View>
+                </View>
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'flex-end'
                   }}>
-                  <InlineFormGenerator
-                    name="Sex"
-                    type="inline"
-                    IconTag="Ionicons"
-                    iconName="ios-transgender"
-                  />
-
-                  <InlineFormGenerator
-                    name="Birth Date"
-                    type="inline"
-                    IconTag="FontAwesome"
-                    iconName="birthday-cake"
-                  />
+                  {/*SECOND FORM*/}
+                  <View
+                    style={{
+                      paddingTop: 20,
+                      paddingRight: 10
+                    }}>
+                    <Text style={formStyles.formText}>Sex</Text>
+                    <View style={formStyles.inputIconContainerHalf}>
+                      <Ionicons
+                        name="ios-transgender"
+                        size={18}
+                        style={{
+                          paddingRight: 10,
+                          color: 'rgba(132, 146, 166, 1)'
+                        }}
+                      />
+                      <TextInput
+                        ref={this.sexInput}
+                        onChangeText={x => this.setState({ sex: x })}
+                        onSubmitEditing={() =>
+                          this.focusTextInput(this.birthInput)
+                        }
+                        returnKeyType="next"
+                        placeholder="Choose your Sex"
+                        style={{
+                          fontSize: 13,
+                          width: '50%'
+                        }}
+                      />
+                    </View>
+                  </View>
+                  <View style={{ paddingTop: 20 }}>
+                    <Text
+                      style={{
+                        fontSize: 13,
+                        paddingBottom: 8,
+                        color: 'rgba(132, 146, 166, 1)'
+                      }}>
+                      Birth Date
+                    </Text>
+                    <View style={formStyles.inputIconContainerHalf}>
+                      <FontAwesome
+                        name="birthday-cake"
+                        size={18}
+                        style={formStyles.iconStyles}
+                      />
+                      <TextInput
+                        ref={this.birthInput}
+                        onChangeText={x => this.setState({ dob: x })}
+                        onSubmitEditing={() =>
+                          this.focusTextInput(this.emailInput)
+                        }
+                        returnKeyType="next"
+                        placeholder="Enter Birth Date"
+                        style={{
+                          fontSize: 13,
+                          width: '50%'
+                        }}
+                      />
+                    </View>
+                  </View>
                 </View>
-
-                <InlineFormGenerator
-                  name="Email"
-                  IconTag="Ionicons"
-                  iconName="ios-mail-open-outline"
-                />
-                <InlineFormGenerator
-                  name="Password"
-                  IconTag="Ionicons"
-                  iconName="ios-lock-outline"
-                />
+                <View style={{ paddingTop: 20 }}>
+                  <Text style={formStyles.formText}>Email</Text>
+                  <View style={formStyles.inputIconContainer}>
+                    <Ionicons
+                      name="ios-mail-open-outline"
+                      size={18}
+                      style={formStyles.iconStyles}
+                    />
+                    <TextInput
+                      ref={this.emailInput}
+                      onChangeText={x => this.setState({ email: x })}
+                      returnKeyType="next"
+                      placeholder="Type your Email"
+                      onSubmitEditing={() =>
+                        this.focusTextInput(this.passwordInput)
+                      }
+                      style={{
+                        fontSize: 13,
+                        width: '80%'
+                      }}
+                    />
+                  </View>
+                </View>
+                <View style={{ paddingTop: 20 }}>
+                  <Text style={formStyles.formText}>Password</Text>
+                  <View style={formStyles.inputIconContainer}>
+                    <Ionicons
+                      name="ios-lock-outline"
+                      size={18}
+                      style={formStyles.iconStyles}
+                    />
+                    <TextInput
+                      ref={this.passwordInput}
+                      onChangeText={x => this.setState({ password: x })}
+                      secureTextEntry={true}
+                      returnKeyType="next"
+                      placeholder="Type your Password"
+                      style={{
+                        fontSize: 13,
+                        width: '80%'
+                      }}
+                    />
+                  </View>
+                </View>
               </View>
             </View>
             <TouchableOpacity
