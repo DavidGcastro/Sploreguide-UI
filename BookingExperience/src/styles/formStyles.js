@@ -1,5 +1,5 @@
 import {Dimensions} from 'react-native';
-let width = Dimensions.get('window');
+let {width} = Dimensions.get('window');
 
 let formStyles = {
   parent: { width: '80%', justifyContent: 'space-between' },
@@ -23,7 +23,7 @@ let formStyles = {
     borderBottomWidth: 1,
     paddingBottom: 5,
     borderBottomColor: 'rgba(237, 237, 237, 1)',
-    width: width / 2 - 80
+    width: '100%'
   },
   iconStyles: {
     paddingRight: 10,

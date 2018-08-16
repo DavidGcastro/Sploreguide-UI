@@ -4,11 +4,7 @@ const styles = {
     width: '100%',
     height: '100%'
   },
-  logo: {
-    height: 50,
-    width: 80,
-   
-  },
+
   container: {
     flex: 1,
     alignContent: 'center',
