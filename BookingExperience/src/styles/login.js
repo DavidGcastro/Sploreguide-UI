@@ -1,17 +1,18 @@
-import { Dimensions } from 'react-native';
 const styles = {
   image: {
     width: '100%',
     height: '100%'
   },
 
-  container: {
-    flex: 1,
-    alignContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20
-  },
+  // container: {
+  //   flex: 1,
+  //   alignContent: 'center',
+  //   alignItems: 'center',
+  //   justifyContent: 'space-between',
+  //   marginBottom: 20,
+  //   top: -10
+
+  // },
   wrapper: {
     width: '90%',
     alignItems: 'center',

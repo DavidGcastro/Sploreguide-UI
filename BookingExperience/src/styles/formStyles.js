@@ -23,7 +23,7 @@ let formStyles = {
     borderBottomWidth: 1,
     paddingBottom: 5,
     borderBottomColor: 'rgba(237, 237, 237, 1)',
-    width: '100%'
+    width: 150
   },
   iconStyles: {
     paddingRight: 10,

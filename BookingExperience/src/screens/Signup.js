@@ -20,9 +20,9 @@ import { ifIphoneX } from 'react-native-iphone-x-helper';
 let animations = {
   ...ifIphoneX(
     {
-      form: -200,
+      form: -220,
       marginBottomButton: '10%',
-      logoTop: 0
+      logoTop: -60
     },
     {
       form: -170,
@@ -110,12 +110,22 @@ export default class Signup extends React.Component {
           }}
           colors={['rgba(255, 255, 255,.7)', 'rgba(255, 255, 255, 1)']}
           locations={[0, 0.5]}>
-          <TouchableOpacity
-            style={{ marginBottom: 51 }}
-            onPress={() => this.props.navigation.navigate('Home')}>
-            <GoBack />
-          </TouchableOpacity>
-          <SafeAreaView style={styles.container}>
+          <SafeAreaView
+            style={{
+              flex: 1,
+              alignContent: 'center',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: 20,
+              backgroundColor: 'white',
+         
+              top: -10
+            }}>
+            <TouchableOpacity
+              style={{ marginBottom: 51, alignSelf: 'flex-start' }}
+              onPress={() => this.props.navigation.navigate('Home')}>
+              <GoBack />
+            </TouchableOpacity>
             <View style={styles.wrapper}>
               <Animated.Image
                 resizeMode="contain"
@@ -216,7 +226,8 @@ export default class Signup extends React.Component {
                     <View
                       style={{
                         paddingTop: 20,
-                        paddingRight: 10
+                        paddingRight: 10,
+                        width: 150
                       }}>
                       <Text style={formStyles.formText}>Sex</Text>
                       <View style={formStyles.inputIconContainerHalf}>
