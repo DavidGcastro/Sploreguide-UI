@@ -23,12 +23,14 @@ let animations = {
     {
       form: -220,
       marginBottomButton: '10%',
-      logoTop: -60
+      logoTop: -60,
+      top: 20
     },
     {
       form: -165,
       marginBottomButton: 15,
-      logoTop: -67
+      logoTop: -67,
+      top: 0
     }
   )
 };
@@ -165,11 +167,14 @@ export default class Signup extends React.Component {
               alignContent: 'center',
               alignItems: 'center',
               justifyContent: 'space-between',
-              marginBottom: 20,
-              top: -10
+              marginBottom: 20
             }}>
             <TouchableOpacity
-              style={{ marginBottom: 51, alignSelf: 'flex-start' }}
+              style={{
+                marginBottom: 51,
+                alignSelf: 'flex-start',
+                top: animations.top
+              }}
               onPress={() => this.props.navigation.navigate('Home')}>
               <GoBack />
             </TouchableOpacity>

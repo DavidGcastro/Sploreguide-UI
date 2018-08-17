@@ -4,15 +4,15 @@ const styles = {
     height: '100%'
   },
 
-  // container: {
-  //   flex: 1,
-  //   alignContent: 'center',
-  //   alignItems: 'center',
-  //   justifyContent: 'space-between',
-  //   marginBottom: 20,
-  //   top: -10
+  container: {
+    flex: 1,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    top: -10
 
-  // },
+  },
   wrapper: {
     width: '90%',
     alignItems: 'center',
