@@ -3,7 +3,6 @@ import {
   ImageBackground,
   View,
   Image,
-  SafeAreaView,
   TouchableOpacity,
   Text,
   TextInput,
@@ -23,13 +22,13 @@ let animations = {
   ...ifIphoneX(
     {
       form: -320,
-      marginBottomButton: '10%',
-      logoTop: -60,
+      marginBottomButton: '30%',
+      logoTop: -80,
       top: 20
     },
     {
       form: -250,
-      marginBottomButton: 15,
+      marginBottomButton: '15%',
       logoTop: -67,
       top: 0
     }
@@ -151,7 +150,7 @@ export default class Login extends React.Component {
           style={{ flex: 1 }}
           colors={['rgba(255, 255, 255, .7)', 'rgba(255, 255, 255, 1)']}
           locations={[0, 0.5]}>
-          <SafeAreaView
+          <View
             style={{
               flex: 1,
               alignContent: 'center',
@@ -176,7 +175,8 @@ export default class Login extends React.Component {
                   width: this.state.logoWidth,
                   height: this.state.logoHeight,
                   left: this.state.logoLeft,
-                  top: this.state.logoTop
+                  top: this.state.logoTop,
+                  justifyContent: 'space-between',
                 }}
                 source={require('../assets/img/Logo-Blue.png')}
               />
@@ -296,7 +296,7 @@ export default class Login extends React.Component {
                 <GradientButton text="LOGIN" />
               </TouchableOpacity>
             </Animated.View>
-          </SafeAreaView>
+          </View>
         </LinearGradient>
       </ImageBackground>
     );

@@ -1,5 +1,3 @@
-import {Dimensions} from 'react-native';
-let {width} = Dimensions.get('window');
 
 let formStyles = {
   parent: { width: '80%', justifyContent: 'space-between' },

@@ -22,13 +22,13 @@ let animations = {
   ...ifIphoneX(
     {
       form: -220,
-      marginBottomButton: '10%',
+      marginBottomButton: '20%',
       logoTop: -60,
       top: 20
     },
     {
       form: -165,
-      marginBottomButton: 15,
+      marginBottomButton: 30,
       logoTop: -67,
       top: 0
     }

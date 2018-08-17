@@ -1,6 +1,5 @@
 import { Dimensions } from 'react-native';
-
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 const styles = {
   image: {
     width: '100%',
