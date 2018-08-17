@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Text,
   TextInput,
-  Animated
+  Animated,
+  Keyboard
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import Hr from '../components/Hr';
@@ -25,9 +26,9 @@ let animations = {
       logoTop: -60
     },
     {
-      form: -170,
+      form: -165,
       marginBottomButton: 15,
-      logoTop: -50
+      logoTop: -67
     }
   )
 };
@@ -58,18 +59,66 @@ export default class Signup extends React.Component {
   }
 
   componentDidMount() {
+    this.keyboardWillShowSub = Keyboard.addListener(
+      'keyboardWillShow',
+      this.keyboardWillShow
+    );
+    this.keyboardWillHideSub = Keyboard.addListener(
+      'keyboardWillHide',
+      this.keyboardWillHide
+    );
+  }
+
+  keyboardWillHide = () => {
+    Animated.parallel([
+      Animated.timing(this.state.logoHeight, {
+        toValue: 50,
+        duration: 300
+      }),
+      Animated.timing(this.state.logoTop, {
+        toValue: 0,
+        duration: 300
+      }),
+      Animated.timing(this.state.logoWidth, {
+        toValue: 80,
+        duration: 300
+      }),
+      Animated.timing(this.state.fade, {
+        toValue: 1,
+        duration: 100
+      }),
+      Animated.timing(this.state.fadeIn, {
+        toValue: 0.1,
+        duration: 300
+      }),
+      Animated.timing(this.state.logoLeft, {
+        toValue: 0,
+        duration: 300
+      }),
+      Animated.timing(this.state.form, {
+        toValue: 0,
+        duration: 300
+      }),
+      Animated.timing(this.state.background, {
+        toValue: 1,
+        duration: 500
+      })
+    ]).start();
+  };
+
+  keyboardWillShow = () => {
     Animated.parallel([
       Animated.timing(this.state.logoHeight, {
         toValue: 37,
-        duration: 500
+        duration: 300
       }),
       Animated.timing(this.state.logoTop, {
         toValue: animations.logoTop,
-        duration: 500
+        duration: 300
       }),
       Animated.timing(this.state.logoWidth, {
         toValue: 32,
-        duration: 500
+        duration: 300
       }),
       Animated.timing(this.state.fade, {
         toValue: 0,
@@ -77,22 +126,22 @@ export default class Signup extends React.Component {
       }),
       Animated.timing(this.state.fadeIn, {
         toValue: 1,
-        duration: 500
+        duration: 300
       }),
       Animated.timing(this.state.logoLeft, {
         toValue: -30,
-        duration: 500
+        duration: 300
       }),
       Animated.timing(this.state.form, {
         toValue: animations.form,
-        duration: 500
+        duration: 300
       }),
       Animated.timing(this.state.background, {
         toValue: 1,
-        duration: 500
+        duration: 300
       })
     ]).start();
-  }
+  };
 
   focusTextInput(inputToFocus) {
     inputToFocus.current.focus();
@@ -117,8 +166,6 @@ export default class Signup extends React.Component {
               alignItems: 'center',
               justifyContent: 'space-between',
               marginBottom: 20,
-              backgroundColor: 'white',
-         
               top: -10
             }}>
             <TouchableOpacity
