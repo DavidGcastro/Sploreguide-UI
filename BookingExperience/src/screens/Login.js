@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   ImageBackground,
   View,
@@ -8,15 +8,19 @@ import {
   TextInput,
   Animated,
   Keyboard
-} from 'react-native';
-import { LinearGradient } from 'expo';
-import Hr from '../components/Hr';
-import GradientButton from '../components/GradientButton';
-import styles from '../styles/login';
-import GoBack from '../components/GoBack';
-import { Ionicons } from '@expo/vector-icons';
-import formStyles from '../styles/formStyles';
-import { ifIphoneX } from 'react-native-iphone-x-helper';
+} from 'react-native'
+import { LinearGradient, AppLoading } from 'expo'
+import Hr from '../components/Hr'
+import GradientButton from '../components/GradientButton'
+import styles from '../styles/login'
+import GoBack from '../components/GoBack'
+import { Ionicons } from '@expo/vector-icons'
+import formStyles from '../styles/formStyles'
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { graphql, compose } from 'react-apollo'
+import { loginMutation, fbLoginMutation } from '../mutations'
+import { handleFBLogin } from '../services/facebook'
+import deviceStorage from '../services/deviceStorage'
 
 let animations = {
   ...ifIphoneX(
@@ -33,39 +37,42 @@ let animations = {
       top: 0
     }
   )
-};
+}
 
-export default class Login extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-      logoWidth: new Animated.Value(80),
-      logoHeight: new Animated.Value(50),
-      logoLeft: new Animated.Value(0),
-      logoTop: new Animated.Value(0),
-      fade: new Animated.Value(1),
-      fadeIn: new Animated.Value(0.1),
-      form: new Animated.Value(0),
-      background: new Animated.Value(0.7)
-    };
-    this.passwordInput = React.createRef();
-    this.focusTextInput = this.focusTextInput.bind(this);
+export class Login extends React.Component {
+  state = {
+    email: '',
+    password: '',
+    loading: false,
+    logoWidth: new Animated.Value(80),
+    logoHeight: new Animated.Value(50),
+    logoLeft: new Animated.Value(0),
+    logoTop: new Animated.Value(0),
+    fade: new Animated.Value(1),
+    fadeIn: new Animated.Value(0.1),
+    form: new Animated.Value(0),
+    background: new Animated.Value(0.7)
   }
+
+  passwordInput = React.createRef()
+  focusTextInput = this.focusTextInput.bind(this)
+
   componentDidMount() {
     this.keyboardWillShowSub = Keyboard.addListener(
       'keyboardWillShow',
       this.keyboardWillShow
-    );
+    )
+
     this.keyboardWillHideSub = Keyboard.addListener(
       'keyboardWillHide',
       this.keyboardWillHide
-    );
+    )
   }
+
   focusTextInput() {
-    this.passwordInput.current.focus();
+    this.passwordInput.current.focus()
   }
+
   keyboardWillHide = () => {
     Animated.parallel([
       Animated.timing(this.state.logoHeight, {
@@ -100,8 +107,8 @@ export default class Login extends React.Component {
         toValue: 1,
         duration: 500
       })
-    ]).start();
-  };
+    ]).start()
+  }
 
   keyboardWillShow = () => {
     Animated.parallel([
@@ -137,10 +144,20 @@ export default class Login extends React.Component {
         toValue: 1,
         duration: 300
       })
-    ]).start();
-  };
+    ]).start()
+  }
+
+  handleFBLogin = handleFBLogin.bind(this)
+
+  useFB = () => {
+    this.setState({loading: true})
+    this.handleFBLogin()
+  }
 
   render() {
+    let { loading } = this.state
+
+    if (loading) return <AppLoading />
     return (
       <ImageBackground
         source={require('../assets/img/login-noOverlay.jpg')}
@@ -195,25 +212,13 @@ export default class Login extends React.Component {
               }}>
               >
               <View style={styles.iconContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.useFB}
+                >
                   <Image
                     style={styles.socialIcons}
                     resizeMode="contain"
                     source={require('../assets/img/facebook.png')}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    style={styles.socialIcons}
-                    resizeMode="contain"
-                    source={require('../assets/img/twitter.png')}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    style={styles.socialIcons}
-                    resizeMode="contain"
-                    source={require('../assets/img/googleplus.png')}
                   />
                 </TouchableOpacity>
               </View>
@@ -299,6 +304,29 @@ export default class Login extends React.Component {
           </View>
         </LinearGradient>
       </ImageBackground>
-    );
+    )
   }
 }
+
+const login = graphql(
+  loginMutation,
+  {
+    props: ({ mutate }) => ({
+      login: (email, password) => mutate({ variables: { email, password } }),
+    }),
+  },
+)
+
+export const fbLogin = graphql(
+  fbLoginMutation,
+  {
+    props: ({ mutate }) => ({
+      fbLogin: (email, first_name, last_name, id, token) => mutate({ variables: { email, first_name, last_name, id, token } }),
+    }),
+  },
+)
+
+export default compose(login, fbLogin)(Login)
+
+
+

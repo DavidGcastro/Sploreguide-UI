@@ -1,12 +1,12 @@
-import { createBottomTabNavigator } from 'react-navigation';
-import Temp from '../screens/Temp';
-import Temp2 from '../screens/Temp2';
-import Temp3 from '../screens/Temp3';
-import Temp4 from '../screens/Temp4';
-import Temp5 from '../screens/Temp5';
-import Landing from '../screens/Landing';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import React from 'react';
+import { createBottomTabNavigator } from 'react-navigation'
+import Temp from '../screens/Temp'
+import Temp2 from '../screens/Temp2'
+import Temp3 from '../screens/Temp3'
+import Temp4 from '../screens/Temp4'
+import Temp5 from '../screens/Temp5'
+import Landing from '../screens/Landing'
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import React from 'react'
 
 const BottomTabNavigator = createBottomTabNavigator(
   {
@@ -14,7 +14,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       screen: Landing,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="md-compass" size={40} color={tintColor} />
+          <Ionicons name='md-compass' size={40} color={tintColor} />
         )
       }
     },
@@ -22,7 +22,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       screen: Temp2,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="md-heart-outline" size={40} color={tintColor} />
+          <Ionicons name='md-heart-outline' size={40} color={tintColor} />
         )
       }
     },
@@ -30,7 +30,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       screen: Temp3,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <MaterialCommunityIcons name="magnify" size={60} color={tintColor} />
+          <MaterialCommunityIcons name='magnify' size={60} color={tintColor} />
         ),
         tabVisible: false
       }
@@ -40,7 +40,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Ionicons
-            name="ios-paper-plane-outline"
+            name='ios-paper-plane-outline'
             size={40}
             color={tintColor}
           />
@@ -51,7 +51,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       screen: Temp5,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="md-person" size={40} color={tintColor} />
+          <Ionicons name='md-person' size={40} color={tintColor} />
         )
       }
     }
@@ -73,6 +73,6 @@ const BottomTabNavigator = createBottomTabNavigator(
       }
     }
   }
-);
+)
 
-export default BottomTabNavigator;
+export default BottomTabNavigator

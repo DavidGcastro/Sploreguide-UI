@@ -1,6 +1,6 @@
-import { createStackNavigator } from 'react-navigation';
-import PreviewScreen from '../screens/PreviewScreen';
-import ExperienceScreen from '../screens/ExperienceScreen';
+import { createStackNavigator } from 'react-navigation'
+import PreviewScreen from '../screens/PreviewScreen'
+import ExperienceScreen from '../screens/ExperienceScreen'
 
 const PreviewNavigator = createStackNavigator(
   {
@@ -18,6 +18,6 @@ const PreviewNavigator = createStackNavigator(
     }
   },
   { initialRouteName: 'Preview' }
-);
+)
 
-export default PreviewNavigator;
+export default PreviewNavigator

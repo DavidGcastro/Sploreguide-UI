@@ -1,18 +1,28 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
 
-const Temp5 = () => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center'
-      }}>
-      <Text> Temp 5 </Text>
-    </View>
-  );
-};
+class Temp5 extends React.Component {
+  logout = () => {
+    this.props.screenProps.deleteJWT()
+  }
 
-export default Temp5;
+  render () {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center'
+        }}>
+        <TouchableOpacity
+          onPress={this.logout}
+        >
+          <Text> Logout </Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
+
+export default Temp5

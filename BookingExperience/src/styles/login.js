@@ -30,7 +30,7 @@ const styles = {
   iconContainer: {
     paddingVertical: 30,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
   },
   socialIcons: {
     width: 29,
@@ -43,6 +43,6 @@ const styles = {
     alignItems: 'center',
     width: '100%'
   }
-};
+}
 
-export default styles;
+export default styles
