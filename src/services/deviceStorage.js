@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import { JWT } from '../constants'
+import { ASYNC_JWT_KEY } from '../constants'
 
 const deviceStorage = {
   async saveItem (key, value) {
@@ -36,7 +36,7 @@ const deviceStorage = {
 
   async loadJWT () {
     try {
-      const value = await AsyncStorage.getItem(JWT)
+      const value = await AsyncStorage.getItem(ASYNC_JWT_KEY)
       if (value !== null) {
         this.setState({
           jwt: value,
@@ -54,7 +54,7 @@ const deviceStorage = {
 
   async deleteJWT () {
     try {
-      await AsyncStorage.removeItem(JWT)
+      await AsyncStorage.removeItem(ASYNC_JWT_KEY)
         .then(() => {
           this.setState({jwt: ''})
         })

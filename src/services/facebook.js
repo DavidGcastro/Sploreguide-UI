@@ -1,7 +1,7 @@
 import { Facebook } from 'expo'
 
 import deviceStorage from './deviceStorage'
-import { JWT } from '../constants'
+import { ASYNC_JWT_KEY } from '../constants'
 
 const APPID = '2107662222838481'
 const FB_FN_LN_EMAIL_URL = 'https://graph.facebook.com/me?fields=first_name,last_name,email&access_token='
@@ -31,13 +31,13 @@ async function handleFBLogin () {
     this.props.fbLogin(email, first_name, last_name, id, token)
       .then(async (response) => {
         let { data } = response
-        await deviceStorage.saveItem(JWT, data.loginWithFacebook.token)
+        await deviceStorage.saveItem(ASYNC_JWT_KEY, data.loginWithFacebook.token)
         this.props.screenProps.saveJWT(data.loginWithFacebook.token)
       }).catch((error) => {
         console.log(error)
       })
   } else {
-    setTimeout(() => { this.setState({loading: false}) }, 500)
+    this.setState({loading: false})
   }
 }
 

@@ -15,9 +15,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-#unix
-.DS_Store
-
-#VS Code
-.vscode/
