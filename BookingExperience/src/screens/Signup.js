@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   ImageBackground,
   View,
@@ -9,66 +9,92 @@ import {
   TextInput,
   Animated,
   Keyboard
-} from 'react-native';
-import { LinearGradient } from 'expo';
-import Hr from '../components/Hr';
-import GradientButton from '../components/GradientButton';
-import styles from '../styles/login';
-import formStyles from '../styles/formStyles';
-import GoBack from '../components/GoBack';
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
-import { ifIphoneX } from 'react-native-iphone-x-helper';
+} from 'react-native'
+import { LinearGradient, AppLoading } from 'expo'
+import moment from 'moment'
+import Hr from '../components/Hr'
+import GradientButton from '../components/GradientButton'
+import styles from '../styles/login'
+import formStyles from '../styles/formStyles'
+import GoBack from '../components/GoBack'
+import { Ionicons, FontAwesome } from '@expo/vector-icons'
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { graphql, compose } from 'react-apollo'
+import { fbLogin } from './Login'
+import { signupMutation, fbLoginMutation } from '../mutations'
+import { handleFBLogin } from '../services/facebook'
+import deviceStorage from '../services/deviceStorage'
+import { validateEmail } from '../helpers/validators'
+import { makeFirstLetterUpperCase } from '../helpers/strings'
+import {
+  ASYNC_JWT_KEY,
+  FNAME_ERROR_MISSING,
+  LNAME_ERROR_MISSING,
+  SEX_ERROR_MISSING,
+  DOB_ERROR_MISSING,
+  EMAIL_REQUIRED,
+  EMAIL_MALFORMED,
+  PASSWORD_REQUIRED,
+  NETWORK_ERROR,
+  GRAPHQL_ERROR_USER_EXISTS
+} from '../constants'
+
+
 let animations = {
   ...ifIphoneX(
     {
-      form: -220,
+      form: -200,
       marginBottomButton: '20%',
       logoTop: -60,
       top: 20
     },
     {
-      form: -165,
+      form: -145,
       marginBottomButton: 30,
       logoTop: -67,
       top: 0
     }
   )
-};
+}
 
-export default class Signup extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      name: '',
-      email: '',
-      Password: '',
-      sex: '',
-      dob: '',
-      logoWidth: new Animated.Value(80),
-      logoHeight: new Animated.Value(50),
-      logoLeft: new Animated.Value(0),
-      logoTop: new Animated.Value(0),
-      fade: new Animated.Value(1),
-      fadeIn: new Animated.Value(0.1),
-      form: new Animated.Value(0),
-      background: new Animated.Value(0.7)
-    };
-    this.sexInput = React.createRef();
-    this.birthInput = React.createRef();
-    this.emailInput = React.createRef();
-    this.passwordInput = React.createRef();
-    this.focusTextInput = this.focusTextInput.bind(this);
+class Signup extends React.Component {
+  state = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    sex: '',
+    dob: moment().subtract(19, 'years'),
+    error: '',
+    loading: false,
+    logoWidth: new Animated.Value(80),
+    logoHeight: new Animated.Value(50),
+    logoLeft: new Animated.Value(0),
+    logoTop: new Animated.Value(0),
+    fade: new Animated.Value(1),
+    fadeIn: new Animated.Value(0.1),
+    form: new Animated.Value(0),
+    background: new Animated.Value(0.7)
   }
+
+  lastNameInput = React.createRef()
+  sexInput = React.createRef()
+  birthInput = React.createRef()
+  emailInput = React.createRef()
+  passwordInput = React.createRef()
+  focusTextInput = this.focusTextInput.bind(this)
+
 
   componentDidMount() {
     this.keyboardWillShowSub = Keyboard.addListener(
       'keyboardWillShow',
       this.keyboardWillShow
-    );
+    )
+
     this.keyboardWillHideSub = Keyboard.addListener(
       'keyboardWillHide',
       this.keyboardWillHide
-    );
+    )
   }
 
   keyboardWillHide = () => {
@@ -87,7 +113,7 @@ export default class Signup extends React.Component {
       }),
       Animated.timing(this.state.fade, {
         toValue: 1,
-        duration: 100
+        duration: 300
       }),
       Animated.timing(this.state.fadeIn, {
         toValue: 0.1,
@@ -105,8 +131,8 @@ export default class Signup extends React.Component {
         toValue: 1,
         duration: 500
       })
-    ]).start();
-  };
+    ]).start()
+  }
 
   keyboardWillShow = () => {
     Animated.parallel([
@@ -124,7 +150,7 @@ export default class Signup extends React.Component {
       }),
       Animated.timing(this.state.fade, {
         toValue: 0,
-        duration: 100
+        duration: 300
       }),
       Animated.timing(this.state.fadeIn, {
         toValue: 1,
@@ -142,14 +168,79 @@ export default class Signup extends React.Component {
         toValue: 1,
         duration: 300
       })
-    ]).start();
-  };
+    ]).start()
+  }
 
   focusTextInput(inputToFocus) {
-    inputToFocus.current.focus();
+    inputToFocus.current.focus()
+  }
+
+  handleFBLogin = handleFBLogin.bind(this)
+
+  useFB = () => {
+    this.setState({loading: true})
+    this.handleFBLogin()
+  }
+
+  useEmailSignup = async () => {
+
+    let {
+      firstName,
+      lastName,
+      email,
+      password,
+      sex,
+      dob
+    } = this.state
+
+    if (!firstName) {
+      return this.setState({error: FNAME_ERROR_MISSING})
+    } else if (!lastName) {
+      return this.setState({error: LNAME_ERROR_MISSING})
+    } else if (!sex) {
+      return this.setState({error: SEX_ERROR_MISSING})
+    } else if (!dob) {
+      return this.setState({error: DOB_ERROR_MISSING})
+    }
+
+    firstName = makeFirstLetterUpperCase(firstName)
+    lastName = makeFirstLetterUpperCase(lastName)
+
+    email = email.toLowerCase()
+
+    //handle validation
+    if (!email) {
+      return this.setState({error: EMAIL_REQUIRED})
+    } else if (!validateEmail(email)) {
+      return this.setState({error: EMAIL_MALFORMED})
+    } else if (!password) {
+      return this.setState({error: PASSWORD_REQUIRED})
+    }
+
+    //send dob as time value in milliseconds
+    let dateOfBirth = dob.toDate().getTime()
+
+    this.props.signup(email, password, firstName, lastName, dateOfBirth)
+      .then(async (response) => {
+        let { data } = response
+        await deviceStorage.saveItem(ASYNC_JWT_KEY, data.signup.token)
+        // update App state with jwt and rerender
+        this.props.screenProps.saveJWT(data.signup.token)
+      }).catch((error) => {
+        if (error && error.graphQLErrors) {
+          if (error.graphQLErrors[0].message === GRAPHQL_ERROR_USER_EXISTS) {
+            return this.setState({error: GRAPHQL_ERROR_USER_EXISTS})
+          }
+        } else if (error && error.networkError) {
+          return this.setState({error: NETWORK_ERROR})
+        }
+      })
   }
 
   render() {
+    let { loading, dob, error } = this.state
+
+    if (loading) return <AppLoading />
     return (
       <ImageBackground
         source={require('../assets/img/login-noOverlay.jpg')}
@@ -203,25 +294,13 @@ export default class Signup extends React.Component {
                 height: 100
               }}>
               <View style={styles.iconContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.useFB}
+                >
                   <Image
                     style={styles.socialIcons}
                     resizeMode="contain"
                     source={require('../assets/img/facebook.png')}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    style={styles.socialIcons}
-                    resizeMode="contain"
-                    source={require('../assets/img/twitter.png')}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Image
-                    style={styles.socialIcons}
-                    resizeMode="contain"
-                    source={require('../assets/img/googleplus.png')}
                   />
                 </TouchableOpacity>
               </View>
@@ -245,29 +324,69 @@ export default class Signup extends React.Component {
                   width: '100%'
                 }}>
                 <View style={formStyles.parent}>
-                  {/*FIRST FORM*/}
-                  <View style={{ paddingTop: 20 }}>
-                    <Text style={formStyles.formText}>Name</Text>
-                    <View style={formStyles.inputIconContainer}>
-                      <Ionicons
-                        name="ios-person-outline"
-                        size={18}
-                        style={formStyles.iconStyles}
-                      />
-                      <TextInput
-                        onChangeText={x => this.setState({ name: x })}
-                        onSubmitEditing={() =>
-                          this.focusTextInput(this.sexInput)
-                        }
-                        returnKeyType="next"
-                        placeholder="Type your Name"
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-end'
+                    }}>
+                    {/*FIRST FORM*/}
+                    <View
+                      style={{
+                        paddingTop: 20,
+                        paddingRight: 10,
+                        width: 150
+                      }}>
+                      <Text style={formStyles.formText}>Full Name</Text>
+                      <View style={formStyles.inputIconContainerHalf}>
+                        <Ionicons
+                          name="ios-person-outline"
+                          size={18}
+                          style={{
+                            paddingRight: 10,
+                            color: 'rgba(132, 146, 166, 1)'
+                          }}
+                        />
+                        <TextInput
+                          onChangeText={x => this.setState({ firstName: x, error: '' })}
+                          onSubmitEditing={() =>
+                            this.focusTextInput(this.lastNameInput)
+                          }
+                          returnKeyType="next"
+                          placeholder="First Name"
+                          style={{
+                            fontSize: 13,
+                            width: '50%'
+                          }}
+                        />
+                      </View>
+                    </View>
+                    <View style={{ paddingTop: 20 }}>
+                      <Text
                         style={{
                           fontSize: 13,
-                          width: '80%'
-                        }}
-                      />
+                          paddingBottom: 8,
+                          color: 'rgba(132, 146, 166, 1)'
+                        }}>
+                      </Text>
+                      <View style={formStyles.inputIconContainerHalf}>
+
+                        <TextInput
+                          ref={this.lastNameInput}
+                          onChangeText={x => this.setState({ lastName: x, error: '' })}
+                          onSubmitEditing={() =>
+                            this.focusTextInput(this.sexInput)
+                          }
+                          returnKeyType="next"
+                          placeholder="Last Name"
+                          style={{
+                            fontSize: 13
+                          }}
+                        />
+                      </View>
                     </View>
                   </View>
+
                   <View
                     style={{
                       flexDirection: 'row',
@@ -293,7 +412,7 @@ export default class Signup extends React.Component {
                         />
                         <TextInput
                           ref={this.sexInput}
-                          onChangeText={x => this.setState({ sex: x })}
+                          onChangeText={x => this.setState({ sex: x, error: '' })}
                           onSubmitEditing={() =>
                             this.focusTextInput(this.birthInput)
                           }
@@ -323,7 +442,8 @@ export default class Signup extends React.Component {
                         />
                         <TextInput
                           ref={this.birthInput}
-                          onChangeText={x => this.setState({ dob: x })}
+                          value={dob.format('MMM Do YYYY')}
+                          onChangeText={x => this.setState({ dob: x, error: '' })}
                           onSubmitEditing={() =>
                             this.focusTextInput(this.emailInput)
                           }
@@ -346,7 +466,7 @@ export default class Signup extends React.Component {
                       />
                       <TextInput
                         ref={this.emailInput}
-                        onChangeText={x => this.setState({ email: x })}
+                        onChangeText={x => this.setState({ email: x, error: '' })}
                         returnKeyType="next"
                         placeholder="Type your Email"
                         onSubmitEditing={() =>
@@ -369,7 +489,7 @@ export default class Signup extends React.Component {
                       />
                       <TextInput
                         ref={this.passwordInput}
-                        onChangeText={x => this.setState({ password: x })}
+                        onChangeText={x => this.setState({ password: x, error: '' })}
                         secureTextEntry={true}
                         returnKeyType="next"
                         placeholder="Type your Password"
@@ -382,15 +502,31 @@ export default class Signup extends React.Component {
                   </View>
                 </View>
               </View>
+              <View>
+                <Text style={[formStyles.formText, {color: 'red'}]}>{error}</Text>
+              </View>
               <TouchableOpacity
                 style={{ width: '90%' }}
-                onPress={() => this.props.navigation.navigate('Landing')}>
+                onPress={this.useEmailSignup}>
                 <GradientButton text="SIGNUP" />
               </TouchableOpacity>
             </Animated.View>
           </SafeAreaView>
         </LinearGradient>
       </ImageBackground>
-    );
+    )
   }
 }
+
+
+
+const signup = graphql (
+  signupMutation,
+  {
+    props: ({ mutate }) => ({
+      signup: (email, password, firstName, lastName, dateOfBirth) => mutate({ variables: { email, password, firstName, lastName, dateOfBirth } })
+    }),
+  },
+)
+
+export default compose(signup, fbLogin)(Signup)

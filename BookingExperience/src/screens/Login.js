@@ -21,17 +21,27 @@ import { graphql, compose } from 'react-apollo'
 import { loginMutation, fbLoginMutation } from '../mutations'
 import { handleFBLogin } from '../services/facebook'
 import deviceStorage from '../services/deviceStorage'
+import { validateEmail } from '../helpers/validators'
+import {
+  ASYNC_JWT_KEY,
+  EMAIL_MALFORMED,
+  EMAIL_REQUIRED,
+  PASSWORD_REQUIRED,
+  GRAPHQL_ERROR_NO_USER_FOUND,
+  GRAPHQL_ERROR_INVALID_PASSWORD,
+  NETWORK_ERROR
+} from '../constants'
 
 let animations = {
   ...ifIphoneX(
     {
-      form: -320,
+      form: -310,
       marginBottomButton: '30%',
       logoTop: -80,
       top: 20
     },
     {
-      form: -250,
+      form: -240,
       marginBottomButton: '15%',
       logoTop: -67,
       top: 0
@@ -39,10 +49,11 @@ let animations = {
   )
 }
 
-export class Login extends React.Component {
+class Login extends React.Component {
   state = {
     email: '',
     password: '',
+    error: '',
     loading: false,
     logoWidth: new Animated.Value(80),
     logoHeight: new Animated.Value(50),
@@ -154,8 +165,41 @@ export class Login extends React.Component {
     this.handleFBLogin()
   }
 
+  useEmailLogin = async () => {
+    let { email, password } = this.state
+
+    email = email.toLowerCase()
+
+    //TODO: HANDLE EMAIL & PASSWORD VALIDATION
+    if (!email) {
+      return this.setState({error: EMAIL_REQUIRED})
+    } else if(! validateEmail(email)) {
+      return this.setState({error: EMAIL_MALFORMED})
+    } else if (!password) {
+      return this.setState({error: PASSWORD_REQUIRED})
+    }
+
+    this.props.login(email, password)
+      .then(async (response) => {
+        let { data } = response
+        await deviceStorage.saveItem(ASYNC_JWT_KEY, data.login.token)
+        // update App state with jwt and rerender
+        this.props.screenProps.saveJWT(data.login.token)
+      }).catch((error) => {
+        if (error && error.graphQLErrors) {
+          if (error.graphQLErrors[0].message === GRAPHQL_ERROR_NO_USER_FOUND) {
+            return this.setState({error: GRAPHQL_ERROR_NO_USER_FOUND})
+          } else if (error.graphQLErrors[0].message === GRAPHQL_ERROR_INVALID_PASSWORD) {
+            return this.setState({error: GRAPHQL_ERROR_INVALID_PASSWORD})
+          }
+        } else if (error && error.networkError) {
+          return this.setState({error: NETWORK_ERROR})
+        }
+      })
+  }
+
   render() {
-    let { loading } = this.state
+    let { loading, error } = this.state
 
     if (loading) return <AppLoading />
     return (
@@ -252,7 +296,7 @@ export class Login extends React.Component {
                         style={formStyles.iconStyles}
                       />
                       <TextInput
-                        onChangeText={x => this.setState({ email: x })}
+                        onChangeText={x => this.setState({ email: x, error: '' })}
                         returnKeyType="next"
                         placeholder="Type your Email"
                         onSubmitEditing={() => this.focusTextInput()}
@@ -272,7 +316,7 @@ export class Login extends React.Component {
                         style={formStyles.iconStyles}
                       />
                       <TextInput
-                        onChangeText={x => this.setState({ password: x })}
+                        onChangeText={x => this.setState({ password: x, error: '' })}
                         ref={this.passwordInput}
                         secureTextEntry={true}
                         returnKeyType="next"
@@ -295,9 +339,12 @@ export class Login extends React.Component {
                   </View>
                 </View>
               </View>
+              <View>
+                <Text style={[formStyles.formText, {color: 'red'}]}>{error}</Text>
+              </View>
               <TouchableOpacity
                 style={{ width: '90%' }}
-                onPress={() => this.props.navigation.navigate('Landing')}>
+                onPress={this.useEmailLogin}>
                 <GradientButton text="LOGIN" />
               </TouchableOpacity>
             </Animated.View>
