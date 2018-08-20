@@ -1,9 +1,9 @@
 import { Facebook } from 'expo'
+import { APPID } from 'react-native-dotenv'
 
 import deviceStorage from './deviceStorage'
 import { ASYNC_JWT_KEY } from '../constants'
 
-const APPID = '2107662222838481'
 const FB_FN_LN_EMAIL_URL = 'https://graph.facebook.com/me?fields=first_name,last_name,email&access_token='
 
 async function loginWithFacebook () {
