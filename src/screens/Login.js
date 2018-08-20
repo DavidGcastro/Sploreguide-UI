@@ -1,27 +1,28 @@
-import React from 'react'
+import React from 'react';
 import {
   ImageBackground,
   View,
   Image,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Text,
   TextInput,
   Animated,
   Keyboard
-} from 'react-native'
-import { LinearGradient, AppLoading } from 'expo'
-import Hr from '../components/Hr'
-import GradientButton from '../components/GradientButton'
-import styles from '../styles/login'
-import GoBack from '../components/GoBack'
-import { Ionicons } from '@expo/vector-icons'
-import formStyles from '../styles/formStyles'
-import { ifIphoneX } from 'react-native-iphone-x-helper'
-import { graphql, compose } from 'react-apollo'
-import { loginMutation, fbLoginMutation } from '../mutations'
-import { handleFBLogin } from '../services/facebook'
-import deviceStorage from '../services/deviceStorage'
-import { validateEmail } from '../helpers/validators'
+} from 'react-native';
+import { LinearGradient, AppLoading } from 'expo';
+import Hr from '../components/Hr';
+import GradientButton from '../components/GradientButton';
+import styles from '../styles/login';
+import GoBack from '../components/GoBack';
+import { Ionicons } from '@expo/vector-icons';
+import formStyles from '../styles/formStyles';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
+import { graphql, compose } from 'react-apollo';
+import { loginMutation, fbLoginMutation } from '../mutations';
+import { handleFBLogin } from '../services/facebook';
+import deviceStorage from '../services/deviceStorage';
+import { validateEmail } from '../helpers/validators';
 import {
   ASYNC_JWT_KEY,
   EMAIL_MALFORMED,
@@ -30,24 +31,22 @@ import {
   GRAPHQL_ERROR_NO_USER_FOUND,
   GRAPHQL_ERROR_INVALID_PASSWORD,
   NETWORK_ERROR
-} from '../constants'
+} from '../constants';
 
 let animations = {
   ...ifIphoneX(
     {
-      form: -310,
-      marginBottomButton: '30%',
+      form: -350,
       logoTop: -80,
       top: 20
     },
     {
       form: -240,
-      marginBottomButton: '15%',
       logoTop: -67,
       top: 0
     }
   )
-}
+};
 
 class Login extends React.Component {
   state = {
@@ -61,27 +60,26 @@ class Login extends React.Component {
     logoTop: new Animated.Value(0),
     fade: new Animated.Value(1),
     fadeIn: new Animated.Value(0.1),
-    form: new Animated.Value(0),
-    background: new Animated.Value(0.7)
-  }
+    form: new Animated.Value(0)
+  };
 
-  passwordInput = React.createRef()
-  focusTextInput = this.focusTextInput.bind(this)
+  passwordInput = React.createRef();
+  focusTextInput = this.focusTextInput.bind(this);
 
   componentDidMount() {
     this.keyboardWillShowSub = Keyboard.addListener(
       'keyboardWillShow',
       this.keyboardWillShow
-    )
+    );
 
     this.keyboardWillHideSub = Keyboard.addListener(
       'keyboardWillHide',
       this.keyboardWillHide
-    )
+    );
   }
 
   focusTextInput() {
-    this.passwordInput.current.focus()
+    this.passwordInput.current.focus();
   }
 
   keyboardWillHide = () => {
@@ -113,13 +111,9 @@ class Login extends React.Component {
       Animated.timing(this.state.form, {
         toValue: 0,
         duration: 300
-      }),
-      Animated.timing(this.state.background, {
-        toValue: 1,
-        duration: 500
       })
-    ]).start()
-  }
+    ]).start();
+  };
 
   keyboardWillShow = () => {
     Animated.parallel([
@@ -150,58 +144,58 @@ class Login extends React.Component {
       Animated.timing(this.state.form, {
         toValue: animations.form,
         duration: 300
-      }),
-      Animated.timing(this.state.background, {
-        toValue: 1,
-        duration: 300
       })
-    ]).start()
-  }
+    ]).start();
+  };
 
-  handleFBLogin = handleFBLogin.bind(this)
+  handleFBLogin = handleFBLogin.bind(this);
 
   useFB = () => {
-    this.setState({loading: true})
-    this.handleFBLogin()
-  }
+    this.setState({ loading: true });
+    this.handleFBLogin();
+  };
 
   useEmailLogin = async () => {
-    let { email, password } = this.state
+    let { email, password } = this.state;
 
-    email = email.toLowerCase()
+    email = email.toLowerCase();
 
     //TODO: HANDLE EMAIL & PASSWORD VALIDATION
     if (!email) {
-      return this.setState({error: EMAIL_REQUIRED})
-    } else if(! validateEmail(email)) {
-      return this.setState({error: EMAIL_MALFORMED})
+      return this.setState({ error: EMAIL_REQUIRED });
+    } else if (!validateEmail(email)) {
+      return this.setState({ error: EMAIL_MALFORMED });
     } else if (!password) {
-      return this.setState({error: PASSWORD_REQUIRED})
+      return this.setState({ error: PASSWORD_REQUIRED });
     }
 
-    this.props.login(email, password)
-      .then(async (response) => {
-        let { data } = response
-        await deviceStorage.saveItem(ASYNC_JWT_KEY, data.login.token)
+    this.props
+      .login(email, password)
+      .then(async response => {
+        let { data } = response;
+        await deviceStorage.saveItem(ASYNC_JWT_KEY, data.login.token);
         // update App state with jwt and rerender
-        this.props.screenProps.saveJWT(data.login.token)
-      }).catch((error) => {
+        this.props.screenProps.saveJWT(data.login.token);
+      })
+      .catch(error => {
         if (error && error.graphQLErrors) {
           if (error.graphQLErrors[0].message === GRAPHQL_ERROR_NO_USER_FOUND) {
-            return this.setState({error: GRAPHQL_ERROR_NO_USER_FOUND})
-          } else if (error.graphQLErrors[0].message === GRAPHQL_ERROR_INVALID_PASSWORD) {
-            return this.setState({error: GRAPHQL_ERROR_INVALID_PASSWORD})
+            return this.setState({ error: GRAPHQL_ERROR_NO_USER_FOUND });
+          } else if (
+            error.graphQLErrors[0].message === GRAPHQL_ERROR_INVALID_PASSWORD
+          ) {
+            return this.setState({ error: GRAPHQL_ERROR_INVALID_PASSWORD });
           }
         } else if (error && error.networkError) {
-          return this.setState({error: NETWORK_ERROR})
+          return this.setState({ error: NETWORK_ERROR });
         }
-      })
-  }
+      });
+  };
 
   render() {
-    let { loading, error } = this.state
+    let { loading, error } = this.state;
 
-    if (loading) return <AppLoading />
+    if (loading) return <AppLoading />;
     return (
       <ImageBackground
         source={require('../assets/img/login-noOverlay.jpg')}
@@ -211,169 +205,170 @@ class Login extends React.Component {
           style={{ flex: 1 }}
           colors={['rgba(255, 255, 255, .7)', 'rgba(255, 255, 255, 1)']}
           locations={[0, 0.5]}>
-          <View
-            style={{
-              flex: 1,
-              alignContent: 'center',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: 20,
-              top: -10
-            }}>
-            <TouchableOpacity
+          <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <View
               style={{
-                marginBottom: 51,
-                alignSelf: 'flex-start',
-                top: animations.top
-              }}
-              onPress={() => this.props.navigation.navigate('Home')}>
-              <GoBack />
-            </TouchableOpacity>
-            <View style={styles.wrapper}>
-              <Animated.Image
-                resizeMode="contain"
-                style={{
-                  width: this.state.logoWidth,
-                  height: this.state.logoHeight,
-                  left: this.state.logoLeft,
-                  top: this.state.logoTop,
-                  justifyContent: 'space-between',
-                }}
-                source={require('../assets/img/Logo-Blue.png')}
-              />
-              <Animated.Image
-                resizeMode="contain"
-                style={{ width: 201, height: 40, opacity: this.state.fade }}
-                source={require('../assets/img/title-gradient.png')}
-              />
-            </View>
-            <Animated.View
-              style={{
-                justifyContent: 'space-between',
-                width: '65%',
-                opacity: this.state.fade,
-                height: 100
-              }}>
-              >
-              <View style={styles.iconContainer}>
-                <TouchableOpacity
-                  onPress={this.useFB}
-                >
-                  <Image
-                    style={styles.socialIcons}
-                    resizeMode="contain"
-                    source={require('../assets/img/facebook.png')}
-                  />
-                </TouchableOpacity>
-              </View>
-              <Hr text="OR" />
-            </Animated.View>
-
-            <Animated.View
-              style={{
-                marginBottom: '10%',
-                justifyContent: 'center',
+                flex: 1,
                 alignContent: 'center',
                 alignItems: 'center',
-                width: '100%',
-                top: this.state.form
+                justifyContent: 'space-between',
+                marginBottom: 20,
+                top: -10
               }}>
-              <View
+              <TouchableOpacity
                 style={{
-                  marginBottom: animations.marginBottomButton,
+                  marginBottom: 51,
+                  alignSelf: 'flex-start',
+                  top: animations.top
+                }}
+                onPress={() => this.props.navigation.navigate('Home')}>
+                <GoBack />
+              </TouchableOpacity>
+              <View style={styles.wrapper}>
+                <Animated.Image
+                  resizeMode="contain"
+                  style={{
+                    width: this.state.logoWidth,
+                    height: this.state.logoHeight,
+                    left: this.state.logoLeft,
+                    top: this.state.logoTop,
+                    justifyContent: 'space-between'
+                  }}
+                  source={require('../assets/img/Logo-Blue.png')}
+                />
+                <Animated.Image
+                  resizeMode="contain"
+                  style={{ width: 201, height: 40, opacity: this.state.fade }}
+                  source={require('../assets/img/title-gradient.png')}
+                />
+              </View>
+              <Animated.View
+                style={{
+                  justifyContent: 'space-between',
+                  width: '65%',
+                  opacity: this.state.fade,
+                  height: 100
+                }}>
+                >
+                <View style={styles.iconContainer}>
+                  <TouchableOpacity onPress={this.useFB}>
+                    <Image
+                      style={styles.socialIcons}
+                      resizeMode="contain"
+                      source={require('../assets/img/facebook.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <Hr text="OR" />
+              </Animated.View>
+
+              <Animated.View
+                style={{
+                  marginBottom: '10%',
                   justifyContent: 'center',
                   alignContent: 'center',
                   alignItems: 'center',
-                  width: '100%'
+                  width: '100%',
+                  top: this.state.form
                 }}>
-                <View style={formStyles.parent}>
-                  <View style={{ paddingTop: 20 }}>
-                    <Text style={formStyles.formText}>Email</Text>
-                    <View style={formStyles.inputIconContainer}>
-                      <Ionicons
-                        name="ios-mail-open-outline"
-                        size={18}
-                        style={formStyles.iconStyles}
-                      />
-                      <TextInput
-                        onChangeText={x => this.setState({ email: x, error: '' })}
-                        returnKeyType="next"
-                        placeholder="Type your Email"
-                        onSubmitEditing={() => this.focusTextInput()}
-                        style={{
-                          fontSize: 13,
-                          width: '80%'
-                        }}
-                      />
-                    </View>
-                  </View>
-                  <View style={{ paddingTop: 20 }}>
-                    <Text style={formStyles.formText}>Password</Text>
-                    <View style={formStyles.inputIconContainer}>
-                      <Ionicons
-                        name="ios-lock-outline"
-                        size={18}
-                        style={formStyles.iconStyles}
-                      />
-                      <TextInput
-                        onChangeText={x => this.setState({ password: x, error: '' })}
-                        ref={this.passwordInput}
-                        secureTextEntry={true}
-                        returnKeyType="next"
-                        placeholder="Type your Password"
-                        style={{
-                          fontSize: 13,
-                          width: '80%'
-                        }}
-                      />
-                      <TouchableOpacity>
-                        <Text
+                <View
+                  style={{
+                    marginBottom: animations.button,
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    width: '100%'
+                  }}>
+                  <View style={formStyles.parent}>
+                    <View style={{ paddingTop: 20 }}>
+                      <Text style={formStyles.formText}>Email</Text>
+                      <View style={formStyles.inputIconContainer}>
+                        <Ionicons
+                          name="ios-mail-open-outline"
+                          size={18}
+                          style={formStyles.iconStyles}
+                        />
+                        <TextInput
+                          onChangeText={x =>
+                            this.setState({ email: x, error: '' })
+                          }
+                          returnKeyType="next"
+                          placeholder="Type your Email"
+                          onSubmitEditing={() => this.focusTextInput()}
                           style={{
-                            fontSize: 12,
-                            color: 'rgba(132,146,166,1)'
-                          }}>
-                          Forgot?
-                        </Text>
-                      </TouchableOpacity>
+                            fontSize: 13,
+                            width: '80%'
+                          }}
+                        />
+                      </View>
+                    </View>
+                    <View style={{ paddingTop: 20 }}>
+                      <Text style={formStyles.formText}>Password</Text>
+                      <View style={formStyles.inputIconContainer}>
+                        <Ionicons
+                          name="ios-lock-outline"
+                          size={18}
+                          style={formStyles.iconStyles}
+                        />
+                        <TextInput
+                          onChangeText={x =>
+                            this.setState({ password: x, error: '' })
+                          }
+                          ref={this.passwordInput}
+                          secureTextEntry={true}
+                          returnKeyType="next"
+                          placeholder="Type your Password"
+                          style={{
+                            fontSize: 13,
+                            width: '80%'
+                          }}
+                        />
+                        <TouchableOpacity>
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              color: 'rgba(132,146,166,1)'
+                            }}>
+                            Forgot?
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-              <View>
-                <Text style={[formStyles.formText, {color: 'red'}]}>{error}</Text>
-              </View>
-              <TouchableOpacity
-                style={{ width: '90%' }}
-                onPress={this.useEmailLogin}>
-                <GradientButton text="LOGIN" />
-              </TouchableOpacity>
-            </Animated.View>
-          </View>
+                <View>
+                  <Text style={[formStyles.formText, { color: 'red' }]}>
+                    {error}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  style={{ width: '90%' }}
+                  onPress={this.useEmailLogin}>
+                  <GradientButton text="LOGIN" />
+                </TouchableOpacity>
+              </Animated.View>
+            </View>
+          </TouchableWithoutFeedback>
         </LinearGradient>
       </ImageBackground>
-    )
+    );
   }
 }
 
-const login = graphql(
-  loginMutation,
-  {
-    props: ({ mutate }) => ({
-      login: (email, password) => mutate({ variables: { email, password } }),
-    }),
-  },
-)
+const login = graphql(loginMutation, {
+  props: ({ mutate }) => ({
+    login: (email, password) => mutate({ variables: { email, password } })
+  })
+});
 
-export const fbLogin = graphql(
-  fbLoginMutation,
-  {
-    props: ({ mutate }) => ({
-      fbLogin: (email, first_name, last_name, id, token) => mutate({ variables: { email, first_name, last_name, id, token } }),
-    }),
-  },
-)
+export const fbLogin = graphql(fbLoginMutation, {
+  props: ({ mutate }) => ({
+    fbLogin: (email, first_name, last_name, id, token) =>
+      mutate({ variables: { email, first_name, last_name, id, token } })
+  })
+});
 
-export default compose(login, fbLogin)(Login)
-
-
-
+export default compose(
+  login,
+  fbLogin
+)(Login);
