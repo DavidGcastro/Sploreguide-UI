@@ -176,7 +176,7 @@ class Signup extends React.Component {
   };
 
   focusTextInput(inputToFocus) {
-    inputToFocus.current.focus();
+    inputToFocus.current.focus(inputToFocus);
   }
 
   handleFBLogin = handleFBLogin.bind(this);
@@ -238,11 +238,7 @@ class Signup extends React.Component {
   getPickerOptions() {
     return [
       { value: 'male', label: 'Male' },
-      { value: 'female', label: 'Female' },
-      {
-        value: 'other',
-        label: 'Other'
-      }
+      { value: 'female', label: 'Female' }
     ];
   }
   render() {
@@ -428,7 +424,6 @@ class Signup extends React.Component {
                             ref={this.sexInput}
                             onSubmitEditing={val => {
                               this.setState({ sex: val });
-                              this.focusTextInput(this.birthInput);
                             }}
                             placeholder="Choose your Sex"
                             options={this.getPickerOptions()}
@@ -437,9 +432,9 @@ class Signup extends React.Component {
                       </View>
                       <View style={{ paddingTop: 20 }}>
                         <Text style={formStyles.formText}>Birth Date</Text>
-                        <View  ref={this.birthInput} style={formStyles.inputIconContainerHalf}>
+                        <View style={formStyles.inputIconContainerHalf}>
                           <DatePicker
-                           
+                            ref={this.birthInput}
                             date={this.state.dob}
                             iconComponent={
                               <FontAwesome
