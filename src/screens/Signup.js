@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   ImageBackground,
   View,
@@ -9,23 +9,23 @@ import {
   TextInput,
   Animated,
   Keyboard
-} from 'react-native'
-import { LinearGradient, AppLoading } from 'expo'
-import moment from 'moment'
-import Hr from '../components/Hr'
-import GradientButton from '../components/GradientButton'
-import styles from '../styles/login'
-import formStyles from '../styles/formStyles'
-import GoBack from '../components/GoBack'
-import { Ionicons, FontAwesome } from '@expo/vector-icons'
-import { ifIphoneX } from 'react-native-iphone-x-helper'
-import { graphql, compose } from 'react-apollo'
-import { fbLogin } from './Login'
-import { signupMutation, fbLoginMutation } from '../mutations'
-import { handleFBLogin } from '../services/facebook'
-import deviceStorage from '../services/deviceStorage'
-import { validateEmail } from '../helpers/validators'
-import { makeFirstLetterUpperCase } from '../helpers/strings'
+} from 'react-native';
+import { LinearGradient, AppLoading } from 'expo';
+import moment from 'moment';
+import Hr from '../components/Hr';
+import GradientButton from '../components/GradientButton';
+import styles from '../styles/login';
+import formStyles from '../styles/formStyles';
+import GoBack from '../components/GoBack';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
+import { graphql, compose } from 'react-apollo';
+import { fbLogin } from './Login';
+import { signupMutation, fbLoginMutation } from '../mutations';
+import { handleFBLogin } from '../services/facebook';
+import deviceStorage from '../services/deviceStorage';
+import { validateEmail } from '../helpers/validators';
+import { makeFirstLetterUpperCase } from '../helpers/strings';
 import {
   ASYNC_JWT_KEY,
   FNAME_ERROR_MISSING,
@@ -37,25 +37,24 @@ import {
   PASSWORD_REQUIRED,
   NETWORK_ERROR,
   GRAPHQL_ERROR_USER_EXISTS
-} from '../constants'
-
+} from '../constants';
 
 let animations = {
   ...ifIphoneX(
     {
       form: -200,
-      marginBottomButton: '20%',
+      marginBottomButton: 50,
       logoTop: -60,
       top: 20
     },
     {
-      form: -145,
-      marginBottomButton: 30,
+      form: -165,
+      marginBottomButton: 40,
       logoTop: -67,
       top: 0
     }
   )
-}
+};
 
 class Signup extends React.Component {
   state = {
@@ -74,27 +73,26 @@ class Signup extends React.Component {
     fade: new Animated.Value(1),
     fadeIn: new Animated.Value(0.1),
     form: new Animated.Value(0),
-    background: new Animated.Value(0.7)
-  }
+    button: new Animated.Value(0)
+  };
 
-  lastNameInput = React.createRef()
-  sexInput = React.createRef()
-  birthInput = React.createRef()
-  emailInput = React.createRef()
-  passwordInput = React.createRef()
-  focusTextInput = this.focusTextInput.bind(this)
-
+  lastNameInput = React.createRef();
+  sexInput = React.createRef();
+  birthInput = React.createRef();
+  emailInput = React.createRef();
+  passwordInput = React.createRef();
+  focusTextInput = this.focusTextInput.bind(this);
 
   componentDidMount() {
     this.keyboardWillShowSub = Keyboard.addListener(
       'keyboardWillShow',
       this.keyboardWillShow
-    )
+    );
 
     this.keyboardWillHideSub = Keyboard.addListener(
       'keyboardWillHide',
       this.keyboardWillHide
-    )
+    );
   }
 
   keyboardWillHide = () => {
@@ -127,12 +125,12 @@ class Signup extends React.Component {
         toValue: 0,
         duration: 300
       }),
-      Animated.timing(this.state.background, {
-        toValue: 1,
-        duration: 500
+      Animated.timing(this.state.button, {
+        toValue: 0,
+        duration: 300
       })
-    ]).start()
-  }
+    ]).start();
+  };
 
   keyboardWillShow = () => {
     Animated.parallel([
@@ -164,83 +162,77 @@ class Signup extends React.Component {
         toValue: animations.form,
         duration: 300
       }),
-      Animated.timing(this.state.background, {
-        toValue: 1,
+      Animated.timing(this.state.button, {
+        toValue: animations.marginBottomButton,
         duration: 300
       })
-    ]).start()
-  }
+    ]).start();
+  };
 
   focusTextInput(inputToFocus) {
-    inputToFocus.current.focus()
+    inputToFocus.current.focus();
   }
 
-  handleFBLogin = handleFBLogin.bind(this)
+  handleFBLogin = handleFBLogin.bind(this);
 
   useFB = () => {
-    this.setState({loading: true})
-    this.handleFBLogin()
-  }
+    this.setState({ loading: true });
+    this.handleFBLogin();
+  };
 
   useEmailSignup = async () => {
-
-    let {
-      firstName,
-      lastName,
-      email,
-      password,
-      sex,
-      dob
-    } = this.state
+    let { firstName, lastName, email, password, sex, dob } = this.state;
 
     if (!firstName) {
-      return this.setState({error: FNAME_ERROR_MISSING})
+      return this.setState({ error: FNAME_ERROR_MISSING });
     } else if (!lastName) {
-      return this.setState({error: LNAME_ERROR_MISSING})
+      return this.setState({ error: LNAME_ERROR_MISSING });
     } else if (!sex) {
-      return this.setState({error: SEX_ERROR_MISSING})
+      return this.setState({ error: SEX_ERROR_MISSING });
     } else if (!dob) {
-      return this.setState({error: DOB_ERROR_MISSING})
+      return this.setState({ error: DOB_ERROR_MISSING });
     }
 
-    firstName = makeFirstLetterUpperCase(firstName)
-    lastName = makeFirstLetterUpperCase(lastName)
+    firstName = makeFirstLetterUpperCase(firstName);
+    lastName = makeFirstLetterUpperCase(lastName);
 
-    email = email.toLowerCase()
+    email = email.toLowerCase();
 
     //handle validation
     if (!email) {
-      return this.setState({error: EMAIL_REQUIRED})
+      return this.setState({ error: EMAIL_REQUIRED });
     } else if (!validateEmail(email)) {
-      return this.setState({error: EMAIL_MALFORMED})
+      return this.setState({ error: EMAIL_MALFORMED });
     } else if (!password) {
-      return this.setState({error: PASSWORD_REQUIRED})
+      return this.setState({ error: PASSWORD_REQUIRED });
     }
 
     //send dob as time value in milliseconds
-    let dateOfBirth = dob.toDate().getTime()
+    let dateOfBirth = dob.toDate().getTime();
 
-    this.props.signup(email, password, firstName, lastName, dateOfBirth)
-      .then(async (response) => {
-        let { data } = response
-        await deviceStorage.saveItem(ASYNC_JWT_KEY, data.signup.token)
+    this.props
+      .signup(email, password, firstName, lastName, dateOfBirth)
+      .then(async response => {
+        let { data } = response;
+        await deviceStorage.saveItem(ASYNC_JWT_KEY, data.signup.token);
         // update App state with jwt and rerender
-        this.props.screenProps.saveJWT(data.signup.token)
-      }).catch((error) => {
+        this.props.screenProps.saveJWT(data.signup.token);
+      })
+      .catch(error => {
         if (error && error.graphQLErrors) {
           if (error.graphQLErrors[0].message === GRAPHQL_ERROR_USER_EXISTS) {
-            return this.setState({error: GRAPHQL_ERROR_USER_EXISTS})
+            return this.setState({ error: GRAPHQL_ERROR_USER_EXISTS });
           }
         } else if (error && error.networkError) {
-          return this.setState({error: NETWORK_ERROR})
+          return this.setState({ error: NETWORK_ERROR });
         }
-      })
-  }
+      });
+  };
 
   render() {
-    let { loading, dob, error } = this.state
+    let { loading, dob, error } = this.state;
 
-    if (loading) return <AppLoading />
+    if (loading) return <AppLoading />;
     return (
       <ImageBackground
         source={require('../assets/img/login-noOverlay.jpg')}
@@ -294,9 +286,7 @@ class Signup extends React.Component {
                 height: 100
               }}>
               <View style={styles.iconContainer}>
-                <TouchableOpacity
-                  onPress={this.useFB}
-                >
+                <TouchableOpacity onPress={this.useFB}>
                   <Image
                     style={styles.socialIcons}
                     resizeMode="contain"
@@ -348,7 +338,9 @@ class Signup extends React.Component {
                           }}
                         />
                         <TextInput
-                          onChangeText={x => this.setState({ firstName: x, error: '' })}
+                          onChangeText={x =>
+                            this.setState({ firstName: x, error: '' })
+                          }
                           onSubmitEditing={() =>
                             this.focusTextInput(this.lastNameInput)
                           }
@@ -367,13 +359,14 @@ class Signup extends React.Component {
                           fontSize: 13,
                           paddingBottom: 8,
                           color: 'rgba(132, 146, 166, 1)'
-                        }}>
-                      </Text>
+                        }}
+                      />
                       <View style={formStyles.inputIconContainerHalf}>
-
                         <TextInput
                           ref={this.lastNameInput}
-                          onChangeText={x => this.setState({ lastName: x, error: '' })}
+                          onChangeText={x =>
+                            this.setState({ lastName: x, error: '' })
+                          }
                           onSubmitEditing={() =>
                             this.focusTextInput(this.sexInput)
                           }
@@ -412,7 +405,9 @@ class Signup extends React.Component {
                         />
                         <TextInput
                           ref={this.sexInput}
-                          onChangeText={x => this.setState({ sex: x, error: '' })}
+                          onChangeText={x =>
+                            this.setState({ sex: x, error: '' })
+                          }
                           onSubmitEditing={() =>
                             this.focusTextInput(this.birthInput)
                           }
@@ -443,7 +438,9 @@ class Signup extends React.Component {
                         <TextInput
                           ref={this.birthInput}
                           value={dob.format('MMM Do YYYY')}
-                          onChangeText={x => this.setState({ dob: x, error: '' })}
+                          onChangeText={x =>
+                            this.setState({ dob: x, error: '' })
+                          }
                           onSubmitEditing={() =>
                             this.focusTextInput(this.emailInput)
                           }
@@ -466,7 +463,9 @@ class Signup extends React.Component {
                       />
                       <TextInput
                         ref={this.emailInput}
-                        onChangeText={x => this.setState({ email: x, error: '' })}
+                        onChangeText={x =>
+                          this.setState({ email: x, error: '' })
+                        }
                         returnKeyType="next"
                         placeholder="Type your Email"
                         onSubmitEditing={() =>
@@ -489,7 +488,9 @@ class Signup extends React.Component {
                       />
                       <TextInput
                         ref={this.passwordInput}
-                        onChangeText={x => this.setState({ password: x, error: '' })}
+                        onChangeText={x =>
+                          this.setState({ password: x, error: '' })
+                        }
                         secureTextEntry={true}
                         returnKeyType="next"
                         placeholder="Type your Password"
@@ -503,10 +504,12 @@ class Signup extends React.Component {
                 </View>
               </View>
               <View>
-                <Text style={[formStyles.formText, {color: 'red'}]}>{error}</Text>
+                <Text style={[formStyles.formText, { color: 'red' }]}>
+                  {error}
+                </Text>
               </View>
               <TouchableOpacity
-                style={{ width: '90%' }}
+                style={{ width: '90%', bottom: this.state.button }}
                 onPress={this.useEmailSignup}>
                 <GradientButton text="SIGNUP" />
               </TouchableOpacity>
@@ -514,19 +517,20 @@ class Signup extends React.Component {
           </SafeAreaView>
         </LinearGradient>
       </ImageBackground>
-    )
+    );
   }
 }
 
+const signup = graphql(signupMutation, {
+  props: ({ mutate }) => ({
+    signup: (email, password, firstName, lastName, dateOfBirth) =>
+      mutate({
+        variables: { email, password, firstName, lastName, dateOfBirth }
+      })
+  })
+});
 
-
-const signup = graphql (
-  signupMutation,
-  {
-    props: ({ mutate }) => ({
-      signup: (email, password, firstName, lastName, dateOfBirth) => mutate({ variables: { email, password, firstName, lastName, dateOfBirth } })
-    }),
-  },
-)
-
-export default compose(signup, fbLogin)(Signup)
+export default compose(
+  signup,
+  fbLogin
+)(Signup);
