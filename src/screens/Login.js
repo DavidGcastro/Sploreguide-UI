@@ -311,6 +311,7 @@ class Login extends React.Component {
                           style={formStyles.iconStyles}
                         />
                         <TextInput
+                          textContentType="password"
                           onChangeText={x =>
                             this.setState({ password: x, error: '' })
                           }

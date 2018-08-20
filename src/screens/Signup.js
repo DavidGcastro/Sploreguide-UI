@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   Animated,
+  Picker,
   Keyboard
 } from 'react-native';
 import { LinearGradient, AppLoading } from 'expo';
@@ -27,6 +28,8 @@ import { handleFBLogin } from '../services/facebook';
 import deviceStorage from '../services/deviceStorage';
 import { validateEmail } from '../helpers/validators';
 import { makeFirstLetterUpperCase } from '../helpers/strings';
+import SelectInput from 'react-native-select-input-ios';
+
 import {
   ASYNC_JWT_KEY,
   FNAME_ERROR_MISSING,
@@ -82,6 +85,7 @@ class Signup extends React.Component {
   birthInput = React.createRef();
   emailInput = React.createRef();
   passwordInput = React.createRef();
+  submitButton = React.createRef();
   focusTextInput = this.focusTextInput.bind(this);
 
   componentDidMount() {
@@ -230,6 +234,16 @@ class Signup extends React.Component {
       });
   };
 
+  getPickerOptions() {
+    return [
+      { value: 'male', label: 'Male' },
+      { value: 'female', label: 'Female' },
+      {
+        value: 'other',
+        label: 'Other'
+      }
+    ];
+  }
   render() {
     let { loading, dob, error } = this.state;
 
@@ -347,6 +361,7 @@ class Signup extends React.Component {
                             onSubmitEditing={() =>
                               this.focusTextInput(this.lastNameInput)
                             }
+                            textContentType="name"
                             returnKeyType="next"
                             placeholder="First Name"
                             style={{
@@ -356,6 +371,7 @@ class Signup extends React.Component {
                           />
                         </View>
                       </View>
+
                       <View style={{ paddingTop: 20 }}>
                         <Text
                           style={{
@@ -373,6 +389,7 @@ class Signup extends React.Component {
                             onSubmitEditing={() =>
                               this.focusTextInput(this.sexInput)
                             }
+                            textContentType="familyName"
                             returnKeyType="next"
                             placeholder="Last Name"
                             style={{
@@ -406,32 +423,19 @@ class Signup extends React.Component {
                               color: 'rgba(132, 146, 166, 1)'
                             }}
                           />
-                          <TextInput
+                          <SelectInput
                             ref={this.sexInput}
-                            onChangeText={x =>
-                              this.setState({ sex: x, error: '' })
-                            }
-                            onSubmitEditing={() =>
-                              this.focusTextInput(this.birthInput)
-                            }
-                            returnKeyType="next"
-                            placeholder="Choose your Sex"
-                            style={{
-                              fontSize: 13,
-                              width: '50%'
+                            onSubmitEditing={val => {
+                              this.setState({ sex: val });
+                              this.focusTextInput(this.birthInput);
                             }}
+                            placeholder="Choose your Sex"
+                            options={this.getPickerOptions()}
                           />
                         </View>
                       </View>
                       <View style={{ paddingTop: 20 }}>
-                        <Text
-                          style={{
-                            fontSize: 13,
-                            paddingBottom: 8,
-                            color: 'rgba(132, 146, 166, 1)'
-                          }}>
-                          Birth Date
-                        </Text>
+                        <Text style={formStyles.formText}>Birth Date</Text>
                         <View style={formStyles.inputIconContainerHalf}>
                           <FontAwesome
                             name="birthday-cake"
@@ -469,7 +473,9 @@ class Signup extends React.Component {
                           onChangeText={x =>
                             this.setState({ email: x, error: '' })
                           }
+                          textContentType="password"
                           returnKeyType="next"
+                          keyboardType="email-address"
                           placeholder="Type your Email"
                           onSubmitEditing={() =>
                             this.focusTextInput(this.passwordInput)
@@ -491,11 +497,13 @@ class Signup extends React.Component {
                         />
                         <TextInput
                           ref={this.passwordInput}
+                          maxLength={15}
                           onChangeText={x =>
                             this.setState({ password: x, error: '' })
                           }
+                          onSubmitEditing={this.useEmailSignup}
                           secureTextEntry={true}
-                          returnKeyType="next"
+                          returnKeyType="done"
                           placeholder="Type your Password"
                           style={{
                             fontSize: 13,
@@ -513,7 +521,9 @@ class Signup extends React.Component {
                 </View>
                 <Animated.View
                   style={{ width: '90%', bottom: this.state.button }}>
-                  <TouchableOpacity onPress={this.useEmailSignup}>
+                  <TouchableOpacity
+                    ref={this.submitButton}
+                    onPress={this.useEmailSignup}>
                     <GradientButton text="SIGNUP" />
                   </TouchableOpacity>
                 </Animated.View>

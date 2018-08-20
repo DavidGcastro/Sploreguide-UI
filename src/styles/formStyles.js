@@ -1,4 +1,3 @@
-
 let formStyles = {
   parent: { width: '80%', justifyContent: 'space-between' },
   formText: {
