@@ -422,6 +422,7 @@ class Signup extends React.Component {
                           />
                           <SelectInput
                             ref={this.sexInput}
+                            style={{ width: '80%' }}
                             onSubmitEditing={val => {
                               this.setState({ sex: val });
                             }}
@@ -462,7 +463,6 @@ class Signup extends React.Component {
                             }}
                             mode="date"
                             placeholder="Enter Birth Date"
-                            // format="YYYY-MM-DD"
                             format="MMMM DD YYYY"
                             minDate="1920-05-01"
                             maxDate={new Date().toDateString()}
@@ -475,21 +475,6 @@ class Signup extends React.Component {
                               this.focusTextInput(this.emailInput)
                             }
                           />
-                          {/* <TextInput
-                            ref={this.birthInput}
-                            value={dob.format('MMM Do YYYY')}
-                            onChangeText={x =>
-                              this.setState({ dob: x, error: '' })
-                            }
-                            onSubmitEditing={() =>
-                              this.focusTextInput(this.emailInput)
-                            }
-                            returnKeyType="next"
-                            placeholder="Enter Birth Date"
-                            style={{
-                              fontSize: 13
-                            }}
-                          />*/}
                         </View>
                       </View>
                     </View>
