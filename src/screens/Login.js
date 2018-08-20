@@ -292,6 +292,7 @@ class Login extends React.Component {
                           onChangeText={x =>
                             this.setState({ email: x, error: '' })
                           }
+                          keyboardType="email-address"
                           returnKeyType="next"
                           placeholder="Type your Email"
                           onSubmitEditing={() => this.focusTextInput()}

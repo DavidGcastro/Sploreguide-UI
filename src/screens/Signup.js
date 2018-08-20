@@ -9,9 +9,10 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   Animated,
-  Picker,
   Keyboard
 } from 'react-native';
+import DatePicker from 'react-native-datepicker';
+
 import { LinearGradient, AppLoading } from 'expo';
 import moment from 'moment';
 import Hr from '../components/Hr';
@@ -436,13 +437,50 @@ class Signup extends React.Component {
                       </View>
                       <View style={{ paddingTop: 20 }}>
                         <Text style={formStyles.formText}>Birth Date</Text>
-                        <View style={formStyles.inputIconContainerHalf}>
-                          <FontAwesome
-                            name="birthday-cake"
-                            size={18}
-                            style={formStyles.iconStyles}
+                        <View  ref={this.birthInput} style={formStyles.inputIconContainerHalf}>
+                          <DatePicker
+                           
+                            date={this.state.dob}
+                            iconComponent={
+                              <FontAwesome
+                                name="birthday-cake"
+                                size={18}
+                                style={formStyles.iconStyles}
+                              />
+                            }
+                            customStyles={{
+                              dateTouchBody: {
+                                flexDirection: 'row-reverse'
+                              },
+                              dateInput: {
+                                borderWidth: 0
+                              },
+                              placeholderText: formStyles.placeholderText,
+
+                              dateTouchBody: {
+                                height: 20
+                              },
+                              dateText: [
+                                formStyles.formText,
+                                { paddingVertical: 10 }
+                              ]
+                            }}
+                            mode="date"
+                            placeholder="Enter Birth Date"
+                            // format="YYYY-MM-DD"
+                            format="MMMM DD YYYY"
+                            minDate="1920-05-01"
+                            maxDate={new Date().toDateString()}
+                            confirmBtnText="Done"
+                            cancelBtnText="Cancel"
+                            onDateChange={date => {
+                              this.setState({ dob: date, error: '' });
+                            }}
+                            onCloseModal={() =>
+                              this.focusTextInput(this.emailInput)
+                            }
                           />
-                          <TextInput
+                          {/* <TextInput
                             ref={this.birthInput}
                             value={dob.format('MMM Do YYYY')}
                             onChangeText={x =>
@@ -456,7 +494,7 @@ class Signup extends React.Component {
                             style={{
                               fontSize: 13
                             }}
-                          />
+                          />*/}
                         </View>
                       </View>
                     </View>
