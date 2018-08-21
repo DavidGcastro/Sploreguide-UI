@@ -11,6 +11,7 @@ let formStyles = {
     alignItems: 'center',
     borderBottomWidth: 1,
     paddingBottom: 5,
+    backgroundColor: 'orange',
     borderBottomColor: 'rgba(237, 237, 237, 1)'
   },
   inputIconContainerHalf: {
@@ -20,11 +21,12 @@ let formStyles = {
     borderBottomWidth: 1,
     paddingBottom: 5,
     borderBottomColor: 'rgba(237, 237, 237, 1)',
-    width: 150
+    justifyContent: 'space-around'
   },
   iconStyles: {
     paddingRight: 10,
-    color: 'rgba(132, 146, 166, 1)'
+    color: 'rgba(132, 146, 166, 1)',
+
   }
 };
 
