@@ -263,7 +263,7 @@ class Signup extends React.Component {
                 alignContent: 'center',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginBottom: 20,
+                marginBottom: 20
               }}>
               <TouchableOpacity
                 style={{
@@ -296,8 +296,7 @@ class Signup extends React.Component {
                 style={{
                   justifyContent: 'space-between',
                   width: '65%',
-                  opacity: this.state.fade,
-                 
+                  opacity: this.state.fade
                 }}>
                 <View style={styles.iconContainer}>
                   <TouchableOpacity onPress={this.useFB}>
@@ -331,16 +330,12 @@ class Signup extends React.Component {
                     <View
                       style={{
                         flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-end'
+                        paddingTop: 20,
+                        alignItems: 'flex-end',
+                        width: '100%'
                       }}>
                       {/*FIRST FORM*/}
-                      <View
-                        style={{
-                          paddingTop: 20,
-                          paddingRight: 10,
-                          width: 150
-                        }}>
+                      <View style={{ width: '50%' }}>
                         <Text style={formStyles.formText}>Full Name</Text>
                         <View style={formStyles.inputIconContainerHalf}>
                           <Ionicons
@@ -368,15 +363,10 @@ class Signup extends React.Component {
                           />
                         </View>
                       </View>
-
-                      <View style={{ paddingTop: 20 }}>
-                        <Text
-                          style={{
-                            fontSize: 13,
-                            paddingBottom: 8,
-                            color: 'rgba(132, 146, 166, 1)'
-                          }}
-                        />
+                      <View
+                        style={{
+                          width: '50%'
+                        }}>
                         <View style={formStyles.inputIconContainerHalf}>
                           <TextInput
                             ref={this.lastNameInput}
@@ -386,11 +376,12 @@ class Signup extends React.Component {
                             onSubmitEditing={() =>
                               this.focusTextInput(this.sexInput)
                             }
-                            textContentType="familyName"
+                            textContentType="name"
                             returnKeyType="next"
                             placeholder="Last Name"
                             style={{
-                              fontSize: 13
+                              fontSize: 13,
+                              width: '50%'
                             }}
                           />
                         </View>
@@ -400,15 +391,14 @@ class Signup extends React.Component {
                     <View
                       style={{
                         flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-end'
+                        paddingTop: 20,
+                        alignItems: 'flex-end',
+                        width: '100%'
                       }}>
                       {/*SECOND FORM*/}
                       <View
                         style={{
-                          paddingTop: 20,
-                          paddingRight: 10,
-                          width: 150
+                          width: '50%'
                         }}>
                         <Text style={formStyles.formText}>Sex</Text>
                         <View style={formStyles.inputIconContainerHalf}>
@@ -416,7 +406,6 @@ class Signup extends React.Component {
                             name="ios-transgender"
                             size={18}
                             style={{
-                              paddingRight: 10,
                               color: 'rgba(132, 146, 166, 1)'
                             }}
                           />
@@ -438,7 +427,7 @@ class Signup extends React.Component {
                           />
                         </View>
                       </View>
-                      <View style={{ paddingTop: 20 }}>
+                      <View style={{ width: '50%' }}>
                         <Text style={formStyles.formText}>Birth Date</Text>
                         <View style={formStyles.inputIconContainerHalf}>
                           <FontAwesome
