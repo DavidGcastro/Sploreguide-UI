@@ -405,9 +405,7 @@ class Signup extends React.Component {
                           <Ionicons
                             name="ios-transgender"
                             size={18}
-                            style={{
-                              color: 'rgba(132, 146, 166, 1)'
-                            }}
+                            style={formStyles.iconStyles}
                           />
                           <SelectInput
                             ref={this.sexInput}
@@ -442,6 +440,12 @@ class Signup extends React.Component {
                             customStyles={{
                               dateInput: {
                                 borderWidth: 0
+                              },
+                              btnTextConfirm: {
+                                color: '#006bff'
+                              },
+                              btnTextCancel: {
+                                color: '#006bff'
                               },
                               placeholderText: [
                                 formStyles.placeholderText,

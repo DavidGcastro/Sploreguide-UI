@@ -7,7 +7,6 @@ let formStyles = {
   },
   inputIconContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
     paddingBottom: 5,
