@@ -8,7 +8,7 @@ const experiences = [
     included: null,
     overview: "Join me to party in New York's most exclusive night clubs",
     media: '../assets/img/amsterdam.jpg',
-    reviews: 10,
+    reviews: 1,
     host: {
       name: 'David',
       age: 25,

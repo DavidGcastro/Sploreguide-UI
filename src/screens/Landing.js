@@ -7,7 +7,8 @@ import {
   Dimensions,
   ImageBackground,
   Image,
-  TextInput
+  TextInput,
+  Keyboard
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
@@ -22,6 +23,7 @@ let images = [
 
 const styles = {
   container: {
+    backgroundColor: 'red',
     borderWidth: 1,
     borderColor: 'rgba(132, 146, 166, .2)',
     paddingVertical: 5,
@@ -45,11 +47,18 @@ export default class Landing extends Component {
   constructor() {
     super();
     this.state = {
-      search: ''
+      search: '',
+      liked: false
     };
+    this._renderItem = this._renderItem.bind(this);
   }
 
   _renderItem({ item, index }) {
+    let reviews =
+      item.reviews > 1 ? item.reviews + ' Reviews' : item.reviews + ' Review';
+
+    let heartStyle = { color: 'red' };
+
     return (
       <View
         style={{
@@ -91,8 +100,16 @@ export default class Landing extends Component {
                     style={{ paddingRight: 20 }}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity>
-                  <Ionicons name="md-heart-outline" size={25} color="white" />
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({ liked: !this.state.liked });
+                  }}>
+                  <Ionicons
+                    name="md-heart-outline"
+                    size={25}
+                    color="white"
+                    style={this.state.liked ? heartStyle : {}}
+                  />
                 </TouchableOpacity>
               </View>
               <View style={landingStyles.bottomContainer}>
@@ -128,9 +145,7 @@ export default class Landing extends Component {
                     <Ionicons name="ios-star" size={12} color="white" />
                     <Ionicons name="ios-star" size={12} color="white" />
                     <Ionicons name="ios-star-half" size={12} color="white" />
-                    <Text style={landingStyles.smallTextBottom}>
-                      {item.reviews} Review(s)
-                    </Text>
+                    <Text style={landingStyles.smallTextBottom}>{reviews}</Text>
                   </View>
                 </View>
               </View>
@@ -157,7 +172,8 @@ export default class Landing extends Component {
             />
             <TextInput
               onChangeText={search => this.setState({ search })}
-              onEndEditing={() => {
+              autoFocus={false}
+              onFocus={() => {
                 this.props.navigation.navigate('Search', {
                   search: this.state.search
                 });
@@ -165,7 +181,8 @@ export default class Landing extends Component {
               style={{
                 fontSize: 20,
                 fontWeight: '500',
-                paddingLeft: 10
+                paddingLeft: 10,
+                flex: 1
               }}
               value={search}
               placeholder="Search by City or Activity"

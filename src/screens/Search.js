@@ -52,6 +52,7 @@ export default class Search extends Component {
             source={require('../assets/img/Search.png')}
           />
           <TextInput
+            autoFocus
             onChangeText={value => this.setState({ location: value })}
             placeholder="Search by City or Activity"
             style={styles.input}
