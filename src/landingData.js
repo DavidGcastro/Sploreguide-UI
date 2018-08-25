@@ -1,5 +1,6 @@
 const experiences = [
   {
+    category: 'Top Trending',
     title: "Discover The City's Party Scene",
     location: 'New York, New York',
     duration: 120,
@@ -21,6 +22,7 @@ const experiences = [
     basePricePerGroup: 200 // int - base price for a group},
   },
   {
+    category: 'Top Trending',
     title: "NYC's Hidden Nature",
     location: 'Bronx, New York',
     duration: 120,
@@ -42,6 +44,95 @@ const experiences = [
     basePricePerGroup: 200 // int - base price for a group},
   },
   {
+    category: 'New in Your City',
+    title: 'Hidden Gems: Queens',
+    location: 'Queens, New York',
+    duration: 200,
+    languages: 'English',
+    activityType: 'Tour',
+    included: null,
+    overview: "A unique experience into Queen's underground culinary scene.",
+    media: '../assets/img/amsterdam.jpg',
+    reviews: 20,
+    host: {
+      name: 'Alfred',
+      age: 50,
+      sex: 'male',
+      languages: ['english', 'spanish']
+    },
+    advisement: 'Allergen Warning',
+    offerings: [{ date: '8/20/93', price: 100 }],
+    basePricePerPerson: 100, // int - base price per person
+    basePricePerGroup: 200 // int - base price for a group},
+  },
+  {
+    category: 'Weekly Top Picks',
+    title: 'Hidden Gems: Queens',
+    location: 'Queens, New York',
+    duration: 200,
+    languages: 'English',
+    activityType: 'Tour',
+    included: null,
+    overview: "A unique experience into Queen's underground culinary scene.",
+    media: '../assets/img/amsterdam.jpg',
+    reviews: 20,
+    host: {
+      name: 'Alfred',
+      age: 50,
+      sex: 'male',
+      languages: ['english', 'spanish']
+    },
+    advisement: 'Allergen Warning',
+    offerings: [{ date: '8/20/93', price: 100 }],
+    basePricePerPerson: 100, // int - base price per person
+    basePricePerGroup: 200 // int - base price for a group},
+  },
+  {
+    category: 'Weekly Top Picks',
+    title: 'Hidden Gems: Queens',
+    location: 'Queens, New York',
+    duration: 200,
+    languages: 'English',
+    activityType: 'Tour',
+    included: null,
+    overview: "A unique experience into Queen's underground culinary scene.",
+    media: '../assets/img/amsterdam.jpg',
+    reviews: 20,
+    host: {
+      name: 'Alfred',
+      age: 50,
+      sex: 'male',
+      languages: ['english', 'spanish']
+    },
+    advisement: 'Allergen Warning',
+    offerings: [{ date: '8/20/93', price: 100 }],
+    basePricePerPerson: 100, // int - base price per person
+    basePricePerGroup: 200 // int - base price for a group},
+  },
+  {
+    category: 'Best Rated',
+    title: 'Hidden Gems: Queens',
+    location: 'Queens, New York',
+    duration: 200,
+    languages: 'English',
+    activityType: 'Tour',
+    included: null,
+    overview: "A unique experience into Queen's underground culinary scene.",
+    media: '../assets/img/amsterdam.jpg',
+    reviews: 20,
+    host: {
+      name: 'Alfred',
+      age: 50,
+      sex: 'male',
+      languages: ['english', 'spanish']
+    },
+    advisement: 'Allergen Warning',
+    offerings: [{ date: '8/20/93', price: 100 }],
+    basePricePerPerson: 100, // int - base price per person
+    basePricePerGroup: 200 // int - base price for a group},
+  },
+  {
+    category: 'Best Rated',
     title: 'Hidden Gems: Queens',
     location: 'Queens, New York',
     duration: 200,

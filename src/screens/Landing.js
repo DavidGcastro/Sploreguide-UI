@@ -14,15 +14,21 @@ import { LinearGradient } from 'expo';
 import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
 import landingStyles from '../styles/landingStyles';
 import landingData from '../landingData';
-import GestureRecognizer, {
-  swipeDirections
-} from 'react-native-swipe-gestures';
 
 let { width, height } = Dimensions.get('window');
 let images = [
   require('../assets/img/amsterdam.jpg'),
   require('../assets/img/nature.jpg'),
   require('../assets/img/nightlife.jpg')
+];
+let scrollViewInterval = height - 160;
+let amountOfCategories = 5;
+let categories = [
+  'Top Trending',
+  'Highest Rated',
+  'Best Value',
+  'Weekend Picks',
+  'Nature'
 ];
 
 const styles = {
@@ -53,20 +59,21 @@ export default class Landing extends Component {
     this.state = {
       search: '',
       liked: false,
-      category: 'Top Trending',
-      index: 0
+      category: '',
+      fromTop: 0
     };
     this._renderItem = this._renderItem.bind(this);
     this.onSwipeUp = this.onSwipeUp.bind(this);
   }
-  onSwipeUp(gestureState) {
-    let category = [
-      'Highest Rated',
-      'Best Deals',
-      'Weekly Top Picks',
-      'Top Trending'
-    ];
-    this.setState({ category: category[this.state.index++ % category.length] });
+
+  componentDidMount() {
+    this.onSwipeUp(0);
+  }
+  onSwipeUp(top) {
+    let index = Math.ceil(top / scrollViewInterval);
+    return this.setState({
+      category: categories[index]
+    });
   }
 
   _renderItem({ item, index }) {
@@ -171,7 +178,7 @@ export default class Landing extends Component {
       </View>
     );
   }
-  componentDidMount() {}
+
   render() {
     let search = this.props.navigation.state.params
       ? this.props.navigation.state.params.search
@@ -220,11 +227,19 @@ export default class Landing extends Component {
           </TouchableOpacity>
         </View>
         <ScrollView
-          decelerationRate="fast"
-          snapToInterval={height-180}
-          onScroll={x => console.log(x.nativeEvent.contentOffset.y)}
-          scrollEventThrottle={10}
-          snapToAlignment={'center'}>
+          decelerationRate={0}
+          bounces={false}
+          snapToInterval={scrollViewInterval}
+          onScroll={x => {
+            let positionTop = x.nativeEvent.contentOffset.y;
+            this.onSwipeUp(positionTop);
+          }}
+          scrollEventThrottle={3}
+          // onMomentumScrollEnd={x => {
+          //   let positionTop = x.nativeEvent.contentOffset.y;
+          //   this.onSwipeUp(positionTop);
+          // }}
+          scrollEventThrottle={10}>
           <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
             <Carousel
               data={landingData}
@@ -257,7 +272,7 @@ export default class Landing extends Component {
               itemWidth={width - 50}
             />
           </View>{' '}
-          <View style={{ flex: 1, height: height - 200, marginBottom: 50 }}>
+          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
             <Carousel
               data={landingData}
               renderItem={this._renderItem}
