@@ -29,7 +29,7 @@ let landingStyles = {
     color: 'rgba(48, 55, 64, 1)',
     fontSize: 25,
     fontFamily: 'SF-UI-Text-Bold',
-    paddingTop: 20
+    paddingTop: 20,
   },
   viewAll: {
     alignItems: 'center',

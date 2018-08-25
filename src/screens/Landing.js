@@ -8,13 +8,17 @@ import {
   ImageBackground,
   Image,
   TextInput,
-  Animated
+  ScrollView
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
 import landingStyles from '../styles/landingStyles';
 import landingData from '../landingData';
-let { width } = Dimensions.get('window');
+import GestureRecognizer, {
+  swipeDirections
+} from 'react-native-swipe-gestures';
+
+let { width, height } = Dimensions.get('window');
 let images = [
   require('../assets/img/amsterdam.jpg'),
   require('../assets/img/nature.jpg'),
@@ -48,9 +52,21 @@ export default class Landing extends Component {
     super();
     this.state = {
       search: '',
-      liked: false
+      liked: false,
+      category: 'Top Trending',
+      index: 0
     };
     this._renderItem = this._renderItem.bind(this);
+    this.onSwipeUp = this.onSwipeUp.bind(this);
+  }
+  onSwipeUp(gestureState) {
+    let category = [
+      'Highest Rated',
+      'Best Deals',
+      'Weekly Top Picks',
+      'Top Trending'
+    ];
+    this.setState({ category: category[this.state.index++ % category.length] });
   }
 
   _renderItem({ item, index }) {
@@ -67,99 +83,91 @@ export default class Landing extends Component {
           shadowColor: 'black',
           shadowOpacity: 0.8
         }}>
-        <TouchableOpacity style={{ flex: 1 }}>
-          <ImageBackground
-            source={images[index]}
-            imageStyle={{ borderRadius: 10 }}
+        <ImageBackground
+          source={images[index]}
+          imageStyle={{ borderRadius: 10 }}
+          style={{
+            flex: 1
+          }}>
+          <LinearGradient
+            colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.4)']}
+            start={[0, 0]}
+            end={[0, 0]}
             style={{
-              flex: 1
+              flex: 1,
+              justifyContent: 'space-between',
+              borderRadius: 10
             }}>
-            <LinearGradient
-              colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.4)']}
-              start={[0, 0]}
-              end={[0, 0]}
-              style={{
-                flex: 1,
-                justifyContent: 'space-between',
-                borderRadius: 10
-              }}>
-              <View style={landingStyles.topContainer}>
-                <Text style={landingStyles.activityType}>
-                  {item.activityType.toUpperCase()}
-                </Text>
-                <Text style={landingStyles.price}>
-                  ${item.basePricePerPerson}
-                </Text>
+            <View style={landingStyles.topContainer}>
+              <Text style={landingStyles.activityType}>
+                {item.activityType.toUpperCase()}
+              </Text>
+              <Text style={landingStyles.price}>
+                ${item.basePricePerPerson}
+              </Text>
+            </View>
+            <View>
+              <View style={landingStyles.bottomContainerIcons}>
+                <TouchableOpacity>
+                  <Feather
+                    name="upload"
+                    size={25}
+                    color="white"
+                    style={{ paddingRight: 20 }}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({ liked: !this.state.liked });
+                  }}>
+                  <Ionicons
+                    name="md-heart-outline"
+                    size={25}
+                    color="white"
+                    style={this.state.liked ? heartStyle : {}}
+                  />
+                </TouchableOpacity>
               </View>
-              <View>
-                <View style={landingStyles.bottomContainerIcons}>
-                  <TouchableOpacity>
-                    <Feather
-                      name="upload"
-                      size={25}
-                      color="white"
-                      style={{ paddingRight: 20 }}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({ liked: !this.state.liked });
-                    }}>
+              <View style={landingStyles.bottomContainer}>
+                <View
+                  style={{
+                    borderBottomColor: 'rgba(255, 255, 255, .3)',
+                    borderBottomWidth: 1
+                  }}>
+                  <Text style={landingStyles.location}>{item.location}</Text>
+                  <Text style={landingStyles.title}>{item.title}</Text>
+                </View>
+                <View style={landingStyles.lastContainer}>
+                  <View style={landingStyles.iconTextContainer}>
+                    <SimpleLineIcons name="hourglass" size={12} color="white" />
+                    <Text style={landingStyles.smallTextBottom}>
+                      {Math.round((item.duration / 60) % 60)}
+                      :00
+                    </Text>
+                  </View>
+                  <View style={landingStyles.iconTextContainer}>
                     <Ionicons
-                      name="md-heart-outline"
-                      size={25}
+                      name="ios-chatbubbles-outline"
+                      size={12}
                       color="white"
-                      style={this.state.liked ? heartStyle : {}}
                     />
-                  </TouchableOpacity>
-                </View>
-                <View style={landingStyles.bottomContainer}>
-                  <View
-                    style={{
-                      borderBottomColor: 'rgba(255, 255, 255, .3)',
-                      borderBottomWidth: 1
-                    }}>
-                    <Text style={landingStyles.location}>{item.location}</Text>
-                    <Text style={landingStyles.title}>{item.title}</Text>
+                    <Text style={landingStyles.smallTextBottom}>
+                      {item.languages}
+                    </Text>
                   </View>
-                  <View style={landingStyles.lastContainer}>
-                    <View style={landingStyles.iconTextContainer}>
-                      <SimpleLineIcons
-                        name="hourglass"
-                        size={12}
-                        color="white"
-                      />
-                      <Text style={landingStyles.smallTextBottom}>
-                        {Math.round((item.duration / 60) % 60)}
-                        :00
-                      </Text>
-                    </View>
-                    <View style={landingStyles.iconTextContainer}>
-                      <Ionicons
-                        name="ios-chatbubbles-outline"
-                        size={12}
-                        color="white"
-                      />
-                      <Text style={landingStyles.smallTextBottom}>
-                        {item.languages}
-                      </Text>
-                    </View>
-                    <View style={landingStyles.iconTextContainer}>
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star-half" size={12} color="white" />
-                      <Text style={landingStyles.smallTextBottom}>
-                        {reviews}
-                      </Text>
-                    </View>
+                  <View style={landingStyles.iconTextContainer}>
+                    <Ionicons name="ios-star" size={12} color="white" />
+                    <Ionicons name="ios-star" size={12} color="white" />
+                    <Ionicons name="ios-star" size={12} color="white" />
+                    <Ionicons name="ios-star" size={12} color="white" />
+                    <Ionicons name="ios-star-half" size={12} color="white" />
+                    <Text style={landingStyles.smallTextBottom}>{reviews}</Text>
                   </View>
                 </View>
               </View>
-            </LinearGradient>
-          </ImageBackground>
-        </TouchableOpacity>
+            </View>
+          </LinearGradient>
+        </ImageBackground>
       </View>
     );
   }
@@ -199,7 +207,7 @@ export default class Landing extends Component {
           />
         </View>
         <View style={landingStyles.wrapper}>
-          <Text style={landingStyles.TopText}>Top Trending</Text>
+          <Text style={landingStyles.TopText}>{this.state.category}</Text>
           <TouchableOpacity
             style={landingStyles.viewAll}
             onPress={() => this.props.navigation.navigate('Preview')}>
@@ -211,13 +219,53 @@ export default class Landing extends Component {
             />
           </TouchableOpacity>
         </View>
-
-        <Carousel
-          data={landingData}
-          renderItem={this._renderItem}
-          sliderWidth={width}
-          itemWidth={width - 50}
-        />
+        <ScrollView
+          decelerationRate="fast"
+          snapToInterval={height-180}
+          onScroll={x => console.log(x.nativeEvent.contentOffset.y)}
+          scrollEventThrottle={10}
+          snapToAlignment={'center'}>
+          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
+            <Carousel
+              data={landingData}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width - 50}
+            />
+          </View>
+          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
+            <Carousel
+              data={landingData}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width - 50}
+            />
+          </View>{' '}
+          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
+            <Carousel
+              data={landingData}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width - 50}
+            />
+          </View>{' '}
+          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
+            <Carousel
+              data={landingData}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width - 50}
+            />
+          </View>{' '}
+          <View style={{ flex: 1, height: height - 200, marginBottom: 50 }}>
+            <Carousel
+              data={landingData}
+              renderItem={this._renderItem}
+              sliderWidth={width}
+              itemWidth={width - 50}
+            />
+          </View>
+        </ScrollView>
       </View>
     );
   }
