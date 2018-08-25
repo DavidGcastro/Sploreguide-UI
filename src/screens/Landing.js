@@ -67,91 +67,99 @@ export default class Landing extends Component {
           shadowColor: 'black',
           shadowOpacity: 0.8
         }}>
-        <ImageBackground
-          source={images[index]}
-          imageStyle={{ borderRadius: 10 }}
-          style={{
-            flex: 1
-          }}>
-          <LinearGradient
-            colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.4)']}
-            start={[0, 0]}
-            end={[0, 0]}
+        <TouchableOpacity style={{ flex: 1 }}>
+          <ImageBackground
+            source={images[index]}
+            imageStyle={{ borderRadius: 10 }}
             style={{
-              flex: 1,
-              justifyContent: 'space-between',
-              borderRadius: 10
+              flex: 1
             }}>
-            <View style={landingStyles.topContainer}>
-              <Text style={landingStyles.activityType}>
-                {item.activityType.toUpperCase()}
-              </Text>
-              <Text style={landingStyles.price}>
-                ${item.basePricePerPerson}
-              </Text>
-            </View>
-            <View>
-              <View style={landingStyles.bottomContainerIcons}>
-                <TouchableOpacity>
-                  <Feather
-                    name="upload"
-                    size={25}
-                    color="white"
-                    style={{ paddingRight: 20 }}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({ liked: !this.state.liked });
-                  }}>
-                  <Ionicons
-                    name="md-heart-outline"
-                    size={25}
-                    color="white"
-                    style={this.state.liked ? heartStyle : {}}
-                  />
-                </TouchableOpacity>
+            <LinearGradient
+              colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.4)']}
+              start={[0, 0]}
+              end={[0, 0]}
+              style={{
+                flex: 1,
+                justifyContent: 'space-between',
+                borderRadius: 10
+              }}>
+              <View style={landingStyles.topContainer}>
+                <Text style={landingStyles.activityType}>
+                  {item.activityType.toUpperCase()}
+                </Text>
+                <Text style={landingStyles.price}>
+                  ${item.basePricePerPerson}
+                </Text>
               </View>
-              <View style={landingStyles.bottomContainer}>
-                <View
-                  style={{
-                    borderBottomColor: 'rgba(255, 255, 255, .3)',
-                    borderBottomWidth: 1
-                  }}>
-                  <Text style={landingStyles.location}>{item.location}</Text>
-                  <Text style={landingStyles.title}>{item.title}</Text>
-                </View>
-                <View style={landingStyles.lastContainer}>
-                  <View style={landingStyles.iconTextContainer}>
-                    <SimpleLineIcons name="hourglass" size={12} color="white" />
-                    <Text style={landingStyles.smallTextBottom}>
-                      {Math.round((item.duration / 60) % 60)}
-                      :00
-                    </Text>
-                  </View>
-                  <View style={landingStyles.iconTextContainer}>
-                    <Ionicons
-                      name="ios-chatbubbles-outline"
-                      size={12}
+              <View>
+                <View style={landingStyles.bottomContainerIcons}>
+                  <TouchableOpacity>
+                    <Feather
+                      name="upload"
+                      size={25}
                       color="white"
+                      style={{ paddingRight: 20 }}
                     />
-                    <Text style={landingStyles.smallTextBottom}>
-                      {item.languages}
-                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({ liked: !this.state.liked });
+                    }}>
+                    <Ionicons
+                      name="md-heart-outline"
+                      size={25}
+                      color="white"
+                      style={this.state.liked ? heartStyle : {}}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={landingStyles.bottomContainer}>
+                  <View
+                    style={{
+                      borderBottomColor: 'rgba(255, 255, 255, .3)',
+                      borderBottomWidth: 1
+                    }}>
+                    <Text style={landingStyles.location}>{item.location}</Text>
+                    <Text style={landingStyles.title}>{item.title}</Text>
                   </View>
-                  <View style={landingStyles.iconTextContainer}>
-                    <Ionicons name="ios-star" size={12} color="white" />
-                    <Ionicons name="ios-star" size={12} color="white" />
-                    <Ionicons name="ios-star" size={12} color="white" />
-                    <Ionicons name="ios-star" size={12} color="white" />
-                    <Ionicons name="ios-star-half" size={12} color="white" />
-                    <Text style={landingStyles.smallTextBottom}>{reviews}</Text>
+                  <View style={landingStyles.lastContainer}>
+                    <View style={landingStyles.iconTextContainer}>
+                      <SimpleLineIcons
+                        name="hourglass"
+                        size={12}
+                        color="white"
+                      />
+                      <Text style={landingStyles.smallTextBottom}>
+                        {Math.round((item.duration / 60) % 60)}
+                        :00
+                      </Text>
+                    </View>
+                    <View style={landingStyles.iconTextContainer}>
+                      <Ionicons
+                        name="ios-chatbubbles-outline"
+                        size={12}
+                        color="white"
+                      />
+                      <Text style={landingStyles.smallTextBottom}>
+                        {item.languages}
+                      </Text>
+                    </View>
+                    <View style={landingStyles.iconTextContainer}>
+                      <Ionicons name="ios-star" size={12} color="white" />
+                      <Ionicons name="ios-star" size={12} color="white" />
+                      <Ionicons name="ios-star" size={12} color="white" />
+                      <Ionicons name="ios-star" size={12} color="white" />
+                      <Ionicons name="ios-star-half" size={12} color="white" />
+                      <Text style={landingStyles.smallTextBottom}>
+                        {reviews}
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
-            </View>
-          </LinearGradient>
-        </ImageBackground>
+            </LinearGradient>
+          </ImageBackground>
+        </TouchableOpacity>
       </View>
     );
   }
