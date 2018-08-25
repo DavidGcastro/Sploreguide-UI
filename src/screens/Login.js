@@ -49,22 +49,24 @@ let animations = {
 };
 
 class Login extends React.Component {
-  state = {
-    email: '',
-    password: '',
-    error: '',
-    loading: false,
-    logoWidth: new Animated.Value(80),
-    logoHeight: new Animated.Value(50),
-    logoLeft: new Animated.Value(0),
-    logoTop: new Animated.Value(0),
-    fade: new Animated.Value(1),
-    fadeIn: new Animated.Value(0.1),
-    form: new Animated.Value(0)
-  };
-
-  passwordInput = React.createRef();
-  focusTextInput = this.focusTextInput.bind(this);
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+      error: '',
+      loading: false
+    };
+    this.passwordInput = React.createRef();
+    this.focusTextInput = this.focusTextInput.bind(this);
+    this.logoWidth = new Animated.Value(80);
+    this.logoHeight = new Animated.Value(50);
+    this.logoLeft = new Animated.Value(0);
+    this.logoTop = new Animated.Value(0);
+    this.fade = new Animated.Value(1);
+    this.fadeIn = new Animated.Value(0.1);
+    this.form = new Animated.Value(0);
+  }
 
   componentDidMount() {
     this.keyboardWillShowSub = Keyboard.addListener(
@@ -84,31 +86,31 @@ class Login extends React.Component {
 
   keyboardWillHide = () => {
     Animated.parallel([
-      Animated.timing(this.state.logoHeight, {
+      Animated.timing(this.logoHeight, {
         toValue: 50,
         duration: 300
       }),
-      Animated.timing(this.state.logoTop, {
+      Animated.timing(this.logoTop, {
         toValue: 0,
         duration: 300
       }),
-      Animated.timing(this.state.logoWidth, {
+      Animated.timing(this.logoWidth, {
         toValue: 80,
         duration: 300
       }),
-      Animated.timing(this.state.fade, {
+      Animated.timing(this.fade, {
         toValue: 1,
         duration: 100
       }),
-      Animated.timing(this.state.fadeIn, {
+      Animated.timing(this.fadeIn, {
         toValue: 0.1,
         duration: 300
       }),
-      Animated.timing(this.state.logoLeft, {
+      Animated.timing(this.logoLeft, {
         toValue: 0,
         duration: 300
       }),
-      Animated.timing(this.state.form, {
+      Animated.timing(this.form, {
         toValue: 0,
         duration: 300
       })
@@ -117,31 +119,31 @@ class Login extends React.Component {
 
   keyboardWillShow = () => {
     Animated.parallel([
-      Animated.timing(this.state.logoHeight, {
+      Animated.timing(this.logoHeight, {
         toValue: 37,
         duration: 300
       }),
-      Animated.timing(this.state.logoTop, {
+      Animated.timing(this.logoTop, {
         toValue: animations.logoTop,
         duration: 300
       }),
-      Animated.timing(this.state.logoWidth, {
+      Animated.timing(this.logoWidth, {
         toValue: 32,
         duration: 300
       }),
-      Animated.timing(this.state.fade, {
+      Animated.timing(this.fade, {
         toValue: 0,
         duration: 100
       }),
-      Animated.timing(this.state.fadeIn, {
+      Animated.timing(this.fadeIn, {
         toValue: 1,
         duration: 300
       }),
-      Animated.timing(this.state.logoLeft, {
+      Animated.timing(this.logoLeft, {
         toValue: -30,
         duration: 300
       }),
-      Animated.timing(this.state.form, {
+      Animated.timing(this.form, {
         toValue: animations.form,
         duration: 300
       })
@@ -228,17 +230,17 @@ class Login extends React.Component {
                 <Animated.Image
                   resizeMode="contain"
                   style={{
-                    width: this.state.logoWidth,
-                    height: this.state.logoHeight,
-                    left: this.state.logoLeft,
-                    top: this.state.logoTop,
+                    width: this.logoWidth,
+                    height: this.logoHeight,
+                    left: this.logoLeft,
+                    top: this.logoTop,
                     justifyContent: 'space-between'
                   }}
                   source={require('../assets/img/Logo-Blue.png')}
                 />
                 <Animated.Image
                   resizeMode="contain"
-                  style={{ width: 201, height: 40, opacity: this.state.fade }}
+                  style={{ width: 201, height: 40, opacity: this.fade }}
                   source={require('../assets/img/title-gradient.png')}
                 />
               </View>
@@ -246,7 +248,7 @@ class Login extends React.Component {
                 style={{
                   justifyContent: 'space-between',
                   width: '65%',
-                  opacity: this.state.fade,
+                  opacity: this.fade,
                   height: 100
                 }}>
                 >
@@ -269,7 +271,7 @@ class Login extends React.Component {
                   alignContent: 'center',
                   alignItems: 'center',
                   width: '100%',
-                  top: this.state.form
+                  top: this.form
                 }}>
                 <View
                   style={{

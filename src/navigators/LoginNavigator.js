@@ -7,18 +7,18 @@ import Search from '../screens/Search';
 
 const LoginNavigator = createStackNavigator(
   {
-    Landing: {
-      screen: Landing,
-      navigationOptions: {
-        header: null
-      }
-    },
-    Search: {
-      screen: Search,
-      navigationOptions: {
-        header: null
-      }
-    },
+    // Landing: {
+    //   screen: Landing,
+    //   navigationOptions: {
+    //     header: null
+    //   }
+    // },
+    // Search: {
+    //   screen: Search,
+    //   navigationOptions: {
+    //     header: null
+    //   }
+    // },
     Home: {
       screen: Home,
       navigationOptions: {

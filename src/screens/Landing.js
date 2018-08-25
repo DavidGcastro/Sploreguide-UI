@@ -8,7 +8,7 @@ import {
   ImageBackground,
   Image,
   TextInput,
-  Keyboard
+  Animated
 } from 'react-native';
 import { LinearGradient } from 'expo';
 import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
@@ -57,7 +57,7 @@ export default class Landing extends Component {
     let reviews =
       item.reviews > 1 ? item.reviews + ' Reviews' : item.reviews + ' Review';
 
-    let heartStyle = { color: 'red' };
+    let heartStyle = { backgroundColor: 'pink', width: 20, height: 20 };
 
     return (
       <View
