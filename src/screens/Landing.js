@@ -11,18 +11,18 @@ import {
   ScrollView
 } from 'react-native';
 import { LinearGradient } from 'expo';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
 import landingStyles from '../styles/landingStyles';
 import landingData from '../landingData';
-
+import { dir } from 'async';
 let { width, height } = Dimensions.get('window');
 let images = [
   require('../assets/img/amsterdam.jpg'),
   require('../assets/img/nature.jpg'),
   require('../assets/img/nightlife.jpg')
 ];
-let scrollViewInterval = height - 160;
-let amountOfCategories = 5;
+
 let categories = [
   'Top Trending',
   'Highest Rated',
@@ -30,7 +30,7 @@ let categories = [
   'Weekend Picks',
   'Nature'
 ];
-
+let offset = 0;
 const styles = {
   container: {
     backgroundColor: 'red',
@@ -52,7 +52,18 @@ const styles = {
     tintColor: '#9b9b9b'
   }
 };
-
+let cardHeight = {
+  ...ifIphoneX(
+    {
+      height: height - 290,
+      scrollViewInterval: height - 270
+    },
+    {
+      height: height - 230,
+      scrollViewInterval: height - 210
+    }
+  )
+};
 export default class Landing extends Component {
   constructor() {
     super();
@@ -69,8 +80,13 @@ export default class Landing extends Component {
   componentDidMount() {
     this.onSwipeUp(0);
   }
-  onSwipeUp(top) {
-    let index = Math.ceil(top / scrollViewInterval);
+  onSwipeUp(top, direction) {
+    console.log(direction);
+    let index =
+      direction === 'down'
+        ? Math.floor(top / cardHeight.scrollViewInterval)
+        : Math.ceil(top / cardHeight.scrollViewInterval);
+
     return this.setState({
       category: categories[index]
     });
@@ -228,19 +244,19 @@ export default class Landing extends Component {
         </View>
         <ScrollView
           decelerationRate={0}
+          alwaysBounceVertical={false}
           bounces={false}
-          snapToInterval={scrollViewInterval}
+          snapToInterval={cardHeight.scrollViewInterval}
           onScroll={x => {
-            let positionTop = x.nativeEvent.contentOffset.y;
-            this.onSwipeUp(positionTop);
+            let currentOffset = x.nativeEvent.contentOffset.y;
+            let direction = currentOffset >= offset ? 'up' : 'down';
+            offset = currentOffset;
+
+            this.onSwipeUp(currentOffset, direction);
           }}
-          scrollEventThrottle={3}
-          // onMomentumScrollEnd={x => {
-          //   let positionTop = x.nativeEvent.contentOffset.y;
-          //   this.onSwipeUp(positionTop);
-          // }}
-          scrollEventThrottle={10}>
-          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
+          scrollEventThrottle={1}>
+          <View
+            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
               data={landingData}
               renderItem={this._renderItem}
@@ -248,31 +264,35 @@ export default class Landing extends Component {
               itemWidth={width - 50}
             />
           </View>
-          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
+          <View
+            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
               data={landingData}
               renderItem={this._renderItem}
               sliderWidth={width}
               itemWidth={width - 50}
             />
-          </View>{' '}
-          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
+          </View>
+          <View
+            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
               data={landingData}
               renderItem={this._renderItem}
               sliderWidth={width}
               itemWidth={width - 50}
             />
-          </View>{' '}
-          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
+          </View>
+          <View
+            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
               data={landingData}
               renderItem={this._renderItem}
               sliderWidth={width}
               itemWidth={width - 50}
             />
-          </View>{' '}
-          <View style={{ flex: 1, height: height - 200, marginBottom: 40 }}>
+          </View>
+          <View
+            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
               data={landingData}
               renderItem={this._renderItem}
