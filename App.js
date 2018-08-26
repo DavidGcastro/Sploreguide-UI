@@ -37,7 +37,7 @@ export default class App extends Component {
     this.state = {
       fontLoaded: false,
       jwt: '',
-      loading: true
+      loading: false
     };
 
     this.loadJWT = deviceStorage.loadJWT.bind(this);
@@ -66,20 +66,25 @@ export default class App extends Component {
     if (!fontLoaded || loading) {
       return <AppLoading />;
     } else {
-      if (jwt) {
-        return (
-          <ApolloProvider client={client}>
-            <RootNavigator screenProps={{ deleteJWT: this.deleteJWT }} />
-          </ApolloProvider>
-        );
-      } else {
-        return (
-          <ApolloProvider client={client}>
-            <RootNavigator screenProps={{ deleteJWT: this.deleteJWT }} />
-
-          </ApolloProvider>
-        );
-      }
+      return (
+        <ApolloProvider client={client}>
+          <RootNavigator screenProps={{ deleteJWT: this.deleteJWT }} />
+        </ApolloProvider>
+      );
     }
+
+    // if (jwt) {
+    //   return (
+    //     <ApolloProvider client={client}>
+    //       <RootNavigator screenProps={{ deleteJWT: this.deleteJWT }} />
+    //     </ApolloProvider>
+    //   );
+    // } else {
+    //   return (
+    //     <ApolloProvider client={client}>
+    //       <LoginNavigator screenProps={{ saveJWT: this.saveJWT }} />
+    //     </ApolloProvider>
+    //   );
+    // }
   }
 }

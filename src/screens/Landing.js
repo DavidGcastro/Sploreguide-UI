@@ -15,7 +15,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
 import landingStyles from '../styles/landingStyles';
 import landingData from '../landingData';
-import { dir } from 'async';
+
 let { width, height } = Dimensions.get('window');
 let images = [
   require('../assets/img/amsterdam.jpg'),
@@ -70,7 +70,7 @@ export default class Landing extends Component {
     this.state = {
       search: '',
       liked: false,
-      category: '',
+      category: categories[0],
       fromTop: 0
     };
     this._renderItem = this._renderItem.bind(this);
@@ -81,7 +81,6 @@ export default class Landing extends Component {
     this.onSwipeUp(0);
   }
   onSwipeUp(top, direction) {
-    console.log(direction);
     let index =
       direction === 'down'
         ? Math.floor(top / cardHeight.scrollViewInterval)
@@ -233,7 +232,11 @@ export default class Landing extends Component {
           <Text style={landingStyles.TopText}>{this.state.category}</Text>
           <TouchableOpacity
             style={landingStyles.viewAll}
-            onPress={() => this.props.navigation.navigate('Preview')}>
+            onPress={() =>
+              this.props.navigation.navigate('Preview', {
+                category: this.state.category
+              })
+            }>
             <Text style={landingStyles.viewAllText}>View All</Text>
             <Ionicons
               name="md-arrow-forward"

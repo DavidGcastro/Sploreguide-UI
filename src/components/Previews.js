@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View, SafeAreaView } from 'react-native';
+import { ScrollView, StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import PreviewCard from './PreviewCard';
 import PropTypes from 'prop-types';
 import { ifIphoneX, getStatusBarHeight } from 'react-native-iphone-x-helper';
-
+import GoBack from '../components/GoBack';
+import { TouchableOpacity } from 'react-native';
 
 export default class Previews extends Component {
   // Component prop types
-  static propTypes = {
-    // experience object with title, genre, and poster
-    experiences: PropTypes.array.isRequired,
-    onOpen: PropTypes.func.isRequired
-  };
+  // static propTypes = {
+  //   // experience object with title, genre, and poster
+  //   experiences: PropTypes.array.isRequired,
+  //   onOpen: PropTypes.func.isRequired
+  // };
 
   render() {
     return (
@@ -36,7 +37,6 @@ export default class Previews extends Component {
 
 const styles = StyleSheet.create({
   container: {
-
     ...ifIphoneX(
       {
         paddingTop: getStatusBarHeight() + 20
@@ -45,11 +45,10 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         paddingBottom: 0
       }
-    )},
+    )
+  },
   scrollContent: {
     flexDirection: 'row', // arrange posters in rows
     flexWrap: 'wrap' // allow multiple rows
   }
 });
-
-
