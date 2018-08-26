@@ -33,12 +33,12 @@ let categories = [
 let offset = 0;
 const styles = {
   container: {
-    backgroundColor: 'red',
     borderWidth: 1,
     borderColor: 'rgba(132, 146, 166, .2)',
     paddingVertical: 5,
     paddingHorizontal: 10,
     flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: 'white',
     borderRadius: 5,
     shadowOffset: { width: 3, height: 3 },
@@ -68,7 +68,7 @@ export default class Landing extends Component {
   constructor() {
     super();
     this.state = {
-      search: '',
+      search: 'Search By City or Activity',
       liked: false,
       category: categories[0],
       fromTop: 0
@@ -195,9 +195,36 @@ export default class Landing extends Component {
   }
 
   render() {
-    let search = this.props.navigation.state.params
-      ? this.props.navigation.state.params.search
-      : this.state.search;
+    let search = this.props.navigation.state.params ? (
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: '500',
+          paddingLeft: 10,
+          flex: 1,
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          padding: 2
+        }}>
+        {this.props.navigation.state.params.search}
+      </Text>
+    ) : (
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: '500',
+          paddingLeft: 10,
+          flex: 1,
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
+          padding: 2,
+          color: '#9b9b9b'
+        }}>
+        {this.state.search}
+      </Text>
+    );
 
     return (
       <View style={landingStyles.parent}>
@@ -208,23 +235,13 @@ export default class Landing extends Component {
               resizeMode="contain"
               source={require('../assets/img/Search.png')}
             />
-            <TextInput
-              onChangeText={search => this.setState({ search })}
-              autoFocus={false}
-              onFocus={() => {
-                this.props.navigation.navigate('Search', {
-                  search: this.state.search
-                });
-              }}
-              style={{
-                fontSize: 20,
-                fontWeight: '500',
-                paddingLeft: 10,
-                flex: 1
-              }}
-              value={search}
-              placeholder="Search by City or Activity"
-            />
+            <TouchableOpacity
+              style={{ flex: 1, width: '100%' }}
+              onPress={() => {
+                this.props.navigation.navigate('Search');
+              }}>
+              {search}
+            </TouchableOpacity>
           </View>
           />
         </View>

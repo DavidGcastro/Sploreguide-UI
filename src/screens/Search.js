@@ -31,10 +31,7 @@ export default class Search extends Component {
       priceRangeMax: '0'
     };
   }
-  componentDidMount() {
-    let searchInput = this.props.navigation.state.params.search;
-    this.setState({ location: searchInput });
-  }
+
   render() {
     let locations = LandingData.filter(x => {
       return (
