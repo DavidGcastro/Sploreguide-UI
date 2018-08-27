@@ -9,9 +9,10 @@ import {
   Image,
   ScrollView
 } from 'react-native';
+import ExperienceCard from '../components/ExperienceCard';
 import { LinearGradient } from 'expo';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
-import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
+import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
 import landingStyles from '../styles/landingStyles';
 import experiences from '../experiences';
 
@@ -67,7 +68,7 @@ export default class Landing extends Component {
       category: categories[0],
       fromTop: 0
     };
-    this._renderItem = this._renderItem.bind(this);
+    // this._renderItem = this._renderItem.bind(this);
     this.onSwipeUp = this.onSwipeUp.bind(this);
   }
 
@@ -86,9 +87,6 @@ export default class Landing extends Component {
   }
 
   _renderItem({ item, index }) {
-    let reviews =
-      item.reviews > 1 ? item.reviews + ' Reviews' : item.reviews + ' Review';
-
     return (
       <TouchableOpacity style={{ flex: 1 }} activeOpacity={0.75}>
         <View
@@ -131,10 +129,7 @@ export default class Landing extends Component {
                       style={{ paddingRight: 15 }}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({ liked: !this.state.liked });
-                    }}>
+                  <TouchableOpacity>
                     <Ionicons
                       name={'ios-heart-outline'}
                       size={25}
@@ -180,7 +175,7 @@ export default class Landing extends Component {
                       <Ionicons name="ios-star" size={12} color="white" />
                       <Ionicons name="ios-star-half" size={12} color="white" />
                       <Text style={landingStyles.smallTextBottom}>
-                        {reviews}
+                        {item.reviews}
                       </Text>
                     </View>
                   </View>
