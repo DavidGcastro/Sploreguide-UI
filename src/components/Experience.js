@@ -34,13 +34,6 @@ export default class Experience extends Component {
     scrollY: new Animated.Value(0)
   };
 
-  // Component prop types
-  // static propTypes = {
-  //   // experience object with title, genre, and poster
-  //   experience: PropTypes.object.isRequired,
-  //   onBackPress: PropTypes.func.isRequired
-  // };
-
   static defaultProps = {
     scrollRangeForAnimation: height,
     _scrollView: null

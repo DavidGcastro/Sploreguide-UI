@@ -1,10 +1,3 @@
-/*
-* @Author: Abhi
-* @Date:   2018-07-13 20:25:32
-* @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-14 16:07:17
-*/
-
 import React, { Component } from 'react';
 import {
   Animated,

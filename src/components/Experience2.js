@@ -207,16 +207,6 @@ export default class Experience2 extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     paddingTop: 20,         // start below status bar
-//   },
-//   scrollContent: {
-//     flexDirection: 'row',   // arrange posters in rows
-//     flexWrap: 'wrap',       // allow multiple rows
-//   },
-// });
-
 const styles = {
   header: { alignItems: 'center', flex: 1, justifyContent: 'center' },
   headerText: { color: '#fff' },

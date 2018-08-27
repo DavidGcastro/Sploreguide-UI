@@ -1,10 +1,3 @@
-/*
-* @Author: Abhi
-* @Date:   2018-07-11 14:02:45
-* @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-14 15:23:14
-*/
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -168,7 +161,8 @@ export default class PaginationExample extends Component {
             {imageArray}
           </Animated.ScrollView>
           <View style={styles.barContainer}>{barArray}</View>
-        </View>)
+        </View>
+        )
       </Animated.View>
     );
   }

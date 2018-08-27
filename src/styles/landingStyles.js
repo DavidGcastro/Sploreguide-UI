@@ -44,9 +44,9 @@ let landingStyles = {
   activityType: {
     fontSize: 15,
     fontWeight: 'bold',
-    letterSpacing: 1.5,
+    letterSpacing: 1,
     color: 'white',
-    borderRadius: 5,
+    borderRadius: 3,
     backgroundColor: 'rgba(227, 60, 54, 1)',
     paddingHorizontal: 15,
     paddingVertical: 5,

@@ -131,16 +131,7 @@ export default class UserList extends Component {
         onMomentumScrollEnd={this.onScrollEndSnapToEdge}
         onScroll={event => {
           this.state.scrollY = event.nativeEvent.contentOffset.y;
-          // Animated.event(
-          //     [
-          //         {
-          //             nativeEvent: {contentOffset: {y: this.state.scrollY}},
-          //         },
-          //     ],
-          //     {
-          //         useNativeDriver: true,
-          //     }
-          // )
+   
         }}
         style={stylesSection.container}
         dataSource={this.state.dataSource}
@@ -148,11 +139,9 @@ export default class UserList extends Component {
         renderSeparator={(sectionId, rowId) => (
           <View key={rowId} style={stylesSection.separator} />
         )}
-        // renderHeader={() => <Header />}
-        // renderFooter={() => <Footer />}
+
         renderSectionHeader={sectionData => <SectionHeader {...sectionData} />}
       />
-      // </Animated.View>
     );
   }
 }

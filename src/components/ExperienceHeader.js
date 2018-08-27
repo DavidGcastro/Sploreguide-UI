@@ -1,10 +1,3 @@
-/*
-* @Author: Abhi
-* @Date:   2018-07-09 13:51:29
-* @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-14 19:16:55
-*/
-
 import React, { Component } from 'react';
 import {
   StyleSheet,
