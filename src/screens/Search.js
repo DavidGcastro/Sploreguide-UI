@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   View,
   ScrollView,
@@ -7,34 +7,52 @@ import {
   Dimensions,
   Text,
   TouchableOpacity
-} from 'react-native';
-import InlineIcon from '../components/InlineIcon';
-import ActivityCard from '../components/ActivityCard';
-import Location from '../components/Location';
-import CalendarStrip from 'react-native-calendar-strip';
-import GradientButton from '../components/GradientButton';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import LinearGradientBorder from '../components/LinearGradientBorder';
-import styles from '../styles/search/';
-import defaultStyles from '../styles/styles';
-import experiences from '../experiences';
-let { width } = Dimensions.get('window');
+} from 'react-native'
+import InlineIcon from '../components/InlineIcon'
+import ActivityCard from '../components/ActivityCard'
+import Location from '../components/Location'
+import CalendarStrip from 'react-native-calendar-strip'
+import GradientButton from '../components/GradientButton'
+import MultiSlider from '@ptomasroos/react-native-multi-slider'
+import LinearGradientBorder from '../components/LinearGradientBorder'
+import styles from '../styles/search/'
+import defaultStyles from '../styles/styles'
+import experiences from '../experiences'
+let { width } = Dimensions.get('window')
 
 export default class Search extends Component {
-  constructor() {
-    super();
-    this.state = {
-      location: '',
-      activityType: '',
-      date: '',
-      priceRangeMin: '0',
-      priceRangeMax: '0'
-    };
+  state = {
+    location: '',
+    activityType: '',
+    selectedActivityIndex: -1,
+    date: '',
+    priceRangeMin: '0',
+    priceRangeMax: '0',
+    activities: ['Tour', 'Biking', 'Kayak', 'Eating', 'Milking'] // will be moved to props not state
+  }
+
+  changeActivity (selectedActivityIndex) {
+    if (selectedActivityIndex == this.state.selectedActivityIndex) {
+      selectedActivityIndex = -1
+    }
+      this.setState({selectedActivityIndex})
+  }
+
+   doSearch = () => {
+    let searchDisplay = this.state.location
+    if (this.state.selectedActivityIndex != -1) {
+      searchDisplay = `${searchDisplay} - ${this.state.activities[this.state.selectedActivityIndex]}`
+    }
+
+    this.props.navigation.navigate('Landing', {
+      search: searchDisplay
+    })
   }
 
   render() {
-    let x = this.state.priceRangeMin;
-    let y = this.state.priceRangeMax;
+    let { selectedActivityIndex, activities } = this.state
+    let x = this.state.priceRangeMin
+    let y = this.state.priceRangeMax
     let locations = experiences
       .filter(x => {
         return (
@@ -46,7 +64,9 @@ export default class Search extends Component {
             .includes(this.state.location.toLowerCase())
         );
       })
-      .slice(0, 4);
+      .slice(0, 4)
+
+
     return (
       <View style={styles.parent}>
         {/*SEARCH*/}
@@ -99,24 +119,32 @@ export default class Search extends Component {
             contentContainerStyle={{
               flexDirection: 'row'
             }}>
-            {locations.length > 0 ? (
-              locations.map(
-                (x, y) =>
-                  y === 0 ? (
-                    <LinearGradientBorder key={x.location + y}>
-                      <ActivityCard
-                        IconTag="Ionicons"
-                        iconName="ios-hammer-outline"
-                        label={x.activityType}
-                      />
+            {activities.length > 0 ? (
+              activities.map(
+                (activity, index) =>
+                  index === selectedActivityIndex ? (
+                    <LinearGradientBorder key={index}>
+                      <TouchableOpacity
+                        onPress={() => this.changeActivity(index)}
+                      >
+                        <ActivityCard
+                          IconTag='Ionicons'
+                          iconName='ios-hammer-outline'
+                          label={activity}
+                        />
+                      </TouchableOpacity>
                     </LinearGradientBorder>
                   ) : (
-                    <ActivityCard
-                      key={x.location + y}
-                      IconTag="Ionicons"
-                      iconName="ios-hammer-outline"
-                      label={x.activityType}
-                    />
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => this.changeActivity(index)}
+                    >
+                      <ActivityCard
+                        IconTag='Ionicons'
+                        iconName='ios-hammer-outline'
+                        label={activity}
+                      />
+                    </TouchableOpacity>
                   )
               )
             ) : (
@@ -192,11 +220,8 @@ export default class Search extends Component {
 
         <View style={styles.divider}>
           <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('Landing', {
-                search: this.state.location
-              })
-            }>
+            onPress={this.doSearch}
+          >
             <GradientButton text="SHOW RESULTS" />
           </TouchableOpacity>
         </View>
