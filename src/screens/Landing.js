@@ -199,7 +199,24 @@ export default class Landing extends Component {
           alignItems: 'center',
           padding: 2
         }}>
-        {this.props.navigation.state.params.search}
+        {this.props.navigation.state.params.search.length > 0 ? (
+          this.props.navigation.state.params.search
+        ) : (
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: '500',
+              paddingLeft: 10,
+              flex: 1,
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              padding: 2,
+              color: '#9b9b9b'
+            }}>
+            {this.state.search}
+          </Text>
+        )}
       </Text>
     ) : (
       <Text

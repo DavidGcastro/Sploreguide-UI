@@ -33,7 +33,7 @@ export default class Search extends Component {
   }
 
   render() {
-    let locations = LandingData.filter(x => {
+    let locations = experiences.filter(x => {
       return (
         x.location.toLowerCase().includes(this.state.location.toLowerCase()) ||
         x.activityType.toLowerCase().includes(this.state.location.toLowerCase())

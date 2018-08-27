@@ -81,7 +81,7 @@ let landingStyles = {
 
   location: {
     fontFamily: 'SF-UI-Text-Regular',
-    fontSize: 20,
+    fontSize: 18,
     color: 'white',
     paddingBottom: 10
   },
