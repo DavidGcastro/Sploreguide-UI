@@ -10,7 +10,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: 'Ecuadorian Horse Tour',
-    media: require('./assets/img/ecuador.jpg'),
+    media: require('./assets/img/experiences/ecuador.jpg'),
     reviews: 1,
     host: {
       name: 'David',
@@ -23,9 +23,9 @@ const experiences = [
     basePricePerPerson: 100, // int - base price per person
     basePricePerGroup: 200, // int - base price for a group},
     images: [
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg')
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg')
     ]
   },
   {
@@ -37,7 +37,7 @@ const experiences = [
     activityType: 'Nature',
     included: null,
     overview: "Join me to discover the city's underated nature",
-    media: require('./assets/img/nature.jpg'),
+    media: require('./assets/img/experiences/nature.jpg'),
     reviews: 10,
     host: {
       name: 'Will',
@@ -50,9 +50,9 @@ const experiences = [
     basePricePerPerson: 100, // int - base price per person
     basePricePerGroup: 200,
     images: [
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg')
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg')
     ]
   },
   {
@@ -64,7 +64,7 @@ const experiences = [
     activityType: 'Nightlife',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
-    media: require('./assets/img/queens.jpg'),
+    media: require('./assets/img/experiences/queens.jpg'),
     reviews: 20,
     host: {
       name: 'Joe',
@@ -77,9 +77,9 @@ const experiences = [
     basePricePerPerson: 100, // int - base price per person
     basePricePerGroup: 200, // int - base price for a group},
     images: [
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg')
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg')
     ]
   },
   {
@@ -91,7 +91,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: 'Live in Tokyo, Like A Local.',
-    media: require('./assets/img/tokyo-skyline.jpg'),
+    media: require('./assets/img/experiences/tokyo-skyline.jpg'),
     reviews: 20,
     host: {
       name: 'Alfred',
@@ -104,9 +104,9 @@ const experiences = [
     basePricePerPerson: 100, // int - base price per person
     basePricePerGroup: 200, // int - base price for a group},
     images: [
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg')
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg')
     ]
   },
   {
@@ -118,7 +118,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
-    media: require('./assets/img/seattle.jpg'),
+    media: require('./assets/img/experiences/seattle.jpg'),
     reviews: 20,
     host: {
       name: 'Alfred',
@@ -131,9 +131,9 @@ const experiences = [
     basePricePerPerson: 100, // int - base price per person
     basePricePerGroup: 200, // int - base price for a group},
     images: [
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg')
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg')
     ]
   },
   {
@@ -145,7 +145,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
-    media: require('./assets/img/morocco.jpg'),
+    media: require('./assets/img/experiences/morocco.jpg'),
     reviews: 20,
     host: {
       name: 'Omar',
@@ -158,9 +158,9 @@ const experiences = [
     basePricePerPerson: 100, // int - base price per person
     basePricePerGroup: 200, // int - base price for a group},
     images: [
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg')
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg')
     ]
   },
   {
@@ -172,7 +172,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
-    media: require('./assets/img/amsterdam.jpg'),
+    media: require('./assets/img/experiences/amsterdam.jpg'),
     reviews: 20,
     host: {
       name: 'Alfred',
@@ -185,9 +185,9 @@ const experiences = [
     basePricePerPerson: 100, // int - base price per person
     basePricePerGroup: 200, // int - base price for a group},
     images: [
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg')
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg')
     ]
   },
   {
@@ -199,7 +199,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: "A walk through Bushwick's graffiti scene.",
-    media: require('./assets/img/graffiti.jpg'),
+    media: require('./assets/img/experiences/graffiti.jpg'),
     reviews: 20,
     host: {
       name: 'Alfred',
@@ -212,9 +212,9 @@ const experiences = [
     basePricePerPerson: 100, // int - base price per person
     basePricePerGroup: 200, // int - base price for a group},
     images: [
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg'),
-      require('./assets/img/ecuador.jpg')
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg'),
+      require('./assets/img/experiences/ecuador.jpg')
     ]
   }
 ];
