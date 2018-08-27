@@ -14,9 +14,9 @@ const PreviewCard = props => {
       imageStyle={{ borderRadius: 5 }}
       source={experience.media}>
       <LinearGradient
-        colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.4)']}
-        start={[0, 0]}
-        end={[0, 0]}
+        colors={['transparent', 'rgba(0,0,0,1.0)']}
+        start={[0.5, 0.2]}
+        end={[0.5, 1.0]}
         style={{ flex: 1, borderRadius: 5 }}>
         <View style={{ flex: 1 }}>
           <View

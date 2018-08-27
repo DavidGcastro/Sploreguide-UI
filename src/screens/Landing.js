@@ -104,9 +104,9 @@ export default class Landing extends Component {
             flex: 1
           }}>
           <LinearGradient
-            colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.4)']}
-            start={[0, 0]}
-            end={[0, 0]}
+            colors={['transparent', 'rgba(0,0,0,1.0)']}
+            start={[0.5, 0.2]}
+            end={[0.5, 1.0]}
             style={{
               flex: 1,
               justifyContent: 'space-between',
@@ -278,16 +278,14 @@ export default class Landing extends Component {
           snapToInterval={cardHeight.scrollViewInterval}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          onScroll=
-          {x => {
+          onScroll={x => {
             let currentOffset = x.nativeEvent.contentOffset.y;
             let direction = currentOffset >= offset ? 'up' : 'down';
             offset = currentOffset;
 
             this.onSwipeUp(currentOffset, direction);
           }}
-          scrollEventThrottle=
-          {1}>
+          scrollEventThrottle={1}>
           <View
             style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
