@@ -1,17 +1,3 @@
-/*
-* @Author: Abhi
-* @Date:   2018-07-14 15:14:45
-* @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-26 13:14:03
-*/
-
-/*
-* @Author: Abhi
-* @Date:   2018-07-13 20:25:32
-* @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-14 14:55:30
-*/
-
 import React, { Component } from 'react';
 import {
   Animated,
@@ -84,7 +70,7 @@ export default class Pagination extends Component {
     const {
       title,
       genre,
-      poster,
+      media,
       price,
       location,
       duration,
@@ -95,7 +81,7 @@ export default class Pagination extends Component {
       overview,
       images
     } = experience;
-    const _images = [poster, ...images];
+    const _images = [media, ...images];
     const numItems = _images.length;
     const FIXED_BAR_WIDTH =
       width -
@@ -110,7 +96,7 @@ export default class Pagination extends Component {
       const thisImage = (
         <ImageBackground
           key={`image${i}`}
-          source={{ uri: image }}
+          source={{ image }}
           style={{ width: width }}>
           <LinearGradient
             colors={['transparent', 'rgba(0,0,0,1.0)']}
@@ -182,8 +168,8 @@ export default class Pagination extends Component {
       experience: {
         title,
         genre,
-        poster,
-        price,
+        media,
+
         location,
         duration,
         language,
@@ -435,9 +421,3 @@ const styles = StyleSheet.create({
     top: 0
   }
 });
-
-/*
-	        				        <View style={styles.barContainer}>
-		          {barArray}
-		        </View>
-*/

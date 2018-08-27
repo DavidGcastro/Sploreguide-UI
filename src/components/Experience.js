@@ -23,15 +23,11 @@ import NavBackButton from './NavBackButton';
 import ExperienceHeader from './ExperienceHeader';
 import ItemInScroll from './ItemInScroll';
 
-// import Pagination,{ Icon, Dot } from 'react-native-pagination';
-import PaginationExample from './PaginationExample';
 import UserList from './UserList';
 import Pagination from './Pagination';
 
 // Get screen dimensions
 const { width, height } = Dimensions.get('window');
-
-// const HeaderPlaceholder = <View style={{flex: 0, height: 100, width: '100%'}} />;
 
 export default class Experience extends Component {
   state = {
@@ -39,11 +35,11 @@ export default class Experience extends Component {
   };
 
   // Component prop types
-  static propTypes = {
-    // experience object with title, genre, and poster
-    experience: PropTypes.object.isRequired,
-    onBackPress: PropTypes.func.isRequired
-  };
+  // static propTypes = {
+  //   // experience object with title, genre, and poster
+  //   experience: PropTypes.object.isRequired,
+  //   onBackPress: PropTypes.func.isRequired
+  // };
 
   static defaultProps = {
     scrollRangeForAnimation: height,

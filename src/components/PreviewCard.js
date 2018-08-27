@@ -6,47 +6,53 @@ import landingStyles from '../styles/landingStyles';
 import { LinearGradient } from 'expo';
 
 const PreviewCard = props => {
-  let { experience } = props;
+  let { experience, navigateToExperience } = props;
+
   return (
-    <TouchableOpacity activeOpacity={0.7}>
-      <ImageBackground
-        style={previewCardStyle.container}
-        imageStyle={{ borderRadius: 5 }}
-        source={experience.media}>
-        <LinearGradient
-          colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.4)']}
-          start={[0, 0]}
-          end={[0, 0]}
-          style={{ flex: 1, borderRadius: 5 }}>
-          <View style={{ flex: 1, padding: 20 }}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start'
-              }}>
-              <View style={{ flexDirection: 'row', flex: 1 }}>
-                <TouchableOpacity style={{ paddingRight: 15 }}>
-                  <Ionicons
-                    name={'ios-share-outline'}
-                    size={25}
-                    color={'white'}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Ionicons
-                    name={'ios-heart-outline'}
-                    size={25}
-                    color={'white'}
-                  />
-                </TouchableOpacity>
-              </View>
-              <Text style={landingStyles.activityType}>
-                {experience.activityType.toUpperCase()}
-              </Text>
+    <ImageBackground
+      style={previewCardStyle.container}
+      imageStyle={{ borderRadius: 5 }}
+      source={experience.media}>
+      <LinearGradient
+        colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.4)']}
+        start={[0, 0]}
+        end={[0, 0]}
+        style={{ flex: 1, borderRadius: 5 }}>
+        <View style={{ flex: 1 }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              padding: 20
+            }}>
+            <View style={{ flexDirection: 'row', flex: 1 }}>
+              <TouchableOpacity style={{ paddingRight: 15 }}>
+                <Ionicons
+                  name={'ios-share-outline'}
+                  size={25}
+                  color={'white'}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Ionicons
+                  name={'ios-heart-outline'}
+                  size={25}
+                  color={'white'}
+                />
+              </TouchableOpacity>
             </View>
-            <View>
+            <Text style={[landingStyles.activityType, { fontSize: 12 }]}>
+              {experience.activityType.toUpperCase()}
+            </Text>
+          </View>
+          <View
+            style={{
+              borderLeftWidth: 5,
+              borderLeftColor: 'rgba(227, 60, 54, 1)'
+            }}>
+            <View style={{ padding: 20 }}>
               <Text style={{ fontSize: 12, color: 'white' }}>
                 {experience.location}
               </Text>
@@ -86,12 +92,10 @@ const PreviewCard = props => {
               </View>
             </View>
           </View>
-        </LinearGradient>
-      </ImageBackground>
-    </TouchableOpacity>
+        </View>
+      </LinearGradient>
+    </ImageBackground>
   );
 };
 
 export default PreviewCard;
-
-// onPress={() => onOpen(experience)}>

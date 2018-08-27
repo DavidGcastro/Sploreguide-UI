@@ -21,7 +21,12 @@ const experiences = [
     advisement: 'Must be 21 and over',
     offerings: [{ date: '8/20/93', price: 100 }],
     basePricePerPerson: 100, // int - base price per person
-    basePricePerGroup: 200 // int - base price for a group},
+    basePricePerGroup: 200, // int - base price for a group},
+    images: [
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg')
+    ]
   },
   {
     category: 'Top Trending',
@@ -43,7 +48,12 @@ const experiences = [
     advisement: 'All ages',
     offerings: [{ date: '8/20/93', price: 100 }],
     basePricePerPerson: 100, // int - base price per person
-    basePricePerGroup: 200 // int - base price for a group},
+    basePricePerGroup: 200,
+    images: [
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg')
+    ]
   },
   {
     category: 'New in Your City',
@@ -65,7 +75,12 @@ const experiences = [
     advisement: 'Allergen Warning',
     offerings: [{ date: '8/20/93', price: 100 }],
     basePricePerPerson: 100, // int - base price per person
-    basePricePerGroup: 200 // int - base price for a group},
+    basePricePerGroup: 200, // int - base price for a group},
+    images: [
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg')
+    ]
   },
   {
     category: 'Weekly Top Picks',
@@ -87,7 +102,12 @@ const experiences = [
     advisement: 'Allergen Warning',
     offerings: [{ date: '8/20/93', price: 100 }],
     basePricePerPerson: 100, // int - base price per person
-    basePricePerGroup: 200 // int - base price for a group},
+    basePricePerGroup: 200, // int - base price for a group},
+    images: [
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg')
+    ]
   },
   {
     category: 'Weekly Top Picks',
@@ -109,7 +129,12 @@ const experiences = [
     advisement: 'Allergen Warning',
     offerings: [{ date: '8/20/93', price: 100 }],
     basePricePerPerson: 100, // int - base price per person
-    basePricePerGroup: 200 // int - base price for a group},
+    basePricePerGroup: 200, // int - base price for a group},
+    images: [
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg')
+    ]
   },
   {
     category: 'Best Rated',
@@ -131,7 +156,12 @@ const experiences = [
     advisement: 'Allergen Warning',
     offerings: [{ date: '8/20/93', price: 100 }],
     basePricePerPerson: 100, // int - base price per person
-    basePricePerGroup: 200 // int - base price for a group},
+    basePricePerGroup: 200, // int - base price for a group},
+    images: [
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg')
+    ]
   },
   {
     category: 'Best Rated',
@@ -153,7 +183,12 @@ const experiences = [
     advisement: 'Allergen Warning',
     offerings: [{ date: '8/20/93', price: 100 }],
     basePricePerPerson: 100, // int - base price per person
-    basePricePerGroup: 200 // int - base price for a group},
+    basePricePerGroup: 200, // int - base price for a group},
+    images: [
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg')
+    ]
   },
   {
     category: 'Best Rated',
@@ -175,7 +210,12 @@ const experiences = [
     advisement: 'Allergen Warning',
     offerings: [{ date: '8/20/93', price: 100 }],
     basePricePerPerson: 100, // int - base price per person
-    basePricePerGroup: 200 // int - base price for a group},
+    basePricePerGroup: 200, // int - base price for a group},
+    images: [
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg'),
+      require('./assets/img/ecuador.jpg')
+    ]
   }
 ];
 
