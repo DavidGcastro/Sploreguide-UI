@@ -70,7 +70,7 @@ export default class Pagination extends Component {
     const {
       title,
       genre,
-      media,
+      poster,
       price,
       location,
       duration,
@@ -81,7 +81,7 @@ export default class Pagination extends Component {
       overview,
       images
     } = experience;
-    const _images = [...images];
+    const _images = [poster, ...images];
     const numItems = _images.length;
     const FIXED_BAR_WIDTH =
       width -
@@ -96,7 +96,7 @@ export default class Pagination extends Component {
       const thisImage = (
         <ImageBackground
           key={`image${i}`}
-          source={{ image }}
+          source={{ uri: image }}
           style={{ width: width }}>
           <LinearGradient
             colors={['transparent', 'rgba(0,0,0,1.0)']}
@@ -163,12 +163,13 @@ export default class Pagination extends Component {
     const {
       min,
       max,
+      onOpen,
       experience,
       experience: {
         title,
         genre,
-        media,
-
+        poster,
+        price,
         location,
         duration,
         language,
