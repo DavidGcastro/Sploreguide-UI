@@ -17,7 +17,7 @@ import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import LinearGradientBorder from '../components/LinearGradientBorder';
 import styles from '../styles/search/';
 import defaultStyles from '../styles/styles';
-import LandingData from '../landingData';
+import experiences from '../experiences';
 let { width } = Dimensions.get('window');
 
 export default class Search extends Component {

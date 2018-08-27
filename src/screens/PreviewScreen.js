@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Previews from '../components/Previews';
-import { experiences } from '../data';
+import experiences from '../experiences';
 import GoBack from '../components/GoBack';
 import { TouchableOpacity, View } from 'react-native';
 

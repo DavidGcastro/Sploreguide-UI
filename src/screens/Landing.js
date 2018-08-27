@@ -13,7 +13,7 @@ import { LinearGradient } from 'expo';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { Ionicons, Feather, SimpleLineIcons } from '@expo/vector-icons';
 import landingStyles from '../styles/landingStyles';
-import landingData from '../landingData';
+import experiences from '../experiences';
 
 let { width, height } = Dimensions.get('window');
 let images = [
@@ -275,7 +275,7 @@ export default class Landing extends Component {
           <View
             style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
-              data={landingData}
+              data={experiences}
               renderItem={this._renderItem}
               sliderWidth={width}
               itemWidth={width - 50}
@@ -284,7 +284,7 @@ export default class Landing extends Component {
           <View
             style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
-              data={landingData}
+              data={experiences}
               renderItem={this._renderItem}
               sliderWidth={width}
               itemWidth={width - 50}
@@ -293,7 +293,7 @@ export default class Landing extends Component {
           <View
             style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
-              data={landingData}
+              data={experiences}
               renderItem={this._renderItem}
               sliderWidth={width}
               itemWidth={width - 50}
@@ -302,7 +302,7 @@ export default class Landing extends Component {
           <View
             style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
-              data={landingData}
+              data={experiences}
               renderItem={this._renderItem}
               sliderWidth={width}
               itemWidth={width - 50}
@@ -311,7 +311,7 @@ export default class Landing extends Component {
           <View
             style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
             <Carousel
-              data={landingData}
+              data={experiences}
               renderItem={this._renderItem}
               sliderWidth={width}
               itemWidth={width - 50}
