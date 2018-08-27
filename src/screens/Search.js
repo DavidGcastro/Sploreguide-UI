@@ -33,12 +33,20 @@ export default class Search extends Component {
   }
 
   render() {
-    let locations = experiences.filter(x => {
-      return (
-        x.location.toLowerCase().includes(this.state.location.toLowerCase()) ||
-        x.activityType.toLowerCase().includes(this.state.location.toLowerCase())
-      );
-    }).slice(0, 4);
+    let x = this.state.priceRangeMin;
+    let y = this.state.priceRangeMax;
+    let locations = experiences
+      .filter(x => {
+        return (
+          x.location
+            .toLowerCase()
+            .includes(this.state.location.toLowerCase()) ||
+          x.activityType
+            .toLowerCase()
+            .includes(this.state.location.toLowerCase())
+        );
+      })
+      .slice(0, 4);
     return (
       <View style={styles.parent}>
         {/*SEARCH*/}
@@ -122,8 +130,9 @@ export default class Search extends Component {
           <InlineIcon
             IconTag="FontAwesome"
             iconName="money"
-            label="Price Range"
+            label={`Price Range: $${x} - $${y}`}
           />
+
           <MultiSlider
             onValuesChange={values => {
               this.setState({
@@ -131,7 +140,7 @@ export default class Search extends Component {
                 priceRangeMin: values[0]
               });
             }}
-            values={[0, 1000]}
+            values={[0, 150]}
             sliderLength={width - 60}
             min={0}
             max={1000}

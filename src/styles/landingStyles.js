@@ -88,7 +88,7 @@ let landingStyles = {
     paddingBottom: 10
   },
   title: {
-    fontSize: 22,
+    fontSize: 20,
     color: 'white',
     fontFamily: 'SF-UI-Text-Bold',
     paddingBottom: 15

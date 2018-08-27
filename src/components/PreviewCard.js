@@ -28,11 +28,12 @@ const PreviewCard = props => {
               padding: 20
             }}>
             <View style={{ flexDirection: 'row', flex: 1 }}>
-              <TouchableOpacity style={{ paddingRight: 15 }}>
+              <TouchableOpacity>
                 <Ionicons
                   name={'ios-share-outline'}
                   size={25}
                   color={'white'}
+                  style={{ paddingRight: 15 }}
                 />
               </TouchableOpacity>
               <TouchableOpacity>
@@ -71,7 +72,7 @@ const PreviewCard = props => {
                   justifyContent: 'space-between'
                 }}>
                 <Text style={{ color: 'white', fontSize: 12 }}>
-                  {experience.basePricePerPerson} / person
+                 ${experience.basePricePerPerson} / person
                 </Text>
                 <View>
                   <View
