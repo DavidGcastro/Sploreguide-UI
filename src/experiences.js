@@ -1,3 +1,5 @@
+import React from 'react';
+
 const experiences = [
   {
     category: 'Top Trending',
@@ -8,7 +10,7 @@ const experiences = [
     activityType: 'Nightlife',
     included: null,
     overview: "Join me to party in New York's most exclusive night clubs",
-    media: '../assets/img/amsterdam.jpg',
+    media: require('./assets/img/amsterdam.jpg'),
     reviews: 1,
     host: {
       name: 'David',
@@ -30,7 +32,7 @@ const experiences = [
     activityType: 'Nature',
     included: null,
     overview: "Join me to discover the city's underated nature",
-    media: '../assets/img/amsterdam.jpg',
+    media: require('./assets/img/amsterdam.jpg'),
     reviews: 10,
     host: {
       name: 'Will',
@@ -52,7 +54,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
-    media: '../assets/img/amsterdam.jpg',
+    media: require('./assets/img/amsterdam.jpg'),
     reviews: 20,
     host: {
       name: 'Alfred',
@@ -74,7 +76,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
-    media: '../assets/img/amsterdam.jpg',
+    media: require('./assets/img/amsterdam.jpg'),
     reviews: 20,
     host: {
       name: 'Alfred',
@@ -96,7 +98,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
-    media: '../assets/img/amsterdam.jpg',
+    media: require('./assets/img/amsterdam.jpg'),
     reviews: 20,
     host: {
       name: 'Alfred',
@@ -118,7 +120,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
-    media: '../assets/img/amsterdam.jpg',
+    media: require('./assets/img/amsterdam.jpg'),
     reviews: 20,
     host: {
       name: 'Alfred',
@@ -140,7 +142,7 @@ const experiences = [
     activityType: 'Tour',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
-    media: '../assets/img/amsterdam.jpg',
+    media: require('./assets/img/amsterdam.jpg'),
     reviews: 20,
     host: {
       name: 'Alfred',

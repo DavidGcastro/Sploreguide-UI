@@ -8,18 +8,24 @@ import {
   View,
   ImageBackground
 } from 'react-native';
-let images = [
-  require('../assets/img/amsterdam.jpg'),
-  require('../assets/img/nature.jpg'),
-  require('../assets/img/nightlife.jpg')
-];
 import { Ionicons } from '@expo/vector-icons';
 import previewCardStyle from '../styles/PreviewCard';
-// Get screen dimensions
-const { width, height } = Dimensions.get('window');
 
-const PreviewCard = () => {
-  return <View />;
+const PreviewCard = props => {
+  console.log(props);
+  return (
+    <ImageBackground
+      style={{
+        width: 335,
+        height: 199,
+        justifyContent: 'center',
+        marginVertical: 10
+      }}
+      imageStyle={{ borderRadius: 5 }}
+      source={props.experience.media}>
+      <Text>Hello</Text>
+    </ImageBackground>
+  );
 };
 
 export default PreviewCard;

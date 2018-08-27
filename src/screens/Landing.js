@@ -16,11 +16,6 @@ import landingStyles from '../styles/landingStyles';
 import experiences from '../experiences';
 
 let { width, height } = Dimensions.get('window');
-let images = [
-  require('../assets/img/amsterdam.jpg'),
-  require('../assets/img/nature.jpg'),
-  require('../assets/img/nightlife.jpg')
-];
 
 let categories = [
   'Top Trending',
@@ -103,7 +98,7 @@ export default class Landing extends Component {
           shadowOpacity: 0.8
         }}>
         <ImageBackground
-          source={images[index]}
+          source={item.media}
           imageStyle={{ borderRadius: 10 }}
           style={{
             flex: 1
