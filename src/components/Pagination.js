@@ -81,7 +81,7 @@ export default class Pagination extends Component {
       overview,
       images
     } = experience;
-    const _images = [media, ...images];
+    const _images = [...images];
     const numItems = _images.length;
     const FIXED_BAR_WIDTH =
       width -
@@ -163,7 +163,6 @@ export default class Pagination extends Component {
     const {
       min,
       max,
-      onOpen,
       experience,
       experience: {
         title,
