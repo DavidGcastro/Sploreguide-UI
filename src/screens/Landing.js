@@ -9,7 +9,6 @@ import {
   Image,
   ScrollView
 } from 'react-native';
-import ExperienceCard from '../components/ExperienceCard';
 import { LinearGradient } from 'expo';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
@@ -68,7 +67,7 @@ export default class Landing extends Component {
       category: categories[0],
       fromTop: 0
     };
-    // this._renderItem = this._renderItem.bind(this);
+    this._renderItem = this._renderItem.bind(this);
     this.onSwipeUp = this.onSwipeUp.bind(this);
   }
 
