@@ -3,16 +3,14 @@ import { ScrollView, StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import PreviewCard from './PreviewCard';
 import PropTypes from 'prop-types';
 import { ifIphoneX, getStatusBarHeight } from 'react-native-iphone-x-helper';
-import GoBack from '../components/GoBack';
-import { TouchableOpacity } from 'react-native';
 
 export default class Previews extends Component {
   // Component prop types
-  // static propTypes = {
-  //   // experience object with title, genre, and poster
-  //   experiences: PropTypes.array.isRequired,
-  //   onOpen: PropTypes.func.isRequired
-  // };
+  static propTypes = {
+    // experience object with title, genre, and poster
+    experiences: PropTypes.array.isRequired,
+    onOpen: PropTypes.func.isRequired
+  };
 
   render() {
     return (

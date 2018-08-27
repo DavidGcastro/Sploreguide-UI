@@ -7,7 +7,6 @@ import {
   Dimensions,
   ImageBackground,
   Image,
-  TextInput,
   ScrollView
 } from 'react-native';
 import { LinearGradient } from 'expo';
@@ -94,8 +93,6 @@ export default class Landing extends Component {
   _renderItem({ item, index }) {
     let reviews =
       item.reviews > 1 ? item.reviews + ' Reviews' : item.reviews + ' Review';
-
-    let heartStyle = { backgroundColor: 'pink', width: 20, height: 20 };
 
     return (
       <View

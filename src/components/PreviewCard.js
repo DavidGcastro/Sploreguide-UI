@@ -1,10 +1,3 @@
-/*
-* @Author: Abhi
-* @Date:   2018-06-27 22:36:35
-* @Last Modified by:   Abhi
-* @Last Modified time: 2018-07-14 23:09:43
-*/
-
 import React, { Component } from 'react';
 import {
   Dimensions,
@@ -14,20 +7,17 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { defaultStyles } from '../styles/styles';
 import Price from './subheadings/Price';
 import Reviews from './subheadings/Reviews';
 import Tag from './Tag';
-
 import PropTypes from 'prop-types';
 import { Ionicons } from '@expo/vector-icons';
-
+import previewCardStyle from '../styles/PreviewCard';
 // Get screen dimensions
 const { width, height } = Dimensions.get('window');
 // How many posters we want to have in each row and column
 const cols = 1,
   rows = 3.5;
-
 export default class PreviewCard extends Component {
   // Component prop types
   static propTypes = {
@@ -36,28 +26,6 @@ export default class PreviewCard extends Component {
     // Called when user taps on a poster
     onOpen: PropTypes.func.isRequired
   };
-  /*
-  static defaultProps = {
-    reviewsData: [
-			{
-				stars	:	4,
-				reviews	:	'text'
-			}, 
-			{
-				stars	:	4,
-				reviews	:	'text'
-			}, 
-			{
-				stars	:	4,
-				reviews	:	'text'
-			}, 
-			{
-				stars	:	4,
-				reviews	:	'text'
-			}
-		]
-  }
-  */
 
   titleCase(str) {
     var str = str.toLowerCase().split(' ');
@@ -74,7 +42,6 @@ export default class PreviewCard extends Component {
     }
     return loc;
   }
-
   render() {
     const {
       experience,
@@ -191,68 +158,3 @@ const styles = StyleSheet.create({
     position: 'absolute'
   }
 });
-
-const previewCardStyle = {
-  imageContainer: {
-    flex: 1 // take up all available space
-  },
-  image: {
-    borderRadius: 10, // rounded corners
-    ...StyleSheet.absoluteFillObject // fill up all space in a container
-  },
-  heading: {
-    fontFamily: 'SF-UI-Text-Semibold',
-    fontSize: 18,
-    color: '#ffffff',
-    paddingHorizontal: 24,
-    marginTop: 2
-  },
-  subheading: {
-    fontFamily: 'SF-UI-Text-Regular',
-    fontSize: 12,
-    color: '#ffffff',
-    paddingLeft: 24,
-    paddingTop: 50
-  },
-  detailsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 24,
-    zIndex: 3
-  },
-  price: {
-    fontFamily: 'SF-UI-Text-Regular',
-    fontSize: 10,
-    color: 'rgba(255, 255, 255, 0.7)',
-    paddingTop: 5
-  },
-  reviews: {
-    fontFamily: 'SF-UI-Text-Regular',
-    fontSize: 10,
-    color: 'rgba(255, 255, 255, 0.7)',
-    paddingTop: 10
-  },
-  flag: {
-    width: 7,
-    height: 78,
-    backgroundColor: 'red',
-    borderBottomLeftRadius: 15
-  },
-  tag: {
-    width: 75,
-    height: 20,
-    backgroundColor: 'red',
-    borderBottomLeftRadius: 3,
-    borderBottomRightRadius: 3,
-    borderTopLeftRadius: 3,
-    borderTopRightRadius: 3,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  tagText: {
-    fontFamily: 'SF-UI-Text-Semibold',
-    fontSize: 10,
-    color: '#ffffff'
-  }
-};
