@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, View, SafeAreaView, Text } from 'react-native';
+import {
+  ScrollView,
+  FlatList,
+  StyleSheet,
+  View,
+  SafeAreaView,
+  Text
+} from 'react-native';
 import PreviewCard from './PreviewCard';
 import { ifIphoneX, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import experiences from '../experiences';
@@ -7,7 +14,11 @@ import experiences from '../experiences';
 export default class Previews extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View
+        style={{
+          alignItems: 'center',
+          flex: 1
+        }}>
         <ScrollView
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}>
@@ -19,18 +30,3 @@ export default class Previews extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    ...ifIphoneX(
-      {
-        paddingTop: getStatusBarHeight() - 20
-      },
-      {
-        paddingTop: 30,
-        paddingBottom: 0
-      }
-    )
-  }
-});

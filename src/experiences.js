@@ -51,7 +51,7 @@ const experiences = [
     location: 'Queens, New York',
     duration: 200,
     languages: 'English',
-    activityType: 'Tour',
+    activityType: 'Nightlife',
     included: null,
     overview: "A unique experience into Queen's underground culinary scene.",
     media: require('./assets/img/queens.jpg'),
@@ -114,7 +114,7 @@ const experiences = [
   {
     category: 'Best Rated',
     title: 'The Blue Pearl',
-    location: 'Chefchaouen, Moroccan',
+    location: 'Chefchaouen, Morocco',
     duration: 200,
     languages: 'French',
     activityType: 'Tour',

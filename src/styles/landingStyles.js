@@ -44,7 +44,7 @@ let landingStyles = {
   activityType: {
     fontSize: 15,
     fontWeight: 'bold',
-    letterSpacing: 1,
+    letterSpacing: 1.5,
     color: 'white',
     borderRadius: 5,
     backgroundColor: 'rgba(227, 60, 54, 1)',
@@ -52,6 +52,8 @@ let landingStyles = {
     paddingVertical: 5,
     overflow: 'hidden',
     fontFamily: 'SF-UI-Text-Semibold'
+  
+
   },
   price: {
     fontSize: 30,

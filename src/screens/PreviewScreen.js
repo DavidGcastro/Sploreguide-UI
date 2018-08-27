@@ -6,7 +6,7 @@ import { TouchableOpacity, View } from 'react-native';
 const PreviewScreen = props => {
   console.log(props.navigation.state.params.category);
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <TouchableOpacity onPress={() => props.navigation.navigate('Landing')}>
         <GoBack />
       </TouchableOpacity>

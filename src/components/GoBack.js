@@ -8,7 +8,7 @@ const GoBack = props => {
       name="arrow-left"
       size={32}
       color="white"
-      style={{ marginTop: 25, marginLeft: 20 }}
+      style={{ marginTop: 25, marginBottom: 10, marginLeft: 20 }}
     />
   );
 };
