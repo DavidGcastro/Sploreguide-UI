@@ -1,7 +1,6 @@
-import React from 'react';
-
 const experiences = [
   {
+    _id: '1',
     category: 'Top Trending',
     title: 'Ecuador, Living Among Giants',
     location: 'Cotopaxi, Ecuador',
@@ -29,6 +28,7 @@ const experiences = [
     ]
   },
   {
+    _id: '2',
     category: 'Top Trending',
     title: "NYC's Hidden Nature",
     location: 'Bronx, New York',
@@ -56,6 +56,7 @@ const experiences = [
     ]
   },
   {
+    _id: '3',
     category: 'New in Your City',
     title: 'Hidden Gems: Queens',
     location: 'Queens, New York',
@@ -83,6 +84,7 @@ const experiences = [
     ]
   },
   {
+    _id: '4',
     category: 'Weekly Top Picks',
     title: 'Tokyo, How I See It',
     location: 'Tokyo, Japan',
@@ -110,6 +112,7 @@ const experiences = [
     ]
   },
   {
+    _id: '5',
     category: 'Weekly Top Picks',
     title: 'A Sunny Day in Seattle',
     location: 'Seattle, Washinton',
@@ -137,6 +140,7 @@ const experiences = [
     ]
   },
   {
+    _id: '6',
     category: 'Best Rated',
     title: 'The Blue Pearl',
     location: 'Chefchaouen, Morocco',
@@ -164,6 +168,7 @@ const experiences = [
     ]
   },
   {
+    _id: '7',
     category: 'Best Rated',
     title: 'A Bike Ride in Amsterdam',
     location: 'Amsterdam, Netherlands ',
@@ -191,6 +196,7 @@ const experiences = [
     ]
   },
   {
+    _id: '8',
     category: 'Best Rated',
     title: 'Graffiti in Bushwick',
     location: 'Bushwick, Brooklyn ',
@@ -217,6 +223,6 @@ const experiences = [
       require('./assets/img/ecuador.jpg')
     ]
   }
-];
+]
 
-export default experiences;
+export default experiences
