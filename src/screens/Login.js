@@ -68,7 +68,7 @@ class Login extends React.Component {
     this.form = new Animated.Value(0)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.keyboardWillShowSub = Keyboard.addListener(
       'keyboardWillShow',
       this.keyboardWillShow
@@ -80,11 +80,11 @@ class Login extends React.Component {
     )
   }
 
-  focusTextInput() {
+  focusTextInput () {
     this.passwordInput.current.focus()
   }
 
-  keyboardWillHide = () => {
+  keyboardWillHide () {
     Animated.parallel([
       Animated.timing(this.logoHeight, {
         toValue: 50,
@@ -117,7 +117,7 @@ class Login extends React.Component {
     ]).start()
   }
 
-  keyboardWillShow = () => {
+  keyboardWillShow () {
     Animated.parallel([
       Animated.timing(this.logoHeight, {
         toValue: 37,
@@ -194,7 +194,7 @@ class Login extends React.Component {
       })
   }
 
-  render() {
+  render () {
     let { loading, error } = this.state
 
     if (loading) return <AppLoading />

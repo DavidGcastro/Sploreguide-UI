@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import GoBack from '../components/GoBack'
 import { ScrollView, View, TouchableOpacity } from 'react-native'
 import PreviewCard from '../components/PreviewCard'
