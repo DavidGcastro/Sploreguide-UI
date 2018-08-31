@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   View,
   ScrollView,
@@ -7,34 +7,34 @@ import {
   Dimensions,
   Text,
   TouchableOpacity
-} from 'react-native';
-import InlineIcon from '../components/InlineIcon';
-import ActivityCard from '../components/ActivityCard';
-import Location from '../components/Location';
-import CalendarStrip from 'react-native-calendar-strip';
-import GradientButton from '../components/GradientButton';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import LinearGradientBorder from '../components/LinearGradientBorder';
-import styles from '../styles/search/';
-import defaultStyles from '../styles/styles';
-import experiences from '../experiences';
-let { width } = Dimensions.get('window');
+} from 'react-native'
+import InlineIcon from '../components/InlineIcon'
+import ActivityCard from '../components/ActivityCard'
+import Location from '../components/Location'
+import CalendarStrip from 'react-native-calendar-strip'
+import GradientButton from '../components/GradientButton'
+import MultiSlider from '@ptomasroos/react-native-multi-slider'
+import LinearGradientBorder from '../components/LinearGradientBorder'
+import styles from '../styles/search/'
+import defaultStyles from '../styles/styles'
+import experiences from '../experiences'
+let { width } = Dimensions.get('window')
 
 export default class Search extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       location: '',
       activityType: '',
       date: '',
       priceRangeMin: '0',
       priceRangeMax: '0'
-    };
+    }
   }
 
-  render() {
-    let x = this.state.priceRangeMin;
-    let y = this.state.priceRangeMax;
+  render () {
+    let x = this.state.priceRangeMin
+    let y = this.state.priceRangeMax
     let locations = experiences
       .filter(x => {
         return (
@@ -44,32 +44,32 @@ export default class Search extends Component {
           x.activityType
             .toLowerCase()
             .includes(this.state.location.toLowerCase())
-        );
+        )
       })
-      .slice(0, 4);
+      .slice(0, 4)
     return (
       <View style={styles.parent}>
-        {/*SEARCH*/}
+        {/* SEARCH */}
         <View style={styles.firstChild}>
           <Image
-            resizeMode="contain"
+            resizeMode='contain'
             style={styles.searchImage}
             source={require('../assets/img/Search.png')}
           />
           <TextInput
             autoFocus
             onChangeText={value => this.setState({ location: value })}
-            placeholder="Search by City or Activity"
+            placeholder='Search by City or Activity'
             style={styles.input}
             value={this.state.location}
           />
         </View>
-        {/*LOCATIONS*/}
+        {/* LOCATIONS */}
         <View style={styles.divider}>
           <InlineIcon
-            IconTag="EvilIcons"
-            iconName="location"
-            label="Location"
+            IconTag='EvilIcons'
+            iconName='location'
+            label='Location'
           />
           {locations.length > 0 ? (
             locations.map((x, y) => {
@@ -79,7 +79,7 @@ export default class Search extends Component {
                   onPress={() => this.setState({ location: x.location })}>
                   <Location location={x.location} />
                 </TouchableOpacity>
-              );
+              )
             })
           ) : (
             <Text style={defaultStyles.informativeText}>
@@ -87,15 +87,15 @@ export default class Search extends Component {
             </Text>
           )}
         </View>
-        {/*Activities*/}
+        {/* Activities */}
         <View style={styles.divider}>
           <InlineIcon
-            IconTag="FontAwesome"
-            iconName="bolt"
-            label="Activities"
+            IconTag='FontAwesome'
+            iconName='bolt'
+            label='Activities'
           />
           <ScrollView
-            horizontal={true}
+            horizontal
             contentContainerStyle={{
               flexDirection: 'row'
             }}>
@@ -105,16 +105,16 @@ export default class Search extends Component {
                   y === 0 ? (
                     <LinearGradientBorder key={x.location + y}>
                       <ActivityCard
-                        IconTag="Ionicons"
-                        iconName="ios-hammer-outline"
+                        IconTag='Ionicons'
+                        iconName='ios-hammer-outline'
                         label={x.activityType}
                       />
                     </LinearGradientBorder>
                   ) : (
                     <ActivityCard
                       key={x.location + y}
-                      IconTag="Ionicons"
-                      iconName="ios-hammer-outline"
+                      IconTag='Ionicons'
+                      iconName='ios-hammer-outline'
                       label={x.activityType}
                     />
                   )
@@ -128,8 +128,8 @@ export default class Search extends Component {
         </View>
         <View>
           <InlineIcon
-            IconTag="FontAwesome"
-            iconName="money"
+            IconTag='FontAwesome'
+            iconName='money'
             label={`Price Range: $${x} - $${y}`}
           />
 
@@ -138,7 +138,7 @@ export default class Search extends Component {
               this.setState({
                 priceRangeMax: values[1],
                 priceRangeMin: values[0]
-              });
+              })
             }}
             values={[0, 150]}
             sliderLength={width - 60}
@@ -168,7 +168,7 @@ export default class Search extends Component {
           />
         </View>
         <View style={styles.divider}>
-          <InlineIcon IconTag="EvilIcons" iconName="clock" label="Dates" />
+          <InlineIcon IconTag='EvilIcons' iconName='clock' label='Dates' />
           <CalendarStrip
             dateNameStyle={{
               color: 'rgba(132, 146, 166, 0.5)',
@@ -197,10 +197,10 @@ export default class Search extends Component {
                 search: this.state.location
               })
             }>
-            <GradientButton text="SHOW RESULTS" />
+            <GradientButton text='SHOW RESULTS' />
           </TouchableOpacity>
         </View>
       </View>
-    );
+    )
   }
 }

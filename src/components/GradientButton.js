@@ -1,6 +1,6 @@
-import React from 'react';
-import { LinearGradient } from 'expo';
-import { View, Text } from 'react-native';
+import React from 'react'
+import { LinearGradient } from 'expo'
+import { View, Text } from 'react-native'
 
 const GradientButton = props => {
   return (
@@ -27,7 +27,7 @@ const GradientButton = props => {
         </Text>
       </View>
     </LinearGradient>
-  );
-};
+  )
+}
 
-export default GradientButton;
+export default GradientButton

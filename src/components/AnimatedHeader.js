@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet, Text, View, Animated, Dimensions } from 'react-native';
+import React from 'react'
+import { StyleSheet, View, Animated, Dimensions } from 'react-native'
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window')
 
 const HeaderBackground = ({ animationRange }) => {
   const animateHeader = {
@@ -13,17 +13,17 @@ const HeaderBackground = ({ animationRange }) => {
         })
       }
     ]
-  };
+  }
 
-  return <Animated.View style={[styles.headerBackground, animateHeader]} />;
-};
+  return <Animated.View style={[styles.headerBackground, animateHeader]} />
+}
 
 const AnimatedHeader = ({ animationRange }) => (
-  <View style={styles.container} pointerEvents="none">
+  <View style={styles.container} pointerEvents='none'>
     <HeaderBackground animationRange={animationRange} />
-    <Animated.View style={styles.container} pointerEvents="none" />
+    <Animated.View style={styles.container} pointerEvents='none' />
   </View>
-);
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     zIndex: 2
   }
-});
+})
 
-export default AnimatedHeader;
+export default AnimatedHeader

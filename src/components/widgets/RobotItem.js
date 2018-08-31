@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Dimensions,
   Image,
@@ -8,16 +8,16 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   View
-} from 'react-native';
+} from 'react-native'
 const darkColor = 'black',
   lightColor = 'white',
   // Import randomcolor from 'randomcolor';
-  { width, height } = Dimensions.get('window');
-import _ from 'lodash';
-import PropTypes from 'prop-types';
+  { width, height } = Dimensions.get('window')
+import _ from 'lodash'
+import PropTypes from 'prop-types'
 export default class RobotItem extends Component {
-  render() {
-    const { key, image, title, color, description, type, city } = this.props;
+  render () {
+    const { key, image, title, color, description, type, city } = this.props
     return (
       <View
         style={{
@@ -57,9 +57,9 @@ export default class RobotItem extends Component {
         </View>
         <View style={s.reactionBox}>
           <TouchableHighlight
-            underlayColor="transparent"
+            underlayColor='transparent'
             onPress={() => {
-              LayoutAnimation.easeInEaseOut();
+              LayoutAnimation.easeInEaseOut()
 
               /*
                * This.setState({
@@ -84,7 +84,7 @@ export default class RobotItem extends Component {
           </Text>
         </View>
       </View>
-    );
+    )
   }
 }
 const s = StyleSheet.create({
@@ -165,14 +165,14 @@ const s = StyleSheet.create({
     fontSize: 10,
     fontWeight: 'bold'
   }
-});
+})
 RobotItem.propTypes = {
   index: PropTypes.number,
   name: PropTypes.string,
   avatar: PropTypes.string,
   group: PropTypes.string,
   email: PropTypes.string
-};
+}
 RobotItem.DefaultProps = {
   /*
    * Title:PropTypes.string,
@@ -181,4 +181,4 @@ RobotItem.DefaultProps = {
    */
   selected: false,
   createTagColor: true
-};
+}

@@ -1,5 +1,5 @@
-const { width, height } = Dimensions.get('window');
-import { Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window')
+import { Dimensions } from 'react-native'
 const previewCardStyle = {
   container: {
     width: 335,
@@ -7,6 +7,6 @@ const previewCardStyle = {
     justifyContent: 'center',
     marginVertical: 10
   }
-};
+}
 
-export default previewCardStyle;
+export default previewCardStyle

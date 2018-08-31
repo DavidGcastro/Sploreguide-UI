@@ -13,6 +13,6 @@ const buttonStyles = {
     fontWeight: '400',
     letterSpacing: 1
   }
-};
+}
 
-export default buttonStyles;
+export default buttonStyles

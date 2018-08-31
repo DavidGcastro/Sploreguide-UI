@@ -17,6 +17,6 @@ const defaultStyles = {
   greyText: {
     color: 'rgba(132, 146, 166, 1)'
   }
-};
+}
 
-export default defaultStyles;
+export default defaultStyles

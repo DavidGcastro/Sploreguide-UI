@@ -1,15 +1,11 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { StyleSheet, Text } from 'react-native'
 
 export default class Price extends Component {
   // Component prop types
-  static propTypes = {
-    price: PropTypes.number.isRequired
-  };
 
-  render() {
-    return <Text style={styles.text}>{`$${this.props.price}`}</Text>;
+  render () {
+    return <Text style={styles.text}>{`$${this.props.price}`}</Text>
   }
 }
 
@@ -19,4 +15,4 @@ const styles = StyleSheet.create({
     fontSize: 36,
     color: '#ffffff'
   }
-});
+})

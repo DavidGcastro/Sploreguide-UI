@@ -1,5 +1,5 @@
-PropTypes;
-import React, { Component } from 'react';
+PropTypes
+import React, { Component } from 'react'
 import {
   Dimensions,
   FlatList,
@@ -8,26 +8,25 @@ import {
   Text,
   TouchableOpacity,
   View
-} from 'react-native';
-const { width, height } = Dimensions.get('window');
-import _ from 'lodash';
-import PropTypes from 'prop-types';
+} from 'react-native'
+const { width, height } = Dimensions.get('window')
+import _ from 'lodash'
+import PropTypes from 'prop-types'
 export default class ListItem extends Component {
   // Generates a Hex Color for a string
-  stringToHex(str) {
-    if (!str) str = 'none';
-    let hash = 0;
-    for (var i = 0; i < str.length; i++)
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    let color = '#';
+  stringToHex (str) {
+    if (!str) str = 'none'
+    let hash = 0
+    for (var i = 0; i < str.length; i++) { hash = str.charCodeAt(i) + ((hash << 5) - hash) }
+    let color = '#'
     for (var i = 0; i < 3; i++) {
-      const value = (hash >> (i * 8)) & 0xff;
-      color += `00${value.toString(16)}`.substr(-2);
+      const value = (hash >> (i * 8)) & 0xff
+      color += `00${value.toString(16)}`.substr(-2)
     }
-    return color;
+    return color
   }
 
-  render() {
+  render () {
     const {
       name,
       avatar,
@@ -39,10 +38,10 @@ export default class ListItem extends Component {
       tag,
       onPressItem,
       description
-    } = this.props;
-    let TagColor = '#33333';
-    if (color) TagColor = color;
-    if (!color && tag) TagColor = this.stringToHex(this.props.tag);
+    } = this.props
+    let TagColor = '#33333'
+    if (color) TagColor = color
+    if (!color && tag) TagColor = this.stringToHex(this.props.tag)
     return (
       <TouchableOpacity
         style={[
@@ -92,7 +91,7 @@ export default class ListItem extends Component {
             {avatar && (
               <Image
                 source={{ uri: avatar }}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={{
                   height: 50,
                   width: 50,
@@ -137,7 +136,7 @@ export default class ListItem extends Component {
           </View>
         </View>
       </TouchableOpacity>
-    );
+    )
   }
 }
 ListItem.propTypes = {
@@ -148,7 +147,7 @@ ListItem.propTypes = {
   avatar: PropTypes.string,
   tag: PropTypes.string,
   createTagColor: PropTypes.bool
-};
+}
 ListItem.DefaultProps = {
   /*
    * Name:PropTypes.string,
@@ -157,4 +156,4 @@ ListItem.DefaultProps = {
    */
   selected: false,
   createTagColor: true
-};
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   ImageBackground,
   View,
@@ -9,20 +9,20 @@ import {
   TextInput,
   Animated,
   Keyboard
-} from 'react-native';
-import { LinearGradient, AppLoading } from 'expo';
-import Hr from '../components/Hr';
-import GradientButton from '../components/GradientButton';
-import styles from '../styles/login';
-import GoBack from '../components/GoBack';
-import { Ionicons } from '@expo/vector-icons';
-import formStyles from '../styles/formStyles';
-import { ifIphoneX } from 'react-native-iphone-x-helper';
-import { graphql, compose } from 'react-apollo';
-import { loginMutation, fbLoginMutation } from '../mutations';
-import { handleFBLogin } from '../services/facebook';
-import deviceStorage from '../services/deviceStorage';
-import { validateEmail } from '../helpers/validators';
+} from 'react-native'
+import { LinearGradient, AppLoading } from 'expo'
+import Hr from '../components/Hr'
+import GradientButton from '../components/GradientButton'
+import styles from '../styles/login'
+import GoBack from '../components/GoBack'
+import { Ionicons } from '@expo/vector-icons'
+import formStyles from '../styles/formStyles'
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { graphql, compose } from 'react-apollo'
+import { loginMutation, fbLoginMutation } from '../mutations'
+import { handleFBLogin } from '../services/facebook'
+import deviceStorage from '../services/deviceStorage'
+import { validateEmail } from '../helpers/validators'
 import {
   ASYNC_JWT_KEY,
   EMAIL_MALFORMED,
@@ -31,7 +31,7 @@ import {
   GRAPHQL_ERROR_NO_USER_FOUND,
   GRAPHQL_ERROR_INVALID_PASSWORD,
   NETWORK_ERROR
-} from '../constants';
+} from '../constants'
 
 let animations = {
   ...ifIphoneX(
@@ -46,42 +46,42 @@ let animations = {
       top: 0
     }
   )
-};
+}
 
 class Login extends React.Component {
   constructor() {
-    super();
+    super()
     this.state = {
       email: '',
       password: '',
       error: '',
       loading: false
-    };
-    this.passwordInput = React.createRef();
-    this.focusTextInput = this.focusTextInput.bind(this);
-    this.logoWidth = new Animated.Value(80);
-    this.logoHeight = new Animated.Value(50);
-    this.logoLeft = new Animated.Value(0);
-    this.logoTop = new Animated.Value(0);
-    this.fade = new Animated.Value(1);
-    this.fadeIn = new Animated.Value(0.1);
-    this.form = new Animated.Value(0);
+    }
+    this.passwordInput = React.createRef()
+    this.focusTextInput = this.focusTextInput.bind(this)
+    this.logoWidth = new Animated.Value(80)
+    this.logoHeight = new Animated.Value(50)
+    this.logoLeft = new Animated.Value(0)
+    this.logoTop = new Animated.Value(0)
+    this.fade = new Animated.Value(1)
+    this.fadeIn = new Animated.Value(0.1)
+    this.form = new Animated.Value(0)
   }
 
   componentDidMount() {
     this.keyboardWillShowSub = Keyboard.addListener(
       'keyboardWillShow',
       this.keyboardWillShow
-    );
+    )
 
     this.keyboardWillHideSub = Keyboard.addListener(
       'keyboardWillHide',
       this.keyboardWillHide
-    );
+    )
   }
 
   focusTextInput() {
-    this.passwordInput.current.focus();
+    this.passwordInput.current.focus()
   }
 
   keyboardWillHide = () => {
@@ -114,8 +114,8 @@ class Login extends React.Component {
         toValue: 0,
         duration: 300
       })
-    ]).start();
-  };
+    ]).start()
+  }
 
   keyboardWillShow = () => {
     Animated.parallel([
@@ -147,57 +147,57 @@ class Login extends React.Component {
         toValue: animations.form,
         duration: 300
       })
-    ]).start();
-  };
+    ]).start()
+  }
 
-  handleFBLogin = handleFBLogin.bind(this);
+  handleFBLogin = handleFBLogin.bind(this)
 
   useFB = () => {
-    this.setState({ loading: true });
-    this.handleFBLogin();
-  };
+    this.setState({ loading: true })
+    this.handleFBLogin()
+  }
 
   useEmailLogin = async () => {
-    let { email, password } = this.state;
+    let { email, password } = this.state
 
-    email = email.toLowerCase();
+    email = email.toLowerCase()
 
     //TODO: HANDLE EMAIL & PASSWORD VALIDATION
     if (!email) {
-      return this.setState({ error: EMAIL_REQUIRED });
+      return this.setState({ error: EMAIL_REQUIRED })
     } else if (!validateEmail(email)) {
-      return this.setState({ error: EMAIL_MALFORMED });
+      return this.setState({ error: EMAIL_MALFORMED })
     } else if (!password) {
-      return this.setState({ error: PASSWORD_REQUIRED });
+      return this.setState({ error: PASSWORD_REQUIRED })
     }
 
     this.props
       .login(email, password)
       .then(async response => {
-        let { data } = response;
-        await deviceStorage.saveItem(ASYNC_JWT_KEY, data.login.token);
+        let { data } = response
+        await deviceStorage.saveItem(ASYNC_JWT_KEY, data.login.token)
         // update App state with jwt and rerender
-        this.props.screenProps.saveJWT(data.login.token);
+        this.props.screenProps.saveJWT(data.login.token)
       })
       .catch(error => {
         if (error && error.graphQLErrors) {
           if (error.graphQLErrors[0].message === GRAPHQL_ERROR_NO_USER_FOUND) {
-            return this.setState({ error: GRAPHQL_ERROR_NO_USER_FOUND });
+            return this.setState({ error: GRAPHQL_ERROR_NO_USER_FOUND })
           } else if (
             error.graphQLErrors[0].message === GRAPHQL_ERROR_INVALID_PASSWORD
           ) {
-            return this.setState({ error: GRAPHQL_ERROR_INVALID_PASSWORD });
+            return this.setState({ error: GRAPHQL_ERROR_INVALID_PASSWORD })
           }
         } else if (error && error.networkError) {
-          return this.setState({ error: NETWORK_ERROR });
+          return this.setState({ error: NETWORK_ERROR })
         }
-      });
-  };
+      })
+  }
 
   render() {
-    let { loading, error } = this.state;
+    let { loading, error } = this.state
 
-    if (loading) return <AppLoading />;
+    if (loading) return <AppLoading />
     return (
       <ImageBackground
         source={require('../assets/img/login-noOverlay.jpg')}
@@ -355,7 +355,7 @@ class Login extends React.Component {
           </TouchableWithoutFeedback>
         </LinearGradient>
       </ImageBackground>
-    );
+    )
   }
 }
 
@@ -363,16 +363,16 @@ const login = graphql(loginMutation, {
   props: ({ mutate }) => ({
     login: (email, password) => mutate({ variables: { email, password } })
   })
-});
+})
 
 export const fbLogin = graphql(fbLoginMutation, {
   props: ({ mutate }) => ({
     fbLogin: (email, first_name, last_name, id, token) =>
       mutate({ variables: { email, first_name, last_name, id, token } })
   })
-});
+})
 
 export default compose(
   login,
   fbLogin
-)(Login);
+)(Login)

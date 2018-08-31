@@ -30,7 +30,7 @@ const styles = {
   iconContainer: {
     paddingVertical: 30,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'center'
 
   },
   socialIcons: {

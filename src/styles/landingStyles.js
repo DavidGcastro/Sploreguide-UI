@@ -1,6 +1,6 @@
-import { Dimensions } from 'react-native';
-let { width } = Dimensions.get('window');
-import { ifIphoneX, getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { Dimensions } from 'react-native'
+let { width } = Dimensions.get('window')
+import { ifIphoneX, getStatusBarHeight } from 'react-native-iphone-x-helper'
 let landingStyles = {
   parent: {
     flex: 1,
@@ -29,7 +29,7 @@ let landingStyles = {
     color: 'rgba(48, 55, 64, 1)',
     fontSize: 25,
     fontFamily: 'SF-UI-Text-Bold',
-    paddingTop: 20,
+    paddingTop: 20
   },
   viewAll: {
     alignItems: 'center',
@@ -52,7 +52,6 @@ let landingStyles = {
     paddingVertical: 5,
     overflow: 'hidden',
     fontFamily: 'SF-UI-Text-Semibold'
-  
 
   },
   price: {
@@ -111,6 +110,6 @@ let landingStyles = {
     fontFamily: 'SF-UI-Text-Regular',
     paddingLeft: 3
   }
-};
+}
 
-export default landingStyles;
+export default landingStyles

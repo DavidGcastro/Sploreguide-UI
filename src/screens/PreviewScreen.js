@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import GoBack from '../components/GoBack';
-import { ScrollView, View, TouchableOpacity } from 'react-native';
-import PreviewCard from '../components/PreviewCard';
-import experiences from '../experiences';
+import React, { Component } from 'react'
+import GoBack from '../components/GoBack'
+import { ScrollView, View, TouchableOpacity } from 'react-native'
+import PreviewCard from '../components/PreviewCard'
+import experiences from '../experiences'
 
 const PreviewScreen = props => {
   return (
@@ -31,7 +31,7 @@ const PreviewScreen = props => {
         </ScrollView>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default PreviewScreen;
+export default PreviewScreen

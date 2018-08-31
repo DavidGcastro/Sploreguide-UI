@@ -1,23 +1,23 @@
-import React from 'react';
+import React from 'react'
 import {
   Text,
   View,
   TextInput,
   Dimensions,
   TouchableOpacity
-} from 'react-native';
+} from 'react-native'
 import {
   Feather,
   MaterialCommunityIcons,
   Ionicons,
   FontAwesome,
   SimpleLineIcons
-} from '@expo/vector-icons';
-let { width } = Dimensions.get('screen');
+} from '@expo/vector-icons'
+let { width } = Dimensions.get('screen')
 const InlineFormGenerator = props => {
-  let IconTag = props.IconTag;
-  let Component = '';
-  let type = props.type;
+  let IconTag = props.IconTag
+  let Component = ''
+  let type = props.type
 
   let passwordReset =
     type === 'login' ? (
@@ -28,9 +28,9 @@ const InlineFormGenerator = props => {
       </TouchableOpacity>
     ) : (
       ''
-    );
+    )
 
-  //Dynamically generates Icons
+  // Dynamically generates Icons
   if (IconTag === 'Feather') {
     Component = (
       <Feather
@@ -41,7 +41,7 @@ const InlineFormGenerator = props => {
           color: 'rgba(132, 146, 166, 1)'
         }}
       />
-    );
+    )
   } else if (IconTag === 'MaterialCommunityIcons') {
     Component = (
       <MaterialCommunityIcons
@@ -49,7 +49,7 @@ const InlineFormGenerator = props => {
         name={props.iconName}
         style={{ paddingRight: 10, color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'Ionicons') {
     Component = (
       <Ionicons
@@ -57,7 +57,7 @@ const InlineFormGenerator = props => {
         name={props.iconName}
         style={{ paddingRight: 10, color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'FontAwesome') {
     Component = (
       <FontAwesome
@@ -65,7 +65,7 @@ const InlineFormGenerator = props => {
         name={props.iconName}
         style={{ paddingRight: 10, color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'SimpleLineIcons') {
     Component = (
       <SimpleLineIcons
@@ -73,7 +73,7 @@ const InlineFormGenerator = props => {
         name={props.iconName}
         style={{ paddingRight: 10, color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   }
 
   return (
@@ -98,7 +98,7 @@ const InlineFormGenerator = props => {
         {props.type === 'inline' ? (
           <TextInput
             placeholder={`Type your ${props.name}`}
-            returnKeyType="next"
+            returnKeyType='next'
             style={{
               fontFamily: 'SF-UI-Text-Regular',
               fontSize: 13,
@@ -117,7 +117,7 @@ const InlineFormGenerator = props => {
             <View style={{ flexDirection: 'row' }}>
               {Component}
               <TextInput
-                returnKeyType="next"
+                returnKeyType='next'
                 placeholder={`Type your ${props.name}`}
                 style={{
                   fontSize: 13,
@@ -130,7 +130,7 @@ const InlineFormGenerator = props => {
         )}
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default InlineFormGenerator;
+export default InlineFormGenerator

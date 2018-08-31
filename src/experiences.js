@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const experiences = [
   {
@@ -217,6 +217,6 @@ const experiences = [
       require('./assets/img/experiences/ecuador.jpg')
     ]
   }
-];
+]
 
-export default experiences;
+export default experiences

@@ -1,39 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
-  Platform,
-  StatusBar,
-  Dimensions,
-  Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
-  ScrollView,
-  Animated
-} from 'react-native';
-
-import { defaultStyles, experienceStyle } from '../styles/styles';
-
-import PropTypes from 'prop-types';
-import { Ionicons } from '@expo/vector-icons';
-
-import MeasureText from 'react-native-text-size';
-
-// Get screen dimensions
-const { width, height } = Dimensions.get('window');
-
-// const HeaderPlaceholder = <View style={{flex: 0, height: 100, width: '100%'}} />;
+  View
+} from 'react-native'
 
 export default class Tag extends Component {
   // Component prop types
-  static propTypes = {
-    activity_type: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-    fontSize: PropTypes.number.isRequired
-  };
 
-  render() {
-    const { activity_type, fontSize, color } = this.props;
+  render () {
+    const { fontSize, color } = this.props
     return (
       <View style={[styles.tag, { backgroundColor: color }]}>
         <Text
@@ -42,7 +18,7 @@ export default class Tag extends Component {
             { fontSize: fontSize }
           ]}>{`  ${this.props.activity_type.toUpperCase()}  `}</Text>
       </View>
-    );
+    )
   }
 }
 
@@ -61,7 +37,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 3,
     borderTopLeftRadius: 3,
     borderTopRightRadius: 3,
-    borderBottomLeftRadius: 3,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -69,4 +44,4 @@ const styles = StyleSheet.create({
     fontFamily: 'SF-UI-Text-Semibold',
     color: '#ffffff'
   }
-});
+})

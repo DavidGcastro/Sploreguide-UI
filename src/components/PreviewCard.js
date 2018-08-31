@@ -1,12 +1,12 @@
-import React from 'react';
-import { Text, TouchableOpacity, View, ImageBackground } from 'react-native';
-import { Ionicons, Feather } from '@expo/vector-icons';
-import previewCardStyle from '../styles/PreviewCard';
-import landingStyles from '../styles/landingStyles';
-import { LinearGradient } from 'expo';
+import React from 'react'
+import { Text, TouchableOpacity, View, ImageBackground } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
+import previewCardStyle from '../styles/PreviewCard'
+import landingStyles from '../styles/landingStyles'
+import { LinearGradient } from 'expo'
 
 const PreviewCard = props => {
-  let { experience, navigateToExperience } = props;
+  let { experience } = props
 
   return (
     <ImageBackground
@@ -77,11 +77,11 @@ const PreviewCard = props => {
                 <View>
                   <View
                     style={{ marginRight: 2, flexDirection: 'row', flex: 1 }}>
-                    <Ionicons name="ios-star" size={12} color="white" />
-                    <Ionicons name="ios-star" size={12} color="white" />
-                    <Ionicons name="ios-star" size={12} color="white" />
-                    <Ionicons name="ios-star" size={12} color="white" />
-                    <Ionicons name="ios-star-half" size={12} color="white" />
+                    <Ionicons name='ios-star' size={12} color='white' />
+                    <Ionicons name='ios-star' size={12} color='white' />
+                    <Ionicons name='ios-star' size={12} color='white' />
+                    <Ionicons name='ios-star' size={12} color='white' />
+                    <Ionicons name='ios-star-half' size={12} color='white' />
                     <Text
                       style={{ paddingLeft: 5, color: 'white', fontSize: 12 }}>
                       {experience.reviews > 1
@@ -96,7 +96,7 @@ const PreviewCard = props => {
         </View>
       </LinearGradient>
     </ImageBackground>
-  );
-};
+  )
+}
 
-export default PreviewCard;
+export default PreviewCard

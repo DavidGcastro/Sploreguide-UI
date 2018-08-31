@@ -11,6 +11,6 @@ const styles = {
   shadowColor: 'grey',
   shadowOpacity: 0.5,
   margin: 3
-};
+}
 
-export default styles;
+export default styles

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Carousel from 'react-native-snap-carousel';
+import React, { Component } from 'react'
+import Carousel from 'react-native-snap-carousel'
 import {
   Text,
   View,
@@ -8,14 +8,14 @@ import {
   ImageBackground,
   Image,
   ScrollView
-} from 'react-native';
-import { LinearGradient } from 'expo';
-import { ifIphoneX } from 'react-native-iphone-x-helper';
-import { Ionicons, SimpleLineIcons } from '@expo/vector-icons';
-import landingStyles from '../styles/landingStyles';
-import experiences from '../experiences';
+} from 'react-native'
+import { LinearGradient } from 'expo'
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { Ionicons, SimpleLineIcons } from '@expo/vector-icons'
+import landingStyles from '../styles/landingStyles'
+import experiences from '../experiences'
 
-let { width, height } = Dimensions.get('window');
+let { width, height } = Dimensions.get('window')
 
 let categories = [
   'Top Trending',
@@ -23,8 +23,8 @@ let categories = [
   'Best Value',
   'Weekend Picks',
   'Nature'
-];
-let offset = 0;
+]
+let offset = 0
 const styles = {
   container: {
     borderWidth: 1,
@@ -45,7 +45,7 @@ const styles = {
     height: 30,
     tintColor: '#9b9b9b'
   }
-};
+}
 let cardHeight = {
   ...ifIphoneX(
     {
@@ -57,35 +57,35 @@ let cardHeight = {
       scrollViewInterval: height - 210
     }
   )
-};
+}
 export default class Landing extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       search: 'Search By City or Activity',
       liked: false,
       category: categories[0],
       fromTop: 0
-    };
-    this._renderItem = this._renderItem.bind(this);
-    this.onSwipeUp = this.onSwipeUp.bind(this);
+    }
+    this._renderItem = this._renderItem.bind(this)
+    this.onSwipeUp = this.onSwipeUp.bind(this)
   }
 
-  componentDidMount() {
-    this.onSwipeUp(0);
+  componentDidMount () {
+    this.onSwipeUp(0)
   }
-  onSwipeUp(top, direction) {
+  onSwipeUp (top, direction) {
     let index =
       direction === 'down'
         ? Math.floor(top / cardHeight.scrollViewInterval)
-        : Math.ceil(top / cardHeight.scrollViewInterval);
+        : Math.ceil(top / cardHeight.scrollViewInterval)
 
     return this.setState({
       category: categories[index]
-    });
+    })
   }
 
-  _renderItem({ item, index }) {
+  _renderItem ({ item, index }) {
     return (
       <TouchableOpacity style={{ flex: 1 }} activeOpacity={0.75}>
         <View
@@ -148,9 +148,9 @@ export default class Landing extends Component {
                   <View style={landingStyles.lastContainer}>
                     <View style={landingStyles.iconTextContainer}>
                       <SimpleLineIcons
-                        name="hourglass"
+                        name='hourglass'
                         size={12}
-                        color="white"
+                        color='white'
                       />
                       <Text style={landingStyles.smallTextBottom}>
                         {Math.round((item.duration / 60) % 60)}
@@ -159,20 +159,20 @@ export default class Landing extends Component {
                     </View>
                     <View style={landingStyles.iconTextContainer}>
                       <Ionicons
-                        name="ios-chatbubbles-outline"
+                        name='ios-chatbubbles-outline'
                         size={12}
-                        color="white"
+                        color='white'
                       />
                       <Text style={landingStyles.smallTextBottom}>
                         {item.languages}
                       </Text>
                     </View>
                     <View style={landingStyles.iconTextContainer}>
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star-half" size={12} color="white" />
+                      <Ionicons name='ios-star' size={12} color='white' />
+                      <Ionicons name='ios-star' size={12} color='white' />
+                      <Ionicons name='ios-star' size={12} color='white' />
+                      <Ionicons name='ios-star' size={12} color='white' />
+                      <Ionicons name='ios-star-half' size={12} color='white' />
                       <Text style={landingStyles.smallTextBottom}>
                         {item.reviews}
                       </Text>
@@ -184,10 +184,10 @@ export default class Landing extends Component {
           </ImageBackground>
         </View>
       </TouchableOpacity>
-    );
+    )
   }
 
-  render() {
+  render () {
     let search = this.props.navigation.state.params ? (
       <Text
         style={{
@@ -234,7 +234,7 @@ export default class Landing extends Component {
         }}>
         {this.state.search}
       </Text>
-    );
+    )
 
     return (
       <View style={landingStyles.parent}>
@@ -242,13 +242,13 @@ export default class Landing extends Component {
           <View style={styles.container}>
             <Image
               style={styles.searchImage}
-              resizeMode="contain"
+              resizeMode='contain'
               source={require('../assets/img/Search.png')}
             />
             <TouchableOpacity
               style={{ flex: 1, width: '100%' }}
               onPress={() => {
-                this.props.navigation.navigate('Search');
+                this.props.navigation.navigate('Search')
               }}>
               {search}
             </TouchableOpacity>
@@ -266,9 +266,9 @@ export default class Landing extends Component {
             }>
             <Text style={landingStyles.viewAllText}>View All</Text>
             <Ionicons
-              name="md-arrow-forward"
+              name='md-arrow-forward'
               size={30}
-              color="rgba(48, 55, 64, 1)"
+              color='rgba(48, 55, 64, 1)'
             />
           </TouchableOpacity>
         </View>
@@ -280,11 +280,11 @@ export default class Landing extends Component {
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           onScroll={x => {
-            let currentOffset = x.nativeEvent.contentOffset.y;
-            let direction = currentOffset >= offset ? 'up' : 'down';
-            offset = currentOffset;
+            let currentOffset = x.nativeEvent.contentOffset.y
+            let direction = currentOffset >= offset ? 'up' : 'down'
+            offset = currentOffset
 
-            this.onSwipeUp(currentOffset, direction);
+            this.onSwipeUp(currentOffset, direction)
           }}
           scrollEventThrottle={1}>
           <View
@@ -334,6 +334,6 @@ export default class Landing extends Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }

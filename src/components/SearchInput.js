@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import { Text, Image, TextInput, View, Dimensions } from 'react-native';
-let { width } = Dimensions.get('window');
+import React, { Component } from 'react'
+import { Image, TextInput, View } from 'react-native'
 
 export default class SearchInput extends Component {
-  constructor() {
-    super();
-    this.state = {};
+  constructor () {
+    super()
+    this.state = {}
   }
-  render() {
+  render () {
     return (
       <View
         style={{
@@ -15,13 +14,13 @@ export default class SearchInput extends Component {
           alignItems: 'flex-end'
         }}>
         <Image
-          resizeMode="contain"
+          resizeMode='contain'
           style={{ width: 25, height: 30 }}
           source={require('../assets/img/Search.png')}
         />
 
         <TextInput
-          placeholder="Search by City or Activity"
+          placeholder='Search by City or Activity'
           style={{
             paddingLeft: 10,
             fontSize: 26,
@@ -31,6 +30,6 @@ export default class SearchInput extends Component {
           }}
         />
       </View>
-    );
+    )
   }
 }

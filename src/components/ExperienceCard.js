@@ -1,14 +1,11 @@
-import React from 'react';
-import landingStyles from '../styles/landingStyles';
-import { Text, TouchableOpacity, ImageBackground, View } from 'react-native';
-import { Ionicons, LinearGradient, SimpleLineIcons } from 'expo';
+import React from 'react'
+import landingStyles from '../styles/landingStyles'
+import { Text, TouchableOpacity, ImageBackground, View } from 'react-native'
+import { Ionicons, LinearGradient, SimpleLineIcons } from 'expo'
 
 export default class ExperienceCard extends React.Component {
-  constructor() {
-    super();
-  }
-  render() {
-    let item = this.props.item;
+  render () {
+    let item = this.props.item
     return (
       <TouchableOpacity style={{ flex: 1 }} activeOpacity={0.75}>
         <View
@@ -71,9 +68,9 @@ export default class ExperienceCard extends React.Component {
                   <View style={landingStyles.lastContainer}>
                     <View style={landingStyles.iconTextContainer}>
                       <SimpleLineIcons
-                        name="hourglass"
+                        name='hourglass'
                         size={12}
-                        color="white"
+                        color='white'
                       />
                       <Text style={landingStyles.smallTextBottom}>
                         {Math.round((item.duration / 60) % 60)}
@@ -82,20 +79,20 @@ export default class ExperienceCard extends React.Component {
                     </View>
                     <View style={landingStyles.iconTextContainer}>
                       <Ionicons
-                        name="ios-chatbubbles-outline"
+                        name='ios-chatbubbles-outline'
                         size={12}
-                        color="white"
+                        color='white'
                       />
                       <Text style={landingStyles.smallTextBottom}>
                         {item.languages}
                       </Text>
                     </View>
                     <View style={landingStyles.iconTextContainer}>
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star" size={12} color="white" />
-                      <Ionicons name="ios-star-half" size={12} color="white" />
+                      <Ionicons name='ios-star' size={12} color='white' />
+                      <Ionicons name='ios-star' size={12} color='white' />
+                      <Ionicons name='ios-star' size={12} color='white' />
+                      <Ionicons name='ios-star' size={12} color='white' />
+                      <Ionicons name='ios-star-half' size={12} color='white' />
                       <Text style={landingStyles.smallTextBottom}>
                         {item.reviews}
                       </Text>
@@ -107,6 +104,6 @@ export default class ExperienceCard extends React.Component {
           </ImageBackground>
         </View>
       </TouchableOpacity>
-    );
+    )
   }
 }

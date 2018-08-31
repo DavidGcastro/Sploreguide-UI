@@ -1,5 +1,5 @@
-import { Dimensions } from 'react-native';
-let { width, height } = Dimensions.get('window');
+import { Dimensions } from 'react-native'
+let { width, height } = Dimensions.get('window')
 
 const styles = {
   parent: {
@@ -34,12 +34,12 @@ const styles = {
     paddingBottom: 10
   },
   calenderStyle: {
-   // width: width - 30,
+    // width: width - 30,
     borderWidth: 1,
     borderRadius: 5,
     borderColor: 'white',
     backgroundColor: 'white'
   }
-};
+}
 
-export default styles;
+export default styles

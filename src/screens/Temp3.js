@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from 'react'
+import { View, Text } from 'react-native'
 
 const Temp3 = () => {
   return (
@@ -12,7 +12,7 @@ const Temp3 = () => {
       }}>
       <Text> Temp 3</Text>
     </View>
-  );
-};
+  )
+}
 
-export default Temp3;
+export default Temp3
