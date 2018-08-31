@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Query } from 'react-apollo'
+import { TOP_TRENDING, HIGHEST_RATED, WEEKEND_PICKS, BEST_VALUE, MOST_VIEWED } from '../queries'
 import Carousel from 'react-native-snap-carousel'
 import {
   Text,
@@ -12,18 +14,20 @@ import {
 import { LinearGradient } from 'expo'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons'
+import Stars from '../components/Stars'
 import landingStyles from '../styles/landingStyles'
-import experiences from '../experiences'
+import { formatLocationObject, formatReviewsCountText } from '../helpers/strings'
 
 let { width, height } = Dimensions.get('window')
 
 let categories = [
-  'Top Trending',
-  'Highest Rated',
-  'Best Value',
-  'Weekend Picks',
-  'Nature'
+  [ 'Top Trending', TOP_TRENDING ],
+  [ 'Highest Rated', HIGHEST_RATED ],
+  [ 'Best Value', BEST_VALUE ],
+  [ 'Weekend Picks', WEEKEND_PICKS ],
+  ['Most Viewed', MOST_VIEWED ]
 ]
+
 let offset = 0
 const styles = {
   container: {
@@ -64,7 +68,7 @@ export default class Landing extends Component {
     this.state = {
       search: 'Search By City or Activity',
       likes: ['1', '2', '6'],
-      category: categories[0],
+      category: categories[0][0],
       fromTop: 0
     }
     this._renderItem = this._renderItem.bind(this)
@@ -77,8 +81,6 @@ export default class Landing extends Component {
 
   toggleFavoriteItem (itemId) {
     let likes = [].concat(this.state.likes)
-    console.log(itemId)
-    console.log(likes)
     let index = likes.indexOf(itemId)
 
     if (index > -1) {
@@ -97,14 +99,11 @@ export default class Landing extends Component {
         : Math.ceil(top / cardHeight.scrollViewInterval)
 
     return this.setState({
-      category: categories[index]
+      category: categories[index][0]
     })
   }
 
   _renderItem ({ item, index }) {
-    let reviews =
-      item.reviews > 1 ? item.reviews + ' Reviews' : item.reviews + ' Review'
-
     return (
       <TouchableOpacity style={{ flex: 1 }} activeOpacity={0.75}>
         <View
@@ -115,7 +114,7 @@ export default class Landing extends Component {
             shadowOpacity: 0.8
           }}>
           <ImageBackground
-            source={item.media}
+            source={{uri: item.media[0]}}
             imageStyle={{ borderRadius: 10 }}
             style={{
               flex: 1
@@ -152,7 +151,7 @@ export default class Landing extends Component {
                   >
                     { this.state.likes.includes(item._id)
                       ? <Ionicons
-                        name={'ios-heart-outline'}
+                        name={'ios-heart'}
                         size={25}
                         color={'red'}
                       />
@@ -170,7 +169,7 @@ export default class Landing extends Component {
                       borderBottomColor: 'rgba(255, 255, 255, .3)',
                       borderBottomWidth: 1
                     }}>
-                    <Text style={landingStyles.location}>{item.location}</Text>
+                    <Text style={landingStyles.location}>{formatLocationObject(item.location)}</Text>
                     <Text style={landingStyles.title}>{item.title}</Text>
                   </View>
                   <View style={landingStyles.lastContainer}>
@@ -192,17 +191,13 @@ export default class Landing extends Component {
                         color='white'
                       />
                       <Text style={landingStyles.smallTextBottom}>
-                        {item.languages}
+                        {item.languages[0]}
                       </Text>
                     </View>
                     <View style={landingStyles.iconTextContainer}>
-                      <Ionicons name='ios-star' size={12} color='white' />
-                      <Ionicons name='ios-star' size={12} color='white' />
-                      <Ionicons name='ios-star' size={12} color='white' />
-                      <Ionicons name='ios-star' size={12} color='white' />
-                      <Ionicons name='ios-star-half' size={12} color='white' />
+                      <Stars reviews={item.reviews} />
                       <Text style={landingStyles.smallTextBottom}>
-                        {reviews}
+                        {formatReviewsCountText(item.reviews)}
                       </Text>
                     </View>
                   </View>
@@ -315,61 +310,29 @@ export default class Landing extends Component {
             this.onSwipeUp(currentOffset, direction)
           }}
           scrollEventThrottle={1}>
-          <View
-            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-            <Carousel
-              data={experiences}
-              renderItem={this._renderItem}
-              sliderWidth={width}
-              extraData={this.state.likes}
-              itemWidth={width - 50}
-              removeClippedSubviews={true}
-            />
-          </View>
-          <View
-            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-            <Carousel
-              data={experiences}
-              renderItem={this._renderItem}
-              sliderWidth={width}
-              extraData={this.state.likes}
-              itemWidth={width - 50}
-              removeClippedSubviews={true}
-            />
-          </View>
-          <View
-            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-            <Carousel
-              data={experiences}
-              renderItem={this._renderItem}
-              sliderWidth={width}
-              extraData={this.state.likes}
-              itemWidth={width - 50}
-              removeClippedSubviews={true}
-            />
-          </View>
-          <View
-            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-            <Carousel
-              data={experiences}
-              renderItem={this._renderItem}
-              sliderWidth={width}
-              extraData={this.state.likes}
-              itemWidth={width - 50}
-              removeClippedSubviews={true}
-            />
-          </View>
-          <View
-            style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-            <Carousel
-              data={experiences}
-              renderItem={this._renderItem}
-              sliderWidth={width}
-              extraData={this.state.likes}
-              itemWidth={width - 50}
-              removeClippedSubviews={true}
-            />
-          </View>
+
+          {
+            categories.map((category, index) =>
+              (<View key={index} style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
+                <Query query={category[1]}>
+                  {({loading, error, data}) => {
+                    if (loading) return 'Loading...'
+                    if (error) return `Error! ${error.message}`
+                    let exps = data.getExperiences.slice(0, 5)
+                    return (
+                      <Carousel
+                        data={exps}
+                        renderItem={this._renderItem}
+                        sliderWidth={width}
+                        extraData={this.state.likes}
+                        itemWidth={width - 50}
+                        removeClippedSubviews
+                      />
+                    )
+                  }}
+                </Query>
+              </View>))
+            }
         </ScrollView>
       </View>
     )

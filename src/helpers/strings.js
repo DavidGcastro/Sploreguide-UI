@@ -4,3 +4,15 @@ export function makeFirstLetterUpperCase (word) {
   }
   return word
 }
+
+export function formatLocationObject (locationObject) {
+  let { borough, city, country } = locationObject
+  return `${borough || city}, ${country}`
+}
+
+export function formatReviewsCountText (reviewObjects) {
+  let count = reviewObjects.length
+  if (count === 0) return ''
+
+  return (count > 1) ? `${count} Reviews` : '1 Review'
+}
