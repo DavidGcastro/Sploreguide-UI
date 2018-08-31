@@ -103,7 +103,7 @@ class Signup extends React.Component {
     );
   }
 
-  keyboardWillHide () {
+  keyboardWillHide = () => {
     Animated.parallel([
       Animated.timing(this.logoHeight, {
         toValue: 50,
@@ -140,7 +140,7 @@ class Signup extends React.Component {
     ]).start();
   };
 
-  keyboardWillShow (){
+  keyboardWillShow = () => {
     Animated.parallel([
       Animated.timing(this.logoHeight, {
         toValue: 37,
@@ -177,7 +177,7 @@ class Signup extends React.Component {
     ]).start();
   };
 
-  focusTextInput (inputToFocus) {
+  focusTextInput = (inputToFocus) => {
     inputToFocus.current.focus(inputToFocus);
   }
 

@@ -80,11 +80,11 @@ class Login extends React.Component {
     )
   }
 
-  focusTextInput () {
+  focusTextInput = () => {
     this.passwordInput.current.focus()
   }
 
-  keyboardWillHide () {
+  keyboardWillHide = () => {
     Animated.parallel([
       Animated.timing(this.logoHeight, {
         toValue: 50,
@@ -117,7 +117,7 @@ class Login extends React.Component {
     ]).start()
   }
 
-  keyboardWillShow () {
+  keyboardWillShow = () => {
     Animated.parallel([
       Animated.timing(this.logoHeight, {
         toValue: 37,

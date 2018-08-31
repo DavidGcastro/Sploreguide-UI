@@ -44,7 +44,7 @@ export default class App extends Component {
     this.deleteJWT = deviceStorage.deleteJWT.bind(this);
   }
 
-  async componentDidMount() {
+  async componentDidMount () {
     await Font.loadAsync({
       'SF-UI-Text-Regular': require('./src/assets/fonts/SF-UI-Text-Regular.otf'),
       'SF-UI-Text-Medium': require('./src/assets/fonts/SF-UI-Text-Medium.otf'),
@@ -61,19 +61,31 @@ export default class App extends Component {
     this.setState({ jwt });
   };
 
-  render() {
+  render () {
     let { jwt, loading, fontLoaded } = this.state;
     if (!fontLoaded || loading) {
       return <AppLoading />;
     } else {
-      return (
-        <ApolloProvider client={client}>
-          <RootNavigator screenProps={{ deleteJWT: this.deleteJWT }} />
-        </ApolloProvider>
-      );
-    }
 
-    // if (jwt) {
+      if (jwt) {
+        return (
+          <ApolloProvider client={client}>
+            <RootNavigator screenProps={{ deleteJWT: this.deleteJWT }} />
+          </ApolloProvider>
+        );
+      } else {
+        return (
+          <ApolloProvider client={client}>
+            <LoginNavigator screenProps={{ saveJWT: this.saveJWT }} />
+          </ApolloProvider>
+        );
+      }
+    }
+  }
+}
+
+
+ // if (jwt) {
     //   return (
     //     <ApolloProvider client={client}>
     //       <RootNavigator screenProps={{ deleteJWT: this.deleteJWT }} />
@@ -86,5 +98,3 @@ export default class App extends Component {
     //     </ApolloProvider>
     //   );
     // }
-  }
-}
