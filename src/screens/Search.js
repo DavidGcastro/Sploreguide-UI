@@ -21,18 +21,36 @@ import experiences from '../experiences'
 let { width } = Dimensions.get('window')
 
 export default class Search extends Component {
-  constructor () {
-    super()
-    this.state = {
-      location: '',
-      activityType: '',
-      date: '',
-      priceRangeMin: '0',
-      priceRangeMax: '0'
-    }
+  state = {
+    location: '',
+    activityType: '',
+    selectedActivityIndex: -1,
+    date: '',
+    priceRangeMin: '0',
+    priceRangeMax: '0',
+    activities: ['Tour', 'Biking', 'Kayak', 'Eating', 'Milking'] // will be moved to props not state
   }
 
-  render () {
+  changeActivity (selectedActivityIndex) {
+    if (selectedActivityIndex == this.state.selectedActivityIndex) {
+      selectedActivityIndex = -1
+    }
+      this.setState({selectedActivityIndex})
+  }
+
+   doSearch = () => {
+    let searchDisplay = this.state.location
+    if (this.state.selectedActivityIndex != -1) {
+      searchDisplay = `${searchDisplay} - ${this.state.activities[this.state.selectedActivityIndex]}`
+    }
+
+    this.props.navigation.navigate('Landing', {
+      search: searchDisplay
+    })
+  }
+
+  render() {
+    let { selectedActivityIndex, activities } = this.state
     let x = this.state.priceRangeMin
     let y = this.state.priceRangeMax
     let locations = experiences
@@ -47,6 +65,8 @@ export default class Search extends Component {
         )
       })
       .slice(0, 4)
+
+
     return (
       <View style={styles.parent}>
         {/* SEARCH */}
@@ -99,24 +119,32 @@ export default class Search extends Component {
             contentContainerStyle={{
               flexDirection: 'row'
             }}>
-            {locations.length > 0 ? (
-              locations.map(
-                (x, y) =>
-                  y === 0 ? (
-                    <LinearGradientBorder key={x.location + y}>
+            {activities.length > 0 ? (
+              activities.map(
+                (activity, index) =>
+                  index === selectedActivityIndex ? (
+                    <LinearGradientBorder key={index}>
+                      <TouchableOpacity
+                        onPress={() => this.changeActivity(index)}
+                      >
+                        <ActivityCard
+                          IconTag='Ionicons'
+                          iconName='ios-hammer-outline'
+                          label={activity}
+                        />
+                      </TouchableOpacity>
+                    </LinearGradientBorder>
+                  ) : (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => this.changeActivity(index)}
+                    >
                       <ActivityCard
                         IconTag='Ionicons'
                         iconName='ios-hammer-outline'
-                        label={x.activityType}
+                        label={activity}
                       />
-                    </LinearGradientBorder>
-                  ) : (
-                    <ActivityCard
-                      key={x.location + y}
-                      IconTag='Ionicons'
-                      iconName='ios-hammer-outline'
-                      label={x.activityType}
-                    />
+                    </TouchableOpacity>
                   )
               )
             ) : (
@@ -192,12 +220,9 @@ export default class Search extends Component {
 
         <View style={styles.divider}>
           <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('Landing', {
-                search: this.state.location
-              })
-            }>
-            <GradientButton text='SHOW RESULTS' />
+            onPress={this.doSearch}
+          >
+            <GradientButton text="SHOW RESULTS" />
           </TouchableOpacity>
         </View>
       </View>

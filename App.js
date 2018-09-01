@@ -1,18 +1,32 @@
-import React, { Component } from 'react';
-import { Font, AppLoading } from 'expo';
-import { ApolloProvider } from 'react-apollo';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { onError } from 'apollo-link-error';
-import { ApolloLink } from 'apollo-link';
-import LoginNavigator from './src/navigators/LoginNavigator';
-import RootNavigator from './src/navigators/RootNavigator';
-import deviceStorage from './src/services/deviceStorage';
+import React, { Component } from 'react'
+import { Font, AppLoading } from 'expo'
+import { ApolloProvider } from 'react-apollo'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { HttpLink } from 'apollo-link-http'
+import { setContext } from 'apollo-link-context';
+import { onError } from 'apollo-link-error'
+import { ApolloLink } from 'apollo-link'
+import LoginNavigator from './src/navigators/LoginNavigator'
+import RootNavigator from './src/navigators/RootNavigator'
+import deviceStorage from './src/services/deviceStorage'
+import { ASYNC_JWT_KEY } from './src/constants'
 
 const httpLink = new HttpLink({
   uri: `http:${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:3000/graphql`
-});
+})
+
+const authLink = setContext(async (_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = await deviceStorage.getItem(ASYNC_JWT_KEY)
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+})
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -26,7 +40,7 @@ const client = new ApolloClient({
       }
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
-    httpLink
+    authLink.concat(httpLink)
   ]),
   cache: new InMemoryCache()
 });
@@ -37,7 +51,7 @@ export default class App extends Component {
     this.state = {
       fontLoaded: false,
       jwt: '',
-      loading: false
+      loading: true
     };
 
     this.loadJWT = deviceStorage.loadJWT.bind(this);

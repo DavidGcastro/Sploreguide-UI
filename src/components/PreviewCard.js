@@ -51,7 +51,8 @@ const PreviewCard = props => {
           <View
             style={{
               borderLeftWidth: 5,
-              borderLeftColor: 'rgba(227, 60, 54, 1)'
+              borderLeftColor: 'rgba(227, 60, 54, 1)',
+              borderBottomLeftRadius: 5
             }}>
             <View style={{ padding: 20 }}>
               <Text style={{ fontSize: 12, color: 'white' }}>
