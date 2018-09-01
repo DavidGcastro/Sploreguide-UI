@@ -54,7 +54,9 @@ const experiences = [
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg')
-    ]
+    ],
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
+
   },
   {
     category: 'New in Your City',
@@ -81,7 +83,9 @@ const experiences = [
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg')
-    ]
+    ],
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
+
   },
   {
     category: 'Weekly Top Picks',
@@ -108,7 +112,9 @@ const experiences = [
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg')
-    ]
+    ],
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
+
   },
   {
     category: 'Weekly Top Picks',
@@ -135,7 +141,9 @@ const experiences = [
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg')
-    ]
+    ],
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
+
   },
   {
     category: 'Best Rated',
@@ -162,7 +170,9 @@ const experiences = [
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg')
-    ]
+    ],
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
+
   },
   {
     category: 'Best Rated',
@@ -189,7 +199,9 @@ const experiences = [
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg')
-    ]
+    ],
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
+
   },
   {
     category: 'Best Rated',
@@ -216,7 +228,9 @@ const experiences = [
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg'),
       require('./assets/img/experiences/ecuador.jpg')
-    ]
+    ],
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
+
   }
 ]
 
