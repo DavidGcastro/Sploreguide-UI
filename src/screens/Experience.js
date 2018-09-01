@@ -11,7 +11,7 @@ export default class Experience extends React.Component {
     return (
       <View>
         <ScrollView
-          style={{width, height}}
+          style={{ width, height }}
           horizontal pagingEnabled >
           <LinearGradient
             colors={['white', 'rgba(0,0,0,1.0)']}
@@ -30,9 +30,8 @@ export default class Experience extends React.Component {
             style={{
               width, height
 
-            }}
-          >
-            <Image source={item.images[0]} style={{ height, width }} />
+            }}>
+            <Image source={item.images[1]} style={{ height, width }} />
           </LinearGradient>
           <LinearGradient
             colors={['white', 'rgba(0,0,0,1.0)']}
@@ -43,17 +42,19 @@ export default class Experience extends React.Component {
 
             }}
           >
-            <Image source={item.images[0]} style={{ height, width }} />
+            <Image source={item.images[2]} style={{ height, width }} />
           </LinearGradient>
-
         </ScrollView>
-        <View style={{
-          position: 'absolute',
-          flex: 1,
-          justifyContent: 'space-between',
-          width,
-          height
-        }}>
+        <View
+          pointerEvents='none'
+          style={{
+            position: 'absolute',
+            flex: 1,
+            justifyContent: 'space-between',
+            width,
+            height
+
+          }}>
           <View style={[landingStyles.topContainer]}>
             <Text style={landingStyles.activityType}>
               {item.activityType.toUpperCase()}
@@ -85,16 +86,21 @@ export default class Experience extends React.Component {
                 />
               </TouchableOpacity>
             </View>
-            <View style={[landingStyles.bottomContainer, {justifyContent: 'space-evenly', height: height / 2 - 50}]}>
-              <View
-                style={{
-                  borderBottomColor: 'rgba(255, 255, 255, .3)',
-                  borderBottomWidth: 1
-                }}>
+            <View style={[landingStyles.bottomContainer, { justifyContent: 'space-evenly', height: height / 2 - 50 }]}>
+              <View>
                 <Text style={landingStyles.location}>{item.location}</Text>
                 <Text style={landingStyles.title}>{item.title}</Text>
               </View>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+              </View>
+
               <View style={landingStyles.lastContainer}>
+
                 <View style={landingStyles.iconTextContainer}>
                   <SimpleLineIcons
                     name='hourglass'
@@ -128,7 +134,7 @@ export default class Experience extends React.Component {
                 </View>
               </View>
               <Text style={{ color: 'white' }}>Free Shots, Free Food</Text>
-              <Text style={{color: 'white'}}>{item.description}</Text>
+              <Text style={{ color: 'white' }}>{item.description}</Text>
             </View>
           </View>
         </View>
