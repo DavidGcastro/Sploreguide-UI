@@ -22,11 +22,13 @@ const experiences = [
     basePricePerPerson: 100, // int - base price per person
     basePricePerGroup: 200, // int - base price for a group},
     images: [
-      require('./assets/img/experiences/ecuador.jpg'),
-      require('./assets/img/experiences/ecuador.jpg'),
-      require('./assets/img/experiences/ecuador.jpg')
-    ]
+      require('./assets/img/experiences/nightlife.jpg'),
+      require('./assets/img/experiences/graffiti.jpg'),
+      require('./assets/img/experiences/seattle.jpg')
+    ],
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
   },
+
   {
     category: 'Top Trending',
     title: "NYC's Hidden Nature",

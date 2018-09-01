@@ -1,6 +1,6 @@
+import { ifIphoneX, getStatusBarHeight } from 'react-native-iphone-x-helper'
 import { Dimensions } from 'react-native'
 let { width } = Dimensions.get('window')
-import { ifIphoneX, getStatusBarHeight } from 'react-native-iphone-x-helper'
 let landingStyles = {
   parent: {
     flex: 1,
