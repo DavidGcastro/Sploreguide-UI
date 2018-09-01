@@ -1,7 +1,8 @@
 import React from 'react'
 import { Dimensions, View, Text, TouchableOpacity } from 'react-native'
 import landingStyles from '../styles/landingStyles'
-import { Ionicons, SimpleLineIcons } from '@expo/vector-icons'
+import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
+
 const { width, height } = Dimensions.get('window')
 
 const ExperienceFullScreen = props => {
@@ -14,6 +15,11 @@ const ExperienceFullScreen = props => {
     height
   }}>
     <View style={[landingStyles.topContainer]}>
+      <Feather
+        name='arrow-left'
+        size={32}
+        color='white'
+      />
       <Text style={landingStyles.activityType}>
         {item.activityType.toUpperCase()}
       </Text>

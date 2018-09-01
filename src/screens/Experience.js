@@ -3,14 +3,27 @@ import React from 'react'
 import { LinearGradient } from 'expo'
 import experiences from '../experiences'
 import landingStyles from '../styles/landingStyles'
-import { Ionicons, SimpleLineIcons } from '@expo/vector-icons'
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
 const { width, height } = Dimensions.get('window')
 let item = experiences[0]
+
+let iphoneTop = {
+  ...ifIphoneX(
+    {
+      top: 20
+    },
+    {
+      top: 10
+    }
+  )
+}
 export default class Experience extends React.Component {
   render () {
     return (
       <View>
         <ScrollView
+          bounces={false}
           style={{ width, height }}
           horizontal pagingEnabled >
           <LinearGradient
@@ -52,13 +65,24 @@ export default class Experience extends React.Component {
             flex: 1,
             justifyContent: 'space-between',
             width,
-            height
+            height,
+            top: iphoneTop.top
 
           }}>
           <View style={[landingStyles.topContainer]}>
-            <Text style={landingStyles.activityType}>
-              {item.activityType.toUpperCase()}
-            </Text>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <TouchableOpacity>
+                <Feather
+                  name='arrow-left'
+                  size={32}
+                  color='white'
+                  style={{marginRight: 20}}
+                />
+              </TouchableOpacity>
+              <Text style={landingStyles.activityType}>
+                {item.activityType.toUpperCase()}
+              </Text>
+            </View>
             <Text style={landingStyles.price}>
               ${item.basePricePerPerson}
             </Text>
@@ -92,11 +116,11 @@ export default class Experience extends React.Component {
                 <Text style={landingStyles.title}>{item.title}</Text>
               </View>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-                <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+                <View style={{ height: 2, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+                <View style={{ height: 2, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+                <View style={{ height: 2, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+                <View style={{ height: 2, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+                <View style={{ height: 2, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
               </View>
 
               <View style={landingStyles.lastContainer}>
