@@ -22,7 +22,7 @@ const PreviewScreen = props => {
             <TouchableOpacity
               activeOpacity={0.7}
               key={index}
-              onPress={experience =>
+              onPress={() =>
                 props.navigation.navigate('Experience', { experience })
               }>
               ><PreviewCard experience={experience} />

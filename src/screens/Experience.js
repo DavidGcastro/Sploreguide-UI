@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Text } from 'react-native'
 
-export default class Experience extends Component {
-  render () {
-    return <Text>Hello World</Text>
-  }
+const Experience = props => {
+  console.log(props)
+  return <Text>HELLO</Text>
 }
+
+export default Experience
