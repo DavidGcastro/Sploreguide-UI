@@ -69,7 +69,7 @@ export default class Experience extends React.Component {
           </LinearGradient>
         </ScrollView>
         <View
-          pointerEvents='none'
+          pointerEvents='box-none'
           style={{
             position: 'absolute',
             flex: 1,
