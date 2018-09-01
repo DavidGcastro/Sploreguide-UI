@@ -1,12 +1,10 @@
 import { Dimensions, ScrollView, Image, View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo'
-import experiences from '../experiences'
 import landingStyles from '../styles/landingStyles'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
 const { width, height } = Dimensions.get('window')
-let item = experiences[0]
 
 let iphoneTop = {
   ...ifIphoneX(
@@ -20,12 +18,24 @@ let iphoneTop = {
 }
 export default class Experience extends React.Component {
   render () {
+    let item = this.props.navigation.state.params.experience
+
     return (
       <View>
         <ScrollView
           bounces={false}
           style={{ width, height }}
           horizontal pagingEnabled >
+          <LinearGradient
+            colors={['white', 'rgba(0,0,0,1.0)']}
+            start={[0.5, 0.2]}
+            end={[0.5, 1.0]}
+            style={{
+              width, height
+            }}
+          >
+            <Image source={item.media} style={{ height, width }} />
+          </LinearGradient>
           <LinearGradient
             colors={['white', 'rgba(0,0,0,1.0)']}
             start={[0.5, 0.2]}
@@ -70,8 +80,8 @@ export default class Experience extends React.Component {
 
           }}>
           <View style={[landingStyles.topContainer]}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <TouchableOpacity>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                 <Feather
                   name='arrow-left'
                   size={32}
@@ -115,7 +125,7 @@ export default class Experience extends React.Component {
                 <Text style={landingStyles.location}>{item.location}</Text>
                 <Text style={landingStyles.title}>{item.title}</Text>
               </View>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <View style={{ height: 2, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
                 <View style={{ height: 2, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
                 <View style={{ height: 2, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
