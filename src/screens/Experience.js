@@ -1,15 +1,16 @@
-import { Dimensions, ScrollView, Image, View, Text, TouchableOpacity } from 'react-native'
+import { Dimensions, ScrollView, Image, View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo'
 import landingStyles from '../styles/landingStyles'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
+import { Ionicons, SimpleLineIcons, Feather, MaterialIcons } from '@expo/vector-icons'
 const { width, height } = Dimensions.get('window')
 
 let iphoneTop = {
   ...ifIphoneX(
     {
-      top: 20
+      top: 10
+
     },
     {
       top: 10
@@ -21,20 +22,22 @@ export default class Experience extends React.Component {
     let item = this.props.navigation.state.params.experience
 
     return (
-      <View>
+      <SafeAreaView style={{flex: 1}}>
         <ScrollView
           bounces={false}
           style={{ width, height }}
           horizontal pagingEnabled >
           <LinearGradient
-            colors={['white', 'rgba(0,0,0,1.0)']}
+            colors={['white', 'rgba(0,0,0,1)']}
             start={[0.5, 0.2]}
-            end={[0.5, 1.0]}
+            end={[0.2, 1.0]}
             style={{
-              width, height
+              flex: 1,
+              width,
+              height
             }}
           >
-            <Image source={item.media} style={{ height, width }} />
+            <Image source={item.media} style={{ height, width, flex: 1 }} />
           </LinearGradient>
           <LinearGradient
             colors={['white', 'rgba(0,0,0,1.0)']}
@@ -76,7 +79,8 @@ export default class Experience extends React.Component {
             justifyContent: 'space-between',
             width,
             height,
-            top: iphoneTop.top
+            top: iphoneTop.top,
+            bottom: iphoneTop.bottom
 
           }}>
           <View style={[landingStyles.topContainer]}>
@@ -86,7 +90,7 @@ export default class Experience extends React.Component {
                   name='arrow-left'
                   size={32}
                   color='white'
-                  style={{marginRight: 20}}
+                  style={{ marginRight: 20 }}
                 />
               </TouchableOpacity>
               <Text style={landingStyles.activityType}>
@@ -167,12 +171,32 @@ export default class Experience extends React.Component {
                   </Text>
                 </View>
               </View>
-              <Text style={{ color: 'white' }}>Free Shots, Free Food</Text>
-              <Text style={{ color: 'white' }}>{item.description}</Text>
+              <View style={{flexDirection: 'row'}}>
+                <MaterialIcons
+                  name='playlist-add'
+                  size={18}
+                  style={{
+                    paddingRight: 10,
+                    color: 'rgba(132, 146, 166, 1)'
+                  }}
+                />
+                <Text style={{ color: 'white' }}>Free Shots, Free Food</Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <Ionicons
+                  name='ios-person-outline'
+                  size={18}
+                  style={{
+                    paddingRight: 10,
+                    color: 'rgba(132, 146, 166, 1)'
+                  }}
+                />
+                <Text style={{ color: 'white' }}>{item.description}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
 
     )
   }
