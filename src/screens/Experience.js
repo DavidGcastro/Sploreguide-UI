@@ -8,17 +8,17 @@ export default class Experience extends React.Component {
     let item = this.props.navigation.state.params.experience
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <ScrollView
           bounces={false}
           style={{ width, height }}
           horizontal pagingEnabled >
-          <Image source={item.media} style={{ height, width }} />
+          <Image source={item.media} style={{ height }} />
           <Image source={item.images[0]} style={{ height, width }} />
           <Image source={item.images[1]} style={{ height, width }} />
           <Image source={item.images[2]} style={{ height, width }} />
         </ScrollView>
-        <ExperienceFullScreen item={item} />
+        <ExperienceFullScreen item={item} nav={this.props} />
       </View>
 
     )
@@ -30,5 +30,5 @@ export default class Experience extends React.Component {
 //   colors={['transparent', 'rgba(0,0,0,1.0)']}
 //   start={[0.5, 0.2]}
 //   end={[0.5, 1.0]}
-//   style={{ height }}
-// />
+//   style={{}}
+// >

@@ -42,7 +42,7 @@ const ExperienceFullScreen = props => {
             style={{ marginRight: 20 }}
           />
         </TouchableOpacity>
-        <Text style={landingStyles.activityType}>
+        <Text style={[landingStyles.activityType, {fontSize: 12}]}>
           {item.activityType.toUpperCase()}
         </Text>
       </View>
