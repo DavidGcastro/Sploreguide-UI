@@ -44,7 +44,7 @@ const PreviewCard = props => {
                 />
               </TouchableOpacity>
             </View>
-            <Text style={[landingStyles.activityType, { fontSize: 12 }]}>
+            <Text style={[landingStyles.activityType, { fontSize: 10, paddingHorizontal: 5 }]}>
               {experience.activityType.toUpperCase()}
             </Text>
           </View>

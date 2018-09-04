@@ -1,4 +1,4 @@
-import { Dimensions, ScrollView, Image, View, Text } from 'react-native'
+import { Dimensions, ScrollView, Image, View } from 'react-native'
 import React from 'react'
 import { LinearGradient } from 'expo'
 import ExperienceFullScreen from '../components/ExperienceFullScreen'
@@ -6,14 +6,13 @@ const { width, height } = Dimensions.get('window')
 export default class Experience extends React.Component {
   render () {
     let item = this.props.navigation.state.params.experience
-
     return (
       <View style={{ flex: 1 }}>
         <ScrollView
           bounces={false}
           style={{ width, height }}
           horizontal pagingEnabled >
-          <Image source={item.media} style={{ height }} />
+          <Image source={item.media} style={{ height, width }} />
           <Image source={item.images[0]} style={{ height, width }} />
           <Image source={item.images[1]} style={{ height, width }} />
           <Image source={item.images[2]} style={{ height, width }} />
