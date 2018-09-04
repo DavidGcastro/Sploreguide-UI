@@ -81,14 +81,14 @@ const ExperienceFullScreen = props => {
         <View style={[landingStyles.bottomContainer, { justifyContent: 'space-evenly', height: height / 2 - 50 }]}>
           <View>
             <Text style={landingStyles.location}>{item.location}</Text>
-            <Text style={landingStyles.title}>{item.title}</Text>
+            <Text style={[landingStyles.title, {fontSize: 25}]}>{item.title}</Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-            <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-            <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-            <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-            <View style={{ height: 1, width: 50, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+            <View style={{ height: 1.5, width: 45, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+            <View style={{ height: 1.5, width: 45, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+            <View style={{ height: 1.5, width: 45, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+            <View style={{ height: 1.5, width: 45, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+            <View style={{ height: 1.5, width: 45, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
           </View>
           <View style={landingStyles.lastContainer}>
             <View style={landingStyles.iconTextContainer}>
