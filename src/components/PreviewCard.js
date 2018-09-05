@@ -4,6 +4,8 @@ import { Ionicons } from '@expo/vector-icons'
 import previewCardStyle from '../styles/PreviewCard'
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
+import { formatLocationObject } from '../helpers/strings'
+import Stars from '../components/Stars'
 
 const PreviewCard = props => {
   let { experience } = props
@@ -12,7 +14,7 @@ const PreviewCard = props => {
     <ImageBackground
       style={previewCardStyle.container}
       imageStyle={{ borderRadius: 5 }}
-      source={experience.media}>
+      source={{uri: experience.media[0]}}>
       <LinearGradient
         colors={['transparent', 'rgba(0,0,0,1.0)']}
         start={[0.5, 0.2]}
@@ -56,7 +58,7 @@ const PreviewCard = props => {
             }}>
             <View style={{ padding: 20 }}>
               <Text style={{ fontSize: 12, color: 'white' }}>
-                {experience.location}
+                {formatLocationObject(experience.location)}
               </Text>
               <Text
                 style={{
@@ -76,20 +78,7 @@ const PreviewCard = props => {
                  ${experience.basePricePerPerson} / person
                 </Text>
                 <View>
-                  <View
-                    style={{ marginRight: 2, flexDirection: 'row', flex: 1 }}>
-                    <Ionicons name='ios-star' size={12} color='white' />
-                    <Ionicons name='ios-star' size={12} color='white' />
-                    <Ionicons name='ios-star' size={12} color='white' />
-                    <Ionicons name='ios-star' size={12} color='white' />
-                    <Ionicons name='ios-star-half' size={12} color='white' />
-                    <Text
-                      style={{ paddingLeft: 5, color: 'white', fontSize: 12 }}>
-                      {experience.reviews > 1
-                        ? experience.reviews + ' Reviews'
-                        : experience.reviews + ' Review'}
-                    </Text>
-                  </View>
+                  <Stars reviews={experience.reviews} />
                 </View>
               </View>
             </View>

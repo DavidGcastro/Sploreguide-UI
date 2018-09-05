@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from 'react-navigation'
 import Temp from '../screens/Temp'
-import Temp2 from '../screens/Temp2'
+import Favorites from '../screens/Favorites'
 import Temp3 from '../screens/Temp3'
 import Temp4 from '../screens/Temp4'
 import Temp5 from '../screens/Temp5'
@@ -18,8 +18,8 @@ const BottomTabNavigator = createBottomTabNavigator(
         )
       }
     },
-    Temp2: {
-      screen: Temp2,
+    Favorites: {
+      screen: Favorites,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Ionicons name='md-heart-outline' size={40} color={tintColor} />

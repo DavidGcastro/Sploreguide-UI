@@ -130,6 +130,33 @@ const MOST_VIEWED = gql`
   }
 }`
 
+const GET_USER_FAVORITE_EXPERIENCES = gql`
+query GetUserFavoriteExperiences($experiences: [ID!]) {
+  getUserFavoriteExperiences(experiences: $experiences) {
+    _id
+    title
+    location {
+      borough
+      city
+      country
+    }
+    duration
+    languages
+    activityType
+    included
+    overview
+    media
+    basePricePerPerson
+    reviews {
+      rating
+      comments
+      createdAt
+      firstName
+    }
+  }
+}
+`
+
 const CURRENT_USER = gql`
 {
   currentUser {
@@ -141,4 +168,12 @@ const CURRENT_USER = gql`
   }
 }
 `
-export { CURRENT_USER, TOP_TRENDING, HIGHEST_RATED, WEEKEND_PICKS, BEST_VALUE, MOST_VIEWED }
+export {
+  CURRENT_USER,
+  TOP_TRENDING,
+  HIGHEST_RATED,
+  WEEKEND_PICKS,
+  BEST_VALUE,
+  MOST_VIEWED,
+  GET_USER_FAVORITE_EXPERIENCES
+}
