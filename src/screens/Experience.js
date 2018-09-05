@@ -6,6 +6,7 @@ export default class Experience extends React.Component {
   render () {
     // const item = this.props.navigation.state.params.experience
     return (
+
       <ExperienceFullScreen item={item} />
     )
   }

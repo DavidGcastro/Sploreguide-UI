@@ -153,7 +153,6 @@ const ExperienceFullScreen = props => {
               {/********************************************************/}
               <Text style={{color: 'white'}}>Free Shots, and Entry Included.</Text>
               <Text style={{ color: 'white' }}>{item.description}</Text>
-
             </View>
           </View>
         </View>
