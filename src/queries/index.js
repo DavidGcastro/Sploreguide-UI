@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 const HIGHEST_RATED = gql`
 {
   getExperiences(category: "Highest Rated") {
+    _id
     title
     location {
       borough
@@ -25,9 +26,10 @@ const HIGHEST_RATED = gql`
   }
 }`
 
-const TOP_TRENDING= gql`
+const TOP_TRENDING = gql`
 {
   getExperiences(category: "Top Trending") {
+    _id
     title
     location {
       borough
@@ -50,9 +52,10 @@ const TOP_TRENDING= gql`
   }
 }`
 
-const WEEKEND_PICKS= gql`
+const WEEKEND_PICKS = gql`
 {
   getExperiences(category: "Weekend Picks") {
+    _id
     title
     location {
       borough
@@ -75,9 +78,10 @@ const WEEKEND_PICKS= gql`
   }
 }`
 
-const BEST_VALUE= gql`
+const BEST_VALUE = gql`
 {
   getExperiences(category: "Best Value") {
+    _id
     title
     location {
       borough
@@ -100,9 +104,10 @@ const BEST_VALUE= gql`
   }
 }`
 
-const MOST_VIEWED= gql`
+const MOST_VIEWED = gql`
 {
   getExperiences(category: "Most Viewed") {
+    _id
     title
     location {
       borough
@@ -125,6 +130,15 @@ const MOST_VIEWED= gql`
   }
 }`
 
-
-
-export { TOP_TRENDING, HIGHEST_RATED, WEEKEND_PICKS, BEST_VALUE, MOST_VIEWED }
+const CURRENT_USER = gql`
+{
+  currentUser {
+    _id
+    firstName
+    lastName
+    email
+    favorites
+  }
+}
+`
+export { CURRENT_USER, TOP_TRENDING, HIGHEST_RATED, WEEKEND_PICKS, BEST_VALUE, MOST_VIEWED }

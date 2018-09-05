@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Query } from 'react-apollo'
-import { TOP_TRENDING, HIGHEST_RATED, WEEKEND_PICKS, BEST_VALUE, MOST_VIEWED } from '../queries'
+import { Query, Mutation } from 'react-apollo'
+import { CURRENT_USER, TOP_TRENDING, HIGHEST_RATED, WEEKEND_PICKS, BEST_VALUE, MOST_VIEWED } from '../queries'
+import { UPDATE_FAVORITES } from '../mutations'
 import Carousel from 'react-native-snap-carousel'
 import {
   Text,
@@ -25,7 +26,7 @@ let categories = [
   [ 'Highest Rated', HIGHEST_RATED ],
   [ 'Best Value', BEST_VALUE ],
   [ 'Weekend Picks', WEEKEND_PICKS ],
-  ['Most Viewed', MOST_VIEWED ]
+  [ 'Most Viewed', MOST_VIEWED ]
 ]
 
 let offset = 0
@@ -63,36 +64,23 @@ let cardHeight = {
   )
 }
 export default class Landing extends Component {
-  constructor () {
-    super()
-    this.state = {
-      search: 'Search By City or Activity',
-      likes: ['1', '2', '6'],
-      category: categories[0][0],
-      fromTop: 0
-    }
-    this._renderItem = this._renderItem.bind(this)
-    this.onSwipeUp = this.onSwipeUp.bind(this)
+
+  state = {
+    search: 'Search By City or Activity',
+    favorites: [],
+    category: categories[0][0],
+    fromTop: 0,
+    userFetched: false
   }
+
 
   componentDidMount () {
     this.onSwipeUp(0)
   }
 
-  toggleFavoriteItem (itemId) {
-    let likes = [].concat(this.state.likes)
-    let index = likes.indexOf(itemId)
+  updateStateWithFavorites = (favorites) => this.setState({ favorites,  userFetched: true})
 
-    if (index > -1) {
-      likes.splice(index, 1)
-      this.setState({likes})
-    } else {
-      likes.push(itemId)
-      this.setState({likes})
-    }
-  }
-
-  onSwipeUp (top, direction) {
+  onSwipeUp = (top, direction) => {
     let index =
       direction === 'down'
         ? Math.floor(top / cardHeight.scrollViewInterval)
@@ -103,7 +91,8 @@ export default class Landing extends Component {
     })
   }
 
-  _renderItem ({ item, index }) {
+  _renderItem = ({ item, index }) => {
+    let me = this
     return (
       <TouchableOpacity style={{ flex: 1 }} activeOpacity={0.75}>
         <View
@@ -146,22 +135,31 @@ export default class Landing extends Component {
                       style={{ paddingRight: 15 }}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => this.toggleFavoriteItem(item._id)}
-                  >
-                    { this.state.likes.includes(item._id)
-                      ? <Ionicons
-                        name={'ios-heart'}
-                        size={25}
-                        color={'red'}
-                      />
-                      : <Ionicons
-                        name={'ios-heart-outline'}
-                        size={25}
-                        color={'white'}
-                      />
+                  <Mutation mutation={UPDATE_FAVORITES}>
+                    { (updateUserFavorites, { data }) => (
+                      <TouchableOpacity
+                        onPress={() => {
+                          updateUserFavorites({ variables: { experienceId: item._id } })
+                            .then(({data: { updateUserFavorites: {favorites} }}) => me.setState({ favorites }))
+                        }}
+                      >
+                        {
+                          me.state.favorites.includes(item._id)
+                            ? <Ionicons
+                              name={'ios-heart'}
+                              size={25}
+                              color={'red'}
+                            />
+                            : <Ionicons
+                              name={'ios-heart-outline'}
+                              size={25}
+                              color={'white'}
+                            />
+                        }
+                      </TouchableOpacity>
+                    )
                     }
-                  </TouchableOpacity>
+                  </Mutation>
                 </View>
                 <View style={[landingStyles.bottomContainer, {borderBottomLeftRadius: 10}]}>
                   <View
@@ -211,6 +209,7 @@ export default class Landing extends Component {
   }
 
   render () {
+    let { userFetched } = this.state
     let search = this.props.navigation.state.params ? (
       <Text
         style={{
@@ -260,81 +259,90 @@ export default class Landing extends Component {
     )
 
     return (
-      <View style={landingStyles.parent}>
-        <View>
-          <View style={styles.container}>
-            <Image
-              style={styles.searchImage}
-              resizeMode='contain'
-              source={require('../assets/img/Search.png')}
-            />
-            <TouchableOpacity
-              style={{ flex: 1, width: '100%' }}
-              onPress={() => {
-                this.props.navigation.navigate('Search')
-              }}>
-              {search}
-            </TouchableOpacity>
-          </View>
-          />
-        </View>
-        <View style={landingStyles.wrapper}>
-          <Text style={landingStyles.TopText}>{this.state.category}</Text>
-          <TouchableOpacity
-            style={landingStyles.viewAll}
-            onPress={() =>
-              this.props.navigation.navigate('Preview', {
-                category: this.state.category
-              })
-            }>
-            <Text style={landingStyles.viewAllText}>View All</Text>
-            <Ionicons
-              name='md-arrow-forward'
-              size={30}
-              color='rgba(48, 55, 64, 1)'
-            />
-          </TouchableOpacity>
-        </View>
-        <ScrollView
-          decelerationRate={0}
-          alwaysBounceVertical={false}
-          bounces={false}
-          snapToInterval={cardHeight.scrollViewInterval}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          onScroll={x => {
-            let currentOffset = x.nativeEvent.contentOffset.y
-            let direction = currentOffset >= offset ? 'up' : 'down'
-            offset = currentOffset
+      <Query query={CURRENT_USER}>
+        {({ loading, error, data }) => {
+          if (loading) return 'Loading...'
+          if (error) return `Error! ${error.message}`
+          if (!userFetched) this.updateStateWithFavorites(data.currentUser.favorites)
+          return (
+            <View style={landingStyles.parent}>
+              <View>
+                <View style={styles.container}>
+                  <Image
+                    style={styles.searchImage}
+                    resizeMode='contain'
+                    source={require('../assets/img/Search.png')}
+                  />
+                  <TouchableOpacity
+                    style={{ flex: 1, width: '100%' }}
+                    onPress={() => {
+                      this.props.navigation.navigate('Search')
+                    }}>
+                    {search}
+                  </TouchableOpacity>
+                </View>
+              />
+              </View>
+              <View style={landingStyles.wrapper}>
+                <Text style={landingStyles.TopText}>{this.state.category}</Text>
+                <TouchableOpacity
+                  style={landingStyles.viewAll}
+                  onPress={() =>
+                    this.props.navigation.navigate('Preview', {
+                      category: this.state.category
+                    })
+                  }>
+                  <Text style={landingStyles.viewAllText}>View All</Text>
+                  <Ionicons
+                    name='md-arrow-forward'
+                    size={30}
+                    color='rgba(48, 55, 64, 1)'
+                  />
+                </TouchableOpacity>
+              </View>
+              <ScrollView
+                decelerationRate={0}
+                alwaysBounceVertical={false}
+                bounces={false}
+                snapToInterval={cardHeight.scrollViewInterval}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                onScroll={x => {
+                  let currentOffset = x.nativeEvent.contentOffset.y
+                  let direction = currentOffset >= offset ? 'up' : 'down'
+                  offset = currentOffset
 
-            this.onSwipeUp(currentOffset, direction)
-          }}
-          scrollEventThrottle={1}>
+                  this.onSwipeUp(currentOffset, direction)
+                }}
+                scrollEventThrottle={1}>
 
-          {
-            categories.map((category, index) =>
-              (<View key={index} style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-                <Query query={category[1]}>
-                  {({loading, error, data}) => {
-                    if (loading) return 'Loading...'
-                    if (error) return `Error! ${error.message}`
-                    let exps = data.getExperiences.slice(0, 5)
-                    return (
-                      <Carousel
-                        data={exps}
-                        renderItem={this._renderItem}
-                        sliderWidth={width}
-                        extraData={this.state.likes}
-                        itemWidth={width - 50}
-                        removeClippedSubviews
-                      />
-                    )
-                  }}
-                </Query>
-              </View>))
-            }
-        </ScrollView>
-      </View>
+                {
+                  categories.map((category, index) =>
+                    (<View key={index} style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
+                      <Query query={category[1]}>
+                        {({loading, error, data}) => {
+                          if (loading) return 'Loading...'
+                          if (error) return `Error! ${error.message}`
+                          let exps = data.getExperiences.slice(0, 5)
+                          return (
+                            <Carousel
+                              data={exps}
+                              renderItem={this._renderItem}
+                              sliderWidth={width}
+                              extraData={this.state.favorites}
+                              itemWidth={width - 50}
+                              removeClippedSubviews
+                            />
+                          )
+                        }}
+                      </Query>
+                    </View>))
+                }
+              </ScrollView>
+            </View>
+          )
+        }}
+      </Query>
     )
   }
 }
