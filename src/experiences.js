@@ -28,7 +28,9 @@ const experiences = [
       require('./assets/img/experiences/tokyo-skyline.jpg')
 
     ],
-    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."',
+    hostDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eleifend lacinia ex, venenatis cursus ligula rutrum finibus. Aliquam hendrerit, libero id convallis rutrum, mauris sapien imperdiet justo, eget luctus odio diam vitae sem.',
+    experienceDescription: 'Duis mattis vitae felis at luctus. Sed facilisis gravida purus et maximus. Aliquam facilisis eros vel bibendum elementum. Suspendisse potenti. Vivamus et urna laoreet, pellentesque mauris a, porta eros.'
   },
 
   {
@@ -60,8 +62,9 @@ const experiences = [
       require('./assets/img/experiences/tokyo-skyline.jpg')
 
     ],
-    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."'
-
+    description: '”Forget all the common touristy sites. I’m going to show you how we really party in New York City. They don’t call it “the city that never sleeps” for nothing."',
+    hostDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eleifend lacinia ex, venenatis cursus ligula rutrum finibus. Aliquam hendrerit, libero id convallis rutrum, mauris sapien imperdiet justo, eget luctus odio diam vitae sem.',
+    experienceDescription: 'Duis mattis vitae felis at luctus. Sed facilisis gravida purus et maximus. Aliquam facilisis eros vel bibendum elementum. Suspendisse potenti. Vivamus et urna laoreet, pellentesque mauris a, porta eros.'
   },
   {
     _id: '3',
