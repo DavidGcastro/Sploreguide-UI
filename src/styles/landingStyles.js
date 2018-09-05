@@ -42,14 +42,14 @@ let landingStyles = {
     paddingRight: 10
   },
   activityType: {
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: 'bold',
-    letterSpacing: 1,
+    letterSpacing: 0.5,
     color: 'white',
     borderRadius: 3,
     backgroundColor: 'rgba(227, 60, 54, 1)',
-    paddingHorizontal: 15,
-    paddingVertical: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
     overflow: 'hidden',
     fontFamily: 'SF-UI-Text-Semibold'
 

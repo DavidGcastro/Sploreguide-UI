@@ -1,13 +1,12 @@
 import React from 'react'
 import ExperienceFullScreen from '../components/ExperienceFullScreen'
-import {ScrollView, View, Text} from 'react-native'
+import experiences from '../experiences'
+let item = experiences[0]
 export default class Experience extends React.Component {
   render () {
-    const item = this.props.navigation.state.params.experience
+    // const item = this.props.navigation.state.params.experience
     return (
-
       <ExperienceFullScreen item={item} />
-
     )
   }
 }
