@@ -2,7 +2,7 @@ import React from 'react'
 import { Dimensions, View, Text, TouchableOpacity, ScrollView, Image } from 'react-native'
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
-import { Ionicons, SimpleLineIcons, Feather, MaterialIcons } from '@expo/vector-icons'
+import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Stars from '../components/Stars'
 import { formatLocationObject, formatReviewsCountText } from '../helpers/strings'
@@ -51,28 +51,40 @@ const ExperienceFullScreen = props => {
       >
         {/* PARENT */}
         <View
-          pointerEvents='none'
+          pointerEvents='box-none'
           style={{ position: 'relative', justifyContent: 'space-between', flex: 1 }}>
 
-          <View style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 20}]}>
-            <Text style={[landingStyles.activityType, {padding: 2}]}>
-              {item.activityType.toUpperCase()}
-            </Text>
+          <View pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 20}]}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <TouchableOpacity>
+                <Feather
+                  name={'arrow-left'}
+                  size={30}
+                  color={'white'}
+                  style={{ paddingRight: 15 }}
+                />
+              </TouchableOpacity>
+              <Text style={[landingStyles.activityType, {padding: 2}]}>
+                {item.activityType.toUpperCase()}
+              </Text>
+            </View>
             <Text style={landingStyles.price}>
               ${item.basePricePerPerson}
             </Text>
           </View>
           {/* Bottom */}
-          <View style={{
+          <View pointerEvents='box-none' style={{
             flex: 1,
             justifyContent: 'space-evenly',
             borderLeftWidth: 5,
             borderLeftColor: 'rgba(227, 60, 54, 1)'}}
           >
-            <View style={{
-              flex: 1,
-              justifyContent: 'space-evenly',
-              padding: 20 }}>
+            <View
+              pointerEvents='box-none'
+              style={{
+                flex: 1,
+                justifyContent: 'space-evenly',
+                padding: 20 }}>
               {/********************************************************/}
               <View style={[landingStyles.bottomContainerIcons, {paddingBottom: 0, paddingHorizontal: 0}]}>
                 <TouchableOpacity>
@@ -143,7 +155,6 @@ const ExperienceFullScreen = props => {
               <Text style={{ color: 'white' }}>{item.description}</Text>
 
             </View>
-
           </View>
         </View>
       </LinearGradient>
