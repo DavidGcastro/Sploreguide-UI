@@ -32,7 +32,7 @@ const ExperienceFullScreen = props => {
         }}
         scrollEventThrottle={4}
         bounces={false}
-        style={{ width, height }}
+        style={{width, height, backgroundColor: 'red'}}
         horizontal pagingEnabled >
         <Image source={item.media} style={{ height, width }} />
         <Image source={item.images[0]} style={{ height, width }} />
@@ -52,14 +52,9 @@ const ExperienceFullScreen = props => {
         <View
           pointerEvents='box-none'
           style={{
-            position: 'relative',
-            justifyContent: 'space-between',
-            width,
-            height,
-            top: iphoneTop.top,
-            bottom: iphoneTop.bottom
+            position: 'relative'
           }}>
-          <View pointerEvents='box-none' style={landingStyles.topContainer}>
+          <View pointerEvents='box-none'>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                 <Feather
@@ -69,11 +64,11 @@ const ExperienceFullScreen = props => {
                   style={{ marginRight: 20 }}
                 />
               </TouchableOpacity>
-              <Text style={[landingStyles.activityType, { fontSize: 11, paddingHorizontal: 4 }]}>
+              <Text style={{ fontSize: 11, paddingHorizontal: 4 }}>
                 {item.activityType.toUpperCase()}
               </Text>
             </View>
-            <Text style={landingStyles.price}>
+            <Text>
               ${item.basePricePerPerson}
             </Text>
           </View>
@@ -81,14 +76,12 @@ const ExperienceFullScreen = props => {
           <View
             pointerEvents='none'
             style={{
-              left: 0,
-              right: 0,
-              top: 0,
-              justifyContent: 'space-between'
 
             }}
           >
-            <View style={[landingStyles.bottomContainerIcons]} pointerEvents='box-none'>
+            {/* ICONS */}
+
+            <View pointerEvents='box-none'>
               <TouchableOpacity>
                 <Ionicons
                   name={'ios-share-outline'}
@@ -105,74 +98,77 @@ const ExperienceFullScreen = props => {
                 />
               </TouchableOpacity>
             </View>
-            <View pointerEvent='box-none' style={[landingStyles.bottomContainer, { justifyContent: 'space-evenly', height: height / 2 - 50 }]}>
+            {/* TITLE */}
+            <View>
+              <Text>{item.location}</Text>
+              <Text style={{ fontSize: 25 }}>{item.title}</Text>
+            </View>
+            {/* Horizontal Icons */}
+            <View>
               <View>
-                <Text style={landingStyles.location}>{item.location}</Text>
-                <Text style={[landingStyles.title, { fontSize: 25 }]}>{item.title}</Text>
-              </View>
-              <View style={landingStyles.lastContainer}>
-                <View style={landingStyles.iconTextContainer}>
-                  <SimpleLineIcons
-                    name='hourglass'
-                    size={12}
-                    color='white'
-                  />
-                  <Text style={landingStyles.smallTextBottom}>
-                    {Math.round((item.duration / 60) % 60)}
-                    :00
-                  </Text>
-                </View>
-                <View style={landingStyles.iconTextContainer}>
-                  <Ionicons
-                    name='ios-chatbubbles-outline'
-                    size={12}
-                    color='white'
-                  />
-                  <Text style={landingStyles.smallTextBottom}>
-                    {item.languages}
-                  </Text>
-                </View>
-                <View style={landingStyles.iconTextContainer}>
-                  <Ionicons name='ios-star' size={12} color='white' />
-                  <Ionicons name='ios-star' size={12} color='white' />
-                  <Ionicons name='ios-star' size={12} color='white' />
-                  <Ionicons name='ios-star' size={12} color='white' />
-                  <Ionicons name='ios-star-half' size={12} color='white' />
-                  <Text style={landingStyles.smallTextBottom}>
-                    {item.reviews}
-                  </Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View ref={this.image1} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-                <View ref={this.image2} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-                <View ref={this.image2} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-                <View ref={this.image3} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-                <View ref={this.image4} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
-              </View>
-              <View style={{ flexDirection: 'row' }}>
-                <MaterialIcons
-                  name='playlist-add'
-                  size={18}
-                  style={{
-                    paddingRight: 10,
-                    color: 'rgba(132, 146, 166, 1)'
-                  }}
+                <SimpleLineIcons
+                  name='hourglass'
+                  size={12}
+                  color='white'
                 />
-                <Text style={{ color: 'white' }}>Free Shots, Free Food</Text>
+                <Text>
+                  {Math.round((item.duration / 60) % 60)}
+                  :00
+                </Text>
               </View>
-              <View style={{ flexDirection: 'row', marginRight: 20 }}>
+              <View>
                 <Ionicons
-                  name='ios-person-outline'
-                  size={18}
-                  style={{
-                    paddingRight: 10,
-                    color: 'rgba(132, 146, 166, 1)'
-
-                  }}
+                  name='ios-chatbubbles-outline'
+                  size={12}
+                  color='white'
                 />
-                <Text style={{ color: 'white' }}>{item.description}</Text>
+                <Text>
+                  {item.languages}
+                </Text>
               </View>
+              <View>
+                <Ionicons name='ios-star' size={12} color='white' />
+                <Ionicons name='ios-star' size={12} color='white' />
+                <Ionicons name='ios-star' size={12} color='white' />
+                <Ionicons name='ios-star' size={12} color='white' />
+                <Ionicons name='ios-star-half' size={12} color='white' />
+                <Text>
+                  {item.reviews}
+                </Text>
+              </View>
+            </View>
+            {/* Pagination */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View ref={this.image1} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+              <View ref={this.image2} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+              <View ref={this.image2} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+              <View ref={this.image3} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+              <View ref={this.image4} style={{ height: 1.5, width: 55, backgroundColor: 'rgba(255, 255, 255, .5)' }} />
+            </View>
+
+            {/* Features */}
+            <View style={{ flexDirection: 'row' }}>
+              <MaterialIcons
+                name='playlist-add'
+                size={18}
+                style={{
+                  paddingRight: 10,
+                  color: 'rgba(132, 146, 166, 1)'
+                }}
+              />
+              <Text style={{ color: 'white' }}>Free Shots, Free Food</Text>
+            </View>
+            {/* Description */}
+            <View style={{ flexDirection: 'row', marginRight: 20 }}>
+              <Ionicons
+                name='ios-person-outline'
+                size={18}
+                style={{
+                  paddingRight: 10,
+                  color: 'rgba(132, 146, 166, 1)'
+                }}
+              />
+              <Text style={{ color: 'white' }}>{item.description}</Text>
             </View>
           </View>
         </View>
