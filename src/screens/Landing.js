@@ -63,22 +63,19 @@ let cardHeight = {
     }
   )
 }
+
+let favorites = null
+
 export default class Landing extends Component {
 
   state = {
     search: 'Search By City or Activity',
-    favorites: [],
     category: categories[0][0],
     fromTop: 0,
   }
 
   componentDidMount () {
-    this.setState({favorites: this.props.screenProps.userInfo.favorites})
     this.onSwipeUp(0)
-  }
-
-  favoritesController = () => {
-
   }
 
   onSwipeUp = (top, direction) => {
@@ -141,11 +138,10 @@ export default class Landing extends Component {
                       <TouchableOpacity
                         onPress={() => {
                           updateUserFavorites({ variables: { experienceId: item._id } })
-                            .then(({data: { updateUserFavorites: {favorites} }}) => me.setState({ favorites }))
                         }}
                       >
                         {
-                          me.state.favorites.includes(item._id)
+                          favorites.includes(item._id)
                             ? <Ionicons
                               name={'ios-heart'}
                               size={25}
@@ -264,6 +260,7 @@ export default class Landing extends Component {
         {({ loading, error, data }) => {
           if (loading) return 'Loading...'
           if (error) return `Error! ${error.message}`
+          favorites  = data.currentUser.favorites
           return (
             <View style={landingStyles.parent}>
               <View>
@@ -329,7 +326,7 @@ export default class Landing extends Component {
                               data={exps}
                               renderItem={this._renderItem}
                               sliderWidth={width}
-                              extraData={this.state.favorites}
+                              extraData={favorites}
                               itemWidth={width - 50}
                               removeClippedSubviews
                             />

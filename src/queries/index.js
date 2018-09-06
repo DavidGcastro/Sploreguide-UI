@@ -6,6 +6,7 @@ const HIGHEST_RATED = gql`
     _id
     title
     location {
+      _id
       borough
       city
       country
@@ -18,6 +19,7 @@ const HIGHEST_RATED = gql`
     media
     basePricePerPerson
     reviews {
+      _id
       rating
       comments
       createdAt
@@ -32,6 +34,7 @@ const TOP_TRENDING = gql`
     _id
     title
     location {
+      _id
       borough
       city
       country
@@ -44,6 +47,7 @@ const TOP_TRENDING = gql`
     media
     basePricePerPerson
     reviews {
+      _id
       rating
       comments
       createdAt
@@ -58,6 +62,7 @@ const WEEKEND_PICKS = gql`
     _id
     title
     location {
+      _id
       borough
       city
       country
@@ -70,6 +75,7 @@ const WEEKEND_PICKS = gql`
     media
     basePricePerPerson
     reviews {
+      _id
       rating
       comments
       createdAt
@@ -84,6 +90,7 @@ const BEST_VALUE = gql`
     _id
     title
     location {
+      _id
       borough
       city
       country
@@ -96,6 +103,7 @@ const BEST_VALUE = gql`
     media
     basePricePerPerson
     reviews {
+      _id
       rating
       comments
       createdAt
@@ -110,6 +118,7 @@ const MOST_VIEWED = gql`
     _id
     title
     location {
+      _id
       borough
       city
       country
@@ -122,6 +131,7 @@ const MOST_VIEWED = gql`
     media
     basePricePerPerson
     reviews {
+      _id
       rating
       comments
       createdAt
@@ -136,6 +146,7 @@ query GetExperiencesById($experiences: [ID!]) {
     _id
     title
     location {
+      _id
       borough
       city
       country
@@ -148,6 +159,7 @@ query GetExperiencesById($experiences: [ID!]) {
     media
     basePricePerPerson
     reviews {
+      _id
       rating
       comments
       createdAt

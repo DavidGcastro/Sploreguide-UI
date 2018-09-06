@@ -22,20 +22,4 @@ const RootNavigator = createStackNavigator(
   }
 )
 
-class RootNavigatorWrapper extends Component {
-  render () {
-    return (
-      <Query query={CURRENT_USER}>
-        {({ loading, error, data }) => {
-          if (loading) return 'Loading...'
-          if (error) return `Error! ${error.message}`
-          return (
-            <RootNavigator screenProps={{deleteJWT: this.props.deleteJWT, userInfo: data.currentUser}} />
-          )
-        }}
-      </Query>
-    )
-  }
-}
-
-export default RootNavigatorWrapper
+export default RootNavigator

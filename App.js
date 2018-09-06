@@ -8,7 +8,7 @@ import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error'
 import { ApolloLink } from 'apollo-link'
 import LoginNavigator from './src/navigators/LoginNavigator'
-import RootNavigatorWrapper from './src/navigators/RootNavigator'
+import RootNavigator from './src/navigators/RootNavigator'
 import deviceStorage from './src/services/deviceStorage'
 import { ASYNC_JWT_KEY } from './src/constants'
 
@@ -85,7 +85,7 @@ export default class App extends Component {
       if (jwt) {
         return (
           <ApolloProvider client={client}>
-            <RootNavigatorWrapper deleteJWT={this.deleteJWT} />
+            <RootNavigator screenProps={{deleteJWT: this.props.deleteJWT}} />
           </ApolloProvider>
         );
       } else {
