@@ -70,15 +70,16 @@ export default class Landing extends Component {
     favorites: [],
     category: categories[0][0],
     fromTop: 0,
-    userFetched: false
   }
 
-
   componentDidMount () {
+    this.setState({favorites: this.props.screenProps.userInfo.favorites})
     this.onSwipeUp(0)
   }
 
-  updateStateWithFavorites = (favorites) => this.setState({ favorites,  userFetched: true})
+  favoritesController = () => {
+
+  }
 
   onSwipeUp = (top, direction) => {
     let index =
@@ -263,7 +264,6 @@ export default class Landing extends Component {
         {({ loading, error, data }) => {
           if (loading) return 'Loading...'
           if (error) return `Error! ${error.message}`
-          if (!userFetched) this.updateStateWithFavorites(data.currentUser.favorites)
           return (
             <View style={landingStyles.parent}>
               <View>

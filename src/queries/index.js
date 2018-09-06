@@ -130,9 +130,9 @@ const MOST_VIEWED = gql`
   }
 }`
 
-const GET_USER_FAVORITE_EXPERIENCES = gql`
-query GetUserFavoriteExperiences($experiences: [ID!]) {
-  getUserFavoriteExperiences(experiences: $experiences) {
+const GET_EXPERIENCES_BY_ID = gql`
+query GetExperiencesById($experiences: [ID!]) {
+  getExperiencesById(experiences: $experiences) {
     _id
     title
     location {
@@ -175,5 +175,5 @@ export {
   WEEKEND_PICKS,
   BEST_VALUE,
   MOST_VIEWED,
-  GET_USER_FAVORITE_EXPERIENCES
+  GET_EXPERIENCES_BY_ID
 }

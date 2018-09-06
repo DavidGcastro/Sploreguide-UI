@@ -3,7 +3,7 @@ import { Query, Mutation } from 'react-apollo'
 import { ScrollView, View, TouchableOpacity, Text } from 'react-native'
 import PreviewCard from '../components/PreviewCard'
 import landingStyles from '../styles/landingStyles'
-import { CURRENT_USER, GET_USER_FAVORITE_EXPERIENCES } from '../queries'
+import { CURRENT_USER, GET_EXPERIENCES_BY_ID } from '../queries'
 
 const PreviewScreen = props => {
   return (
@@ -24,13 +24,13 @@ const PreviewScreen = props => {
                 (experiences)
                   ? (
                     <Query
-                      query={GET_USER_FAVORITE_EXPERIENCES}
+                      query={GET_EXPERIENCES_BY_ID}
                       variables={{ experiences }}
                     >
                       {({ loading, error, data }) => {
                         if (loading) return 'Loading...'
                         if (error) return `Error! ${error.message}`
-                        let experiences = data.getUserFavoriteExperiences
+                        let experiences = data.getExperiencesById
                         return (
                           <ScrollView
                             showsHorizontalScrollIndicator={false}
