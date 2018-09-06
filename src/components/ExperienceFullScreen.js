@@ -4,8 +4,8 @@ import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
 import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
 import Stars from '../components/Stars'
-import { formatLocationObject, formatReviewsCountText } from '../helpers/strings'
-import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
+// import { formatLocationObject, formatReviewsCountText } from '../helpers/strings'
+// import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 const { width, height } = Dimensions.get('window')
 
 const ExperienceFullScreen = props => {
