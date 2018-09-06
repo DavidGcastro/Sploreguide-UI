@@ -21,7 +21,8 @@ let iphoneTop = {
 const { width, height } = Dimensions.get('window')
 
 const ExperienceFullScreen = props => {
-  let {item} = props
+  let {item, nav} = props
+
   return (
     <View>
       <ScrollView
@@ -56,7 +57,7 @@ const ExperienceFullScreen = props => {
 
           <View pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 20}]}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => nav()}>
                 <Feather
                   name={'arrow-left'}
                   size={30}

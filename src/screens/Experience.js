@@ -1,13 +1,14 @@
 import React from 'react'
 import ExperienceFullScreen from '../components/ExperienceFullScreen'
 import experiences from '../experiences'
-let item = experiences[0]
+
 export default class Experience extends React.Component {
   render () {
-    // const item = this.props.navigation.state.params.experience
+    const item = this.props.navigation.state.params.experience
+    const nav = this.props.navigation.goBack
     return (
 
-      <ExperienceFullScreen item={item} />
+      <ExperienceFullScreen item={item} nav={nav} />
     )
   }
 }
