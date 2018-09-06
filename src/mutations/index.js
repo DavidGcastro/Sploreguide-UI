@@ -23,3 +23,12 @@ export const fbLoginMutation = gql`
     }
   }
 `
+
+export const UPDATE_FAVORITES = gql`
+  mutation UpdateFavorites($experienceId: ID!) {
+    updateUserFavorites(experienceId: $experienceId) {
+      _id
+      favorites
+    }
+  }
+`

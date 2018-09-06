@@ -42,8 +42,10 @@ const client = new ApolloClient({
     }),
     authLink.concat(httpLink)
   ]),
-  cache: new InMemoryCache()
-});
+  cache: new InMemoryCache({
+    dataIdFromObject: object => `${object.__typename}__${object._id}`
+  })
+})
 
 export default class App extends Component {
   constructor() {
@@ -52,7 +54,7 @@ export default class App extends Component {
       fontLoaded: false,
       jwt: '',
       loading: true
-    };
+    }
 
     this.loadJWT = deviceStorage.loadJWT.bind(this);
     this.deleteJWT = deviceStorage.deleteJWT.bind(this);
