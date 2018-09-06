@@ -3,26 +3,13 @@ import { Dimensions, View, Text, TouchableOpacity, ScrollView, Image } from 'rea
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
 import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
-import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Stars from '../components/Stars'
 import { formatLocationObject, formatReviewsCountText } from '../helpers/strings'
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
-let iphoneTop = {
-  ...ifIphoneX(
-    {
-      top: 10
-
-    },
-    {
-      top: 10
-    }
-  )
-}
 const { width, height } = Dimensions.get('window')
 
 const ExperienceFullScreen = props => {
   let {item, nav} = props
-
   return (
     <View>
       <ScrollView
