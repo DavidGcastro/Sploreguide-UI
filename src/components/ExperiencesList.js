@@ -42,7 +42,7 @@ const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, c
                           activeOpacity={0.7}
                           key={index}
                           onPress={() =>
-                            navigation.navigate('Experience', { experience })
+                            navigation.navigate('Experience', { experience, previous: navigation.state.routeName  })
                           }>
                     >
                           <PreviewCard

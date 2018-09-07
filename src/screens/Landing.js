@@ -91,11 +91,13 @@ export default class Landing extends Component {
 
   _renderItem = ({ item, index }) => {
     let me = this
+    let isFavorite = favorites.includes(item._id)
     return (
       <TouchableOpacity
         style={{ flex: 1 }}
         activeOpacity={0.75}
-        onPress={() => this.props.navigation.navigate('Experience', { experience: item, previous: 'Landing' })}
+        onPress={() => this.props.navigation.navigate('Experience',
+        { experience: item, previous: 'Landing', isFavorite })}
       >
         <View
           style={{
@@ -145,7 +147,7 @@ export default class Landing extends Component {
                         }}
                       >
                         {
-                          favorites.includes(item._id)
+                          isFavorite
                             ? <Ionicons
                               name={'ios-heart'}
                               size={25}
@@ -264,7 +266,7 @@ export default class Landing extends Component {
         {({ loading, error, data }) => {
           if (loading) return 'Loading...'
           if (error) return `Error! ${error.message}`
-          favorites  = data.currentUser.favorites
+          favorites = data.currentUser.favorites
           return (
             <View style={landingStyles.parent}>
               <View>
