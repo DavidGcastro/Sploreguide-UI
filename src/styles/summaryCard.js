@@ -6,14 +6,14 @@
 */
 
 export const summaryCardStyle = {
-	text : {
-		heading : {
-			fontFamily	:	'SF-UI-Text-Semibold',
-			fontSize	:	18,	
-		},
-		subheading : {
-			fontFamily	:	'SF-UI-Text-Regular',
-			fontSize	:	12
-		}
-	}
+  text: {
+    heading: {
+      fontFamily:	'SF-UI-Text-Semibold',
+      fontSize:	18
+    },
+    subheading: {
+      fontFamily:	'SF-UI-Text-Regular',
+      fontSize:	12
+    }
+  }
 }

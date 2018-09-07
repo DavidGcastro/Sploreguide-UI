@@ -62,34 +62,34 @@ export default class Search extends Component {
           x.activityType
             .toLowerCase()
             .includes(this.state.location.toLowerCase())
-        );
+        )
       })
       .slice(0, 4)
 
 
     return (
       <View style={styles.parent}>
-        {/*SEARCH*/}
+        {/* SEARCH */}
         <View style={styles.firstChild}>
           <Image
-            resizeMode="contain"
+            resizeMode='contain'
             style={styles.searchImage}
             source={require('../assets/img/Search.png')}
           />
           <TextInput
             autoFocus
             onChangeText={value => this.setState({ location: value })}
-            placeholder="Search by City or Activity"
+            placeholder='Search by City or Activity'
             style={styles.input}
             value={this.state.location}
           />
         </View>
-        {/*LOCATIONS*/}
+        {/* LOCATIONS */}
         <View style={styles.divider}>
           <InlineIcon
-            IconTag="EvilIcons"
-            iconName="location"
-            label="Location"
+            IconTag='EvilIcons'
+            iconName='location'
+            label='Location'
           />
           {locations.length > 0 ? (
             locations.map((x, y) => {
@@ -99,7 +99,7 @@ export default class Search extends Component {
                   onPress={() => this.setState({ location: x.location })}>
                   <Location location={x.location} />
                 </TouchableOpacity>
-              );
+              )
             })
           ) : (
             <Text style={defaultStyles.informativeText}>
@@ -107,15 +107,15 @@ export default class Search extends Component {
             </Text>
           )}
         </View>
-        {/*Activities*/}
+        {/* Activities */}
         <View style={styles.divider}>
           <InlineIcon
-            IconTag="FontAwesome"
-            iconName="bolt"
-            label="Activities"
+            IconTag='FontAwesome'
+            iconName='bolt'
+            label='Activities'
           />
           <ScrollView
-            horizontal={true}
+            horizontal
             contentContainerStyle={{
               flexDirection: 'row'
             }}>
@@ -156,8 +156,8 @@ export default class Search extends Component {
         </View>
         <View>
           <InlineIcon
-            IconTag="FontAwesome"
-            iconName="money"
+            IconTag='FontAwesome'
+            iconName='money'
             label={`Price Range: $${x} - $${y}`}
           />
 
@@ -166,7 +166,7 @@ export default class Search extends Component {
               this.setState({
                 priceRangeMax: values[1],
                 priceRangeMin: values[0]
-              });
+              })
             }}
             values={[0, 150]}
             sliderLength={width - 60}
@@ -196,7 +196,7 @@ export default class Search extends Component {
           />
         </View>
         <View style={styles.divider}>
-          <InlineIcon IconTag="EvilIcons" iconName="clock" label="Dates" />
+          <InlineIcon IconTag='EvilIcons' iconName='clock' label='Dates' />
           <CalendarStrip
             dateNameStyle={{
               color: 'rgba(132, 146, 166, 0.5)',
@@ -226,6 +226,6 @@ export default class Search extends Component {
           </TouchableOpacity>
         </View>
       </View>
-    );
+    )
   }
 }

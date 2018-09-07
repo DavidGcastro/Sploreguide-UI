@@ -1,7 +1,7 @@
-import { createStackNavigator } from 'react-navigation';
-import Home from '../screens/Home';
-import Login from '../screens/Login';
-import Signup from '../screens/Signup';
+import { createStackNavigator } from 'react-navigation'
+import Home from '../screens/Home'
+import Login from '../screens/Login'
+import Signup from '../screens/Signup'
 
 const LoginNavigator = createStackNavigator(
   {
@@ -26,5 +26,5 @@ const LoginNavigator = createStackNavigator(
     }
   },
   { initialRoute: Home }
-);
-export default LoginNavigator;
+)
+export default LoginNavigator

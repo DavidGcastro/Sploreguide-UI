@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from 'react-navigation'
-import Temp from '../screens/Temp'
 import Favorites from '../screens/Favorites'
 import Temp3 from '../screens/Temp3'
 import Temp4 from '../screens/Temp4'

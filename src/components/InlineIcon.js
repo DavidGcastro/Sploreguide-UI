@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from 'react'
+import { View, Text } from 'react-native'
 import {
   EvilIcons,
   Feather,
@@ -7,12 +7,12 @@ import {
   Ionicons,
   FontAwesome,
   SimpleLineIcons
-} from '@expo/vector-icons';
+} from '@expo/vector-icons'
 
 const InlineIcon = props => {
-  //Dynamically generates Icons
-  let { IconTag } = props;
-  let Component = '';
+  // Dynamically generates Icons
+  let { IconTag } = props
+  let Component = ''
   if (IconTag === 'Feather') {
     Component = (
       <Feather
@@ -23,7 +23,7 @@ const InlineIcon = props => {
           color: 'rgba(132, 146, 166, 1)'
         }}
       />
-    );
+    )
   } else if (IconTag === 'MaterialCommunityIcons') {
     Component = (
       <MaterialCommunityIcons
@@ -31,7 +31,7 @@ const InlineIcon = props => {
         name={props.iconName}
         style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'Ionicons') {
     Component = (
       <Ionicons
@@ -39,7 +39,7 @@ const InlineIcon = props => {
         name={props.iconName}
         style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'FontAwesome') {
     Component = (
       <FontAwesome
@@ -47,7 +47,7 @@ const InlineIcon = props => {
         name={props.iconName}
         style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'SimpleLineIcons') {
     Component = (
       <SimpleLineIcons
@@ -55,7 +55,7 @@ const InlineIcon = props => {
         name={props.iconName}
         style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'EvilIcons') {
     Component = (
       <EvilIcons
@@ -63,14 +63,14 @@ const InlineIcon = props => {
         name={props.iconName}
         style={{ paddingRight: 3, color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   }
   return (
     <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginBottom: 10 }}>
       {Component}
       <Text style={{color: 'rgba(132, 146, 166, 1)', fontSize: 13}}> {props.label} </Text>
     </View>
-  );
-};
+  )
+}
 
-export default InlineIcon;
+export default InlineIcon

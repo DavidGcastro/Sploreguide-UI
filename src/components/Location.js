@@ -1,6 +1,6 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import styles from '../styles/location';
+import React from 'react'
+import { Text, View } from 'react-native'
+import styles from '../styles/location'
 
 const Location = props => {
   return (
@@ -9,7 +9,7 @@ const Location = props => {
         {props.location}
       </Text>
     </View>
-  );
-};
+  )
+}
 
-export default Location;
+export default Location

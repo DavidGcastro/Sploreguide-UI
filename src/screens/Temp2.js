@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const Temp3 = () => {
+const Temp2 = () => {
   return (
     <View
       style={{
@@ -10,9 +10,9 @@ const Temp3 = () => {
         alignContent: 'center',
         alignItems: 'center'
       }}>
-      <Text> Temp 3</Text>
+      <Text> Temp 2 </Text>
     </View>
   )
 }
 
-export default Temp3
+export default Temp2

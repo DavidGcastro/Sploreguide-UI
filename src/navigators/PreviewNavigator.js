@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation'
 import PreviewScreen from '../screens/PreviewScreen'
-import ExperienceScreen from '../screens/ExperienceScreen'
+import Experience from '../screens/Experience'
 
 const PreviewNavigator = createStackNavigator(
   {
@@ -11,7 +11,7 @@ const PreviewNavigator = createStackNavigator(
       }
     },
     Experience: {
-      screen: ExperienceScreen,
+      screen: Experience,
       navigationOptions: {
         header: null
       }

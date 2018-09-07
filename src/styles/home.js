@@ -1,5 +1,5 @@
-import { Dimensions } from 'react-native';
-const { height } = Dimensions.get('window');
+import { Dimensions } from 'react-native'
+const { height } = Dimensions.get('window')
 const styles = {
   image: {
     width: '100%',
@@ -16,7 +16,7 @@ const styles = {
     flex: 1,
     alignContent: 'center',
     alignItems: 'center',
-    //CHANGE AS NEEDED
+    // CHANGE AS NEEDED
     flexDirection: 'row',
     marginBottom: height / 2,
     justifyContent: 'center'
@@ -26,7 +26,7 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    //CHANGE AS NEEDED
+    // CHANGE AS NEEDED
     marginBottom: 30
   },
   title: {
@@ -46,6 +46,6 @@ const styles = {
   socialIcons: {
     width: 29
   }
-};
+}
 
-export default styles;
+export default styles

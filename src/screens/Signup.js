@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   ImageBackground,
   View,
@@ -11,26 +11,25 @@ import {
   Animated,
   Keyboard
 } from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from 'react-native-datepicker'
 
-import { LinearGradient, AppLoading } from 'expo';
-import moment from 'moment';
+import { LinearGradient, AppLoading } from 'expo'
+import moment from 'moment'
 import Hr from '../components/Hr';
-import GradientButton from '../components/GradientButton';
-import styles from '../styles/login';
-import formStyles from '../styles/formStyles';
-import GoBack from '../components/GoBack';
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
-import { ifIphoneX } from 'react-native-iphone-x-helper';
-import { graphql, compose } from 'react-apollo';
-import { fbLogin } from './Login';
-import { signupMutation, fbLoginMutation } from '../mutations';
-import { handleFBLogin } from '../services/facebook';
-import deviceStorage from '../services/deviceStorage';
-import { validateEmail } from '../helpers/validators';
-import { makeFirstLetterUpperCase } from '../helpers/strings';
-import SelectInput from 'react-native-select-input-ios';
-
+import GradientButton from '../components/GradientButton'
+import styles from '../styles/login'
+import formStyles from '../styles/formStyles'
+import GoBack from '../components/GoBack'
+import { Ionicons, FontAwesome } from '@expo/vector-icons'
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { graphql, compose } from 'react-apollo'
+import { fbLogin } from './Login'
+import { signupMutation, fbLoginMutation } from '../mutations'
+import { handleFBLogin } from '../services/facebook'
+import deviceStorage from '../services/deviceStorage'
+import { validateEmail } from '../helpers/validators'
+import { makeFirstLetterUpperCase } from '../helpers/strings'
+import SelectInput from 'react-native-select-input-ios'
 import {
   ASYNC_JWT_KEY,
   FNAME_ERROR_MISSING,
@@ -92,7 +91,7 @@ class Signup extends React.Component {
     this.button = new Animated.Value(0);
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.keyboardWillShowSub = Keyboard.addListener(
       'keyboardWillShow',
       this.keyboardWillShow
@@ -178,7 +177,7 @@ class Signup extends React.Component {
     ]).start();
   };
 
-  focusTextInput(inputToFocus) {
+  focusTextInput = (inputToFocus) => {
     inputToFocus.current.focus(inputToFocus);
   }
 
@@ -238,13 +237,13 @@ class Signup extends React.Component {
       });
   };
 
-  getPickerOptions() {
+  getPickerOptions () {
     return [
       { value: 'male', label: 'Male' },
       { value: 'female', label: 'Female' }
     ];
   }
-  render() {
+  render () {
     let { loading, sex, dob, error } = this.state;
 
     if (loading) return <AppLoading />;

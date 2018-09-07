@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { View, TextInput, Image, Dimensions } from 'react-native';
-let { width } = Dimensions.get('window');
+import React, { Component } from 'react'
+import { View, TextInput, Image, Dimensions } from 'react-native'
+let { width } = Dimensions.get('window')
 
 const styles = {
   container: {
@@ -21,41 +21,41 @@ const styles = {
     height: 30,
     tintColor: '#9b9b9b'
   }
-};
+}
 
 export default class MainSearch extends Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       search: 'New York, New York'
-    };
+    }
   }
-  componentDidMount() {
-    this.setState({ search: this.props.search });
+  componentDidMount () {
+    this.setState({ search: this.props.search })
   }
 
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Image
           style={styles.searchImage}
-          resizeMode="contain"
+          resizeMode='contain'
           source={require('../assets/img/Search.png')}
         />
         <TextInput
           onChangeText={search => this.setState({ search })}
           onEndEditing={() => {
-            let search = this.state.search;
-            this.props.props.navigation.navigate('Search', { search });
+            let search = this.state.search
+            this.props.props.navigation.navigate('Search', { search })
           }}
           style={{
             fontSize: 20,
             fontWeight: '500',
             paddingLeft: 10
           }}
-          placeholder="Search by City or Activity"
+          placeholder='Search by City or Activity'
         />
       </View>
-    );
+    )
   }
 }

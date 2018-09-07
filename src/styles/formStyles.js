@@ -18,13 +18,13 @@ let formStyles = {
     alignItems: 'center',
     borderBottomWidth: 1,
     paddingBottom: 5,
-    borderBottomColor: 'rgba(237, 237, 237, 1)',
-    
+    borderBottomColor: 'rgba(237, 237, 237, 1)'
+
   },
   iconStyles: {
     paddingRight: 10,
     color: 'rgba(132, 146, 166, 1)'
   }
-};
+}
 
-export default formStyles;
+export default formStyles

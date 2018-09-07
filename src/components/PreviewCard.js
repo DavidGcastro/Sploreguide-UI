@@ -10,6 +10,7 @@ import { UPDATE_FAVORITES } from '../mutations'
 
 import Stars from '../components/Stars'
 
+<<<<<<< HEAD
 class PreviewCard extends Component {
   render () {
     let { experience, isFavorite, confirm } = this.props
@@ -77,7 +78,7 @@ class PreviewCard extends Component {
                   }
                 </Mutation>
               </View>
-              <Text style={[landingStyles.activityType, { fontSize: 12 }]}>
+              <Text style={[landingStyles.activityType, { fontSize: 10, paddingHorizontal: 5 }]}>
                 {experience.activityType.toUpperCase()}
               </Text>
             </View>

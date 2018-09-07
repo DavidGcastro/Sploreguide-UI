@@ -1,5 +1,5 @@
-import React from 'react';
-import { LinearGradient } from 'expo';
+import React from 'react'
+import { LinearGradient } from 'expo'
 
 const LinearGradientBorder = props => {
   return (
@@ -14,7 +14,7 @@ const LinearGradientBorder = props => {
       >
       {props.children}
     </LinearGradient>
-  );
-};
+  )
+}
 
-export default LinearGradientBorder;
+export default LinearGradientBorder

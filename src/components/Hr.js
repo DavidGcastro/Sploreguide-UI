@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import React from 'react'
+import { View, Text, Dimensions } from 'react-native'
 
-let { width } = Dimensions.get('window');
+let { width } = Dimensions.get('window')
 
 const Hr = props => {
   return (
@@ -16,7 +16,7 @@ const Hr = props => {
         style={{
           borderWidth: 0.75,
           borderColor: 'rgba(237, 237, 237, 1)',
-          /*CHANGE AS NEEDED*/
+          /* CHANGE AS NEEDED */
           width: width / 2 - 60
         }}
       />
@@ -33,12 +33,12 @@ const Hr = props => {
         style={{
           borderWidth: 0.75,
           borderColor: 'rgba(237, 237, 237, 1)',
-          /*CHANGE AS NEEDED*/
+          /* CHANGE AS NEEDED */
           width: width / 2 - 60
         }}
       />
     </View>
-  );
-};
+  )
+}
 
-export default Hr;
+export default Hr

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Text,
   ImageBackground,
@@ -6,10 +6,10 @@ import {
   Image,
   SafeAreaView,
   TouchableHighlight
-} from 'react-native';
-import { LinearGradient } from 'expo';
-import styles from '../styles/home';
-import buttonStyles from '../styles/buttons';
+} from 'react-native'
+import { LinearGradient } from 'expo'
+import styles from '../styles/home'
+import buttonStyles from '../styles/buttons'
 
 const Home = props => {
   return (
@@ -21,7 +21,7 @@ const Home = props => {
         style={{ flex: 1 }}
         colors={['rgba(48, 35, 174, 0.75)', 'rgba(83, 160, 253, 0.5)']}
         start={[0, 0]}>
-        {/* OUTER*/}
+        {/* OUTER */}
         <View
           style={{
             flex: 1,
@@ -30,12 +30,12 @@ const Home = props => {
           {/* top child */}
           <View style={styles.topChild}>
             <Image
-              resizeMode="contain"
+              resizeMode='contain'
               style={styles.logo}
               source={require('../assets/img/logo-large.png')}
             />
             <Image
-              resizeMode="contain"
+              resizeMode='contain'
               style={{
                 width: 201,
                 height: 40
@@ -43,17 +43,17 @@ const Home = props => {
               source={require('../assets/img/main-logo.png')}
             />
           </View>
-          {/* bottom child*/}
+          {/* bottom child */}
           <SafeAreaView style={{ flexDirection: 'row' }}>
             <SafeAreaView style={styles.bottomChild}>
               <TouchableHighlight
-                underlayColor="white"
+                underlayColor='white'
                 onPress={() => handleLogin(props)}
                 style={buttonStyles.transparentButton}>
                 <Text style={buttonStyles.transparentButtonText}>LOGIN</Text>
               </TouchableHighlight>
               <TouchableHighlight
-                underlayColor="white"
+                underlayColor='white'
                 onPress={() => handleSignup(props)}
                 style={buttonStyles.transparentButton}>
                 <Text style={buttonStyles.transparentButtonText}>SIGN UP</Text>
@@ -63,16 +63,16 @@ const Home = props => {
         </View>
       </LinearGradient>
     </ImageBackground>
-  );
-};
+  )
+}
 
 const handleLogin = props => {
-  let navigate = props.navigation.navigate;
-  navigate('Login');
-};
+  let navigate = props.navigation.navigate
+  navigate('Login')
+}
 const handleSignup = props => {
-  let navigate = props.navigation.navigate;
-  navigate('Signup');
-};
+  let navigate = props.navigation.navigate
+  navigate('Signup')
+}
 
-export default Home;
+export default Home

@@ -1,6 +1,6 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import styles from '../styles/activityCard';
+import { View, Text } from 'react-native'
+import React from 'react'
+import styles from '../styles/activityCard'
 import {
   EvilIcons,
   Feather,
@@ -8,12 +8,12 @@ import {
   Ionicons,
   FontAwesome,
   SimpleLineIcons
-} from '@expo/vector-icons';
+} from '@expo/vector-icons'
 
 const ActivityCard = props => {
-  //Dynamically generates Icons
-  let { IconTag } = props;
-  let Component = '';
+  // Dynamically generates Icons
+  let { IconTag } = props
+  let Component = ''
   if (IconTag === 'Feather') {
     Component = (
       <Feather
@@ -23,7 +23,7 @@ const ActivityCard = props => {
           color: 'rgba(132, 146, 166, 1)'
         }}
       />
-    );
+    )
   } else if (IconTag === 'MaterialCommunityIcons') {
     Component = (
       <MaterialCommunityIcons
@@ -31,7 +31,7 @@ const ActivityCard = props => {
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'Ionicons') {
     Component = (
       <Ionicons
@@ -39,7 +39,7 @@ const ActivityCard = props => {
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'FontAwesome') {
     Component = (
       <FontAwesome
@@ -47,7 +47,7 @@ const ActivityCard = props => {
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'SimpleLineIcons') {
     Component = (
       <SimpleLineIcons
@@ -55,7 +55,7 @@ const ActivityCard = props => {
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   } else if (IconTag === 'EvilIcons') {
     Component = (
       <EvilIcons
@@ -63,7 +63,7 @@ const ActivityCard = props => {
         name={props.iconName}
         style={{ color: 'rgba(132, 146, 166, 1)' }}
       />
-    );
+    )
   }
   return (
     <View style={styles}>
@@ -76,7 +76,7 @@ const ActivityCard = props => {
         {props.label}
       </Text>
     </View>
-  );
-};
+  )
+}
 
-export default ActivityCard;
+export default ActivityCard

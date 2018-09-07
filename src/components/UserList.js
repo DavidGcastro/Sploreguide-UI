@@ -1,227 +1,193 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
+// import React, { Component } from 'react'
+// import {
+//   StyleSheet,
+//   Text,
+//   View,
+//   ListView,
+//   Dimensions,
+//   Animated
+// } from 'react-native'
+// import PaginationList from './PaginationList'
+// import PropTypes from 'prop-types'
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  ListView,
-  TouchableOpacity,
-  AlertIndicatorIOS,
-  ActivityIndicatorIOS,
-  AlertIOS,
-  ScrollView,
-  Image,
-  Dimensions,
-  Animated
-} from 'react-native';
-import PaginationList from './PaginationList';
-import PropTypes from 'prop-types';
+// const { width, height } = Dimensions.get('window')
 
-const { width, height } = Dimensions.get('window');
+// export default class UserList extends Component {
+//   static defaultProps = {
+//     scrollRangeForAnimation: 200,
+//     _scrollView: null
+//   }
 
-export default class UserList extends Component {
-  state = {
-    scrollY: new Animated.Value(0)
-  };
+//   animationRange = this.state.scrollY.interpolate({
+//     inputRange: [0, this.props.scrollRangeForAnimation],
+//     outputRange: [0, 1],
+//     extrapolate: 'clamp'
+//   })
 
-  // static propTypes = {
-  // 	animationRange	:	PropTypes.object.isRequired,
-  // 	// experience		:	PropTypes.object.isRequired
-  // };
+//   animateHeader = {
+//     transform: [
+//       {
+//         translateY: this.animationRange.interpolate({
+//           inputRange: [0, 1],
+//           outputRange: [0, -300]
+//         })
+//       }
+//     ]
+//   }
 
-  static defaultProps = {
-    scrollRangeForAnimation: 200,
-    _scrollView: null
-  };
+//   onScrollEndSnapToEdge = event => {
+//     const y = event.nativeEvent.contentOffset.y
+//     if (0 < y && y < this.props.scrollRangeForAnimation / 2) {
+//       if (this.props._scrollView) {
+//         this.props._scrollView.scrollTo({ y: 0 })
+//       }
+//     } else if (
+//       this.props.scrollRangeForAnimation / 2 <= y &&
+//       y < this.props.scrollRangeForAnimation
+//     ) {
+//       if (this.props._scrollView) {
+//         this.props._scrollView.scrollTo({
+//           y: this.props.scrollRangeForAnimation
+//         })
+//       }
+//     }
+//   }
 
-  animationRange = this.state.scrollY.interpolate({
-    inputRange: [0, this.props.scrollRangeForAnimation],
-    outputRange: [0, 1],
-    extrapolate: 'clamp'
-  });
+//   constructor(props) {
+//     super(props)
 
-  animateHeader = {
-    transform: [
-      {
-        translateY: this.animationRange.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, -300]
-        })
-      }
-    ]
-  };
+//     const getSectionData = (dataBlob, sectionId) => dataBlob[sectionId]
+//     const getRowData = (dataBlob, sectionId, rowId) => dataBlob[`${rowId}`]
 
-  onScrollEndSnapToEdge = event => {
-    const y = event.nativeEvent.contentOffset.y;
-    if (0 < y && y < this.props.scrollRangeForAnimation / 2) {
-      if (this.props._scrollView) {
-        this.props._scrollView.scrollTo({ y: 0 });
-      }
-    } else if (
-      this.props.scrollRangeForAnimation / 2 <= y &&
-      y < this.props.scrollRangeForAnimation
-    ) {
-      if (this.props._scrollView) {
-        this.props._scrollView.scrollTo({
-          y: this.props.scrollRangeForAnimation
-        });
-      }
-    }
-  };
+//     const ds = new ListView.DataSource({
+//       rowHasChanged: (r1, r2) => r1 !== r2,
+//       sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+//       getSectionData,
+//       getRowData
+//     })
 
-  constructor(props) {
-    super(props);
+//     const { dataBlob, sectionIds, rowIds } = this.getData()
+//     this.state = {
+//       dataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds)
+//     }
+//   }
 
-    const getSectionData = (dataBlob, sectionId) => dataBlob[sectionId];
-    const getRowData = (dataBlob, sectionId, rowId) => dataBlob[`${rowId}`];
+//   getData() {
+//     const dataBlob = {}
+//     const sectionIds = [0, 1]
+//     const rowIds = []
+//     dataBlob[sectionIds[0]] = { animationRange: this.animationRange, id: 0 }
+//     dataBlob[sectionIds[1]] = { animationRange: this.animationRange, id: 1 }
 
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-      getSectionData,
-      getRowData
-    });
+//     rowIds.push([])
 
-    const { dataBlob, sectionIds, rowIds } = this.getData();
-    this.state = {
-      dataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds)
-    };
-  }
+//     for (let i = 0; i < 1; i++) {
+//       const rowId = `${sectionIds[0]}:${i}`
+//       rowIds[rowIds.length - 1].push(rowId)
+//       dataBlob[rowId] = { row: i }
+//     }
+//     rowIds.push([])
 
-  getData() {
-    const dataBlob = {};
-    const sectionIds = [0, 1];
-    const rowIds = [];
-    dataBlob[sectionIds[0]] = { animationRange: this.animationRange, id: 0 };
-    dataBlob[sectionIds[1]] = { animationRange: this.animationRange, id: 1 };
+//     for (let i = 0; i < 20; i++) {
+//       const rowId = `${sectionIds[1]}:${i}`
+//       rowIds[rowIds.length - 1].push(rowId)
+//       dataBlob[rowId] = { row: i }
+//     }
 
-    rowIds.push([]);
+//     return { dataBlob, sectionIds, rowIds }
+//   }
 
-    for (let i = 0; i < 1; i++) {
-      const rowId = `${sectionIds[0]}:${i}`;
-      rowIds[rowIds.length - 1].push(rowId);
-      dataBlob[rowId] = { row: i };
-    }
-    rowIds.push([]);
+//   render() {
+//     return (
+//       // <Animated.View style={[stylesSection.container, this.animateHeader]}>
 
-    for (let i = 0; i < 20; i++) {
-      const rowId = `${sectionIds[1]}:${i}`;
-      rowIds[rowIds.length - 1].push(rowId);
-      dataBlob[rowId] = { row: i };
-    }
+//       <ListView
+//         ref={scrollView => {
+//           this.props._scrollView = scrollView ? scrollView._component : null
+//         }}
+//         scrollEventThrottle={16}
+//         onScrollEndDrag={this.onScrollEndSnapToEdge}
+//         onMomentumScrollEnd={this.onScrollEndSnapToEdge}
+//         onScroll={event => {
+//           this.state.scrollY = event.nativeEvent.contentOffset.y
+//         }}
+//         style={stylesSection.container}
+//         dataSource={this.state.dataSource}
+//         renderRow={data => <Row {...data} />}
+//         renderSeparator={(sectionId, rowId) => (
+//           <View key={rowId} style={stylesSection.separator} />
+//         )}
+//         renderSectionHeader={sectionData => <SectionHeader {...sectionData} />}
+//       />
+//     )
+//   }
+// }
 
-    return { dataBlob, sectionIds, rowIds };
-  }
+// const stylesSection = StyleSheet.create({
+//   center: {
+//     alignItems: 'center',
+//     justifyContent: 'center'
+//   },
+//   container: {
+//     flex: 1,
+//     zIndex: 1
+//   },
+//   text: {
+//     fontSize: 13
+//   },
+//   separator: {
+//     flex: 1,
+//     height: StyleSheet.hairlineWidth,
+//     backgroundColor: '#8E8E8E'
+//   }
+// })
 
-  render() {
-    return (
-      // <Animated.View style={[stylesSection.container, this.animateHeader]}>
+// const SectionHeader = props => {
+//   const { animationRange, id } = props
 
-      <ListView
-        ref={scrollView => {
-          this.props._scrollView = scrollView ? scrollView._component : null;
-        }}
-        scrollEventThrottle={16}
-        onScrollEndDrag={this.onScrollEndSnapToEdge}
-        onMomentumScrollEnd={this.onScrollEndSnapToEdge}
-        onScroll={event => {
-          this.state.scrollY = event.nativeEvent.contentOffset.y;
-          // Animated.event(
-          //     [
-          //         {
-          //             nativeEvent: {contentOffset: {y: this.state.scrollY}},
-          //         },
-          //     ],
-          //     {
-          //         useNativeDriver: true,
-          //     }
-          // )
-        }}
-        style={stylesSection.container}
-        dataSource={this.state.dataSource}
-        renderRow={data => <Row {...data} />}
-        renderSeparator={(sectionId, rowId) => (
-          <View key={rowId} style={stylesSection.separator} />
-        )}
-        // renderHeader={() => <Header />}
-        // renderFooter={() => <Footer />}
-        renderSectionHeader={sectionData => <SectionHeader {...sectionData} />}
-      />
-      // </Animated.View>
-    );
-  }
-}
+//   if (id == 0) {
+//     return (
+//       <View style={[stylesSection.container, { height: height }]}>
+//         <PaginationList
+//           animationRange={animationRange}
+//           max={height - 400}
+//           min={height / 3}
+//         />
+//       </View>
+//     )
+//   } else {
+//     return (
+//       <View style={[stylesSection.container, { height: height / 2 }]}>
+//         <PaginationList
+//           animationRange={animationRange}
+//           max={height - 400}
+//           min={height / 3}
+//         />
+//       </View>
+//     )
+//   }
+// }
 
-const stylesSection = StyleSheet.create({
-  center: {
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  container: {
-    flex: 1,
-    zIndex: 1
-  },
-  text: {
-    fontSize: 13
-  },
-  separator: {
-    flex: 1,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: '#8E8E8E'
-  }
-});
+// const stylesRow = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 12,
+//     flexDirection: 'row',
+//     alignItems: 'center'
+//   },
+//   text: {
+//     marginLeft: 12,
+//     fontSize: 16
+//   },
+//   photo: {
+//     height: 40,
+//     width: 40,
+//     borderRadius: 20
+//   }
+// })
 
-const SectionHeader = props => {
-  const { animationRange, id } = props;
-
-  if (id == 0) {
-    return (
-      <View style={[stylesSection.container, { height: height }]}>
-        <PaginationList
-          animationRange={animationRange}
-          max={height - 400}
-          min={height / 3}
-        />
-      </View>
-    );
-  } else {
-    return (
-      <View style={[stylesSection.container, { height: height / 2 }]}>
-        <PaginationList
-          animationRange={animationRange}
-          max={height - 400}
-          min={height / 3}
-        />
-      </View>
-    );
-  }
-};
-
-const stylesRow = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 12,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  text: {
-    marginLeft: 12,
-    fontSize: 16
-  },
-  photo: {
-    height: 40,
-    width: 40,
-    borderRadius: 20
-  }
-});
-
-const Row = props => (
-  <View style={stylesRow.container}>
-    <Text style={stylesRow.text}>{`${props.row}`}</Text>
-  </View>
-);
+// const Row = props => (
+//   <View style={stylesRow.container}>
+//     <Text style={stylesRow.text}>{`${props.row}`}</Text>
+//   </View>
+// )

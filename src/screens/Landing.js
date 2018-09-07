@@ -92,7 +92,7 @@ export default class Landing extends Component {
   _renderItem = ({ item, index }) => {
     let me = this
     return (
-      <TouchableOpacity style={{ flex: 1 }} activeOpacity={0.75}>
+      <TouchableOpacity style={{ flex: 1 }} activeOpacity={0.75} onPress={() => this.props.navigation.navigate('Experience', { experience: item })}>
         <View
           style={{
             flex: 1,
