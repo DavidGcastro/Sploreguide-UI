@@ -2,28 +2,37 @@ import React from 'react'
 import { Query } from 'react-apollo'
 import { ScrollView, View, TouchableOpacity, Text } from 'react-native'
 import PreviewCard from './PreviewCard'
+import GoBack from '../components/GoBack'
 import landingStyles from '../styles/landingStyles'
 
-const ExperiencesList = ({ innerQuery, confirm, experienceIds, navigation, blank }) => {
+const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, confirm, favoriteIds, navigation, blank }) => {
   return (
     <View style={{ flex: 1 }}>
-      <Text style={[landingStyles.TopText, { marginBottom: 30, left: 20, top: 20 }]}>Favorites</Text>
+      { (backButton)
+        ? <View style={{flexDirection: 'row', alignItems: 'baseline', alignContent: 'center', justifyContent: 'space-between', marginTop: 28, marginHorizontal: 20, marginBottom: 15}}>
+          <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
+            <GoBack />
+          </TouchableOpacity>
+          <Text style={landingStyles.TopText}>{title}</Text>
+        </View>
+        : <Text style={[landingStyles.TopText, { marginBottom: 30, left: 20, top: 20 }]}>{title}</Text>
+      }
       <View
         style={{
           alignItems: 'center',
           flex: 1
         }}>
         {
-          (experienceIds)
+          (favoriteIds || backButton)
             ? (
               <Query
                 query={innerQuery}
-                variables={{ experiences: experienceIds }}
+                variables={variables}
               >
                 {({ loading, error, data }) => {
                   if (loading) return 'Loading...'
                   if (error) return `Error! ${error.message}`
-                  let experiences = data.getExperiencesById
+                  let experiences = data[dataName]
                   return (
                     <ScrollView
                       showsHorizontalScrollIndicator={false}
@@ -32,13 +41,13 @@ const ExperiencesList = ({ innerQuery, confirm, experienceIds, navigation, blank
                         <TouchableOpacity
                           activeOpacity={0.7}
                           key={index}
-                          onPress={experience =>
+                          onPress={() =>
                             navigation.navigate('Experience', { experience })
                           }>
                     >
                           <PreviewCard
                             experience={experience}
-                            isFavorite={experienceIds.includes(experience._id)}
+                            isFavorite={favoriteIds.includes(experience._id)}
                             confirm={confirm} />
                         </TouchableOpacity>
                       ))}
@@ -47,7 +56,7 @@ const ExperiencesList = ({ innerQuery, confirm, experienceIds, navigation, blank
                 }}
               </Query>)
             : (<View >
-              <Text>{blank}}</Text>
+              <Text>{blank}</Text>
             </View>)
         }
       </View>

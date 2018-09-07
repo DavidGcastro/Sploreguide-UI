@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 const HIGHEST_RATED = gql`
 {
-  getExperiences(category: "Highest Rated") {
+  getExperiences(input: {category: "Highest Rated", limit: 5}) {
     _id
     title
     location {
@@ -30,7 +30,8 @@ const HIGHEST_RATED = gql`
 
 const TOP_TRENDING = gql`
 {
-  getExperiences(category: "Top Trending") {
+  getExperiences(input: {category: "Top Trending", limit: 5}) {
+
     _id
     title
     location {
@@ -58,7 +59,7 @@ const TOP_TRENDING = gql`
 
 const WEEKEND_PICKS = gql`
 {
-  getExperiences(category: "Weekend Picks") {
+  getExperiences(input: {category: "Weekend Picks", limit: 5}) {
     _id
     title
     location {
@@ -86,7 +87,7 @@ const WEEKEND_PICKS = gql`
 
 const BEST_VALUE = gql`
 {
-  getExperiences(category: "Best Value") {
+  getExperiences(input: {category: "Best Value", limit: 5}) {
     _id
     title
     location {
@@ -114,7 +115,7 @@ const BEST_VALUE = gql`
 
 const MOST_VIEWED = gql`
 {
-  getExperiences(category: "Most Viewed") {
+  getExperiences(input: {category: "Most Viewed", limit: 5}) {
     _id
     title
     location {

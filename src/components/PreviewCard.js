@@ -10,7 +10,6 @@ import { UPDATE_FAVORITES } from '../mutations'
 
 import Stars from '../components/Stars'
 
-<<<<<<< HEAD
 class PreviewCard extends Component {
   render () {
     let { experience, isFavorite, confirm } = this.props
@@ -56,7 +55,7 @@ class PreviewCard extends Component {
                             ],
                             { cancelable: false }
                           )
-                          : console.log('change color')
+                          : updateUserFavorites({ variables: { experienceId: experience._id } })
                       }
                       }
                     >

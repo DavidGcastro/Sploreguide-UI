@@ -9,7 +9,7 @@ import { formatLocationObject, formatReviewsCountText } from '../helpers/strings
 const { width, height } = Dimensions.get('window')
 
 const ExperienceFullScreen = props => {
-  let {item, nav} = props
+  let {item, nav, previous} = props
   return (
     <View>
       <ScrollView
@@ -23,11 +23,8 @@ const ExperienceFullScreen = props => {
         bounces={false}
         style={{width, height}}
         horizontal pagingEnabled >
-        <Image source={item.media} style={{ height, width }} />
-        <Image source={item.images[0]} style={{ height, width }} />
-        <Image source={item.images[1]} style={{ height, width }} />
-        <Image source={item.images[2]} style={{ height, width }} />
-        <Image source={item.images[3]} style={{ height, width }} />
+        {item.media.map((media, index) => <Image key={index} source={{uri: media}} style={{ height, width }} />)}
+
       </ScrollView>
 
       <LinearGradient
@@ -44,7 +41,7 @@ const ExperienceFullScreen = props => {
 
           <View pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 20}]}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <TouchableOpacity onPress={() => nav()}>
+              <TouchableOpacity onPress={() => (previous) ? nav.navigate(previous) : nav.goBack()}>
                 <Feather
                   name={'arrow-left'}
                   size={30}
@@ -94,7 +91,7 @@ const ExperienceFullScreen = props => {
               </View>
               {/********************************************************/}
               <View>
-                <Text style={landingStyles.location}>{item.location}</Text>
+                <Text style={landingStyles.location}>{formatLocationObject(item.location)}</Text>
                 <Text style={[landingStyles.title, {paddingBottom: 0}]}>{item.title}</Text>
               </View>
               {/********************************************************/}
@@ -132,15 +129,12 @@ const ExperienceFullScreen = props => {
               </View>
               {/********************************************************/}
               <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-                <View style={{height: 0.5, width: 55, backgroundColor: 'white'}} />
-                <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
+                {item.media.map((_, index) =>
+                  <View key={index} style={{height: 0.5, width: 55 * (5 / item.media.length), backgroundColor: 'white'}} />)}
               </View>
               {/********************************************************/}
-              <Text style={{color: 'white'}}>Free Shots, and Entry Included.</Text>
-              <Text style={{ color: 'white' }}>{item.description}</Text>
+              <Text style={{color: 'white'}}>{item.included}</Text>
+              <Text style={{ color: 'white' }}>{item.overview}</Text>
             </View>
           </View>
         </View>

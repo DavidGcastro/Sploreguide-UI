@@ -70,7 +70,7 @@ export default class Landing extends Component {
 
   state = {
     search: 'Search By City or Activity',
-    category: categories[0][0],
+    category: categories[0],
     fromTop: 0,
   }
 
@@ -85,14 +85,18 @@ export default class Landing extends Component {
         : Math.ceil(top / cardHeight.scrollViewInterval)
 
     return this.setState({
-      category: categories[index][0]
+      category: categories[index]
     })
   }
 
   _renderItem = ({ item, index }) => {
     let me = this
     return (
-      <TouchableOpacity style={{ flex: 1 }} activeOpacity={0.75} onPress={() => this.props.navigation.navigate('Experience', { experience: item })}>
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        activeOpacity={0.75}
+        onPress={() => this.props.navigation.navigate('Experience', { experience: item, previous: 'Landing' })}
+      >
         <View
           style={{
             flex: 1,
@@ -281,11 +285,11 @@ export default class Landing extends Component {
               />
               </View>
               <View style={landingStyles.wrapper}>
-                <Text style={landingStyles.TopText}>{this.state.category}</Text>
+                <Text style={landingStyles.TopText}>{this.state.category[0]}</Text>
                 <TouchableOpacity
                   style={landingStyles.viewAll}
                   onPress={() =>
-                    this.props.navigation.navigate('Preview', {
+                    this.props.navigation.navigate('ViewAll', {
                       category: this.state.category
                     })
                   }>
@@ -320,7 +324,7 @@ export default class Landing extends Component {
                         {({loading, error, data}) => {
                           if (loading) return 'Loading...'
                           if (error) return `Error! ${error.message}`
-                          let exps = data.getExperiences.slice(0, 5)
+                          let exps = data.getExperiences
                           return (
                             <Carousel
                               data={exps}

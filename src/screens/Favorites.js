@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import { ScrollView, View, TouchableOpacity, Text } from 'react-native'
-import PreviewCard from '../components/PreviewCard'
 import ExperiencesList from '../components/ExperiencesList'
-import landingStyles from '../styles/landingStyles'
 import { CURRENT_USER, GET_EXPERIENCES_BY_ID } from '../queries'
 
 class Favorites extends Component {
@@ -13,11 +10,16 @@ class Favorites extends Component {
         {({ loading, error, data }) => {
           if (loading) return 'Loading...'
           if (error) return `Error! ${error.message}`
-          let experienceIds = data.currentUser.favorites
+          let favoriteIds = data.currentUser.favorites
           return (<ExperiencesList
             innerQuery={GET_EXPERIENCES_BY_ID}
-            confirm={true}
-            experienceIds={experienceIds}
+            navigation={this.props.navigation}
+            backButton={false}
+            confirm
+            title={'Favorites'}
+            dataName={'getExperiencesById'}
+            favoriteIds={favoriteIds}
+            variables={{ experiences: favoriteIds }}
             blank={'Explore experiences and add a favorite.'} />)
         }}
       </Query>

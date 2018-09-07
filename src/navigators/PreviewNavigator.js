@@ -1,11 +1,11 @@
 import { createStackNavigator } from 'react-navigation'
-import PreviewScreen from '../screens/PreviewScreen'
+import ViewAll from '../screens/ViewAll'
 import Experience from '../screens/Experience'
 
 const PreviewNavigator = createStackNavigator(
   {
-    Preview: {
-      screen: PreviewScreen,
+    ViewAll: {
+      screen: ViewAll,
       navigationOptions: {
         header: null
       }
@@ -17,7 +17,7 @@ const PreviewNavigator = createStackNavigator(
       }
     }
   },
-  { initialRouteName: 'Preview' }
+  { initialRouteName: 'ViewAll' }
 )
 
 export default PreviewNavigator
