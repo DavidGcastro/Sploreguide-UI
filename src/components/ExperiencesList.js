@@ -4,7 +4,8 @@ import { ScrollView, View, TouchableOpacity, Text } from 'react-native'
 import PreviewCard from './PreviewCard'
 import GoBack from '../components/GoBack'
 import landingStyles from '../styles/landingStyles'
-
+// (favoriteIds || backButton)
+//? (
 const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, confirm, favoriteIds, navigation, blank }) => {
   return (
     <View style={{ flex: 1 }}>
@@ -22,44 +23,53 @@ const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, c
           alignItems: 'center',
           flex: 1
         }}>
-        {
-          (favoriteIds || backButton)
-            ? (
-              <Query
-                query={innerQuery}
-                variables={variables}
+
+        <Query
+          query={innerQuery}
+          variables={variables}
+        >
+          {({ loading, error, data, refetch }) => {
+            if (loading) return 'Loading...'
+            if (error) return `Error! ${error.message}`
+            let experiences = data[dataName]
+            return (
+              <ScrollView
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}>
+                {experiences.map((experience, index) => (
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    key={index}
+                    onPress={() => {
+                      refetch()
+                      navigation.navigate('Experience', { experience, previous: navigation.state.routeName  })
+                    }
+                    }>
               >
-                {({ loading, error, data }) => {
-                  if (loading) return 'Loading...'
-                  if (error) return `Error! ${error.message}`
-                  let experiences = data[dataName]
-                  return (
-                    <ScrollView
-                      showsHorizontalScrollIndicator={false}
-                      showsVerticalScrollIndicator={false}>
-                      {experiences.map((experience, index) => (
-                        <TouchableOpacity
-                          activeOpacity={0.7}
-                          key={index}
-                          onPress={() =>
-                            navigation.navigate('Experience', { experience, previous: navigation.state.routeName  })
-                          }>
-                    >
-                          <PreviewCard
-                            experience={experience}
-                            isFavorite={favoriteIds.includes(experience._id)}
-                            confirm={confirm} />
-                        </TouchableOpacity>
-                      ))}
-                    </ScrollView>
-                  )
-                }}
-              </Query>)
-            : (<View >
-              <Text>{blank}</Text>
-            </View>)
-        }
+                    <PreviewCard
+                      experience={experience}
+                      isFavorite={favoriteIds.includes(experience._id)}
+                      confirm={confirm} />
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )
+          }}
+        </Query>
       </View>
+      {
+        ((!favoriteIds && blank) &&
+
+          (
+            <View style={{
+              alignItems: 'center',
+              flex: 1
+            }}>
+              <Text>{blank}</Text>
+            </View>
+          )
+        )
+      }
     </View>
   )
 }

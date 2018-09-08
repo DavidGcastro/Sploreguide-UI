@@ -9,6 +9,7 @@ import { Mutation } from 'react-apollo'
 import { UPDATE_FAVORITES } from '../mutations'
 
 import Stars from '../components/Stars'
+import Heart from '../components/Heart'
 
 class PreviewCard extends Component {
   render () {
@@ -59,19 +60,7 @@ class PreviewCard extends Component {
                       }
                       }
                     >
-                      {
-                        isFavorite
-                          ? <Ionicons
-                            name={'ios-heart'}
-                            size={25}
-                            color={'red'}
-                          />
-                          : <Ionicons
-                            name={'ios-heart-outline'}
-                            size={25}
-                            color={'white'}
-                          />
-                      }
+                      <Heart isFavorite={isFavorite} />
                     </TouchableOpacity>
                   )
                   }

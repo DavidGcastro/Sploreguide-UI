@@ -4,6 +4,7 @@ import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
 import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
 import Stars from '../components/Stars'
+import Heart from '../components/Heart'
 import { formatLocationObject, formatReviewsCountText } from '../helpers/strings'
 // import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 import { Query, Mutation } from 'react-apollo'
@@ -105,19 +106,7 @@ class ExperienceFullScreen extends Component {
                             (this.updateFavoriteState(favorites, item._id)))
                         }}
                       >
-                        {
-                          isFavorite
-                            ? <Ionicons
-                              name={'ios-heart'}
-                              size={25}
-                              color={'red'}
-                            />
-                            : <Ionicons
-                              name={'ios-heart-outline'}
-                              size={25}
-                              color={'white'}
-                            />
-                        }
+                        <Heart isFavorite={isFavorite} />
                       </TouchableOpacity>
                     )
                     }
