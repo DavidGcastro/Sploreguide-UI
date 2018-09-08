@@ -9,6 +9,7 @@ import { formatLocationObject, formatReviewsCountText } from '../helpers/strings
 // import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 import { Query, Mutation } from 'react-apollo'
 import { UPDATE_FAVORITES } from '../mutations'
+
 const { width, height } = Dimensions.get('window')
 
 class ExperienceFullScreen extends Component {

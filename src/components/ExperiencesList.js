@@ -36,22 +36,24 @@ const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, c
               <ScrollView
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}>
-                {experiences.map((experience, index) => (
+                {experiences.map((experience, index) => {
+                  let isFavorite=favoriteIds.includes(experience._id)
+                  return (
                   <TouchableOpacity
                     activeOpacity={0.7}
                     key={index}
                     onPress={() => {
                       refetch()
-                      navigation.navigate('Experience', { experience, previous: navigation.state.routeName  })
+                      navigation.navigate('Experience', { isFavorite, experience, previous: navigation.state.routeName  })
                     }
                     }>
               >
-                    <PreviewCard
-                      experience={experience}
-                      isFavorite={favoriteIds.includes(experience._id)}
-                      confirm={confirm} />
-                  </TouchableOpacity>
-                ))}
+                  <PreviewCard
+                    experience={experience}
+                    isFavorite={isFavorite}
+                    confirm={confirm} />
+                  </TouchableOpacity>)
+                })}
               </ScrollView>
             )
           }}

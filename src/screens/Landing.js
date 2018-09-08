@@ -284,7 +284,7 @@ export default class Landing extends Component {
                       category: this.state.category
                     })
                   }>
-                  <Text style={landingStyles.viewAllText}>View All</Text>
+                  <Text style={landingStyles.viewAllText}>View More</Text>
                   <Ionicons
                     name='md-arrow-forward'
                     size={30}
