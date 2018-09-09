@@ -12,6 +12,18 @@ export default class Experience extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ExperienceFullScreen item={item} nav={nav} />
+        <ScrollView style={{height: '100%'}} bounces={false}>
+          <View style={{height, width, backgroundColor: 'white'}}>
+            <Text>Hello World</Text>
+          </View>
+          <View style={{ width, height, backgroundColor: 'white' }}>
+            <Text>Hello World</Text>
+          </View>
+          <View style={{ width, height, backgroundColor: 'white' }}>
+            <Text>Hello World</Text>
+          </View>
+        </ScrollView>
+        <View style={{height: 30, backgroundColor: 'pink'}} />
       </View>
 
     )

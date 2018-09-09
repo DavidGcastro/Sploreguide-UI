@@ -1,18 +1,74 @@
 import React from 'react'
-import { Dimensions, View, Text, TouchableOpacity, ScrollView, Image } from 'react-native'
+import { Dimensions, View, Text, TouchableOpacity, ScrollView, Image, PanResponder, Animated } from 'react-native'
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
 import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
 import Stars from '../components/Stars'
-import { formatLocationObject, formatReviewsCountText } from '../helpers/strings'
+import { formatReviewsCountText } from '../helpers/strings'
 // import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 const { width, height } = Dimensions.get('window')
-
+let totalHeight = new Animated.Value(height)
+let positionText = new Animated.Value(0)
+let fade = new Animated.Value(1)
 const ExperienceFullScreen = props => {
   let {item, nav} = props
+  let _panResponder = PanResponder.create({
+    // Ask to be the responder: Does this view want to become responder on the start of a touch?
+    onStartShouldSetPanResponder: (evt, gestureState) => true,
+    onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+    // Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
+    onMoveShouldSetPanResponder: (evt, gestureState) => true,
+    onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+
+    onPanResponderGrant: (evt, gestureState) => {
+      // The gesture has started. Show visual feedback so the user knows
+      // what is happening!
+      Animated.parallel([
+        Animated.timing(totalHeight, {
+          toValue: height / 3,
+          duration: 200
+        }),
+        Animated.timing(positionText, {
+          toValue: height,
+          duration: 200
+        }),
+        Animated.timing(fade, {
+          toValue: 0,
+          duration: 200
+        })
+      ]).start()
+      console.log(gestureState.moveY, 'On Responder Grant')
+      // gestureState.d{x,y} will be set to zero now
+    },
+    onPanResponderMove: (evt, gestureState) => {
+      // The most recent move distance is gestureState.move{X,Y}
+      console.log(gestureState.moveY, 'On Pan responder Move')
+      // The accumulated gesture distance since becoming responder is
+      // gestureState.d{x,y}
+    },
+    onPanResponderTerminationRequest: (evt, gestureState) => true,
+    onPanResponderRelease: (evt, gestureState) => {
+      console.log(gestureState, 'Released')
+      // The user has released all touches while this view is the
+      // responder. This typically means a gesture has succeeded
+    },
+    onPanResponderTerminate: (evt, gestureState) => {
+      console.log(gestureState, 'another component has become the responder')
+      // Another component has become the responder, so this gesture
+      // should be cancelled
+    },
+    onShouldBlockNativeResponder: (evt, gestureState) => {
+      console.log(evt)
+      // Returns whether this component should block native components from becoming the JS
+      // responder. Returns true by default. Is currently only supported on android.
+      return true
+    }
+  })
+
   return (
-    <View>
+    <Animated.View style={{height: totalHeight}}>
       <ScrollView
+        {..._panResponder.panHandlers}
         onScroll={x => {
           let currentOffset = x.nativeEvent.contentOffset.x
           let total = width * 4
@@ -23,14 +79,14 @@ const ExperienceFullScreen = props => {
         bounces={false}
         style={{width, height}}
         horizontal pagingEnabled >
-        <Image source={item.media} style={{ height, width }} />
-        <Image source={item.images[0]} style={{ height, width }} />
-        <Image source={item.images[1]} style={{ height, width }} />
-        <Image source={item.images[2]} style={{ height, width }} />
-        <Image source={item.images[3]} style={{ height, width }} />
+        <Animated.Image source={item.media} style={{ height: '100%', width }} />
+        <Animated.Image source={item.images[0]} style={{ height: '100%', width }} />
+        <Animated.Image source={item.images[1]} style={{ height: '100%', width }} />
+        <Animated.Image source={item.images[2]} style={{ height: '100%', width }} />
+        <Animated.Image source={item.images[3]} style={{ height: '100%', width }} />
       </ScrollView>
-
       <LinearGradient
+
         pointerEvents='box-none'
         colors={['transparent', 'rgba(0,0,0,1.0)']}
         start={[0.5, 0.2]}
@@ -42,7 +98,8 @@ const ExperienceFullScreen = props => {
           pointerEvents='box-none'
           style={{ position: 'relative', justifyContent: 'space-between', flex: 1 }}>
 
-          <View pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 20}]}>
+          <View
+            pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 20}]}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <TouchableOpacity onPress={() => nav()}>
                 <Feather
@@ -56,13 +113,14 @@ const ExperienceFullScreen = props => {
                 {item.activityType.toUpperCase()}
               </Text>
             </View>
-            <Text style={landingStyles.price}>
+            <Animated.Text style={[landingStyles.price, {opacity: fade}]}>
               ${item.basePricePerPerson}
-            </Text>
+            </Animated.Text>
           </View>
           {/* Bottom */}
-          <View pointerEvents='box-none' style={{
+          <Animated.View pointerEvents='box-none' style={{
             flex: 1,
+            top: positionText,
             justifyContent: 'space-evenly',
             borderLeftWidth: 5,
             borderLeftColor: 'rgba(227, 60, 54, 1)'}}
@@ -139,13 +197,13 @@ const ExperienceFullScreen = props => {
                 <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
               </View>
               {/********************************************************/}
-              <Text style={{color: 'white'}}>Free Shots, and Entry Included.</Text>
-              <Text style={{ color: 'white' }}>{item.description}</Text>
+              <Animated.Text style={{color: 'white', opacity: fade}}>Free Shots, and Entry Included.</Animated.Text>
+              <Animated.Text style={{ color: 'white', opacity: fade }}>{item.description}</Animated.Text>
             </View>
-          </View>
+          </Animated.View>
         </View>
       </LinearGradient>
-    </View>
+    </Animated.View>
 
   )
 }
