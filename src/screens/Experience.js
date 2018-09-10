@@ -1,9 +1,9 @@
 import React from 'react'
-import {ScrollView, View, Text, Dimensions, Image} from 'react-native'
+import {ScrollView, View, TouchableOpacity} from 'react-native'
 import ExperienceFullScreen from '../components/ExperienceFullScreen'
 import experiences from '../experiences'
-let {width, height} = Dimensions.get('window')
-
+import ExploreInfoSection from '../components/ExploreInfoSection'
+import GradientButton from '../components/GradientButton'
 export default class Experience extends React.Component {
   render () {
     // const item = this.props.navigation.state.params.experience
@@ -11,114 +11,28 @@ export default class Experience extends React.Component {
     const nav = this.props.navigation.goBack
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
-
         {/**********************************************/}
         <ExperienceFullScreen item={item} nav={nav} />
-
         {/**********************************************/}
         <ScrollView pagingEnabled bounces={false}>
-          <View style={{
-            margin: 20, justifyContent: 'space-between', flex: 1, borderColor: 'rgba(151, 151, 151, .3)', borderBottomWidth: 1, paddingBottom: 20}}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10}}>
-              <Text style={{
-                fontSize: 14,
-                fontFamily: 'SF-UI-Text-Semibold',
-                color: 'rgba(36, 37, 61, 1)'}}>Meet Your Host, {item.host.name}</Text>
-              <Image source={item.host.picture} style={{width: 50, height: 50, borderRadius: 25}} />
-            </View>
-            <Text style={{
-              fontSize: 13,
-              fontFamily: 'SF-UI-Text-Semibold',
-              color: 'rgba(74, 74, 74, 1)',
-              lineHeight: 17
-            }}>Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
+          <ExploreInfoSection hostImage={item.host.picture} heading={`Meet Your Host, ${item.host.name}`} content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
                 Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
                 adipiscing elit. Pellentesque in ipsum id orci porta dapibus.
                 Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
                 Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Pellentesque in ipsum id orci porta dapibus.</Text>
-          </View>
-          <View style={{
-            margin: 20, justifyContent: 'space-between', flex: 1, borderColor: 'rgba(151, 151, 151, .3)', borderBottomWidth: 1, paddingBottom: 20
-          }}>
-            <Text style={{
-              fontSize: 14,
-              paddingBottom: 20,
-              fontFamily: 'SF-UI-Text-Semibold',
-              color: 'rgba(36, 37, 61, 1)'
-            }}>What To Expect</Text>
-            <Text style={{
-              fontSize: 13,
-              fontFamily: 'SF-UI-Text-Semibold',
-              color: 'rgba(74, 74, 74, 1)',
-              lineHeight: 17
-            }}>Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                  Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit. Pellentesque in ipsum id orci porta dapibus.
-                  Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                  Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Pellentesque in ipsum id orci porta dapibus.</Text>
-          </View>
-          <View style={{
-            margin: 20, justifyContent: 'space-between', flex: 1, borderColor: 'rgba(151, 151, 151, .3)', borderBottomWidth: 1, paddingBottom: 20
-          }}>
-            <Text style={{
-              fontSize: 14,
-              paddingBottom: 20,
-              fontFamily: 'SF-UI-Text-Semibold',
-              color: 'rgba(36, 37, 61, 1)'
-            }}>What's Included?</Text>
-            <Text style={{
-              fontSize: 13,
-              fontFamily: 'SF-UI-Text-Semibold',
-              color: 'rgba(74, 74, 74, 1)',
-              lineHeight: 17
-            }}>Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                    Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur.
-            </Text>
-          </View>
-          <View style={{
-            margin: 20, justifyContent: 'space-between', flex: 1, borderColor: 'rgba(151, 151, 151, .3)', borderBottomWidth: 1, paddingBottom: 20
-          }}>
-            <Text style={{
-              fontSize: 14,
-              paddingBottom: 20,
-              fontFamily: 'SF-UI-Text-Semibold',
-              color: 'rgba(36, 37, 61, 1)'
-            }}>Rendez-vous</Text>
-            <Text style={{
-              fontSize: 13,
-              fontFamily: 'SF-UI-Text-Semibold',
-              color: 'rgba(74, 74, 74, 1)',
-              lineHeight: 17
-            }}>Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                      Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur.
-            </Text>
-          </View>
-          <View style={{
-            margin: 20, justifyContent: 'space-between', flex: 1, borderColor: 'rgba(151, 151, 151, .3)', borderBottomWidth: 1, paddingBottom: 20
-          }}>
-            <Text style={{
-              fontSize: 14,
-              paddingBottom: 20,
-              fontFamily: 'SF-UI-Text-Semibold',
-              color: 'rgba(36, 37, 61, 1)'
-            }}>Be Aware</Text>
-            <Text style={{
-              fontSize: 13,
-              fontFamily: 'SF-UI-Text-Semibold',
-              color: 'rgba(74, 74, 74, 1)',
-              lineHeight: 17
-            }}>Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                      Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur.
-            </Text>
-          </View>
-
+                adipiscing elit. Pellentesque in ipsum id orci porta dapibus.' />
+          <ExploreInfoSection heading='What To Expect' content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.' />
+          <ExploreInfoSection heading='Rendez-vous' content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
+                Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Pellentesque in ipsum id orci porta dapibus.' />
+          <ExploreInfoSection heading='What You Will Do' content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
+                Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Pellentesque in ipsum id orci porta dapibus.' />
         </ScrollView>
         {/**********************************************/}
-        <View style={{height: 40, backgroundColor: 'coral', justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={{color: 'white', fontSize: 20, letterSpacing: 2}}>Explore</Text>
-        </View>
+        <TouchableOpacity>
+          <GradientButton text='Explore' />
+        </TouchableOpacity>
       </View>
 
     )

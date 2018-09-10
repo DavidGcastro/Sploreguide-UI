@@ -3,6 +3,7 @@ import { Dimensions, View, Text, TouchableOpacity, ScrollView, Image, PanRespond
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
 import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
+import GradientBorder from '../components/GradientButton'
 import Stars from '../components/Stars'
 import { formatReviewsCountText } from '../helpers/strings'
 const { width, height } = Dimensions.get('window')
@@ -71,7 +72,7 @@ export default class ExperienceFullScreen extends React.Component {
       }
     })
     return (
-      <Animated.View style={{ height: totalHeight}}>
+      <Animated.View style={{ height: totalHeight }}>
         <ScrollView
           {..._panResponder.panHandlers}
           onScroll={x => {
@@ -102,7 +103,7 @@ export default class ExperienceFullScreen extends React.Component {
             pointerEvents='box-none'
             style={{ flex: 1 }}>
             <View
-              pointerEvents='box-none' style={[landingStyles.topContainer, { flex: 1, alignItems: 'flex-start'}]}>
+              pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start'}]}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => nav()}>
                   <Feather
