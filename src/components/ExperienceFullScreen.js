@@ -207,7 +207,7 @@ export default class ExperienceFullScreen extends React.Component {
                   </Animated.View>
                   {/********************************************************/}
                   <Animated.Text style={{ color: 'white', opacity: fade }}>Free Shots, and Entry Included.</Animated.Text>
-                  <Animated.Text style={{ color: 'white', opacity: fade }}>{item.description}</Animated.Text>
+                  <Animated.Text style={{ color: 'white', opacity: fade, lineHeight: 20 }}>{item.description}</Animated.Text>
                 </View>
               </View>
             </View>

@@ -15,7 +15,8 @@ const experiences = [
       name: 'David',
       age: 25,
       sex: 'male',
-      languages: ['english', 'spanish']
+      languages: ['english', 'spanish'],
+      picture: require('./assets/img/experiences/host.jpg')
     },
     advisement: 'Must be 21 and over',
     offerings: [{ date: '8/20/93', price: 100 }],
