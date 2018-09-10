@@ -71,7 +71,7 @@ export default class ExperienceFullScreen extends React.Component {
       }
     })
     return (
-      <Animated.View style={{ height: totalHeight }}>
+      <Animated.View style={{ height: totalHeight}}>
         <ScrollView
           {..._panResponder.panHandlers}
           onScroll={x => {
@@ -102,7 +102,7 @@ export default class ExperienceFullScreen extends React.Component {
             pointerEvents='box-none'
             style={{ flex: 1 }}>
             <View
-              pointerEvents='box-none' style={[landingStyles.topContainer, { flex: 1, alignItems: 'flex-start' }]}>
+              pointerEvents='box-none' style={[landingStyles.topContainer, { flex: 1, alignItems: 'flex-start'}]}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => nav()}>
                   <Feather
