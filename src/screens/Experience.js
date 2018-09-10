@@ -11,7 +11,7 @@ export default class Experience extends React.Component {
     const nav = this.props.navigation.goBack
     return (
       <View style={{flex: 1, justifyContent: 'center'}}>
-        <View style={{ flex: 1 }} >
+        <View style={{height}} >
           <View>
             <ExperienceFullScreen item={item} nav={nav} />
             <ScrollView pagingEnabled bounces={false}>
@@ -25,6 +25,9 @@ export default class Experience extends React.Component {
                 <Text>Hello 5</Text>
               </View>
             </ScrollView>
+            <View style={{flex: 1}}>
+              <Text>Hello</Text>
+            </View>
           </View>
         </View>
       </View>
