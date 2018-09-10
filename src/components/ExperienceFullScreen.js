@@ -23,7 +23,7 @@ const ExperienceFullScreen = props => {
       if (gestureState.dy < -50) {
         Animated.parallel([
           Animated.timing(totalHeight, {
-            toValue: height / 3,
+            toValue: height / 3 + 10,
             duration: 200
           }),
           Animated.timing(fade, {
@@ -100,7 +100,6 @@ const ExperienceFullScreen = props => {
           {/* Bottom */}
           <View pointerEvents='box-none' style={{
             flex: 1,
-            paddingBottom: 25,
             borderLeftWidth: 5,
             borderLeftColor: 'rgba(227, 60, 54, 1)'}}
           >
@@ -108,6 +107,7 @@ const ExperienceFullScreen = props => {
               pointerEvents='box-none'
               style={{
                 height: '100%',
+
                 paddingHorizontal: 20 }}>
               {/********************************************************/}
               <Animated.View style={[landingStyles.bottomContainerIcons, {paddingBottom: 0, paddingHorizontal: 0}]}>
@@ -125,11 +125,10 @@ const ExperienceFullScreen = props => {
                     size={25}
                     color={'white'}
                   />
-
                 </TouchableOpacity>
               </Animated.View>
               {/********************************************************/}
-              <View pointerEvents='none' style={{ justifyContent: 'space-between', flex: 1 }}>
+              <View pointerEvents='none' style={{ justifyContent: 'space-between', flex: 1, paddingBottom: 30 }}>
                 <View pointerEvents='none'>
                   <Text style={[landingStyles.location, {paddingBottom: 0}]}>{item.location}</Text>
                   <Text style={[landingStyles.title, {paddingBottom: 0}]}>{item.title}</Text>
