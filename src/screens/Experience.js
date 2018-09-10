@@ -10,20 +10,16 @@ export default class Experience extends React.Component {
     const item = experiences[0]
     const nav = this.props.navigation.goBack
     return (
-      <View style={{flex: 1}}>
-        <ExperienceFullScreen item={item} nav={nav} />
-        <ScrollView style={{height: '100%'}} bounces={false}>
-          <View style={{height, width, backgroundColor: 'white'}}>
-            <Text>Hello World</Text>
-          </View>
-          <View style={{ width, height, backgroundColor: 'white' }}>
-            <Text>Hello World</Text>
-          </View>
-          <View style={{ width, height, backgroundColor: 'white' }}>
-            <Text>Hello World</Text>
-          </View>
-        </ScrollView>
-        <View style={{height: 30, backgroundColor: 'pink'}} />
+      <View>
+        <View>
+          <ExperienceFullScreen item={item} nav={nav} />
+          <ScrollView bounces={false} style={{height}}>
+            <View style={{backgroundColor: 'white', height}}>
+              <Text>Hello World</Text>
+            </View>
+          </ScrollView>
+        </View>
+        <View style={{height: 60, backgroundColor: 'pink'}} />
       </View>
 
     )
