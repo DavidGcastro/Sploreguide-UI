@@ -19,49 +19,40 @@ const ExperienceFullScreen = props => {
     // Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
     onMoveShouldSetPanResponder: (evt, gestureState) => true,
     onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-
-    onPanResponderGrant: (evt, gestureState) => {
-      // The gesture has started. Show visual feedback so the user knows
-      // what is happening!
-      Animated.parallel([
-        Animated.timing(totalHeight, {
-          toValue: height / 3,
-          duration: 200
-        }),
-        Animated.timing(positionText, {
-          toValue: -height / 2 - 8,
-          duration: 200
-        }),
-        Animated.timing(fade, {
-          toValue: 0,
-          duration: 200
-        })
-      ]).start()
-      console.log(gestureState.moveY, 'On Responder Grant')
-      // gestureState.d{x,y} will be set to zero now
-    },
-    onPanResponderMove: (evt, gestureState) => {
-      // The most recent move distance is gestureState.move{X,Y}
-      console.log(gestureState.moveY, 'On Pan responder Move')
-      // The accumulated gesture distance since becoming responder is
-      // gestureState.d{x,y}
-    },
     onPanResponderTerminationRequest: (evt, gestureState) => true,
     onPanResponderRelease: (evt, gestureState) => {
-      console.log(gestureState, 'Released')
-      // The user has released all touches while this view is the
-      // responder. This typically means a gesture has succeeded
-    },
-    onPanResponderTerminate: (evt, gestureState) => {
-      console.log(gestureState, 'another component has become the responder')
-      // Another component has become the responder, so this gesture
-      // should be cancelled
-    },
-    onShouldBlockNativeResponder: (evt, gestureState) => {
-      console.log(evt)
-      // Returns whether this component should block native components from becoming the JS
-      // responder. Returns true by default. Is currently only supported on android.
-      return true
+      if (gestureState.dy < -50) {
+        Animated.parallel([
+          Animated.timing(totalHeight, {
+            toValue: height / 3,
+            duration: 200
+          }),
+          Animated.timing(positionText, {
+            toValue: -height / 2 - 8,
+            duration: 200
+          }),
+          Animated.timing(fade, {
+            toValue: 0,
+            duration: 200
+          })
+        ]).start()
+      }
+      if (gestureState.dy > 50) {
+        Animated.parallel([
+          Animated.timing(totalHeight, {
+            toValue: height,
+            duration: 200
+          }),
+          Animated.timing(positionText, {
+            toValue: 0,
+            duration: 200
+          }),
+          Animated.timing(fade, {
+            toValue: 1,
+            duration: 200
+          })
+        ]).start()
+      }
     }
   })
 
@@ -94,7 +85,7 @@ const ExperienceFullScreen = props => {
         {/* PARENT */}
         <View
           pointerEvents='box-none'
-          style={{ justifyContent: 'space-between', height }}>
+          style={{ justifyContent: 'space-between', flex: 1 }}>
           <View
             pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 5}]}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -116,18 +107,17 @@ const ExperienceFullScreen = props => {
           </View>
 
           {/* Bottom */}
-          <Animated.View pointerEvents='box-none' style={{
+          <View pointerEvents='box-none' style={{
             flex: 1,
-            top: positionText,
-            justifyContent: 'space-evenly',
+            paddingBottom: 10,
             borderLeftWidth: 5,
             borderLeftColor: 'rgba(227, 60, 54, 1)'}}
           >
             <View
               pointerEvents='box-none'
               style={{
-                flex: 1,
-                justifyContent: 'space-evenly',
+
+                height: '100%',
                 padding: 20 }}>
               {/********************************************************/}
               <Animated.View style={[landingStyles.bottomContainerIcons, {paddingBottom: 0, paddingHorizontal: 0}]}>
@@ -149,61 +139,64 @@ const ExperienceFullScreen = props => {
                 </TouchableOpacity>
               </Animated.View>
               {/********************************************************/}
-              <View pointerEvents='none'>
-                <Text style={landingStyles.location}>{item.location}</Text>
-                <Text style={[landingStyles.title, {paddingBottom: 0}]}>{item.title}</Text>
-              </View>
-              {/********************************************************/}
+              <View pointerEvents='none' style={{ justifyContent: 'space-between', flex: 1 }}>
+                <View pointerEvents='none'>
+                  <Text style={[landingStyles.location, {paddingBottom: 0}]}>{item.location}</Text>
+                  <Text style={[landingStyles.title, {paddingBottom: 0}]}>{item.title}</Text>
+                </View>
+                {/********************************************************/}
 
-              <View style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingBottom: 10
-              }}>
-                <View style={landingStyles.iconTextContainer}>
-                  <SimpleLineIcons
-                    name='hourglass'
-                    size={12}
-                    color='white'
-                  />
-                  <Text style={landingStyles.smallTextBottom}>
-                    {Math.round((item.duration / 60) % 60)}
+                <Animated.View style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingBottom: 10,
+                  opacity: fade
+                }}>
+                  <View style={landingStyles.iconTextContainer}>
+                    <SimpleLineIcons
+                      name='hourglass'
+                      size={12}
+                      color='white'
+                    />
+                    <Text style={landingStyles.smallTextBottom}>
+                      {Math.round((item.duration / 60) % 60)}
                   :00
-                  </Text>
-                </View>
-                <View style={landingStyles.iconTextContainer}>
-                  <Ionicons
-                    name='ios-chatbubbles-outline'
-                    size={12}
-                    color='white'
-                  />
-                  <Text style={landingStyles.smallTextBottom}>
-                    {item.languages}
-                  </Text>
-                </View>
-                <View style={landingStyles.iconTextContainer}>
-                  <Stars reviews={item.reviews} />
-                  <Text style={landingStyles.smallTextBottom}>
-                    {formatReviewsCountText(item.reviews)}
-                  </Text>
-                </View>
-              </View>
+                    </Text>
+                  </View>
+                  <View style={landingStyles.iconTextContainer}>
+                    <Ionicons
+                      name='ios-chatbubbles-outline'
+                      size={12}
+                      color='white'
+                    />
+                    <Text style={landingStyles.smallTextBottom}>
+                      {item.languages}
+                    </Text>
+                  </View>
+                  <View style={landingStyles.iconTextContainer}>
+                    <Stars reviews={item.reviews} />
+                    <Text style={landingStyles.smallTextBottom}>
+                      {formatReviewsCountText(item.reviews)}
+                    </Text>
+                  </View>
+                </Animated.View>
 
-              {/********************************************************/}
-              <View style={{
-                justifyContent: 'space-between', flexDirection: 'row', paddingBottom: 10
-              }}>
-                <View style={{height: 0.5, width: 55, backgroundColor: 'white'}} />
-                <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
+                {/********************************************************/}
+                <View style={{
+                  justifyContent: 'space-between', flexDirection: 'row'
+                }}>
+                  <View style={{height: 0.5, width: 55, backgroundColor: 'white'}} />
+                  <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
+                  <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
+                  <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
+                  <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
+                </View>
+                {/********************************************************/}
+                <Animated.Text style={{color: 'white', opacity: fade}}>Free Shots, and Entry Included.</Animated.Text>
+                <Animated.Text style={{ color: 'white', opacity: fade }}>{item.description}</Animated.Text>
               </View>
-              {/********************************************************/}
-              <Animated.Text style={{color: 'white', opacity: fade}}>Free Shots, and Entry Included.</Animated.Text>
-              <Animated.Text style={{ color: 'white', opacity: fade }}>{item.description}</Animated.Text>
             </View>
-          </Animated.View>
+          </View>
         </View>
       </LinearGradient>
     </Animated.View>

@@ -13,7 +13,7 @@ export default class Experience extends React.Component {
       <View>
         <View>
           <ExperienceFullScreen item={item} nav={nav} />
-          <ScrollView bounces={false} style={{height}}>
+          <ScrollView pagingEnabled bounces={false} style={{height}}>
             <View style={{backgroundColor: 'white', height}}>
               <Text>Hello World</Text>
             </View>
@@ -25,7 +25,6 @@ export default class Experience extends React.Component {
             </View>
           </ScrollView>
         </View>
-        <View style={{height: 60, backgroundColor: 'pink'}} />
       </View>
 
     )
