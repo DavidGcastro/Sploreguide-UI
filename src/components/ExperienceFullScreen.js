@@ -94,9 +94,9 @@ const ExperienceFullScreen = props => {
         {/* PARENT */}
         <View
           pointerEvents='box-none'
-          style={{ justifyContent: 'space-between', height}}>
+          style={{ justifyContent: 'space-between', height }}>
           <View
-            pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 20}]}>
+            pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 5}]}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <TouchableOpacity onPress={() => nav()}>
                 <Feather
@@ -130,7 +130,7 @@ const ExperienceFullScreen = props => {
                 justifyContent: 'space-evenly',
                 padding: 20 }}>
               {/********************************************************/}
-              <View style={[landingStyles.bottomContainerIcons, {paddingBottom: 0, paddingHorizontal: 0}]}>
+              <Animated.View style={[landingStyles.bottomContainerIcons, {paddingBottom: 0, paddingHorizontal: 0}]}>
                 <TouchableOpacity>
                   <Ionicons
                     name={'ios-share-outline'}
@@ -147,7 +147,7 @@ const ExperienceFullScreen = props => {
                   />
 
                 </TouchableOpacity>
-              </View>
+              </Animated.View>
               {/********************************************************/}
               <View pointerEvents='none'>
                 <Text style={landingStyles.location}>{item.location}</Text>
@@ -155,9 +155,10 @@ const ExperienceFullScreen = props => {
               </View>
               {/********************************************************/}
 
-              <Animated.View style={{
+              <View style={{
                 flexDirection: 'row',
-                justifyContent: 'space-between'
+                justifyContent: 'space-between',
+                paddingBottom: 10
               }}>
                 <View style={landingStyles.iconTextContainer}>
                   <SimpleLineIcons
@@ -186,16 +187,18 @@ const ExperienceFullScreen = props => {
                     {formatReviewsCountText(item.reviews)}
                   </Text>
                 </View>
-              </Animated.View>
+              </View>
 
               {/********************************************************/}
-              <Animated.View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+              <View style={{
+                justifyContent: 'space-between', flexDirection: 'row', paddingBottom: 10
+              }}>
                 <View style={{height: 0.5, width: 55, backgroundColor: 'white'}} />
                 <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
                 <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
                 <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
                 <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-              </Animated.View>
+              </View>
               {/********************************************************/}
               <Animated.Text style={{color: 'white', opacity: fade}}>Free Shots, and Entry Included.</Animated.Text>
               <Animated.Text style={{ color: 'white', opacity: fade }}>{item.description}</Animated.Text>

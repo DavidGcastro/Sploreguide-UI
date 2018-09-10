@@ -17,6 +17,12 @@ export default class Experience extends React.Component {
             <View style={{backgroundColor: 'white', height}}>
               <Text>Hello World</Text>
             </View>
+            <View style={{ backgroundColor: 'white', height }}>
+              <Text>Hello World</Text>
+            </View>
+            <View style={{ backgroundColor: 'white', height }}>
+              <Text>Hello World</Text>
+            </View>
           </ScrollView>
         </View>
         <View style={{height: 60, backgroundColor: 'pink'}} />
