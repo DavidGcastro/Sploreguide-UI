@@ -5,48 +5,56 @@ import { LinearGradient } from 'expo'
 import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
 import Stars from '../components/Stars'
 import { formatReviewsCountText } from '../helpers/strings'
-// import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 const { width, height } = Dimensions.get('window')
 let totalHeight = new Animated.Value(height)
 let fade = new Animated.Value(1)
+let paddingBelow = new Animated.Value(0)
+let _panResponder = PanResponder.create({
+  // Ask to be the responder: Does this view want to become responder on the start of a touch?
+  onStartShouldSetPanResponder: (evt, gestureState) => true,
+  onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+  // Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
+  onMoveShouldSetPanResponder: (evt, gestureState) => true,
+  onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+  onPanResponderTerminationRequest: (evt, gestureState) => true,
+  onPanResponderRelease: (evt, gestureState) => {
+    if (gestureState.dy < -50) {
+      Animated.parallel([
+        Animated.timing(totalHeight, {
+          toValue: height / 3 + 10,
+          duration: 200
+        }),
+        Animated.timing(paddingBelow, {
+          toValue: 35,
+          duration: 200
+        }),
+        Animated.timing(fade, {
+          toValue: 0,
+          duration: 200
+        })
+      ]).start()
+    }
+    if (gestureState.dy > 50) {
+      Animated.parallel([
+        Animated.timing(totalHeight, {
+          toValue: height,
+          duration: 200
+        }),
+        Animated.timing(paddingBelow, {
+          toValue: 0,
+          duration: 200
+        }),
+        Animated.timing(fade, {
+          toValue: 1,
+          duration: 200
+        })
+      ]).start()
+    }
+  }
+})
+
 const ExperienceFullScreen = props => {
   let {item, nav} = props
-  let _panResponder = PanResponder.create({
-    // Ask to be the responder: Does this view want to become responder on the start of a touch?
-    onStartShouldSetPanResponder: (evt, gestureState) => true,
-    onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-    // Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
-    onMoveShouldSetPanResponder: (evt, gestureState) => true,
-    onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-    onPanResponderTerminationRequest: (evt, gestureState) => true,
-    onPanResponderRelease: (evt, gestureState) => {
-      if (gestureState.dy < -50) {
-        Animated.parallel([
-          Animated.timing(totalHeight, {
-            toValue: height / 3 + 10,
-            duration: 200
-          }),
-          Animated.timing(fade, {
-            toValue: 0,
-            duration: 200
-          })
-        ]).start()
-      }
-      if (gestureState.dy > 50) {
-        Animated.parallel([
-          Animated.timing(totalHeight, {
-            toValue: height,
-            duration: 200
-          }),
-          Animated.timing(fade, {
-            toValue: 1,
-            duration: 200
-          })
-        ]).start()
-      }
-    }
-  })
-
   return (
     <Animated.View style={{height: totalHeight}}>
       <ScrollView
@@ -55,6 +63,7 @@ const ExperienceFullScreen = props => {
           let currentOffset = x.nativeEvent.contentOffset.x
           let total = width * 4
           let currentImage = currentOffset / total * 4
+          console.log(currentImage)
         }}
         scrollEventThrottle={4}
         bounces={false}
@@ -76,9 +85,9 @@ const ExperienceFullScreen = props => {
         {/* PARENT */}
         <View
           pointerEvents='box-none'
-          style={{ justifyContent: 'space-between', flex: 1 }}>
+          style={{ height: '100%' }}>
           <View
-            pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', padding: 5}]}>
+            pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start'}]}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <TouchableOpacity onPress={() => nav()}>
                 <Feather
@@ -106,11 +115,11 @@ const ExperienceFullScreen = props => {
             <View
               pointerEvents='box-none'
               style={{
-                height: '100%',
-
-                paddingHorizontal: 20 }}>
+                height: '100%', paddingHorizontal: 20 }}>
               {/********************************************************/}
-              <Animated.View style={[landingStyles.bottomContainerIcons, {paddingBottom: 0, paddingHorizontal: 0}]}>
+              <View style={[landingStyles.bottomContainerIcons, {
+                paddingBottom: 0, paddingHorizontal: 0
+              }]}>
                 <TouchableOpacity>
                   <Ionicons
                     name={'ios-share-outline'}
@@ -126,20 +135,18 @@ const ExperienceFullScreen = props => {
                     color={'white'}
                   />
                 </TouchableOpacity>
-              </Animated.View>
+              </View>
               {/********************************************************/}
-              <View pointerEvents='none' style={{ justifyContent: 'space-between', flex: 1, paddingBottom: 30 }}>
-                <View pointerEvents='none'>
+              <View pointerEvents='none' style={{ justifyContent: 'space-evenly', flex: 1 }}>
+                <Animated.View pointerEvents='none'>
                   <Text style={[landingStyles.location, {paddingBottom: 0}]}>{item.location}</Text>
-                  <Text style={[landingStyles.title, {paddingBottom: 0}]}>{item.title}</Text>
-                </View>
+                  <Animated.Text style={[landingStyles.title, {paddingBottom: paddingBelow}]}>{item.title}</Animated.Text>
+                </Animated.View>
                 {/********************************************************/}
 
-                <Animated.View style={{
+                <View style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingBottom: 10,
-                  opacity: fade
+                  justifyContent: 'space-between'
                 }}>
                   <View style={landingStyles.iconTextContainer}>
                     <SimpleLineIcons
@@ -168,20 +175,23 @@ const ExperienceFullScreen = props => {
                       {formatReviewsCountText(item.reviews)}
                     </Text>
                   </View>
-                </Animated.View>
+                </View>
 
                 {/********************************************************/}
-                <View style={{
-                  justifyContent: 'space-between', flexDirection: 'row'
+                <Animated.View style={{
+                  justifyContent: 'space-evenly',
+                  flexDirection: 'row',
+                  opacity: fade
+
                 }}>
                   <View style={{height: 0.5, width: 55, backgroundColor: 'white'}} />
                   <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
                   <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
                   <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
                   <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                </View>
+                </Animated.View>
                 {/********************************************************/}
-                <Animated.Text style={{color: 'white', opacity: fade}}>Free Shots, and Entry Included.</Animated.Text>
+                <Animated.Text style={{ color: 'white', opacity: fade }}>Free Shots, and Entry Included.</Animated.Text>
                 <Animated.Text style={{ color: 'white', opacity: fade }}>{item.description}</Animated.Text>
               </View>
             </View>
