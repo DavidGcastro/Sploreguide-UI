@@ -85,7 +85,7 @@ const ExperienceFullScreen = props => {
         {/* PARENT */}
         <View
           pointerEvents='box-none'
-          style={{ height: '100%' }}>
+          style={{ flex: 1 }}>
           <View
             pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start'}]}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -185,10 +185,10 @@ const ExperienceFullScreen = props => {
 
                 }}>
                   <View style={{height: 0.5, width: 55, backgroundColor: 'white'}} />
-                  <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                  <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                  <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
-                  <View style={{ height: 0.5, width: 55, backgroundColor: 'white' }} />
+                  <View style={{ height: 0.5, width: 55, backgroundColor: 'grey' }} />
+                  <View style={{ height: 0.5, width: 55, backgroundColor: 'grey' }} />
+                  <View style={{ height: 0.5, width: 55, backgroundColor: 'grey' }} />
+                  <View style={{ height: 0.5, width: 55, backgroundColor: 'grey' }} />
                 </Animated.View>
                 {/********************************************************/}
                 <Animated.Text style={{ color: 'white', opacity: fade }}>Free Shots, and Entry Included.</Animated.Text>
