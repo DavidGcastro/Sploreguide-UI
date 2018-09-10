@@ -8,7 +8,6 @@ import { formatReviewsCountText } from '../helpers/strings'
 // import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 const { width, height } = Dimensions.get('window')
 let totalHeight = new Animated.Value(height)
-let positionText = new Animated.Value(0)
 let fade = new Animated.Value(1)
 const ExperienceFullScreen = props => {
   let {item, nav} = props
@@ -27,10 +26,6 @@ const ExperienceFullScreen = props => {
             toValue: height / 3,
             duration: 200
           }),
-          Animated.timing(positionText, {
-            toValue: -height / 2 - 8,
-            duration: 200
-          }),
           Animated.timing(fade, {
             toValue: 0,
             duration: 200
@@ -41,10 +36,6 @@ const ExperienceFullScreen = props => {
         Animated.parallel([
           Animated.timing(totalHeight, {
             toValue: height,
-            duration: 200
-          }),
-          Animated.timing(positionText, {
-            toValue: 0,
             duration: 200
           }),
           Animated.timing(fade, {
@@ -109,16 +100,15 @@ const ExperienceFullScreen = props => {
           {/* Bottom */}
           <View pointerEvents='box-none' style={{
             flex: 1,
-            paddingBottom: 10,
+            paddingBottom: 25,
             borderLeftWidth: 5,
             borderLeftColor: 'rgba(227, 60, 54, 1)'}}
           >
             <View
               pointerEvents='box-none'
               style={{
-
                 height: '100%',
-                padding: 20 }}>
+                paddingHorizontal: 20 }}>
               {/********************************************************/}
               <Animated.View style={[landingStyles.bottomContainerIcons, {paddingBottom: 0, paddingHorizontal: 0}]}>
                 <TouchableOpacity>
