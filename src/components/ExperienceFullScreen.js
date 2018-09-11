@@ -1,20 +1,33 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Dimensions, View, Text, TouchableOpacity, ScrollView, Image, PanResponder, Animated, StyleSheet } from 'react-native'
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
 import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
 import GradientBorder from '../components/GradientButton'
 import Stars from '../components/Stars'
-import { formatReviewsCountText } from '../helpers/strings'
+import Heart from '../components/Heart'
+import { formatLocationObject, formatReviewsCountText, formatDuration } from '../helpers/strings'
+import { Query, Mutation } from 'react-apollo'
+import { UPDATE_FAVORITES } from '../mutations'
+
 const { width, height } = Dimensions.get('window')
-export default class ExperienceFullScreen extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      currentImageIndex: 0
-    }
+export default class ExperienceFullScreen extends Component {
+
+  state = {
+    currentImageIndex: 0,
+    isFavorite: false
   }
+
+  componentDidMount() {
+    this.setState({isFavorite: this.props.isFavorite})
+  }
+
+  updateFavoriteState = (favoritesList, itemId) => {
+    this.setState({isFavorite: favoritesList.includes(itemId) })
+  }
+
   render () {
+    let { isFavorite } = this.state
     let totalHeight = new Animated.Value(height)
     let fade = new Animated.Value(1)
     let paddingBelow = new Animated.Value(0)
@@ -61,7 +74,8 @@ export default class ExperienceFullScreen extends React.Component {
         }
       }
     })
-    let { item, nav } = this.props
+
+    let { item, nav, previous } = this.props
     let paginationStyle = StyleSheet.create({
       active: {
         height: 0.5, width: 55, backgroundColor: 'white'
@@ -85,11 +99,9 @@ export default class ExperienceFullScreen extends React.Component {
           bounces={false}
           style={{ width, height }}
           horizontal pagingEnabled >
-          <Image ref={this.foo} source={item.media} style={{ height: '100%', width }} />
-          <Image source={item.images[0]} style={{ height: '100%', width }} />
-          <Image source={item.images[1]} style={{ height: '100%', width }} />
-          <Image source={item.images[2]} style={{ height: '100%', width }} />
-          <Image source={item.images[3]} style={{ height: '100%', width }} />
+          {
+            item.media.map((url, index) => <Image key={index} source={{uri: url}} style={{ height: '100%', width }} />)
+          }
         </ScrollView>
         <LinearGradient
           pointerEvents='box-none'
@@ -105,7 +117,7 @@ export default class ExperienceFullScreen extends React.Component {
             <View
               pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start'}]}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <TouchableOpacity onPress={() => nav()}>
+                <TouchableOpacity onPress={() => nav.navigate(previous)}>
                   <Feather
                     name={'arrow-left'}
                     size={30}
@@ -146,18 +158,25 @@ export default class ExperienceFullScreen extends React.Component {
                       style={{ paddingRight: 15 }}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Ionicons
-                      name={'ios-heart-outline'}
-                      size={25}
-                      color={'white'}
-                    />
-                  </TouchableOpacity>
+                  <Mutation mutation={UPDATE_FAVORITES}>
+                  { (updateUserFavorites, { data }) => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        updateUserFavorites({ variables: { experienceId: item._id } })
+                        .then(({data: { updateUserFavorites: {favorites}}}) =>
+                          (this.updateFavoriteState(favorites, item._id)))
+                      }}
+                    >
+                      <Heart isFavorite={isFavorite} />
+                    </TouchableOpacity>
+                  )
+                  }
+                </Mutation>
                 </View>
                 {/********************************************************/}
                 <View pointerEvents='none' style={{ justifyContent: 'space-evenly', flex: 1 }}>
                   <Animated.View pointerEvents='none'>
-                    <Text style={[landingStyles.location, { paddingBottom: 0 }]}>{item.location}</Text>
+                    <Text style={[landingStyles.location, { paddingBottom: 0 }]}>{formatLocationObject(item.location)}</Text>
                     <Animated.Text style={[landingStyles.title, { paddingBottom: paddingBelow }]}>{item.title}</Animated.Text>
                   </Animated.View>
                   {/********************************************************/}
@@ -173,8 +192,7 @@ export default class ExperienceFullScreen extends React.Component {
                         color='white'
                       />
                       <Text style={landingStyles.smallTextBottom}>
-                        {Math.round((item.duration / 60) % 60)}
-                        :00
+                        {formatDuration(item.duration)}
                       </Text>
                     </View>
                     <View style={landingStyles.iconTextContainer}>
@@ -200,16 +218,16 @@ export default class ExperienceFullScreen extends React.Component {
                     flexDirection: 'row',
                     opacity: fade
                   }}>
-                    <View style={this.state.currentImageIndex === 0 ? paginationStyle.active : paginationStyle.inactive} />
-                    <View style={this.state.currentImageIndex === 1 ? paginationStyle.active : paginationStyle.inactive} />
-                    <View style={this.state.currentImageIndex === 2 ? paginationStyle.active : paginationStyle.inactive} />
-                    <View style={this.state.currentImageIndex === 3 ? paginationStyle.active : paginationStyle.inactive} />
-                    <View style={this.state.currentImageIndex === 4 ? paginationStyle.active : paginationStyle.inactive} />
+                  {
+                    item.media.map((_, index) =>
+                      <View key={index} style={this.state.currentImageIndex === index ? paginationStyle.active : paginationStyle.inactive} />)
+                  }
                   </Animated.View>
                   {/********************************************************/}
-                  <Animated.Text style={{ color: 'white', opacity: fade }}>Free Shots, and Entry Included.</Animated.Text>
-                  <Animated.Text style={{ color: 'white', opacity: fade, lineHeight: 20 }}>{item.description}</Animated.Text>
+                  <Animated.Text style={{ color: 'white', opacity: fade }}>{item.included}</Animated.Text>
+                  <Animated.Text style={{ color: 'white', opacity: fade, lineHeight: 20 }}>{item.overview}</Animated.Text>
                 </View>
+                {/********************************************************/}
               </View>
             </View>
           </View>

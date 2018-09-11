@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Query, Mutation } from 'react-apollo'
-import { CURRENT_USER, TOP_TRENDING, HIGHEST_RATED, WEEKEND_PICKS, BEST_VALUE, MOST_VIEWED } from '../queries'
+import { CURRENT_USER, GET_EXPERIENCES_BY_CATEGORY } from '../queries'
 import { UPDATE_FAVORITES } from '../mutations'
 import Carousel from 'react-native-snap-carousel'
 import {
@@ -16,17 +16,18 @@ import { LinearGradient } from 'expo'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Ionicons, SimpleLineIcons } from '@expo/vector-icons'
 import Stars from '../components/Stars'
+import Heart from '../components/Heart'
 import landingStyles from '../styles/landingStyles'
-import { formatLocationObject, formatReviewsCountText } from '../helpers/strings'
+import { formatLocationObject, formatReviewsCountText, formatDuration } from '../helpers/strings'
 
 let { width, height } = Dimensions.get('window')
 
 let categories = [
-  [ 'Top Trending', TOP_TRENDING ],
-  [ 'Highest Rated', HIGHEST_RATED ],
-  [ 'Best Value', BEST_VALUE ],
-  [ 'Weekend Picks', WEEKEND_PICKS ],
-  [ 'Most Viewed', MOST_VIEWED ]
+  [ 'Top Trending', {category: "Top Trending", limit: 5}],
+  [ 'Highest Rated', {category: "Highest Rated", limit: 5} ],
+  [ 'Best Value', {category: "Best Value", limit: 5} ],
+  [ 'Weekend Picks', {category: "Weekend Picks", limit: 5} ],
+  [ 'Most Viewed', {category: "Most Viewed", limit: 5} ]
 ]
 
 let offset = 0
@@ -63,22 +64,20 @@ let cardHeight = {
     }
   )
 }
+
+let favorites = null
+
 export default class Landing extends Component {
 
   state = {
     search: 'Search By City or Activity',
-    favorites: [],
-    category: categories[0][0],
+    category: categories[0],
     fromTop: 0,
-    userFetched: false
   }
-
 
   componentDidMount () {
     this.onSwipeUp(0)
   }
-
-  updateStateWithFavorites = (favorites) => this.setState({ favorites,  userFetched: true})
 
   onSwipeUp = (top, direction) => {
     let index =
@@ -87,14 +86,20 @@ export default class Landing extends Component {
         : Math.ceil(top / cardHeight.scrollViewInterval)
 
     return this.setState({
-      category: categories[index][0]
+      category: categories[index]
     })
   }
 
   _renderItem = ({ item, index }) => {
     let me = this
+    let isFavorite = favorites.includes(item._id)
     return (
-      <TouchableOpacity style={{ flex: 1 }} activeOpacity={0.75} onPress={() => this.props.navigation.navigate('Experience', { experience: item })}>
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        activeOpacity={0.75}
+        onPress={() => this.props.navigation.navigate('Experience',
+        { experience: item, previous: 'Landing', isFavorite })}
+      >
         <View
           style={{
             flex: 1,
@@ -140,22 +145,9 @@ export default class Landing extends Component {
                       <TouchableOpacity
                         onPress={() => {
                           updateUserFavorites({ variables: { experienceId: item._id } })
-                            .then(({data: { updateUserFavorites: {favorites} }}) => me.setState({ favorites }))
                         }}
                       >
-                        {
-                          me.state.favorites.includes(item._id)
-                            ? <Ionicons
-                              name={'ios-heart'}
-                              size={25}
-                              color={'red'}
-                            />
-                            : <Ionicons
-                              name={'ios-heart-outline'}
-                              size={25}
-                              color={'white'}
-                            />
-                        }
+                       <Heart isFavorite={isFavorite} />
                       </TouchableOpacity>
                     )
                     }
@@ -178,8 +170,7 @@ export default class Landing extends Component {
                         color='white'
                       />
                       <Text style={landingStyles.smallTextBottom}>
-                        {Math.round((item.duration / 60) % 60)}
-                        :00
+                        {formatDuration(item.duration)}
                       </Text>
                     </View>
                     <View style={landingStyles.iconTextContainer}>
@@ -263,7 +254,7 @@ export default class Landing extends Component {
         {({ loading, error, data }) => {
           if (loading) return 'Loading...'
           if (error) return `Error! ${error.message}`
-          if (!userFetched) this.updateStateWithFavorites(data.currentUser.favorites)
+          favorites = data.currentUser.favorites
           return (
             <View style={landingStyles.parent}>
               <View>
@@ -284,15 +275,15 @@ export default class Landing extends Component {
               />
               </View>
               <View style={landingStyles.wrapper}>
-                <Text style={landingStyles.TopText}>{this.state.category}</Text>
+                <Text style={landingStyles.TopText}>{this.state.category[0]}</Text>
                 <TouchableOpacity
                   style={landingStyles.viewAll}
                   onPress={() =>
-                    this.props.navigation.navigate('Preview', {
+                    this.props.navigation.navigate('ViewAll', {
                       category: this.state.category
                     })
                   }>
-                  <Text style={landingStyles.viewAllText}>View All</Text>
+                  <Text style={landingStyles.viewAllText}>View More</Text>
                   <Ionicons
                     name='md-arrow-forward'
                     size={30}
@@ -319,17 +310,17 @@ export default class Landing extends Component {
                 {
                   categories.map((category, index) =>
                     (<View key={index} style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-                      <Query query={category[1]}>
+                      <Query query={GET_EXPERIENCES_BY_CATEGORY} variables={{input: category[1]}}>
                         {({loading, error, data}) => {
                           if (loading) return 'Loading...'
                           if (error) return `Error! ${error.message}`
-                          let exps = data.getExperiences.slice(0, 5)
+                          let exps = data.getExperiences
                           return (
                             <Carousel
                               data={exps}
                               renderItem={this._renderItem}
                               sliderWidth={width}
-                              extraData={this.state.favorites}
+                              extraData={favorites}
                               itemWidth={width - 50}
                               removeClippedSubviews
                             />

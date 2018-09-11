@@ -16,3 +16,20 @@ export function formatReviewsCountText (reviewObjects) {
 
   return (count > 1) ? `${count} Reviews` : '1 Review'
 }
+
+export function formatDuration (duration) {
+  // Comes in minutes
+  let out = ''
+  let hr = Math.floor(duration / 60)
+  let min = duration % 60
+
+  if (hr !== 0) {
+    out += (hr > 1) ? `${hr} hrs ` : `${hr} hr `
+  }
+
+  if (min > 0) {
+    out += `${min} mins`
+  }
+
+  return out
+}

@@ -1,14 +1,18 @@
 import gql from 'graphql-tag'
 
-const HIGHEST_RATED = gql`
-{
-  getExperiences(category: "Highest Rated") {
+const EXPERIENCE_FIELD_FRAGMENTS = gql`
+  fragment experienceFields on Experience {
     _id
     title
     location {
+      _id
       borough
       city
       country
+    }
+    host {
+      firstName
+      profilePicture
     }
     duration
     languages
@@ -18,143 +22,27 @@ const HIGHEST_RATED = gql`
     media
     basePricePerPerson
     reviews {
+      _id
       rating
       comments
       createdAt
       firstName
     }
   }
-}`
-
-const TOP_TRENDING = gql`
-{
-  getExperiences(category: "Top Trending") {
-    _id
-    title
-    location {
-      borough
-      city
-      country
+`
+const GET_EXPERIENCES_BY_CATEGORY = gql`
+  query topTrending ($input: GetExperienceInput) {
+    getExperiences(input: $input) {
+      ...experienceFields
     }
-    duration
-    languages
-    activityType
-    included
-    overview
-    media
-    basePricePerPerson
-    reviews {
-      rating
-      comments
-      createdAt
-      firstName
+  }${EXPERIENCE_FIELD_FRAGMENTS}
+`
+const GET_EXPERIENCES_BY_ID = gql`
+  query GetExperiencesById($experiences: [ID!]) {
+    getExperiencesById(experiences: $experiences) {
+      ...experienceFields
     }
-  }
-}`
-
-const WEEKEND_PICKS = gql`
-{
-  getExperiences(category: "Weekend Picks") {
-    _id
-    title
-    location {
-      borough
-      city
-      country
-    }
-    duration
-    languages
-    activityType
-    included
-    overview
-    media
-    basePricePerPerson
-    reviews {
-      rating
-      comments
-      createdAt
-      firstName
-    }
-  }
-}`
-
-const BEST_VALUE = gql`
-{
-  getExperiences(category: "Best Value") {
-    _id
-    title
-    location {
-      borough
-      city
-      country
-    }
-    duration
-    languages
-    activityType
-    included
-    overview
-    media
-    basePricePerPerson
-    reviews {
-      rating
-      comments
-      createdAt
-      firstName
-    }
-  }
-}`
-
-const MOST_VIEWED = gql`
-{
-  getExperiences(category: "Most Viewed") {
-    _id
-    title
-    location {
-      borough
-      city
-      country
-    }
-    duration
-    languages
-    activityType
-    included
-    overview
-    media
-    basePricePerPerson
-    reviews {
-      rating
-      comments
-      createdAt
-      firstName
-    }
-  }
-}`
-
-const GET_USER_FAVORITE_EXPERIENCES = gql`
-query GetUserFavoriteExperiences($experiences: [ID!]) {
-  getUserFavoriteExperiences(experiences: $experiences) {
-    _id
-    title
-    location {
-      borough
-      city
-      country
-    }
-    duration
-    languages
-    activityType
-    included
-    overview
-    media
-    basePricePerPerson
-    reviews {
-      rating
-      comments
-      createdAt
-      firstName
-    }
-  }
-}
+  }${EXPERIENCE_FIELD_FRAGMENTS}
 `
 
 const CURRENT_USER = gql`
@@ -165,15 +53,12 @@ const CURRENT_USER = gql`
     lastName
     email
     favorites
+    profilePicture
   }
 }
 `
 export {
   CURRENT_USER,
-  TOP_TRENDING,
-  HIGHEST_RATED,
-  WEEKEND_PICKS,
-  BEST_VALUE,
-  MOST_VIEWED,
-  GET_USER_FAVORITE_EXPERIENCES
+  GET_EXPERIENCES_BY_CATEGORY,
+  GET_EXPERIENCES_BY_ID
 }
