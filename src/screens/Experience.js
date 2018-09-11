@@ -15,7 +15,7 @@ export default class Experience extends React.Component {
         {/**********************************************/}
         <ExperienceFullScreen item={item} nav={nav} previous={previous} isFavorite={isFavorite} />
         {/**********************************************/}
-        <ScrollView pagingEnabled bounces={false}>
+        <ScrollView bounces={false}>
           <ExploreInfoSection hostImage={{uri: item.host.profilePicture}} heading={`Meet Your Host, ${item.host.firstName}`} content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
                 Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
                 adipiscing elit. Pellentesque in ipsum id orci porta dapibus.
