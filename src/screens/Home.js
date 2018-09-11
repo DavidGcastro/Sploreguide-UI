@@ -7,15 +7,20 @@ import {
   SafeAreaView,
   TouchableHighlight
 } from 'react-native';
-import { LinearGradient } from 'expo';
+import { LinearGradient, Video } from 'expo';
 import styles from '../styles/home';
 import buttonStyles from '../styles/buttons';
 
 const Home = props => {
   return (
-    <ImageBackground
-      source={require('../assets/img/login-noOverlay.jpg')}
-      style={styles.image}>
+    <View style={{flex:1}}>
+    <Video
+    source={{ uri: 'https://track9.mixtape.moe/esmetu.m4v' }}
+    shouldPlay
+    isLooping
+    resizeMode="cover"
+    style={ styles.video }
+/>
       {/* PARENT */}
       <LinearGradient
         style={{ flex: 1 }}
@@ -62,7 +67,7 @@ const Home = props => {
           </SafeAreaView>
         </View>
       </LinearGradient>
-    </ImageBackground>
+      </View>
   );
 };
 
