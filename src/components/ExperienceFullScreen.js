@@ -27,7 +27,7 @@ export default class ExperienceFullScreen extends React.Component {
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
       onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: (evt, gestureState) => {
-        if (gestureState.dy < -40) {
+        if (gestureState.dy < -20) {
           Animated.parallel([
             Animated.timing(totalHeight, {
               toValue: height / 3 + 10,
@@ -43,7 +43,7 @@ export default class ExperienceFullScreen extends React.Component {
             })
           ]).start()
         }
-        if (gestureState.dy > 40) {
+        if (gestureState.dy > 10) {
           Animated.parallel([
             Animated.timing(totalHeight, {
               toValue: height,
