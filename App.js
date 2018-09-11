@@ -85,7 +85,7 @@ export default class App extends Component {
       if (jwt) {
         return (
           <ApolloProvider client={client}>
-            <RootNavigator screenProps={{deleteJWT: this.props.deleteJWT}} />
+            <RootNavigator screenProps={{deleteJWT: this.deleteJWT}} />
           </ApolloProvider>
         );
       } else {
