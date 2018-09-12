@@ -17,7 +17,11 @@ const PreviewNavigator = createStackNavigator(
       }
     }
   },
-  { initialRouteName: 'ViewAll' }
+  {
+    navigationOptions: {
+      gesturesEnabled: false
+    },
+    initialRouteName: 'ViewAll' }
 )
 
 export default PreviewNavigator

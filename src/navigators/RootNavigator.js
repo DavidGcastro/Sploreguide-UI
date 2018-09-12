@@ -15,6 +15,11 @@ const RootNavigator = createStackNavigator(
     }
   },
   {
+    navigationOptions: {
+
+      gesturesEnabled: false
+
+    },
     mode: 'modal',
     headerMode: 'none'
   }
