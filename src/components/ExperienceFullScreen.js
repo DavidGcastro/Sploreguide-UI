@@ -181,9 +181,10 @@ export default class ExperienceFullScreen extends Component {
                   </Animated.View>
                   {/********************************************************/}
 
-                  <View style={{
+                  <Animated.View style={{
                     flexDirection: 'row',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
+                    paddingBottom: paddingBelow
                   }}>
                     <View style={landingStyles.iconTextContainer}>
                       <SimpleLineIcons
@@ -211,7 +212,7 @@ export default class ExperienceFullScreen extends Component {
                         {formatReviewsCountText(item.reviews)}
                       </Text>
                     </View>
-                  </View>
+                  </Animated.View>
                   {/********************************************************/}
                   <Animated.View style={{
                     justifyContent: 'space-evenly',

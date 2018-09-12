@@ -7,7 +7,7 @@ const { width } = Dimensions.get('window')
 const GradientButton = props => {
   return (
     <LinearGradient
-      style={{ borderRadius: 20, height: 60, justifyContent: 'center' }}
+      style={{ borderRadius: 10, height: 60, justifyContent: 'center' }}
       colors={['rgba(48, 35, 174, 1)', 'rgba(83, 160, 253, 1)']}
       start={[0, 0.5]}
       end={[0.5, 1]}>

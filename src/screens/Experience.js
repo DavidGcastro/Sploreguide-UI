@@ -5,7 +5,6 @@ import ExploreInfoSection from '../components/ExploreInfoSection'
 import GradientButton from '../components/GradientButton'
 export default class Experience extends React.Component {
   render () {
-    // const item = this.props.navigation.state.params.experience
     const item = this.props.navigation.state.params.experience
     const nav = this.props.navigation
     const previous = this.props.navigation.state.params.previous
@@ -16,7 +15,7 @@ export default class Experience extends React.Component {
         <ExperienceFullScreen item={item} nav={nav} previous={previous} isFavorite={isFavorite} />
         {/**********************************************/}
         <ScrollView bounces={false}>
-          <ExploreInfoSection hostImage={{uri: item.host.profilePicture}} heading={`Meet Your Host, ${item.host.firstName}`} content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
+          <ExploreInfoSection heading={`Meet Your Host, ${item.host.firstName}`} content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
                 Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
                 adipiscing elit. Pellentesque in ipsum id orci porta dapibus.
                 Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
@@ -32,7 +31,7 @@ export default class Experience extends React.Component {
         </ScrollView>
         {/**********************************************/}
         <TouchableOpacity>
-          <GradientButton text='Explore' />
+          <GradientButton text='Explore' round={0} />
         </TouchableOpacity>
       </View>
     )
