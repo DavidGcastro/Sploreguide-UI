@@ -1,7 +1,7 @@
 import React from 'react'
-import {ScrollView, View, TouchableOpacity} from 'react-native'
+import {View, TouchableOpacity} from 'react-native'
 import ExperienceFullScreen from '../components/ExperienceFullScreen'
-import ExploreInfoSection from '../components/ExploreInfoSection'
+import ExperienceFullCardInfo from '../components/ExperienceFullCardInfo'
 import GradientButton from '../components/GradientButton'
 export default class Experience extends React.Component {
   render () {
@@ -10,25 +10,11 @@ export default class Experience extends React.Component {
     const previous = this.props.navigation.state.params.previous
     const isFavorite = this.props.navigation.state.params.isFavorite
     return (
-      <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'space-between'}}>
         {/**********************************************/}
         <ExperienceFullScreen item={item} nav={nav} previous={previous} isFavorite={isFavorite} />
         {/**********************************************/}
-        <ScrollView bounces={false}>
-          <ExploreInfoSection heading={`Meet Your Host, ${item.host.firstName}`} content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Pellentesque in ipsum id orci porta dapibus.
-                Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Pellentesque in ipsum id orci porta dapibus.' />
-          <ExploreInfoSection heading='What To Expect' content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.' />
-          <ExploreInfoSection heading='Rendez-vous' content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Pellentesque in ipsum id orci porta dapibus.' />
-          <ExploreInfoSection heading='What You Will Do' content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Pellentesque in ipsum id orci porta dapibus.' />
-        </ScrollView>
+        <ExperienceFullCardInfo item={item} />
         {/**********************************************/}
         <TouchableOpacity>
           <GradientButton text='Explore' round={0} />
