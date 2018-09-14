@@ -4,6 +4,7 @@ import {ScrollView} from 'react-native'
 
 const ExperienceFullCardInfo = props => {
   let {item} = props
+
   return <ScrollView bounces={false}>
     <ExploreInfoSection border borderheading={`Meet Your Host, ${item.host.firstName}`} content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
           Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur

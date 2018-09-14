@@ -43,11 +43,11 @@ export default class ExperienceFullScreen extends Component {
         if (gestureState.dy < -20) {
           Animated.parallel([
             Animated.timing(totalHeight, {
-              toValue: height / 3 + 10,
+              toValue: height / 3 + 12,
               duration: 200
             }),
             Animated.timing(paddingBelow, {
-              toValue: 50,
+              toValue: 45,
               duration: 200
             }),
             Animated.timing(fade, {
@@ -88,6 +88,7 @@ export default class ExperienceFullScreen extends Component {
     return (
       <Animated.View style={{ height: totalHeight }}>
         <ScrollView
+          centerContent= {true}
           {..._panResponder.panHandlers}
           onScroll={x => {
             let currentOffset = x.nativeEvent.contentOffset.x
@@ -144,7 +145,7 @@ export default class ExperienceFullScreen extends Component {
               <View
                 pointerEvents='box-none'
                 style={{
-                  height: '100%', paddingHorizontal: 20
+                  paddingHorizontal: 20, flex:1
                 }}>
                 {/********************************************************/}
                 <View style={[landingStyles.bottomContainerIcons, {
@@ -174,18 +175,16 @@ export default class ExperienceFullScreen extends Component {
                 </Mutation>
                 </View>
                 {/********************************************************/}
-                <View pointerEvents='none' style={{ justifyContent: 'space-evenly', flex: 1 }}>
-                  <Animated.View pointerEvents='none'>
+                <View pointerEvents='none' style={{ justifyContent: 'space-evenly', flex: 1}}>
+                  <Animated.View pointerEvents='none' style={{}}>
                     <Text style={[landingStyles.location, { paddingBottom: 0 }]}>{formatLocationObject(item.location)}</Text>
-                    <Animated.Text style={[landingStyles.title, { paddingBottom: paddingBelow }]}>{item.title}</Animated.Text>
+                    <Animated.Text style={landingStyles.title}>{item.title}</Animated.Text>
                   </Animated.View>
                   {/********************************************************/}
 
                   <Animated.View style={{
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginBottom:paddingBelow,
-                    backgroundColor:'red'
+                    justifyContent: 'space-between'                  
                   }}>
                     <View style={landingStyles.iconTextContainer}>
                       <SimpleLineIcons
@@ -228,12 +227,16 @@ export default class ExperienceFullScreen extends Component {
                   {/********************************************************/}
                   <Animated.Text style={{ color: 'white', opacity: fade }}>{item.included}</Animated.Text>
                   <Animated.Text style={{ color: 'white', opacity: fade, lineHeight: 20 }}>{item.overview}</Animated.Text>
+                 
                 </View>
                 {/********************************************************/}
               </View>
+
             </View>
           </View>
+
         </LinearGradient>
+
       </Animated.View>
     )
   }
