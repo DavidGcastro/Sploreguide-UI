@@ -47,7 +47,7 @@ export default class ExperienceFullScreen extends Component {
               duration: 200
             }),
             Animated.timing(paddingBelow, {
-              toValue: 35,
+              toValue: 50,
               duration: 200
             }),
             Animated.timing(fade, {
@@ -184,7 +184,8 @@ export default class ExperienceFullScreen extends Component {
                   <Animated.View style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    paddingBottom: paddingBelow
+                    marginBottom:paddingBelow,
+                    backgroundColor:'red'
                   }}>
                     <View style={landingStyles.iconTextContainer}>
                       <SimpleLineIcons

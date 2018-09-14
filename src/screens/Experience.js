@@ -3,6 +3,8 @@ import {View, TouchableOpacity} from 'react-native'
 import ExperienceFullScreen from '../components/ExperienceFullScreen'
 import ExperienceFullCardInfo from '../components/ExperienceFullCardInfo'
 import GradientButton from '../components/GradientButton'
+import { Calendar } from 'react-native-calendars'
+
 export default class Experience extends React.Component {
   render () {
     const item = this.props.navigation.state.params.experience
@@ -17,7 +19,7 @@ export default class Experience extends React.Component {
         <ExperienceFullCardInfo item={item} />
         {/**********************************************/}
         <TouchableOpacity>
-          <GradientButton text='Explore' round={0} />
+          <GradientButton text='EXPERIENCE' round={0} />
         </TouchableOpacity>
       </View>
     )
