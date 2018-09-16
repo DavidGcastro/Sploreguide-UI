@@ -31,15 +31,23 @@ const EXPERIENCE_FIELD_FRAGMENTS = gql`
   }
 `
 const GET_EXPERIENCES_BY_CATEGORY = gql`
-  query topTrending ($input: GetExperienceInput) {
+  query getExperiencesByCategory ($input: GetExperienceInput) {
     getExperiences(input: $input) {
       ...experienceFields
     }
   }${EXPERIENCE_FIELD_FRAGMENTS}
 `
 const GET_EXPERIENCES_BY_ID = gql`
-  query GetExperiencesById($experiences: [ID!]) {
+  query getExperiencesById($experiences: [ID!]) {
     getExperiencesById(experiences: $experiences) {
+      ...experienceFields
+    }
+  }${EXPERIENCE_FIELD_FRAGMENTS}
+`
+
+const SEARCH_EXPERIENCES = gql`
+  query getExperiencesBySearchQuery($input: SearchActivity) {
+    searchExperiences(input: $input) {
       ...experienceFields
     }
   }${EXPERIENCE_FIELD_FRAGMENTS}
@@ -60,5 +68,6 @@ const CURRENT_USER = gql`
 export {
   CURRENT_USER,
   GET_EXPERIENCES_BY_CATEGORY,
-  GET_EXPERIENCES_BY_ID
+  GET_EXPERIENCES_BY_ID,
+  SEARCH_EXPERIENCES
 }

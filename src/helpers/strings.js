@@ -7,7 +7,7 @@ export function makeFirstLetterUpperCase (word) {
 
 export function formatLocationObject (locationObject) {
   let { borough, city, country } = locationObject
-  return `${borough || city}, ${country}`
+  return `${makeFirstLetterUpperCase(borough) || makeFirstLetterUpperCase(city)}, ${makeFirstLetterUpperCase(country)}`
 }
 
 export function formatReviewsCountText (reviewObjects) {
@@ -32,4 +32,21 @@ export function formatDuration (duration) {
   }
 
   return out
+}
+
+export function formatSearchQueryObject (queryObject) {
+  let parts = []
+  if (queryObject.location) {
+    parts.push(`${queryObject.location.borough || queryObject.location.city}`)
+  }
+
+  if (queryObject.activityType) {
+    parts.push(`${queryObject.activityType}`)
+  }
+
+  if (queryObject.priceRangeMax) {
+    parts.push(`$${queryObject.priceRangeMin} - $${queryObject.priceRangeMax}`)
+  }
+
+  return parts.join(' | ')
 }

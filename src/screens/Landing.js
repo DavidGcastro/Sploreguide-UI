@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { Query, Mutation } from 'react-apollo'
-import { CURRENT_USER, GET_EXPERIENCES_BY_CATEGORY } from '../queries'
+import {
+  CURRENT_USER,
+  GET_EXPERIENCES_BY_CATEGORY,
+  SEARCH_EXPERIENCES
+} from '../queries'
 import { UPDATE_FAVORITES } from '../mutations'
+import lodash from 'lodash'
 import Carousel from 'react-native-snap-carousel'
 import {
   Text,
@@ -14,11 +19,19 @@ import {
 } from 'react-native'
 import { LinearGradient } from 'expo'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import { Ionicons, SimpleLineIcons } from '@expo/vector-icons'
+import { Ionicons, SimpleLineIcons, MaterialIcons } from '@expo/vector-icons'
 import Stars from '../components/Stars'
 import Heart from '../components/Heart'
+import CustomLoading from '../components/CustomLoading'
 import landingStyles from '../styles/landingStyles'
-import { formatLocationObject, formatReviewsCountText, formatDuration } from '../helpers/strings'
+import {
+  formatLocationObject,
+  formatReviewsCountText,
+  formatDuration,
+  formatSearchQueryObject
+} from '../helpers/strings'
+import SearchResults from '../components/SearchResults'
+import SearchBar from '../components/SearchBar'
 
 let { width, height } = Dimensions.get('window')
 
@@ -31,27 +44,7 @@ let categories = [
 ]
 
 let offset = 0
-const styles = {
-  container: {
-    borderWidth: 1,
-    borderColor: 'rgba(132, 146, 166, .2)',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 5,
-    shadowOffset: { width: 3, height: 3 },
-    shadowColor: 'grey',
-    shadowOpacity: 0.5,
-    width: width - 40
-  },
-  searchImage: {
-    width: 20,
-    height: 30,
-    tintColor: '#9b9b9b'
-  }
-}
+
 let cardHeight = {
   ...ifIphoneX(
     {
@@ -66,6 +59,8 @@ let cardHeight = {
 }
 
 let favorites = null
+let defaultImageCount = 0
+let loadedImageCount = 0
 
 export default class Landing extends Component {
 
@@ -73,10 +68,20 @@ export default class Landing extends Component {
     search: 'Search By City or Activity',
     category: categories[0],
     fromTop: 0,
+    loading: true
   }
 
   componentDidMount () {
     this.onSwipeUp(0)
+
+  }
+
+  removeDefaultLoading = () => {
+    if (defaultImageCount === loadedImageCount) {
+      defaultImageCount = 0
+      loadedImageCount = 0
+      this.setState({loading: false})
+    }
   }
 
   onSwipeUp = (top, direction) => {
@@ -109,6 +114,7 @@ export default class Landing extends Component {
           }}>
           <ImageBackground
             source={{uri: item.media[0]}}
+            onLoad={()=>{loadedImageCount+=1; this.removeDefaultLoading()}}
             imageStyle={{ borderRadius: 10 }}
             style={{
               flex: 1
@@ -200,39 +206,16 @@ export default class Landing extends Component {
   }
 
   render () {
-    let { userFetched } = this.state
-    let search = this.props.navigation.state.params ? (
-      <Text
-        style={{
-          fontSize: 20,
-          fontWeight: '500',
-          paddingLeft: 10,
-          flex: 1,
-          justifyContent: 'center',
-          alignContent: 'center',
-          alignItems: 'center',
-          padding: 2
-        }}>
-        {this.props.navigation.state.params.search.length > 0 ? (
-          this.props.navigation.state.params.search
-        ) : (
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: '500',
-              paddingLeft: 10,
-              flex: 1,
-              justifyContent: 'center',
-              alignContent: 'center',
-              alignItems: 'center',
-              padding: 2,
-              color: '#9b9b9b'
-            }}>
-            {this.state.search}
-          </Text>
-        )}
-      </Text>
-    ) : (
+    let { loading } = this.state
+
+    let query = {}
+    let searchText = ''
+    if (!lodash.isEmpty(this.props.navigation.state.params)) {
+      query =  this.props.navigation.state.params.query
+      searchText = formatSearchQueryObject(query)
+    }
+
+    let search =
       <Text
         style={{
           fontSize: 20,
@@ -243,10 +226,72 @@ export default class Landing extends Component {
           alignContent: 'center',
           alignItems: 'center',
           padding: 2,
-          color: '#9b9b9b'
+          color: (searchText) ? 'black' : '#9b9b9b'
         }}>
-        {this.state.search}
+         {searchText || this.state.search}
       </Text>
+
+    let categoryTitlePart = (
+      <View style={landingStyles.wrapper}>
+        <Text style={landingStyles.TopText}>{this.state.category[0]}</Text>
+        <TouchableOpacity
+          style={landingStyles.viewAll}
+          onPress={() =>
+            this.props.navigation.navigate('ViewAll', {
+              category: this.state.category
+            })
+          }>
+          <Text style={landingStyles.viewAllText}>View More</Text>
+          <Ionicons
+            name='md-arrow-forward'
+            size={30}
+            color='rgba(48, 55, 64, 1)'
+          />
+        </TouchableOpacity>
+      </View>
+    )
+
+    let scrollPart = (
+      <ScrollView
+        decelerationRate={0}
+        alwaysBounceVertical={false}
+        bounces={false}
+        snapToInterval={cardHeight.scrollViewInterval}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        onScroll={x => {
+          let currentOffset = x.nativeEvent.contentOffset.y
+          let direction = currentOffset >= offset ? 'up' : 'down'
+          offset = currentOffset
+
+          this.onSwipeUp(currentOffset, direction)
+        }}
+        scrollEventThrottle={1}
+      >
+        {
+          categories.map((category, index) =>
+            (<View key={index} style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
+              <Query query={GET_EXPERIENCES_BY_CATEGORY} variables={{input: category[1]}}>
+                {({loading, error, data}) => {
+                  if (loading) return 'Loading...'
+                  if (error) return `Error! ${error.message}`
+                  let exps = data.getExperiences
+                  defaultImageCount += exps.length
+                  return (
+                    <Carousel
+                      data={exps}
+                      renderItem={this._renderItem}
+                      sliderWidth={width}
+                      extraData={favorites}
+                      itemWidth={width - 50}
+                      removeClippedSubviews
+                    />
+                  )
+                }}
+              </Query>
+            </View>))
+        }
+      </ScrollView>
     )
 
     return (
@@ -255,85 +300,41 @@ export default class Landing extends Component {
           if (loading) return 'Loading...'
           if (error) return `Error! ${error.message}`
           favorites = data.currentUser.favorites
-          return (
-            <View style={landingStyles.parent}>
-              <View>
-                <View style={styles.container}>
-                  <Image
-                    style={styles.searchImage}
-                    resizeMode='contain'
-                    source={require('../assets/img/Search.png')}
-                  />
-                  <TouchableOpacity
-                    style={{ flex: 1, width: '100%' }}
-                    onPress={() => {
-                      this.props.navigation.navigate('Search')
-                    }}>
-                    {search}
-                  </TouchableOpacity>
-                </View>
-              />
-              </View>
-              <View style={landingStyles.wrapper}>
-                <Text style={landingStyles.TopText}>{this.state.category[0]}</Text>
-                <TouchableOpacity
-                  style={landingStyles.viewAll}
-                  onPress={() =>
-                    this.props.navigation.navigate('ViewAll', {
-                      category: this.state.category
-                    })
-                  }>
-                  <Text style={landingStyles.viewAllText}>View More</Text>
-                  <Ionicons
-                    name='md-arrow-forward'
-                    size={30}
-                    color='rgba(48, 55, 64, 1)'
-                  />
-                </TouchableOpacity>
-              </View>
-              <ScrollView
-                decelerationRate={0}
-                alwaysBounceVertical={false}
-                bounces={false}
-                snapToInterval={cardHeight.scrollViewInterval}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                onScroll={x => {
-                  let currentOffset = x.nativeEvent.contentOffset.y
-                  let direction = currentOffset >= offset ? 'up' : 'down'
-                  offset = currentOffset
+         // return defaultView
+         return (
+          <View style={landingStyles.parent}>
+            <SearchBar
+              navigation={this.props.navigation}
+              search={search}
+              clear={!lodash.isEmpty(query)} />
+            {!lodash.isEmpty(query) && (
+              <Query
+                query={SEARCH_EXPERIENCES}
+                variables={{input: query}}
+              >
+                {({ loading, error, data }) => {
+                  let { searchExperiences } = data
 
-                  this.onSwipeUp(currentOffset, direction)
+                  return (
+                   <SearchResults
+                    searchExperiences={searchExperiences}
+                    navigation={this.props.navigation}
+                    favorites={favorites}
+                    />
+                  )
                 }}
-                scrollEventThrottle={1}>
+              </Query>
+            )}
 
-                {
-                  categories.map((category, index) =>
-                    (<View key={index} style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-                      <Query query={GET_EXPERIENCES_BY_CATEGORY} variables={{input: category[1]}}>
-                        {({loading, error, data}) => {
-                          if (loading) return 'Loading...'
-                          if (error) return `Error! ${error.message}`
-                          let exps = data.getExperiences
-                          return (
-                            <Carousel
-                              data={exps}
-                              renderItem={this._renderItem}
-                              sliderWidth={width}
-                              extraData={favorites}
-                              itemWidth={width - 50}
-                              removeClippedSubviews
-                            />
-                          )
-                        }}
-                      </Query>
-                    </View>))
-                }
-              </ScrollView>
-            </View>
-          )
+            {this.state.loading && <CustomLoading />}
+            {lodash.isEmpty(query) && categoryTitlePart}
+            {lodash.isEmpty(query) && scrollPart }
+
+          </View>
+         )
         }}
       </Query>
     )
   }
 }
+

@@ -4,9 +4,8 @@ import { CURRENT_USER } from '../queries'
 import ExperiencesList from '../components/ExperiencesList'
 import { GET_EXPERIENCES_BY_CATEGORY } from '../queries'
 
-
 const ViewAll = props => {
-  let category = props.navigation.getParam('category') || ['Top Trending', {category: "Top Trending", limit: 10}]
+  let category = props.navigation.getParam('category') || ['Top Trending', {category: 'Top Trending', limit: 10}]
   return (
     <Query query={CURRENT_USER}>
       {({ loading, error, data }) => {
@@ -22,7 +21,7 @@ const ViewAll = props => {
           dataName={'getExperiences'}
           favoriteIds={favoriteIds}
           variables={{input: {category: category[0], limit: 10}}}
-           />
+        />
         )
       }}
     </Query>

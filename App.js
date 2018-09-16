@@ -4,7 +4,7 @@ import { ApolloProvider } from 'react-apollo'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
-import { setContext } from 'apollo-link-context';
+import { setContext } from 'apollo-link-context'
 import { onError } from 'apollo-link-error'
 import { ApolloLink } from 'apollo-link'
 import LoginNavigator from './src/navigators/LoginNavigator'
@@ -36,7 +36,7 @@ const client = new ApolloClient({
           console.log(
             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
           )
-        );
+        )
       }
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
@@ -56,8 +56,8 @@ export default class App extends Component {
       loading: true
     }
 
-    this.loadJWT = deviceStorage.loadJWT.bind(this);
-    this.deleteJWT = deviceStorage.deleteJWT.bind(this);
+    this.loadJWT = deviceStorage.loadJWT.bind(this)
+    this.deleteJWT = deviceStorage.deleteJWT.bind(this)
   }
 
   async componentDidMount () {
@@ -69,25 +69,25 @@ export default class App extends Component {
       'SF-UI-Text-Heavy': require('./src/assets/fonts/SF-UI-Text-Heavy.otf'),
       'SF-UI-Text-Semibold': require('./src/assets/fonts/SF-UI-Text-Semibold.otf')
     });
-    this.setState({ fontLoaded: true });
-    this.loadJWT();
+    this.setState({ fontLoaded: true })
+    this.loadJWT()
   }
 
   saveJWT = jwt => {
-    this.setState({ jwt });
-  };
+    client.resetStore().then(() => this.setState({ jwt }))
+  }
 
   render () {
     let { jwt, loading, fontLoaded } = this.state;
     if (!fontLoaded || loading) {
-      return <AppLoading />;
+      return <AppLoading />
     } else {
       if (jwt) {
         return (
           <ApolloProvider client={client}>
             <RootNavigator screenProps={{deleteJWT: this.deleteJWT}} />
           </ApolloProvider>
-        );
+        )
       } else {
         return (
           <ApolloProvider client={client}>
