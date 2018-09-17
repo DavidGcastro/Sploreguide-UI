@@ -2,15 +2,61 @@ import React, {Component} from 'react'
 import { Dimensions, View, Text, TouchableOpacity, ScrollView, Image, PanResponder, Animated, StyleSheet } from 'react-native'
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
-import { Ionicons, SimpleLineIcons, Feather } from '@expo/vector-icons'
+import { Ionicons, SimpleLineIcons, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import GradientBorder from '../components/GradientButton'
 import Stars from '../components/Stars'
 import Heart from '../components/Heart'
 import { formatLocationObject, formatReviewsCountText, formatDuration } from '../helpers/strings'
 import { Query, Mutation } from 'react-apollo'
 import { UPDATE_FAVORITES } from '../mutations'
-
 const { width, height } = Dimensions.get('window')
+
+let totalHeight = new Animated.Value(height)
+let fade = new Animated.Value(1)
+let paddingBelow = new Animated.Value(0)
+let _panResponder = PanResponder.create({
+  // Ask to be the responder: Does this view want to become responder on the start of a touch?
+  onStartShouldSetPanResponder: (evt, gestureState) => true,
+  onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+  // Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
+  onMoveShouldSetPanResponder: (evt, gestureState) => true,
+  onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+  onPanResponderTerminationRequest: (evt, gestureState) => true,
+  onPanResponderRelease: (evt, gestureState) => {
+    if (gestureState.dy < -20) {
+      Animated.parallel([
+        Animated.timing(totalHeight, {
+          toValue: height / 3 + 12,
+          duration: 200
+        }),
+        Animated.timing(paddingBelow, {
+          toValue: 45,
+          duration: 200
+        }),
+        Animated.timing(fade, {
+          toValue: 0,
+          duration: 200
+        })
+      ]).start()
+    }
+    if (gestureState.dy > 20) {
+      Animated.parallel([
+        Animated.timing(totalHeight, {
+          toValue: height,
+          duration: 200
+        }),
+        Animated.timing(paddingBelow, {
+          toValue: 0,
+          duration: 200
+        }),
+        Animated.timing(fade, {
+          toValue: 1,
+          duration: 200
+        })
+      ]).start()
+    }
+  }
+})
 export default class ExperienceFullScreen extends Component {
 
   state = {
@@ -28,53 +74,6 @@ export default class ExperienceFullScreen extends Component {
 
   render () {
     let { isFavorite } = this.state
-    let totalHeight = new Animated.Value(height)
-    let fade = new Animated.Value(1)
-    let paddingBelow = new Animated.Value(0)
-    let _panResponder = PanResponder.create({
-      // Ask to be the responder: Does this view want to become responder on the start of a touch?
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-      // Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-      onPanResponderTerminationRequest: (evt, gestureState) => true,
-      onPanResponderRelease: (evt, gestureState) => {
-        if (gestureState.dy < -20) {
-          Animated.parallel([
-            Animated.timing(totalHeight, {
-              toValue: height / 3 + 12,
-              duration: 200
-            }),
-            Animated.timing(paddingBelow, {
-              toValue: 45,
-              duration: 200
-            }),
-            Animated.timing(fade, {
-              toValue: 0,
-              duration: 200
-            })
-          ]).start()
-        }
-        if (gestureState.dy > 10) {
-          Animated.parallel([
-            Animated.timing(totalHeight, {
-              toValue: height,
-              duration: 200
-            }),
-            Animated.timing(paddingBelow, {
-              toValue: 0,
-              duration: 200
-            }),
-            Animated.timing(fade, {
-              toValue: 1,
-              duration: 200
-            })
-          ]).start()
-        }
-      }
-    })
-
     let { item, nav, previous } = this.props
     let paginationStyle = StyleSheet.create({
       active: {
@@ -86,7 +85,7 @@ export default class ExperienceFullScreen extends Component {
       }
     })
     return (
-      <Animated.View style={{ height: totalHeight }}>
+      <Animated.View style={{height:totalHeight, width}}>
         <ScrollView
           centerContent= {true}
           {..._panResponder.panHandlers}
@@ -98,10 +97,10 @@ export default class ExperienceFullScreen extends Component {
           }}
           scrollEventThrottle={4}
           bounces={false}
-          style={{ width, height }}
+          style={{  }}
           horizontal pagingEnabled >
           {
-            item.media.map((url, index) => <Image key={index} source={{uri: url}} style={{ height: '100%', width }} />)
+            item.media.map((url, index) => <Animated.Image key={index} source={{uri: url}} style={{height: '100%', width}} />)
           }
         </ScrollView>
         <LinearGradient
@@ -109,12 +108,12 @@ export default class ExperienceFullScreen extends Component {
           colors={['transparent', 'rgba(0,0,0,1.0)']}
           start={[0.5, 0.2]}
           end={[0.5, 1.0]}
-          style={{ height: '100%', width, position: 'absolute' }}
+          style={{  width, position: 'absolute' }}
         >
           {/* PARENT */}
-          <View
+          <Animated.View
             pointerEvents='box-none'
-            style={{ flex: 1 }}>
+            style={{height:totalHeight }}>
             <View
               pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start'}]}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -225,15 +224,20 @@ export default class ExperienceFullScreen extends Component {
                   }
                   </Animated.View>
                   {/********************************************************/}
-                  <Animated.Text style={{ color: 'white', opacity: fade }}>{item.included}</Animated.Text>
-                  <Animated.Text style={{ color: 'white', opacity: fade, lineHeight: 20 }}>{item.overview}</Animated.Text>
-                 
+                  <Animated.View style={{ flexDirection: 'row', alignContent: 'center', opacity: fade }}>
+                    <MaterialCommunityIcons name="tooltip-outline-plus" size={15} color="white" style={{paddingRight:5}}></MaterialCommunityIcons>
+                    <Animated.Text style={{ color: 'white', opacity: fade }}>{item.included}</Animated.Text>
+                  </Animated.View>
+                  <Animated.View style={{ flexDirection: 'row', alignContent: 'center', opacity: fade}}>
+                    <Ionicons name="ios-person-outline" size={18} color="white" style={{paddingRight:5}}></Ionicons>
+                    <Text style={{ color: 'white', lineHeight: 20 }}>{item.overview}</Text>    
+                  </Animated.View>
                 </View>
                 {/********************************************************/}
               </View>
 
             </View>
-          </View>
+          </Animated.View>
 
         </LinearGradient>
 
