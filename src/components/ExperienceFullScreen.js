@@ -9,11 +9,13 @@ import Heart from '../components/Heart'
 import { formatLocationObject, formatReviewsCountText, formatDuration } from '../helpers/strings'
 import { Query, Mutation } from 'react-apollo'
 import { UPDATE_FAVORITES } from '../mutations'
+import {onSwipeUpExperience, onSwipeDownExperience} from '../helpers/animations'
 const { width, height } = Dimensions.get('window')
 
 let totalHeight = new Animated.Value(height)
 let fade = new Animated.Value(1)
 let paddingBelow = new Animated.Value(0)
+let bottom = new Animated.Value(60)
 let _panResponder = PanResponder.create({
   // Ask to be the responder: Does this view want to become responder on the start of a touch?
   onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -24,36 +26,10 @@ let _panResponder = PanResponder.create({
   onPanResponderTerminationRequest: (evt, gestureState) => true,
   onPanResponderRelease: (evt, gestureState) => {
     if (gestureState.dy < -20) {
-      Animated.parallel([
-        Animated.timing(totalHeight, {
-          toValue: height / 3 + 12,
-          duration: 200
-        }),
-        Animated.timing(paddingBelow, {
-          toValue: 45,
-          duration: 200
-        }),
-        Animated.timing(fade, {
-          toValue: 0,
-          duration: 200
-        })
-      ]).start()
+      onSwipeUpExperience(totalHeight, paddingBelow, bottom, fade)
     }
     if (gestureState.dy > 20) {
-      Animated.parallel([
-        Animated.timing(totalHeight, {
-          toValue: height,
-          duration: 200
-        }),
-        Animated.timing(paddingBelow, {
-          toValue: 0,
-          duration: 200
-        }),
-        Animated.timing(fade, {
-          toValue: 1,
-          duration: 200
-        })
-      ]).start()
+      onSwipeDownExperience(totalHeight, paddingBelow, bottom, fade)
     }
   }
 })
@@ -74,7 +50,7 @@ export default class ExperienceFullScreen extends Component {
 
   render () {
     let { isFavorite } = this.state
-    let { item, nav, previous } = this.props
+    let { item, nav, previous, swipeUp} = this.props
     let paginationStyle = StyleSheet.create({
       active: {
         height: 0.5, width: 55, backgroundColor: 'white'
@@ -84,6 +60,7 @@ export default class ExperienceFullScreen extends Component {
 
       }
     })
+    if (swipeUp) onSwipeUpExperience(totalHeight, paddingBelow, bottom, fade)
     return (
       <Animated.View style={{height:totalHeight, width}}>
         <ScrollView
@@ -135,8 +112,10 @@ export default class ExperienceFullScreen extends Component {
             </View>
 
             {/* Bottom */}
-            <View pointerEvents='box-none' style={{
+            <Animated.View pointerEvents='box-none' style={{
               flex: 1,
+              //height of button
+              bottom,
               borderLeftWidth: 5,
               borderLeftColor: 'rgba(227, 60, 54, 1)'
             }}
@@ -235,7 +214,7 @@ export default class ExperienceFullScreen extends Component {
                 </View>
                 {/********************************************************/}
               </View>
-            </View>
+            </Animated.View>
           </Animated.View>
         </LinearGradient>
       </Animated.View>

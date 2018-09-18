@@ -1,8 +1,11 @@
 import React from 'react'
-import {View, TouchableOpacity, ScrollView} from 'react-native'
+import {View, TouchableOpacity, Animated, Dimensions} from 'react-native'
 import ExperienceFullScreen from '../components/ExperienceFullScreen'
 import GradientButton from '../components/GradientButton'
 import ExperienceFullCardInfo from '../components/ExperienceFullCardInfo'
+import Checkout from './Checkout'
+
+
 
 export default class Experience extends React.Component {
   constructor () {
@@ -11,6 +14,9 @@ export default class Experience extends React.Component {
       clicked: false
     }
   }
+  handlePress = () => {
+    this.setState({ clicked: !this.state.clicked })
+  }
   render () {
     const item = this.props.navigation.state.params.experience
     const nav = this.props.navigation
@@ -18,12 +24,14 @@ export default class Experience extends React.Component {
     const isFavorite = this.props.navigation.state.params.isFavorite
     return (
       <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'space-between'}}>
+        <View style={{flex: 1}}>
+          {/**********************************************/}
+          <ExperienceFullScreen swipeUp ={this.state.clicked} item={item} nav={nav} previous={previous} isFavorite={isFavorite} />
+          {/**********************************************/}
+          {this.state.clicked ? <Checkout /> : <ExperienceFullCardInfo item={item} /> }
+        </View>
         {/**********************************************/}
-        <ExperienceFullScreen item={item} nav={nav} previous={previous} isFavorite={isFavorite} />
-        {/**********************************************/}
-        <ExperienceFullCardInfo item={item} />
-        {/**********************************************/}
-        <TouchableOpacity onPress={() => this.setState({ clicked: !this.state.clicked })}>
+        <TouchableOpacity onPress={() =>  this.handlePress()}>
           <GradientButton text='EXPERIENCE' upArrow round />
         </TouchableOpacity>
       </View>
