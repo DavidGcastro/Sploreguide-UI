@@ -15,7 +15,8 @@ import {
   Dimensions,
   ImageBackground,
   Image,
-  ScrollView
+  ScrollView,
+  FlatList
 } from 'react-native'
 import { LinearGradient } from 'expo'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -103,7 +104,7 @@ export default class Landing extends Component {
         style={{ flex: 1 }}
         activeOpacity={0.75}
         onPress={() => this.props.navigation.navigate('Experience',
-        { experience: item, previous: 'Landing', isFavorite })}
+        { item, previous: 'Landing', isFavorite })}
       >
         <View
           style={{
@@ -251,8 +252,8 @@ export default class Landing extends Component {
       </View>
     )
 
-    let scrollPart = (
-      <ScrollView
+    let scrollPart = (favs) => (
+      <FlatList
         decelerationRate={0}
         alwaysBounceVertical={false}
         bounces={false}
@@ -267,31 +268,73 @@ export default class Landing extends Component {
           this.onSwipeUp(currentOffset, direction)
         }}
         scrollEventThrottle={1}
+        data={categories}
+        extraData={favs}
+        keyExtractor={(_, index) => String(index)}
+        renderItem={({item}) =>
+          (<View style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
+            <Query query={GET_EXPERIENCES_BY_CATEGORY} variables={{input: item[1]}}>
+              {({loading, error, data}) => {
+                if (loading) return 'Loading...'
+                if (error) return `Error! ${error.message}`
+                let exps = data.getExperiences
+                defaultImageCount += exps.length
+                return (
+                  <Carousel
+                    data={exps}
+                    renderItem={this._renderItem}
+                    sliderWidth={width}
+                    extraData={favs}
+                    itemWidth={width - 50}
+                    removeClippedSubviews
+                  />
+                )
+              }}
+            </Query>
+          </View>)}
       >
-        {
-          categories.map((category, index) =>
-            (<View key={index} style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-              <Query query={GET_EXPERIENCES_BY_CATEGORY} variables={{input: category[1]}}>
-                {({loading, error, data}) => {
-                  if (loading) return 'Loading...'
-                  if (error) return `Error! ${error.message}`
-                  let exps = data.getExperiences
-                  defaultImageCount += exps.length
-                  return (
-                    <Carousel
-                      data={exps}
-                      renderItem={this._renderItem}
-                      sliderWidth={width}
-                      extraData={favorites}
-                      itemWidth={width - 50}
-                      removeClippedSubviews
-                    />
-                  )
-                }}
-              </Query>
-            </View>))
-        }
-      </ScrollView>
+      </FlatList>
+
+      // <ScrollView
+      //   decelerationRate={0}
+      //   alwaysBounceVertical={false}
+      //   bounces={false}
+      //   snapToInterval={cardHeight.scrollViewInterval}
+      //   showsHorizontalScrollIndicator={false}
+      //   showsVerticalScrollIndicator={false}
+      //   onScroll={x => {
+      //     let currentOffset = x.nativeEvent.contentOffset.y
+      //     let direction = currentOffset >= offset ? 'up' : 'down'
+      //     offset = currentOffset
+
+      //     this.onSwipeUp(currentOffset, direction)
+      //   }}
+      //   scrollEventThrottle={1}
+      // >
+      //   {
+      //     categories.map((category, index) =>
+      //       (<View key={index} style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
+      //         <Query query={GET_EXPERIENCES_BY_CATEGORY} variables={{input: category[1]}}>
+      //           {({loading, error, data}) => {
+      //             if (loading) return 'Loading...'
+      //             if (error) return `Error! ${error.message}`
+      //             let exps = data.getExperiences
+      //             defaultImageCount += exps.length
+      //             return (
+      //               <Carousel
+      //                 data={exps}
+      //                 renderItem={this._renderItem}
+      //                 sliderWidth={width}
+      //                 extraData={favorites}
+      //                 itemWidth={width - 50}
+      //                 removeClippedSubviews
+      //               />
+      //             )
+      //           }}
+      //         </Query>
+      //       </View>))
+      //   }
+      // </ScrollView>
     )
 
     return (
@@ -312,7 +355,7 @@ export default class Landing extends Component {
                 query={SEARCH_EXPERIENCES}
                 variables={{input: query}}
               >
-                {({ loading, error, data }) => {
+                {({ loading, error, data, refetch }) => {
                   let { searchExperiences } = data
 
                   return (
@@ -320,6 +363,7 @@ export default class Landing extends Component {
                     searchExperiences={searchExperiences}
                     navigation={this.props.navigation}
                     favorites={favorites}
+                    refetch={refetch}
                     />
                   )
                 }}
@@ -328,7 +372,7 @@ export default class Landing extends Component {
 
             {this.state.loading && <CustomLoading />}
             {lodash.isEmpty(query) && categoryTitlePart}
-            {lodash.isEmpty(query) && scrollPart }
+            {lodash.isEmpty(query) && scrollPart(favorites) }
 
           </View>
          )

@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Image, TouchableOpacity, Dimensions } from 'react-native'
 import GoBack from './GoBack'
-import { MaterialIcons } from '@expo/vector-icons'
 let { width } = Dimensions.get('window')
 
 const styles = {

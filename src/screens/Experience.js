@@ -6,7 +6,7 @@ import GradientButton from '../components/GradientButton'
 export default class Experience extends React.Component {
   render () {
     // const item = this.props.navigation.state.params.experience
-    const item = this.props.navigation.state.params.experience
+    const item = this.props.navigation.state.params.item
     const nav = this.props.navigation
     const previous = this.props.navigation.state.params.previous
     const isFavorite = this.props.navigation.state.params.isFavorite

@@ -18,7 +18,7 @@ class PreviewCard extends Component {
       <ImageBackground
         style={previewCardStyle.container}
         imageStyle={{ borderRadius: 5 }}
-        source={{uri: experience.media[0]}}>
+        source={{cache: 'force-cache', uri: experience.media[0]}}>
         <LinearGradient
           colors={['transparent', 'rgba(0,0,0,1.0)']}
           start={[0.5, 0.2]}

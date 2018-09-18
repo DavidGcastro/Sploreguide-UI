@@ -1,12 +1,14 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import { ScrollView, View, TouchableOpacity, Text } from 'react-native'
+import { FlatList, View, TouchableOpacity, Text } from 'react-native'
 import PreviewCard from './PreviewCard'
 import GoBack from '../components/GoBack'
 import landingStyles from '../styles/landingStyles'
-// (favoriteIds || backButton)
-//? (
+import ExperiencesFlatList from '../components/ExperiencesFlatList'
+
 const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, confirm, favoriteIds, navigation, blank }) => {
+  let _keyExtractor = (item, index) => item._id
+
   return (
     <View style={{ flex: 1 }}>
       { (backButton)
@@ -33,28 +35,13 @@ const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, c
             if (error) return `Error! ${error.message}`
             let experiences = data[dataName]
             return (
-              <ScrollView
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}>
-                {experiences.map((experience, index) => {
-                  let isFavorite=favoriteIds.includes(experience._id)
-                  return (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    key={index}
-                    onPress={() => {
-                      refetch()
-                      navigation.navigate('Experience', { isFavorite, experience, previous: navigation.state.routeName  })
-                    }
-                    }>
-              >
-                  <PreviewCard
-                    experience={experience}
-                    isFavorite={isFavorite}
-                    confirm={confirm} />
-                  </TouchableOpacity>)
-                })}
-              </ScrollView>
+              <ExperiencesFlatList
+                navigation={navigation}
+                experiences={experiences}
+                favoriteIds={favoriteIds}
+                confirm={confirm}
+                refetch={refetch}
+              />
             )
           }}
         </Query>
