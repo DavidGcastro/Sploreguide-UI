@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {ScrollView, Text, View} from 'react-native'
+import { Calendar } from 'react-native-calendars'
 
 export default class Checkout extends Component {
   render () {

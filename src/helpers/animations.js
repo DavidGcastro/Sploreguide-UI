@@ -14,6 +14,7 @@ export const onSwipeUpExperience = (totalHeight, paddingBelow, bottom, fade) => 
     Animated.timing(bottom, {
       toValue: 0,
       duration: 200
+
     }),
     Animated.timing(fade, {
       toValue: 0,

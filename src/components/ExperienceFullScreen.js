@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Dimensions, View, Text, TouchableOpacity, ScrollView, Image, PanResponder, Animated, StyleSheet } from 'react-native'
+import { Dimensions, View, Text, TouchableOpacity, Image, PanResponder, Animated, StyleSheet, FlatList } from 'react-native'
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
 import { Ionicons, SimpleLineIcons, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -26,7 +26,7 @@ let _panResponder = PanResponder.create({
   onPanResponderTerminationRequest: (evt, gestureState) => true,
   onPanResponderRelease: (evt, gestureState) => {
     if (gestureState.dy < -20) {
-      onSwipeUpExperience(totalHeight, paddingBelow, bottom, fade)
+    onSwipeUpExperience(totalHeight, paddingBelow, bottom, fade)
     }
     if (gestureState.dy > 20) {
       onSwipeDownExperience(totalHeight, paddingBelow, bottom, fade)
@@ -48,9 +48,10 @@ export default class ExperienceFullScreen extends Component {
     this.setState({isFavorite: favoritesList.includes(itemId) })
   }
 
+  
   render () {
     let { isFavorite } = this.state
-    let { item, nav, previous, swipeUp} = this.props
+    let { item, nav, previous} = this.props
     let paginationStyle = StyleSheet.create({
       active: {
         height: 0.5, width: 55, backgroundColor: 'white'
@@ -60,26 +61,27 @@ export default class ExperienceFullScreen extends Component {
 
       }
     })
-    if (swipeUp) onSwipeUpExperience(totalHeight, paddingBelow, bottom, fade)
+   if (this.props.swipeUp) onSwipeUpExperience(totalHeight, paddingBelow, bottom, fade)
+
     return (
       <Animated.View style={{height:totalHeight, width}}>
-        <ScrollView
-          centerContent= {true}
+        <FlatList
+           keyExtractor={(item, index) => index.toString()}
+          data={item.media}
           {..._panResponder.panHandlers}
           onScroll={x => {
             let currentOffset = x.nativeEvent.contentOffset.x
             let total = width * 4
             let currentImage = Math.ceil(currentOffset / total * 4)
-            this.setState({currentImageIndex: currentImage})
+            this.setState({ currentImageIndex: currentImage })
           }}
-          scrollEventThrottle={4}
-          bounces={false}
-          style={{  }}
-          horizontal pagingEnabled >
-          {
-            item.media.map((url, index) => <Animated.Image key={index} source={{uri: url}} style={{height: '100%', width}} />)
-          }
-        </ScrollView>
+          initialNumToRender={1}
+          renderItem={({ item, index}) => (
+            <Image source={{ uri: item }} style={{ height: '100%', width }}></Image>
+          )}
+            scrollEventThrottle={4}
+            bounces={false}
+            horizontal pagingEnabled />
         <LinearGradient
           pointerEvents='box-none'
           colors={['transparent', 'rgba(0,0,0,1.0)']}
@@ -94,7 +96,10 @@ export default class ExperienceFullScreen extends Component {
             <View
               pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', paddingTop: 5}]}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <TouchableOpacity onPress={() => nav.navigate(previous)}>
+                <TouchableOpacity onPress={() => {
+                  onSwipeDownExperience(totalHeight, paddingBelow, bottom, fade)
+                 return nav.navigate(previous)
+                }}>  
                   <Feather
                     name={'arrow-left'}
                     size={30}
