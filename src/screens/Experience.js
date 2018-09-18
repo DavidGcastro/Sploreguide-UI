@@ -1,11 +1,8 @@
 import React from 'react'
-import {View, TouchableOpacity, Dimensions} from 'react-native'
+import {View, TouchableOpacity, ScrollView} from 'react-native'
 import ExperienceFullScreen from '../components/ExperienceFullScreen'
 import GradientButton from '../components/GradientButton'
-import { Calendar } from 'react-native-calendars'
-import ModalExample from '../screens/ModalExample'
 import ExperienceFullCardInfo from '../components/ExperienceFullCardInfo'
-let {width, height} = Dimensions.get('window')
 
 export default class Experience extends React.Component {
   constructor () {
@@ -27,7 +24,7 @@ export default class Experience extends React.Component {
         <ExperienceFullCardInfo item={item} />
         {/**********************************************/}
         <TouchableOpacity onPress={() => this.setState({ clicked: !this.state.clicked })}>
-          <GradientButton text='EXPERIENCE' round={0} />
+          <GradientButton text='EXPERIENCE' upArrow round />
         </TouchableOpacity>
       </View>
     )

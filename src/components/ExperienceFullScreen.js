@@ -115,7 +115,7 @@ export default class ExperienceFullScreen extends Component {
             pointerEvents='box-none'
             style={{height:totalHeight }}>
             <View
-              pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start'}]}>
+              pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', paddingTop: 5}]}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => nav.navigate(previous)}>
                   <Feather
@@ -225,22 +225,19 @@ export default class ExperienceFullScreen extends Component {
                   </Animated.View>
                   {/********************************************************/}
                   <Animated.View style={{ flexDirection: 'row', alignContent: 'center', opacity: fade }}>
-                    <MaterialCommunityIcons name="tooltip-outline-plus" size={15} color="white" style={{paddingRight:5}}></MaterialCommunityIcons>
+                    <Ionicons name="ios-add-circle-outline" size={18} color="white" style={{ paddingRight: 8 }}></Ionicons>
                     <Animated.Text style={{ color: 'white', opacity: fade }}>{item.included}</Animated.Text>
                   </Animated.View>
                   <Animated.View style={{ flexDirection: 'row', alignContent: 'center', opacity: fade}}>
-                    <Ionicons name="ios-person-outline" size={18} color="white" style={{paddingRight:5}}></Ionicons>
+                    <Ionicons name="ios-person-outline" size={18} color="white" style={{paddingRight:8}}></Ionicons>
                     <Text style={{ color: 'white', lineHeight: 20 }}>{item.overview}</Text>    
                   </Animated.View>
                 </View>
                 {/********************************************************/}
               </View>
-
             </View>
           </Animated.View>
-
         </LinearGradient>
-
       </Animated.View>
     )
   }
