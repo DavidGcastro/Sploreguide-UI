@@ -4,9 +4,10 @@ import {ScrollView} from 'react-native'
 
 const ExperienceFullCardInfo = props => {
   let {item} = props
+  let {profilePicture} = item.host
 
   return <ScrollView bounces={false}>
-    <ExploreInfoSection border borderheading={`Meet Your Host, ${item.host.firstName}`} content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
+    <ExploreInfoSection hostImage={profilePicture} border heading={`Meet Your Host, ${item.host.firstName}`} content='Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
           Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur
           adipiscing elit. Pellentesque in ipsum id orci porta dapibus.
           Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.

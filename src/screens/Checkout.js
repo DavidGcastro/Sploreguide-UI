@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import {ScrollView, Text, View} from 'react-native'
-import { Calendar } from 'react-native-calendars'
-
+import {ScrollView, View} from 'react-native'
+import CalendarScreen from '../components/CalenderScreen'
 export default class Checkout extends Component {
+  constructor () {
+    super()
+    this.state = {
+      dateChosen: ''
+    }
+  }
   render () {
-    return <ScrollView style={{height: '100%'}}>
-      <View>
-        <Text>Hello World </Text>
-      </View>
-    </ScrollView>
+    return (
+      <ScrollView scrollEnabled={false} style={{ flex: 1 }} contentContainerStyle={{ justifyContent: 'center', flex: 1 }} >
+        <CalendarScreen />
+      </ScrollView>
+    )
   }
 }

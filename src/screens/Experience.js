@@ -11,8 +11,9 @@ export default class Experience extends React.Component {
   constructor () {
     super()
     this.state = {
-      clicked: true,
+      clicked: false,
       swipeUp: false
+
     }
   }
   handlePress = () => {
@@ -27,13 +28,13 @@ export default class Experience extends React.Component {
       <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'space-between'}}>
         <View style={{flex: 1}}>
           {/**********************************************/}
-          <ExperienceFullScreen swipeUp ={this.state.swipeUp} item={item} nav={nav} previous={previous} isFavorite={isFavorite} />
+          <ExperienceFullScreen swipeUp={this.state.swipeUp} item={item} nav={nav} previous={previous} isFavorite={isFavorite} />
           {/**********************************************/}
-          {this.state.clicked && this.state.swipeUp ? <Checkout /> : <ExperienceFullCardInfo item={item} />}
+          {!this.state.clicked  ? <Checkout /> : <ExperienceFullCardInfo item={item} />}
         </View>
         {/**********************************************/}
         <TouchableOpacity onPress={() =>  this.handlePress()}>
-          <GradientButton text={this.state.clicked && this.state.swipeUp ? "EXPLORE" :"DETAILS" } upArrow round />
+          <GradientButton text={"EXPERIENCE"} upArrow round />
         </TouchableOpacity>
       </View>
     )

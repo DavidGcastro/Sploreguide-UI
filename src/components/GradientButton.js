@@ -17,20 +17,20 @@ const GradientButton = props => {
         style={{
           flexDirection: 'row',
           justifyContent: 'center'
-
         }}>
         <Text
           style={{
             color: 'white',
             fontSize: 16,
             fontFamily: 'SF-UI-Text-Medium',
-            letterSpacing: 2
+            letterSpacing: 2,
+            paddingRight: 8
           }}>
           {props.text}
         </Text>
         {
-          props.upArrow ? <View style={{paddingRight: 20}}>
-            <Ionicons style={{ left: width * 0.3 }} name='ios-arrow-up' size={20} color='white' />
+          props.upArrow ? <View>
+            <Ionicons style={{ }} name='ios-arrow-up' size={20} color='white' />
           </View> : ''
         }
       </View>
