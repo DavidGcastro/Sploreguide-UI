@@ -1,51 +1,65 @@
 import React from 'react'
 import { Calendar, Agenda } from 'react-native-calendars'
-import {Text, View} from 'react-native'
+import {Text, View, StyleSheet} from 'react-native'
+const offerings =
+    {
+      '2018-09-22': [{ time: '7:00 PM - 9:00PM' }],
+      '2018-09-24': [{ time: '7:00 PM - 9:00PM' }],
+      '2018-09-29': [{ time: '7:00 PM - 9:00PM' }],
+      '2018-10-22': [{ time: '7:00 PM - 9:00PM' }]
+
+    }
 
 export default class CalendarScreen extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      selectedDay: '',
-      dataSelected: false
-    }
-  }
   render () {
-    console.log(this.state.selectedDay)
-    return <View style={{flex: 1, paddingTop: 10}}>
-      <Calendar
-        theme={{
-          textSectionTitleColor: 'rgba(36, 37, 61, 1)',
-          selectedDayBackgroundColor: 'rgba(254, 207, 74, 1)',
-          selectedDayTextColor: '#ffffff',
-          dayTextColor: 'rgba(84, 99, 117, 1)',
-          textDisabledColor: 'rgba(36, 37, 61, 0.28)',
-          arrowColor: 'rgba(254, 207, 74, 1)',
-          monthTextColor: 'rgba(36, 37, 61, 1)',
-          textMonthFontWeight: 'bold',
-          textDayFontSize: 15,
-          textMonthFontSize: 18,
-          textDayHeaderFontSize: 15
-        }}
-        // Handler which gets executed on day press. Default = undefined
-        onDayPress={(day) => this.setState({selectedDay: day.dateString})}
-        // Handler which gets executed on day long press. Default = undefined
-        onDayLongPress={(day) => { console.log('selected day', day) }}
-        // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+    return (
+      <Agenda
+        items={offerings}
+        loadItemsForMonth={() => offerings}
+        renderItem={this.renderItem.bind(this)}
+        renderEmptyData={this.renderEmptyDate.bind(this)}
+        rowHasChanged={this.rowHasChanged.bind(this)}
         monthFormat={'MMMM yyyy'}
-        // Handler which gets executed when visible month changes in calendar. Default = undefined
-        onMonthChange={(month) => { console.log('month changed', month) }}
-        // Hide month navigation arrows. Default = false
-        // Do not show days of other months in month page. Default = false
-        hideExtraDays
-        // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
-        firstDay={1}
-        markedDates={{ [this.state.selectedDay]: { selected: true, disableTouchEvent: true } }}
-        // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-        onPressArrowLeft={substractMonth => substractMonth()}
-        // Handler which gets executed when press arrow icon left. It receive a callback can go next month
-        onPressArrowRight={addMonth => addMonth()}
       />
-    </View>
+    )
+  }
+  renderItem (item) {
+    return (
+      <View style={styles.item}><Text style={{fontSize: 18}}>{item.time}</Text></View>
+    )
+  }
+
+  renderEmptyDate () {
+    return (
+      <View style={styles.emptyDate}><Text style={{paddingLeft: 20}}>No Experiences Scheduled.</Text></View>
+    )
+  }
+
+  rowHasChanged (r1, r2) {
+    return r1.name !== r2.name
+  }
+
+  timeToString (time) {
+    const date = new Date(time)
+    return date.toISOString().split('T')[0]
   }
 }
+
+const styles = StyleSheet.create({
+  item: {
+    backgroundColor: 'white',
+    flex: 1,
+    justifyContent: 'center',
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 17,
+    height: 50
+
+  },
+  emptyDate: {
+    height: 15,
+    flex: 1,
+    paddingTop: 30
+  }
+})
