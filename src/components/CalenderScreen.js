@@ -1,5 +1,7 @@
 import React from 'react'
-import { Calendar, Agenda } from 'react-native-calendars'
+import { Agenda } from 'react-native-calendars'
+import { Entypo } from '@expo/vector-icons'
+
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 const offerings =
     {
@@ -10,6 +12,10 @@ const offerings =
 
     }
 
+let dateObj = {}
+
+let markedDates = Object.keys(offerings).map(date => dateObj[date] = { marked: true, disabled: false})
+
 export default class CalendarScreen extends React.Component {
   constructor () {
     super()
@@ -19,9 +25,10 @@ export default class CalendarScreen extends React.Component {
     }
   }
   render () {
-    console.log(this.state)
     return (
       <Agenda
+        disabledByDefault
+        markedDates={dateObj}
         // callback that fires when the calendar is opened or closed
         onCalendarToggled={(calendarOpened) => { console.log(calendarOpened) }}
         // callback that gets called on day press
@@ -29,11 +36,22 @@ export default class CalendarScreen extends React.Component {
         // callback that gets called when day changes while scrolling agenda list
         onDayChange={(day) => { console.log('day changed') }}
         items={offerings}
+        renderKnob={() => {
+          return (<Entypo
+            name={'chevron-thin-down'}
+            size={25}
+            color={'#d9e1e8'}
+          />)
+        }}
         loadItemsForMonth={() => offerings}
         renderItem={this.renderItem.bind(this)}
         renderEmptyData={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
         monthFormat={'MMMM yyyy'}
+        pastScrollRange={0}
+
+        // Max amount of months allowed to scroll to the future. Default = 50
+        futureScrollRange={3}
 
         theme={{
           calendarBackground: '#ffffff',
