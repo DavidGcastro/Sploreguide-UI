@@ -1,18 +1,18 @@
 import {Animated, Dimensions} from 'react-native'
 let { height } = Dimensions.get('window')
 
-export const onSwipeUpExperience = (totalHeight, paddingBelow, bottom, fade) => {
+export const onSwipeUpExperience = (totalHeight, paddingBelow, rotate, fade) => {
   return Animated.parallel([
     Animated.timing(totalHeight, {
       toValue: height / 3 + 12,
       duration: 200
     }),
     Animated.timing(paddingBelow, {
-      toValue: 45,
+      toValue: 30,
       duration: 200
     }),
-    Animated.timing(bottom, {
-      toValue: 0,
+    Animated.timing(rotate, {
+      toValue: 1,
       duration: 200
 
     }),
@@ -23,7 +23,7 @@ export const onSwipeUpExperience = (totalHeight, paddingBelow, bottom, fade) => 
   ]).start()
 }
 
-export const onSwipeDownExperience = (totalHeight, paddingBelow, bottom, fade) => {
+export const onSwipeDownExperience = (totalHeight, paddingBelow, rotate, fade) => {
   return Animated.parallel([
     Animated.timing(totalHeight, {
       toValue: height,
@@ -33,8 +33,8 @@ export const onSwipeDownExperience = (totalHeight, paddingBelow, bottom, fade) =
       toValue: 0,
       duration: 200
     }),
-    Animated.timing(bottom, {
-      toValue: 60,
+    Animated.timing(rotate, {
+      toValue: 0,
       duration: 200
     }),
     Animated.timing(fade, {

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Dimensions, View, Text, TouchableOpacity, Image, PanResponder, Animated, StyleSheet, FlatList } from 'react-native'
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
-import { Ionicons, SimpleLineIcons, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
+import { Ionicons, SimpleLineIcons, Feather, Entypo} from '@expo/vector-icons'
 import GradientBorder from '../components/GradientButton'
 import Stars from '../components/Stars'
 import Heart from '../components/Heart'
@@ -15,7 +15,12 @@ const { width, height } = Dimensions.get('window')
 let totalHeight = new Animated.Value(height)
 let fade = new Animated.Value(1)
 let paddingBelow = new Animated.Value(0)
-let bottom = new Animated.Value(60)
+let rotate = new Animated.Value(0)
+const spin = rotate.interpolate({
+  inputRange: [0, 1],
+  outputRange: ['0deg', '180deg']
+})
+
 let _panResponder = PanResponder.create({
   // Ask to be the responder: Does this view want to become responder on the start of a touch?
   onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -26,10 +31,10 @@ let _panResponder = PanResponder.create({
   onPanResponderTerminationRequest: (evt, gestureState) => true,
   onPanResponderRelease: (evt, gestureState) => {
     if (gestureState.dy < -20) {
-    onSwipeUpExperience(totalHeight, paddingBelow, bottom, fade)
+    onSwipeUpExperience(totalHeight, paddingBelow, rotate, fade)
     }
     if (gestureState.dy > 20) {
-      onSwipeDownExperience(totalHeight, paddingBelow, bottom, fade)
+      onSwipeDownExperience(totalHeight, paddingBelow, rotate, fade)
     }
   }
 })
@@ -61,7 +66,7 @@ export default class ExperienceFullScreen extends Component {
 
       }
     })
-   if (this.props.swipeUp) onSwipeUpExperience(totalHeight, paddingBelow, bottom, fade)
+   if (this.props.swipeUp) onSwipeUpExperience(totalHeight, paddingBelow, rotate, fade)
 
     return (
       <Animated.View style={{height:totalHeight, width}}>
@@ -97,7 +102,7 @@ export default class ExperienceFullScreen extends Component {
               pointerEvents='box-none' style={[landingStyles.topContainer, {flex: 1, alignItems: 'flex-start', paddingTop: 5}]}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => {
-                  onSwipeDownExperience(totalHeight, paddingBelow, bottom, fade)
+                  onSwipeDownExperience(totalHeight, paddingBelow, rotate, fade)
                  return nav.navigate(previous)
                 }}>  
                   <Feather
@@ -119,16 +124,14 @@ export default class ExperienceFullScreen extends Component {
             {/* Bottom */}
             <Animated.View pointerEvents='box-none' style={{
               flex: 1,
-              //height of button
-              bottom,
               borderLeftWidth: 5,
-              borderLeftColor: 'rgba(227, 60, 54, 1)'
+              borderLeftColor: 'rgba(227, 60, 54, 1)',
             }}
             >
-              <View
+              <Animated.View
                 pointerEvents='box-none'
                 style={{
-                  paddingHorizontal: 20, flex:1
+                  paddingHorizontal: 20, flex: 1, bottom: paddingBelow
                 }}>
                 {/********************************************************/}
                 <View style={[landingStyles.bottomContainerIcons, {
@@ -167,6 +170,9 @@ export default class ExperienceFullScreen extends Component {
 
                   <Animated.View style={{
                     flexDirection: 'row',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    // height:20,
                     justifyContent: 'space-between'                  
                   }}>
                     <View style={landingStyles.iconTextContainer}>
@@ -200,7 +206,8 @@ export default class ExperienceFullScreen extends Component {
                   <Animated.View style={{
                     justifyContent: 'space-evenly',
                     flexDirection: 'row',
-                    opacity: fade
+                    opacity: fade,
+                    // marginVertical: 10,
                   }}>
                   {
                     item.media.map((_, index) =>
@@ -216,9 +223,21 @@ export default class ExperienceFullScreen extends Component {
                     <Ionicons name="ios-person-outline" size={18} color="white" style={{paddingRight:8}}></Ionicons>
                     <Text style={{ color: 'white', lineHeight: 20 }}>{item.overview}</Text>    
                   </Animated.View>
+                  <Animated.View style={{
+                    alignContent: 'flex-end', alignItems: 'center', transform: [
+                     
+                      { rotateX: spin}
+                    ]
+                  }}>
+                    <Entypo
+                      name={'chevron-thin-up'}
+                      size={20}
+                      color={'rgba(255,255,255,.5)'}
+                    />
+                  </Animated.View> 
                 </View>
                 {/********************************************************/}
-              </View>
+              </Animated.View>
             </Animated.View>
           </Animated.View>
         </LinearGradient>

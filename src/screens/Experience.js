@@ -19,6 +19,9 @@ export default class Experience extends React.Component {
   handlePress = () => {
     this.setState({ clicked: !this.state.clicked, swipeUp: true })
   }
+  componentDidMount(){
+    this.setState({clicked: false})
+  }
   render () {
     const item = this.props.navigation.state.params.experience
     const nav = this.props.navigation
@@ -26,17 +29,16 @@ export default class Experience extends React.Component {
     const isFavorite = this.props.navigation.state.params.isFavorite
     return (
       <View style={{flex: 1, backgroundColor: 'white', justifyContent: 'space-between'}}>
-        <View style={{flex: 1}}>
           {/**********************************************/}
           <ExperienceFullScreen swipeUp={this.state.swipeUp} item={item} nav={nav} previous={previous} isFavorite={isFavorite} />
           {/**********************************************/}
-          {!this.state.clicked  ? <Checkout /> : <ExperienceFullCardInfo item={item} />}
-        </View>
-        {/**********************************************/}
+          {this.state.clicked  ? <Checkout /> : <ExperienceFullCardInfo item={item} />}
+          {/**********************************************/}
         <TouchableOpacity onPress={() =>  this.handlePress()}>
           <GradientButton text={"EXPERIENCE"} upArrow round />
         </TouchableOpacity>
       </View>
+    
     )
   }
 }
