@@ -1,21 +1,19 @@
 import React from 'react'
 import { Agenda } from 'react-native-calendars'
 import { Entypo } from '@expo/vector-icons'
-
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 const offerings =
     {
+
       '2018-09-22': [{ time: '7:00 PM - 9:00PM' }, { time: '8:00 PM - 9:00PM' }, { time: '10:00 PM - 11:00PM' }],
       '2018-09-24': [{ time: '7:00 PM - 9:00PM' }],
       '2018-09-29': [{ time: '7:00 PM - 9:00PM' }],
-      '2018-10-22': [{ time: '7:00 PM - 9:00PM' }]
+      '2018-10-22': [{ time: '7:00 PM - 9:00PM' }],
+      '2018': []
 
     }
-
 let dateObj = {}
-
-let markedDates = Object.keys(offerings).map(date => dateObj[date] = { marked: true, disabled: false})
-
+let markedDates = Object.keys(offerings).map(date => dateObj[date] = { marked: true, disabled: false })
 export default class CalendarScreen extends React.Component {
   constructor () {
     super()

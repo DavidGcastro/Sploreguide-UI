@@ -30,10 +30,10 @@ let _panResponder = PanResponder.create({
   onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
   onPanResponderTerminationRequest: (evt, gestureState) => true,
   onPanResponderRelease: (evt, gestureState) => {
-    if (gestureState.dy < -20) {
+    if (gestureState.dy < -40) {
     onSwipeUpExperience(totalHeight, paddingBelow, rotate, fade)
     }
-    if (gestureState.dy > 20) {
+    if (gestureState.dy > 40) {
       onSwipeDownExperience(totalHeight, paddingBelow, rotate, fade)
     }
   }
@@ -207,7 +207,6 @@ export default class ExperienceFullScreen extends Component {
                     justifyContent: 'space-evenly',
                     flexDirection: 'row',
                     opacity: fade,
-                    // marginVertical: 10,
                   }}>
                   {
                     item.media.map((_, index) =>

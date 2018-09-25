@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import {ScrollView, View} from 'react-native'
+import {ScrollView, View, Dimensions} from 'react-native'
 import CalendarScreen from '../components/CalenderScreen'
+import PeopleQuantity from '../components/PeopleQuantity'
+
 export default class Checkout extends Component {
   constructor () {
     super()
@@ -10,9 +12,11 @@ export default class Checkout extends Component {
   }
   render () {
     return (
-      <ScrollView scrollEnabled={false} style={{ flex: 1 }} contentContainerStyle={{ justifyContent: 'center', flex: 1 }} >
+      <View style={{ flex: 1 }} contentContainerStyle={{ justifyContent: 'center', flex: 1 }} >
         <CalendarScreen />
-      </ScrollView>
+        {/* Remove Calendar screen to view people quantity */}
+        <PeopleQuantity />
+      </View>
     )
   }
 }
