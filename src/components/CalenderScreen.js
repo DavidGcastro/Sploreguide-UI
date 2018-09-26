@@ -3,21 +3,20 @@ import { Agenda } from 'react-native-calendars'
 import { Entypo } from '@expo/vector-icons'
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 
-const offerings =
-    {
+const offerings = {
+  '2018-10-22': [{ date: '2018-10-22', time: '7:00 PM - 9:00PM', text: '$2 cheaper' }, { date: '2018-10-22', time: '8:00 PM - 9:00PM' }, { date: '2018-10-22', time: '10:00 PM - 11:00PM' }],
+  '2018-10-24': [{ date: '2018-10-24', time: '7:00 PM - 9:00PM' }],
+  '2018-10-29': [{ date: '2018-10-29', time: '7:00 PM - 9:00PM' }],
+  '2018-11-22': [{ date: '2018-11-22', time: '7:00 PM - 9:00PM' }]
+}
 
-      '2018-10-22': [{ time: '7:00 PM - 9:00PM', text: '$2 cheaper' }, { time: '8:00 PM - 9:00PM' }, { time: '10:00 PM - 11:00PM' }],
-      '2018-10-24': [{ time: '7:00 PM - 9:00PM' }],
-      '2018-10-29': [{ time: '7:00 PM - 9:00PM' }],
-      '2018-11-22': [{ time: '7:00 PM - 9:00PM' }],
-      '2018': []
-
-    }
-let dateObj = {}
-let markedDates = Object.keys(offerings).map(date => dateObj[date] = { marked: true, disabled: false })
+let markedDates = Object.keys(offerings).reduce((dateObject, date) => {
+  dateObject[date] = { marked: true, disabled: false }
+  return dateObject
+}, {})
 
 export default class CalendarScreen extends React.Component {
-  renderItem (item) {
+  renderItem (item, thing, ok) {
     let displayText = item.time
     displayText += item.text ? ` | ${item.text}` : ''
     return (
@@ -47,9 +46,9 @@ export default class CalendarScreen extends React.Component {
   render () {
     return (
       <Agenda
-        markedDates={dateObj}
+        markedDates={markedDates}
         // callback that gets called on day press
-        onDayPress={(day) => this.props.changeDateSelected(day)}
+        /* onDayPress={(day) => this.props.changeDateSelected(day)} */
         items={offerings}
         renderKnob={() => {
           return (<Entypo
@@ -58,12 +57,13 @@ export default class CalendarScreen extends React.Component {
             color={'blue'}
           />)
         }}
+        minDate={new Date()}
+        selected={this.props.dateSelected}
         renderItem={this.renderItem.bind(this)}
         renderEmptyData={this.renderEmptyDate.bind(this)}
+        renderEmptyDate={() => <View />}
         rowHasChanged={this.rowHasChanged.bind(this)}
         monthFormat={'MMMM yyyy'}
-        pastScrollRange={0}
-
         // Max amount of months allowed to scroll to the future. Default = 50
         futureScrollRange={3}
 

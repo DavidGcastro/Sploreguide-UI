@@ -16,13 +16,8 @@ export default class Checkout extends Component {
     this.setState({showing: show})
   }
 
-  changeDateSelected = (dateSelected) => {
-    this.setState({dateSelected, timeSelected: ''})
-  }
-
-  changeTimeSelected = (timeSelected) => {
-    console.log(timeSelected)
-    this.setState({timeSelected})
+  changeTimeSelected = (itemSelected) => {
+    this.setState({dateSelected: itemSelected.date, timeSelected: itemSelected.time})
   }
 
   render () {
@@ -50,16 +45,19 @@ export default class Checkout extends Component {
             }
           </TouchableOpacity>
           <Text style={{paddingTop: 8, fontSize: 16}}>
-            {`${moment(this.state.dateSelected.dateString).format('MMMM DD')}, ${this.state.timeSelected.time || ''}`}
+            {this.state.dateSelected && `${moment(this.state.dateSelected).format('MMMM DD')}, ${this.state.timeSelected || ''}`}
           </Text>
-          <TouchableOpacity onPress={() => nextWrapper()}>
-            <Feather name='arrow-right' size={30} />
-          </TouchableOpacity>
+          { (this.state.timeSelected != '')
+            ?<TouchableOpacity onPress={() => nextWrapper()}>
+              <Feather name='arrow-right' size={30} />
+            </TouchableOpacity>
+            : <Feather name='arrow-right' size={30} color={'#b2b2b2'} />
+          }
         </View>
         { showing === 'calendar'
           ? <CalendarScreen
-              changeTimeSelected={this.changeTimeSelected}
-              changeDateSelected={this.changeDateSelected}/>
+              dateSelected={this.state.dateSelected}
+              changeTimeSelected={this.changeTimeSelected}/>
           : <PeopleQuantity />
         }
       </View>
