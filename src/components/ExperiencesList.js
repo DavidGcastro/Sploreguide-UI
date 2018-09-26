@@ -5,14 +5,14 @@ import PreviewCard from './PreviewCard'
 import GoBack from '../components/GoBack'
 import landingStyles from '../styles/landingStyles'
 // (favoriteIds || backButton)
-//? (
+// ? (
 const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, confirm, favoriteIds, navigation, blank }) => {
   return (
     <View style={{ flex: 1 }}>
       { (backButton)
         ? <View style={{flexDirection: 'row', alignItems: 'baseline', alignContent: 'center', justifyContent: 'space-between', marginTop: 28, marginHorizontal: 20, marginBottom: 15}}>
           <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
-            <GoBack />
+            <GoBack color={'black'} />
           </TouchableOpacity>
           <Text style={landingStyles.TopText}>{title}</Text>
         </View>
@@ -37,22 +37,22 @@ const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, c
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}>
                 {experiences.map((experience, index) => {
-                  let isFavorite=favoriteIds.includes(experience._id)
+                  let isFavorite = favoriteIds.includes(experience._id)
                   return (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    key={index}
-                    onPress={() => {
-                      refetch()
-                      navigation.navigate('Experience', { isFavorite, experience, previous: navigation.state.routeName  })
-                    }
-                    }>
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      key={index}
+                      onPress={() => {
+                        refetch()
+                        navigation.navigate('Experience', { isFavorite, experience, previous: navigation.state.routeName })
+                      }
+                      }>
               >
-                  <PreviewCard
-                    experience={experience}
-                    isFavorite={isFavorite}
-                    confirm={confirm} />
-                  </TouchableOpacity>)
+                      <PreviewCard
+                        experience={experience}
+                        isFavorite={isFavorite}
+                        confirm={confirm} />
+                    </TouchableOpacity>)
                 })}
               </ScrollView>
             )

@@ -7,7 +7,7 @@ export function makeFirstLetterUpperCase (word) {
 
 export function formatLocationObject (locationObject) {
   let { borough, city, country } = locationObject
-  return `${borough || city}, ${country}`
+  return `${makeFirstLetterUpperCase(borough) || makeFirstLetterUpperCase(city)}, ${makeFirstLetterUpperCase(country)}`
 }
 
 export function formatReviewsCountText (reviewObjects) {

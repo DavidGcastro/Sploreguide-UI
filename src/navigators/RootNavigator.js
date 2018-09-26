@@ -3,12 +3,14 @@ import BottomTabNavigator from './BottomTabNavigator'
 import Search from '../screens/Search'
 import ViewAll from '../screens/ViewAll'
 import Experience from '../screens/Experience'
+import TermsOfService from '../screens/TermsOfService'
 
 const RootNavigator = createStackNavigator(
   {
     BottomTabNavigator: { screen: BottomTabNavigator },
-    ViewAll: {screen: ViewAll},
-    Experience: {screen: Experience},
+    ViewAll: { screen: ViewAll },
+    Experience: { screen: Experience },
+    TermsOfService: { screen: TermsOfService },
     Search: {
       screen: Search,
       navigationOptions: {

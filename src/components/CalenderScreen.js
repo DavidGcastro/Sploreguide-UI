@@ -2,46 +2,62 @@ import React from 'react'
 import { Agenda } from 'react-native-calendars'
 import { Entypo } from '@expo/vector-icons'
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
+
 const offerings =
     {
 
-      '2018-09-22': [{ time: '7:00 PM - 9:00PM' }, { time: '8:00 PM - 9:00PM' }, { time: '10:00 PM - 11:00PM' }],
-      '2018-09-24': [{ time: '7:00 PM - 9:00PM' }],
-      '2018-09-29': [{ time: '7:00 PM - 9:00PM' }],
-      '2018-10-22': [{ time: '7:00 PM - 9:00PM' }],
+      '2018-10-22': [{ time: '7:00 PM - 9:00PM', text: '$2 cheaper' }, { time: '8:00 PM - 9:00PM' }, { time: '10:00 PM - 11:00PM' }],
+      '2018-10-24': [{ time: '7:00 PM - 9:00PM' }],
+      '2018-10-29': [{ time: '7:00 PM - 9:00PM' }],
+      '2018-11-22': [{ time: '7:00 PM - 9:00PM' }],
       '2018': []
 
     }
 let dateObj = {}
 let markedDates = Object.keys(offerings).map(date => dateObj[date] = { marked: true, disabled: false })
+
 export default class CalendarScreen extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      daySelected: '',
-      timeSlotSelected: ''
-    }
+  renderItem (item) {
+    let displayText = item.time
+    displayText += item.text ? ` | ${item.text}` : ''
+    return (
+      <View style={styles.item}>
+        <TouchableOpacity onPress={() => this.props.changeTimeSelected(item)} >
+          <Text
+            data-txt={item.time}
+            style={{ fontSize: 18, color: 'rgba(36, 37, 61, 1)' }}
+          >
+            {displayText}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    )
   }
+
+  renderEmptyDate () {
+    return (
+      <View style={styles.emptyDate}><Text style={{paddingLeft: 20}}>Experience unavailable on this date.</Text></View>
+    )
+  }
+
+  rowHasChanged (r1, r2) {
+    return r1.time !== r2.time
+  }
+
   render () {
     return (
       <Agenda
-        disabledByDefault
         markedDates={dateObj}
-        // callback that fires when the calendar is opened or closed
-        onCalendarToggled={(calendarOpened) => { console.log(calendarOpened) }}
         // callback that gets called on day press
-        onDayPress={(day) => this.setState({daySelected: day})}
-        // callback that gets called when day changes while scrolling agenda list
-        onDayChange={(day) => { console.log('day changed') }}
+        onDayPress={(day) => this.props.changeDateSelected(day)}
         items={offerings}
         renderKnob={() => {
           return (<Entypo
             name={'chevron-thin-down'}
             size={25}
-            color={'#d9e1e8'}
+            color={'blue'}
           />)
         }}
-        loadItemsForMonth={() => offerings}
         renderItem={this.renderItem.bind(this)}
         renderEmptyData={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
@@ -68,21 +84,6 @@ export default class CalendarScreen extends React.Component {
         }}
       />
     )
-  }
-  renderItem (item) {
-    return (
-      <View style={styles.item}><TouchableOpacity ><Text onPress={(e) => console.log(e.target)}data-txt={item.time} style={{
-        fontSize: 18, color: 'rgba(36, 37, 61, 1)' }}>{item.time}</Text></TouchableOpacity></View>
-    )
-  }
-  renderEmptyDate () {
-    return (
-      <View style={styles.emptyDate}><Text style={{paddingLeft: 20}}>No Experiences Scheduled.</Text></View>
-    )
-  }
-
-  rowHasChanged (r1, r2) {
-    return r1.name !== r2.name
   }
 }
 

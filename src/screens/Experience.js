@@ -11,18 +11,22 @@ export default class Experience extends React.Component {
   constructor () {
     super()
     this.state = {
-      clicked: false,
-      swipeUp: false
+      showCheckout: false,
+      swipeUp: false,
+      gradientText: 'VIEW DATES',
+      screenStage: {
 
+      }
     }
   }
-  handlePress = () => {
-    this.setState({ clicked: !this.state.clicked, swipeUp: true })
+  showCheckout = (show) => {
+    this.setState({ showCheckout: show })
   }
   componentDidMount(){
-    this.setState({clicked: false})
+    this.setState({showCheckout: false})
   }
   render () {
+
     const item = this.props.navigation.state.params.experience
     const nav = this.props.navigation
     const previous = this.props.navigation.state.params.previous
@@ -32,13 +36,15 @@ export default class Experience extends React.Component {
           {/**********************************************/}
           <ExperienceFullScreen swipeUp={this.state.swipeUp} item={item} nav={nav} previous={previous} isFavorite={isFavorite} />
           {/**********************************************/}
-          {this.state.clicked  ? <Checkout /> : <ExperienceFullCardInfo item={item} />}
+          {this.state.showCheckout  ? <Checkout nav={nav} showCheckout={this.showCheckout}/> : <ExperienceFullCardInfo item={item} />}
           {/**********************************************/}
-        <TouchableOpacity onPress={() =>  this.handlePress()}>
-          <GradientButton text={"EXPERIENCE"} upArrow round />
+        { (this.state.showCheckout) ? <View/> :
+        <TouchableOpacity onPress={() =>  this.showCheckout(true)}>
+          <GradientButton text={this.state.gradientText} upArrow round />
         </TouchableOpacity>
+        }
       </View>
-    
+
     )
   }
 }

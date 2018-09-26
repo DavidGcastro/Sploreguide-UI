@@ -6,7 +6,7 @@ const GoBack = props => {
     <Feather
       name='arrow-left'
       size={32}
-      color='white'
+      color={props.color || 'white'}
 
     />
   )
