@@ -8,7 +8,6 @@ const GoBack = props => {
       name='arrow-left'
       size={32}
       color={color}
-
     />
   )
 }

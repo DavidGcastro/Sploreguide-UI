@@ -104,7 +104,7 @@ export default class Landing extends Component {
         style={{ flex: 1 }}
         activeOpacity={0.75}
         onPress={() => this.props.navigation.navigate('Experience',
-        { item, previous: 'Landing', isFavorite })}
+        { item, previous: 'Landing', isFavorite, swipeUp: false })}
       >
         <View
           style={{

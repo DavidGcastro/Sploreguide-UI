@@ -1,20 +1,19 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import { FlatList, View, TouchableOpacity, Text } from 'react-native'
-import PreviewCard from './PreviewCard'
+import { View, TouchableOpacity, Text } from 'react-native'
 import GoBack from '../components/GoBack'
 import landingStyles from '../styles/landingStyles'
 import ExperiencesFlatList from '../components/ExperiencesFlatList'
 
+// (favoriteIds || backButton)
+// ? (
 const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, confirm, favoriteIds, navigation, blank }) => {
-  let _keyExtractor = (item, index) => item._id
-
   return (
     <View style={{ flex: 1 }}>
       { (backButton)
         ? <View style={{flexDirection: 'row', alignItems: 'baseline', alignContent: 'center', justifyContent: 'space-between', marginTop: 28, marginHorizontal: 20, marginBottom: 15}}>
           <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
-            <GoBack />
+            <GoBack color={'black'} />
           </TouchableOpacity>
           <Text style={landingStyles.TopText}>{title}</Text>
         </View>

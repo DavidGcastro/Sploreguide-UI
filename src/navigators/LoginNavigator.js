@@ -25,6 +25,10 @@ const LoginNavigator = createStackNavigator(
       }
     }
   },
-  { initialRoute: Home }
+  {
+    navigationOptions: {
+      gesturesEnabled: false
+    },
+    initialRoute: Home }
 )
 export default LoginNavigator

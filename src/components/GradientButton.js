@@ -5,9 +5,10 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 const { width } = Dimensions.get('window')
 
 const GradientButton = props => {
+  let round = props.round ? 0 : 5
   return (
     <LinearGradient
-      style={{ borderRadius: 20, height: 60, justifyContent: 'center' }}
+      style={{ borderRadius: round, height: 60, justifyContent: 'center' }}
       colors={['rgba(48, 35, 174, 1)', 'rgba(83, 160, 253, 1)']}
       start={[0, 0.5]}
       end={[0.5, 1]}>
@@ -15,7 +16,6 @@ const GradientButton = props => {
       <View
         style={{
           flexDirection: 'row',
-          padding: 15,
           justifyContent: 'center'
         }}>
         <Text
@@ -23,13 +23,16 @@ const GradientButton = props => {
             color: 'white',
             fontSize: 16,
             fontFamily: 'SF-UI-Text-Medium',
-            letterSpacing: 2
+            letterSpacing: 2,
+            paddingRight: 8
           }}>
           {props.text}
         </Text>
-        <View style={{alignSelf: 'flex-end'}}>
-          <Ionicons style={{left: width * 0.3}} name='ios-arrow-up' size={20} color='white' />
-        </View>
+        {
+          props.upArrow ? <View>
+            <Ionicons style={{ }} name='ios-arrow-up' size={20} color='white' />
+          </View> : ''
+        }
       </View>
     </LinearGradient>
   )

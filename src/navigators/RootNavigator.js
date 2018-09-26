@@ -1,12 +1,16 @@
 import { createStackNavigator } from 'react-navigation'
-import PreviewNavigator from './PreviewNavigator'
 import BottomTabNavigator from './BottomTabNavigator'
 import Search from '../screens/Search'
+import ViewAll from '../screens/ViewAll'
+import Experience from '../screens/Experience'
+import TermsOfService from '../screens/TermsOfService'
 
 const RootNavigator = createStackNavigator(
   {
     BottomTabNavigator: { screen: BottomTabNavigator },
-    PreviewNavigator: { screen: PreviewNavigator },
+    ViewAll: { screen: ViewAll },
+    Experience: { screen: Experience },
+    TermsOfService: { screen: TermsOfService },
     Search: {
       screen: Search,
       navigationOptions: {
@@ -15,6 +19,11 @@ const RootNavigator = createStackNavigator(
     }
   },
   {
+    navigationOptions: {
+
+      gesturesEnabled: false
+
+    },
     mode: 'modal',
     headerMode: 'none'
   }
