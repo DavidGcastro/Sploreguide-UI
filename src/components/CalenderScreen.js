@@ -24,7 +24,7 @@ export default class CalendarScreen extends React.Component {
         <TouchableOpacity onPress={() => this.props.changeTimeSelected(item)} >
           <Text
             data-txt={item.time}
-            style={{ fontSize: 18, color: 'rgba(36, 37, 61, 1)' }}
+            style={{ fontSize: 18, color: 'rgba(36, 37, 61, 1)', fontFamily: 'SF-UI-Text-Light' }}
           >
             {displayText}
           </Text>
@@ -54,7 +54,6 @@ export default class CalendarScreen extends React.Component {
           return (<Entypo
             name={'chevron-thin-down'}
             size={25}
-            color={'blue'}
           />)
         }}
         minDate={new Date()}
