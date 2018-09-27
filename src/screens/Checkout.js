@@ -44,7 +44,7 @@ export default class Checkout extends Component {
               <Feather name='arrow-left' size={30} />
             }
           </TouchableOpacity>
-          <Text style={{paddingTop: 8, fontSize: 16}}>
+          <Text style={{ paddingTop: 8, fontSize: 16, fontFamily: 'SF-UI-Text-Light'}}>
             {this.state.dateSelected && `${moment(this.state.dateSelected).format('MMMM DD')}, ${this.state.timeSelected || ''}`}
           </Text>
           { (this.state.timeSelected != '')
