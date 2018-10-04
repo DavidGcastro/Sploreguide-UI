@@ -27,7 +27,7 @@ const TermsOfService = props => {
           </ScrollView>
         </View>
         <View style={{ flex: 0.075, justifyContent: 'center', paddingVertical: 10 }}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={{ fontFamily: 'SF-UI-Text-Light' }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$30.29</Text>  Per Person</Text>
             <Text style={{ fontFamily: 'SF-UI-Text-Light' }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$1001.00</Text>  Total</Text>
           </View>
@@ -38,7 +38,7 @@ const TermsOfService = props => {
       </View>
 
       <TouchableOpacity onPress={() => console.log('Success!')}>
-        <GradientButton text='Check Out' round />
+        <GradientButton text='ACCEPT' round />
       </TouchableOpacity>
     </View>
 

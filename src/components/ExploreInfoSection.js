@@ -28,7 +28,7 @@ const ExploreInfoSection = props => {
     {header}
     <Text style={{
       fontSize: 13,
-      fontFamily: 'SF-UI-Text-Semibold',
+      fontFamily: 'SF-UI-Text-Light',
       color: 'rgba(74, 74, 74, 1)',
       lineHeight: 17,
       paddingVertical: 20
