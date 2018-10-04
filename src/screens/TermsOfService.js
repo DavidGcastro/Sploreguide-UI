@@ -31,13 +31,11 @@ const TermsOfService = props => {
             <Text style={{ fontFamily: 'SF-UI-Text-Light' }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$30.29</Text>  Per Person</Text>
             <Text style={{ fontFamily: 'SF-UI-Text-Light' }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$1001.00</Text>  Total</Text>
           </View>
-          <TouchableOpacity>
-            <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 12, paddingTop: 10, color: 'rgba(254, 207, 74, 1)' }} >See Details</Text>
-          </TouchableOpacity>
+
         </View>
       </View>
 
-      <TouchableOpacity onPress={() => console.log('Success!')}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('Payment')}>
         <GradientButton text='ACCEPT' round />
       </TouchableOpacity>
     </View>
@@ -45,4 +43,7 @@ const TermsOfService = props => {
   )
 }
 
+// <TouchableOpacity>
+//   <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 12, paddingTop: 10, color: 'rgba(254, 207, 74, 1)' }} >See Details</Text>
+// </TouchableOpacity>
 export default TermsOfService

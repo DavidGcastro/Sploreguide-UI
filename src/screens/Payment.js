@@ -19,12 +19,12 @@ const dummyData = {
   host: 'Juan Paredes'
 }
 
-const Payment = () => {
+const Payment = props => {
   return <View style={{ flex: 1 }}>
     <View style={{
       flex: 1, backgroundColor: 'white', padding: 25
     }}>
-      <TouchableOpacity onPress={() => console.log('go back')}>
+      <TouchableOpacity onPress={() => props.navigation.goBack()}>
         <GoBack color={'black'} />
       </TouchableOpacity>
       <View
@@ -71,7 +71,7 @@ const Payment = () => {
         <View style={{ borderTopColor: 'rgba(237, 237, 237, 1)', borderTopWidth: 1, flex: 1, justifyContent: 'center' }}>
 
           <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <EvilIcons style={{ paddingRight: 5 }} name='credit-card' size={32} color='black' />
+            <EvilIcons style={{ paddingRight: 5 }} name='credit-card' size={32} color='gray' />
             <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Use Visa Credit Card Ending in 1234</Text>
           </TouchableOpacity>
 
@@ -83,7 +83,7 @@ const Payment = () => {
       </View>
     </View>
     <TouchableOpacity onPress={() => console.log('Success!')}>
-      <GradientButton text='CHECK OUT' round />
+      <GradientButton text='CONFIRM' round />
     </TouchableOpacity>
   </View>
 }
