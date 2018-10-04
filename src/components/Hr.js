@@ -17,7 +17,7 @@ const Hr = props => {
           borderWidth: 0.75,
           borderColor: 'rgba(237, 237, 237, 1)',
           /* CHANGE AS NEEDED */
-          width: width / 2 - 60
+          width: width / 2 - 50
         }}
       />
       <Text
