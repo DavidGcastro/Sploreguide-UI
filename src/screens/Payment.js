@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Animated } from 'react-native'
+import { Text, View, TouchableOpacity, Animated, ActivityIndicator } from 'react-native'
 import GoBack from '../components/GoBack'
 import GradientButton from '../components/GradientButton'
 import { CreditCardInput, LiteCreditCardInput } from 'react-native-credit-card-input'
@@ -20,72 +20,96 @@ const dummyData = {
 }
 
 export default class Payment extends Component {
+  constructor () {
+    super()
+    this.state = {
+      useSavedCard: false,
+      enterNewCard: false,
+      showLoader: true
+    }
+    this.handleCreditCard = this.handleCreditCard.bind(this)
+  }
+
+  handleCreditCard () {
+    this.setState({ useSavedCard: true })
+    setTimeout(() => {
+      this.setState({
+        showLoader: false
+      })
+    }, 500)
+  }
+
   render () {
-    return <View style={{ flex: 1 }}>
-      <View style={{
-        flex: 1, backgroundColor: 'white', padding: 25
-      }}>
-        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-          <GoBack color={'black'} />
-        </TouchableOpacity>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'space-between'
-          }}>
-          <Text style={{ fontSize: 30, fontFamily: 'SF-UI-Text-Bold', paddingVertical: 10 }}>Payment Details</Text>
-          <View style={{ flex: 1, justifyContent: 'space-evenly' }}>
-            <View style={{
-              borderBottomWidth: 1,
-              borderBottomColor: 'rgba(237, 237, 237, 1)',
-              paddingBottom: 10,
-              justifyContent: 'center',
-              flex: 1
-            }} >
-              <Text style={{ fontSize: 20, fontFamily: 'SF-UI-Text-Semibold', paddingBottom: 5 }}>Summary</Text>
-              <Text style={{ fontFamily: 'SF-UI-Text-Medium', fontSize: 15, paddingBottom: 5 }}>{dummyData.experienceName}</Text>
-              <Text style={{ fontFamily: 'SF-UI-Text-Medium', fontSize: 15, paddingBottom: 5 }}>By {dummyData.host}</Text>
-              <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}>{dummyData.date}</Text>
-              <Text style={{ fontFamily: 'SF-UI-Text-Light' }}>{dummyData.time}</Text>
-            </View>
-
-          </View>
-        </View>
+    return (
+      <View style={{ flex: 1 }}>
         <View style={{
-          flexDirection: 'row', justifyContent: 'center', paddingVertical: 20
+          flex: 1, backgroundColor: 'white', padding: 25
         }}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <GoBack color={'black'} />
+          </TouchableOpacity>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'space-between'
+            }}>
+            <Text style={{ fontSize: 30, fontFamily: 'SF-UI-Text-Bold', paddingVertical: 10 }}>Payment Details</Text>
+            <View style={{ flex: 1, justifyContent: 'space-evenly' }}>
+              <View style={{
+                borderBottomWidth: 1,
+                borderBottomColor: 'rgba(237, 237, 237, 1)',
+                paddingBottom: 10,
+                justifyContent: 'center',
+                flex: 1
+              }} >
+                <Text style={{ fontSize: 20, fontFamily: 'SF-UI-Text-Semibold', paddingBottom: 5 }}>Summary</Text>
+                <Text style={{ fontFamily: 'SF-UI-Text-Medium', fontSize: 15, paddingBottom: 5 }}>{dummyData.experienceName}</Text>
+                <Text style={{ fontFamily: 'SF-UI-Text-Medium', fontSize: 15, paddingBottom: 5 }}>By {dummyData.host}</Text>
+                <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}>{dummyData.date}</Text>
+                <Text style={{ fontFamily: 'SF-UI-Text-Light' }}>{dummyData.time}</Text>
+              </View>
+            </View>
+          </View>
+          {/*******************/}
           <View style={{
-            flex: 1,
-            borderRightWidth: 1,
-            borderRightColor: 'rgba(237, 237, 237, 1)'
+            flexDirection: 'row', justifyContent: 'center', paddingVertical: 20
           }}>
-            <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.adults}</Text> {dummyData.adults > 1 ? ' x Adults' : ' x Adult'} </Text>
-            <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.teens}</Text>{dummyData.teens > 1 ? ' x Teens' : ' x Teen'}</Text>
-            <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.children}</Text>{dummyData.children > 1 ? ' x Children' : ' x Child'}</Text>
+            <View style={{
+              flex: 1,
+              borderRightWidth: 1,
+              borderRightColor: 'rgba(237, 237, 237, 1)'
+            }}>
+              <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.adults}</Text> {dummyData.adults > 1 ? ' x Adults' : ' x Adult'} </Text>
+              <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.teens}</Text>{dummyData.teens > 1 ? ' x Teens' : ' x Teen'}</Text>
+              <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.children}</Text>{dummyData.children > 1 ? ' x Children' : ' x Child'}</Text>
+            </View>
+            <View style={{ flex: 1, paddingLeft: 10, justifyContent: 'space-between' }}>
+              <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.price}</Text> Per Person </Text>
+              <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.total}</Text> Total</Text>
+            </View>
           </View>
-          <View style={{ flex: 1, paddingLeft: 10, justifyContent: 'space-between' }}>
-            <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.price}</Text> Per Person </Text>
-            <Text style={{ fontFamily: 'SF-UI-Text-Light', paddingBottom: 5 }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{dummyData.total}</Text> Total</Text>
-          </View>
+          {/***************************************************************/}
+          {!this.state.useSavedCard ? <View style={{ flex: 1, justifyContent: 'center' }} >
+            <View style={{ borderTopColor: 'rgba(237, 237, 237, 1)', borderTopWidth: 1, flex: 1, justifyContent: 'center' }}>
+              <TouchableOpacity onPress={() => this.handleCreditCard()} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <EvilIcons style={{ paddingRight: 5 }} name='credit-card' size={32} color='gray' />
+                <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Use Visa Credit Card Ending in 1234</Text>
+              </TouchableOpacity>
+            </View>
+            <Hr text='OR' />
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <TouchableOpacity onPress={() => this.setState({ enterNewCard: false })} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <EvilIcons style={{ paddingRight: 5 }} name='credit-card' size={32} color='gray' />
+                <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Enter Another Card</Text>
+              </TouchableOpacity>
+            </View>
+          </View> : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {this.state.useSavedCard && this.state.showLoader ? <ActivityIndicator size='large' color='#0000ff' /> : <Text style={{ fontSize: 20, fontFamily: 'SF-UI-Text-Medium' }}>Vertified</Text>}
+          </View>}
         </View>
-        <View style={{ flex: 1, justifyContent: 'center' }} >
-          <View style={{ borderTopColor: 'rgba(237, 237, 237, 1)', borderTopWidth: 1, flex: 1, justifyContent: 'center' }}>
-
-            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <EvilIcons style={{ paddingRight: 5 }} name='credit-card' size={32} color='gray' />
-              <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Use Visa Credit Card Ending in 1234</Text>
-            </TouchableOpacity>
-
-          </View>
-          <Hr text='OR' />
-          <View style={{ flex: 1, justifyContent: 'center' }}>
-            <LiteCreditCardInput />
-          </View>
-        </View>
-      </View>
-      <TouchableOpacity onPress={() => console.log('Success!')}>
-        <GradientButton text='CONFIRM' round />
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity onPress={() => console.log('Success!')} disabled={!this.state.useSavedCard}>
+          <GradientButton text='CONFIRM' round />
+        </TouchableOpacity>
+      </View>)
   }
 }
