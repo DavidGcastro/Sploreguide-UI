@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Animated, ActivityIndicator } from 'react-native'
+import { Text, View, TouchableOpacity, Animated, Dimensions } from 'react-native'
 import GoBack from '../components/GoBack'
 import GradientButton from '../components/GradientButton'
 import { CreditCardInput, LiteCreditCardInput } from 'react-native-credit-card-input'
 import { EvilIcons } from '@expo/vector-icons'
 import Hr from '../components/Hr'
+const { height } = Dimensions.get('window')
 
 const dummyData = {
   adults: 2,
@@ -23,20 +24,35 @@ export default class Payment extends Component {
   constructor () {
     super()
     this.state = {
-      useSavedCard: false,
-      enterNewCard: false,
-      showLoader: true
+      useSavedCard: false
     }
+    this.fade = new Animated.Value(1)
+    this.top = new Animated.Value(0)
     this.handleCreditCard = this.handleCreditCard.bind(this)
+    this.handleCreditInput = this.handleCreditInput.bind(this)
+    let flexStart = new Animated.Value(0)
+    const start = flexStart.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '180deg']
+    })
   }
 
   handleCreditCard () {
-    this.setState({ useSavedCard: true })
-    setTimeout(() => {
-      this.setState({
-        showLoader: false
+    console.log('used old card')
+  }
+  handleCreditInput () {
+    this.setState({useSavedCard: true})
+    Animated.parallel([
+      Animated.timing(this.fade, {
+        toValue: 0,
+        duration: 300
+      }),
+      Animated.timing(this.top, {
+        toValue: -60,
+        duration: 300
       })
-    }, 500)
+
+    ]).start()
   }
 
   render () {
@@ -51,17 +67,13 @@ export default class Payment extends Component {
           <View
             style={{
               flex: 1,
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              borderBottomColor: 'rgba(237, 237, 237, 1)',
+              borderBottomWidth: 1
             }}>
             <Text style={{ fontSize: 30, fontFamily: 'SF-UI-Text-Bold', paddingVertical: 10 }}>Payment Details</Text>
             <View style={{ flex: 1, justifyContent: 'space-evenly' }}>
-              <View style={{
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(237, 237, 237, 1)',
-                paddingBottom: 10,
-                justifyContent: 'center',
-                flex: 1
-              }} >
+              <View>
                 <Text style={{ fontSize: 20, fontFamily: 'SF-UI-Text-Semibold', paddingBottom: 5 }}>Summary</Text>
                 <Text style={{ fontFamily: 'SF-UI-Text-Medium', fontSize: 15, paddingBottom: 5 }}>{dummyData.experienceName}</Text>
                 <Text style={{ fontFamily: 'SF-UI-Text-Medium', fontSize: 15, paddingBottom: 5 }}>By {dummyData.host}</Text>
@@ -70,7 +82,6 @@ export default class Payment extends Component {
               </View>
             </View>
           </View>
-          {/*******************/}
           <View style={{
             flexDirection: 'row', justifyContent: 'center', paddingVertical: 20
           }}>
@@ -89,23 +100,18 @@ export default class Payment extends Component {
             </View>
           </View>
           {/***************************************************************/}
-          {!this.state.useSavedCard ? <View style={{ flex: 1, justifyContent: 'center' }} >
-            <View style={{ borderTopColor: 'rgba(237, 237, 237, 1)', borderTopWidth: 1, flex: 1, justifyContent: 'center' }}>
-              <TouchableOpacity onPress={() => this.handleCreditCard()} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <EvilIcons style={{ paddingRight: 5 }} name='credit-card' size={32} color='gray' />
-                <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Use Visa Credit Card Ending in 1234</Text>
-              </TouchableOpacity>
-            </View>
+          <Animated.View style={{ borderTopColor: 'rgba(237, 237, 237, 1)', borderTopWidth: 1, justifyContent: 'center', paddingVertical: 20, opacity: this.fade }}>
+            <TouchableOpacity onPress={() => this.handleCreditCard()} style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <EvilIcons style={{ paddingRight: 5 }} name='credit-card' size={32} color='gray' />
+              <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Use Visa Credit Card Ending in 1234</Text>
+            </TouchableOpacity>
+          </Animated.View>
+          <Animated.View style={{ opacity: this.fade }} >
             <Hr text='OR' />
-            <View style={{ flex: 1, justifyContent: 'center' }}>
-              <TouchableOpacity onPress={() => this.setState({ enterNewCard: false })} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <EvilIcons style={{ paddingRight: 5 }} name='credit-card' size={32} color='gray' />
-                <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Enter Another Card</Text>
-              </TouchableOpacity>
-            </View>
-          </View> : <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            {this.state.useSavedCard && this.state.showLoader ? <ActivityIndicator size='large' color='#0000ff' /> : <Text style={{ fontSize: 20, fontFamily: 'SF-UI-Text-Medium' }}>Vertified</Text>}
-          </View>}
+          </Animated.View>
+          <Animated.View style={{ flex: 1, justifyContent: this.state.useSavedCard ? 'flex-start' : 'center', top: this.top }}>
+            <LiteCreditCardInput requiresName onFocus={() => this.handleCreditInput()} />
+          </Animated.View>
         </View>
         <TouchableOpacity onPress={() => console.log('Success!')} disabled={!this.state.useSavedCard}>
           <GradientButton text='CONFIRM' round />
@@ -113,3 +119,7 @@ export default class Payment extends Component {
       </View>)
   }
 }
+
+// <TouchableOpacity>
+//   <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 12, paddingTop: 10, color: 'rgba(254, 207, 74, 1)' }} >See Details</Text>
+// </TouchableOpacity>

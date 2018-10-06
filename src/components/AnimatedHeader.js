@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, View, Animated, Dimensions } from 'react-native'
-
 const { height } = Dimensions.get('window')
 
 const HeaderBackground = ({ animationRange }) => {

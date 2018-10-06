@@ -43,7 +43,4 @@ const TermsOfService = props => {
   )
 }
 
-// <TouchableOpacity>
-//   <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 12, paddingTop: 10, color: 'rgba(254, 207, 74, 1)' }} >See Details</Text>
-// </TouchableOpacity>
 export default TermsOfService
