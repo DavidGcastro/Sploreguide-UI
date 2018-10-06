@@ -110,7 +110,7 @@ export default class Payment extends Component {
             <Hr text='OR' />
           </Animated.View>
           <Animated.View style={{ flex: 1, justifyContent: this.state.useSavedCard ? 'flex-start' : 'center', top: this.top }}>
-            <LiteCreditCardInput requiresName onFocus={() => this.handleCreditInput()} />
+            <LiteCreditCardInput additionalInputsProps={{}} onFocus={() => this.handleCreditInput()} />
           </Animated.View>
         </View>
         <TouchableOpacity onPress={() => console.log('Success!')} disabled={!this.state.useSavedCard}>
