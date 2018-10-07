@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, Image } from 'react-native'
 import GoBack from '../components/GoBack'
 import GradientButton from '../components/GradientButton'
 import styles from '../styles/payment'
@@ -12,11 +12,10 @@ const dummyData = {
     { children: 2, price: 20 },
     { infant: 2, price: 10 }
   ],
-  price: '$100',
-  total: '$1000',
+  image: require('../assets/img/experiences/ecuador.jpg'),
   experienceName: 'Ecuador: Living Among Giants',
   date: 'September 25, 2019',
-  time: '7:00 - 9:00',
+  time: '7:00PM - 9:00PM',
   host: 'Juan Paredes'
 }
 
@@ -36,7 +35,7 @@ export default class Payment extends Component {
   }
 
   handleCreditCard () {
-    console.log('used old card')
+
   }
   handleCreditInput () {
 
@@ -52,13 +51,14 @@ export default class Payment extends Component {
           </TouchableOpacity>
           <View style={styles.flexedBordered}>
             <Text style={styles.largeTextPadded}>Payment Details</Text>
-            <View style={{ flex: 1, justifyContent: 'space-evenly', paddingBottom: 10 }}>
+            <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: 10, flexDirection: 'row', alignItems: 'center' }}>
               <View>
                 <Text style={styles.smallTextPadded}>{dummyData.experienceName}</Text>
                 <Text style={styles.smallTextPadded}>By {dummyData.host}</Text>
                 <Text style={[styles.smallText, {paddingBottom: 5}]}>{dummyData.date}</Text>
                 <Text style={styles.smallTextLight}>{dummyData.time}</Text>
               </View>
+              <Image style={{width: 80, height: 80, borderRadius: 10}}source={dummyData.image} />
             </View>
           </View>
           {/***************************************************************/}
@@ -106,13 +106,22 @@ export default class Payment extends Component {
                   {detail[Object.keys(detail)[1]] * detail[Object.keys(detail)[0]]}
                 </Text>
               })}
+              <Text style={[styles.textLight, {fontSize: 10}]}>
+                <Text style={{ fontSize: 12, fontFamily: 'SF-UI-Text-Bold' }}>+ </Text>
+                    150.01 Tax
+              </Text>
+              <Text style={[styles.textLight, { fontSize: 10 }]}>
+                <Text style={{ fontSize: 12, fontFamily: 'SF-UI-Text-Bold' }}>+ </Text>
+                50.01 Security Deposit
+              </Text>
+
             </View>
           </View>
           {/***************************************************************/}
 
           <View style={styles.totalParent}>
             <Text style={styles.textLight}>Total (USD)</Text>
-            <Text style={{ color: 'black', fontFamily: 'SF-UI-Text-Medium', fontSize: 15 }}>${getTotal()}</Text>
+            <Text style={{ color: 'black', fontFamily: 'SF-UI-Text-Medium', fontSize: 15 }}>${getTotal() + 200}</Text>
           </View>
           {/***************************************************************/}
 
@@ -123,7 +132,7 @@ export default class Payment extends Component {
 
         </View>
         <TouchableOpacity onPress={() => console.log('Success!')} disabled={!this.state.useSavedCard}>
-          <GradientButton text={`CONFIRM - $${getTotal()}`} round />
+          <GradientButton text={`CONFIRM - $${getTotal() + 200}`} round />
         </TouchableOpacity>
       </View>)
   }
