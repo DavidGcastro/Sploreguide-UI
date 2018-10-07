@@ -53,6 +53,7 @@ export default class Payment extends Component {
               flex: 1,
               borderBottomColor: 'rgba(237, 237, 237, 1)',
               borderBottomWidth: 1
+
             }}>
             <Text style={{ fontSize: 25, fontFamily: 'SF-UI-Text-Bold', paddingVertical: 5 }}>Payment Details</Text>
             <View style={{ flex: 1, justifyContent: 'space-evenly', paddingBottom: 10 }}>
@@ -111,15 +112,14 @@ export default class Payment extends Component {
             <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Total (USD)</Text>
             <Text style={{ color: 'black', fontFamily: 'SF-UI-Text-Medium', fontSize: 15 }}>{dummyData.total}</Text>
           </View>
-
+          <View style={{justifyContent: 'center'}}>
+            <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. <Text style={{ fontFamily: 'SF-UI-Text-Light', color: 'rgba(254, 207, 74, 1)' }}>Vivamus magna justo, lacinia eget consectetur sed</Text> convallis at tellus. Cras ultricies ligula sed magna dictum porta.</Text>
+          </View>
         </View>
+
         <TouchableOpacity onPress={() => console.log('Success!')} disabled={!this.state.useSavedCard}>
-          <GradientButton text='CONFIRM' round />
+          <GradientButton text={`CONFIRM - ${dummyData.total}`} round />
         </TouchableOpacity>
       </View>)
   }
 }
-
-// <TouchableOpacity>
-//   <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 12, paddingTop: 10, color: 'rgba(254, 207, 74, 1)' }} >See Details</Text>
-// </TouchableOpacity>
