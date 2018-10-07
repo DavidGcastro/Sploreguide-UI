@@ -54,11 +54,10 @@ export default class Payment extends Component {
             <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: 10, flexDirection: 'row', alignItems: 'center' }}>
               <View>
                 <Text style={styles.smallTextPadded}>{dummyData.experienceName}</Text>
-                <Text style={styles.smallTextPadded}>By {dummyData.host}</Text>
                 <Text style={[styles.smallText, {paddingBottom: 5}]}>{dummyData.date}</Text>
                 <Text style={styles.smallTextLight}>{dummyData.time}</Text>
               </View>
-              <Image style={{width: 80, height: 80, borderRadius: 10}}source={dummyData.image} />
+              <Image style={{width: 70, height: 70, borderRadius: 10}}source={dummyData.image} />
             </View>
           </View>
           {/***************************************************************/}
@@ -126,14 +125,16 @@ export default class Payment extends Component {
           {/***************************************************************/}
 
           <View style={{ justifyContent: 'center' }}>
-            <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 15 }}>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. <Text style={{ fontFamily: 'SF-UI-Text-Light', color: 'rgba(254, 207, 74, 1)' }}>Vivamus magna justo, lacinia eget consectetur sed</Text> convallis at tellus. Cras ultricies ligula sed magna dictum porta.</Text>
+            <Text style={{ color: 'gray', fontFamily: 'SF-UI-Text-Light', fontSize: 12 }}>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. <Text style={{ fontFamily: 'SF-UI-Text-Light', color: 'rgba(254, 207, 74, 1)' }}>Vivamus magna justo, lacinia eget consectetur sed</Text> convallis at tellus. Cras ultricies ligula sed magna dictum porta.</Text>
           </View>
           {/***************************************************************/}
 
         </View>
-        <TouchableOpacity onPress={() => console.log('Success!')} disabled={!this.state.useSavedCard}>
+        <TouchableOpacity onPress={() => console.log('Success!')}>
           <GradientButton text={`CONFIRM - $${getTotal() + 200}`} round />
         </TouchableOpacity>
       </View>)
   }
 }
+
+//<Text style={styles.smallTextPadded}>By {dummyData.host}</Text>

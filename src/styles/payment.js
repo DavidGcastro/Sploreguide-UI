@@ -21,7 +21,7 @@ const styles = {
   },
   paymentSection: {
     justifyContent: 'center',
-    paddingVertical: 20,
+    paddingVertical: 15,
     borderBottomColor: 'rgba(237, 237, 237, 1)',
     borderBottomWidth: 1
   },
