@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {ScrollView, View, Text, Dimensions, TouchableOpacity} from 'react-native'
+import {ScrollView, View, Text,TouchableOpacity, AsyncStorage} from 'react-native'
 import moment from 'moment'
 import { MaterialIcons, Feather } from '@expo/vector-icons'
 import CalendarScreen from '../components/CalenderScreen'

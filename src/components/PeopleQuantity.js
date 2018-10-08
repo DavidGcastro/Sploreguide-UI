@@ -14,10 +14,9 @@ export default class PeopleQuantity extends Component {
   }
 
   render () {
-    return (<View style={{flex: 1, borderRadius: 20, overflow: 'hidden', backgroundColor: 'white', width: '100%', padding: 20}}>
+    return (<View style={{flex: 1, overflow: 'hidden', width: '100%', padding: 20, backgroundColor: 'white'}}>
       <View style={{justifyContent: 'space-evenly', flex: 1}}>
         {/************************************************************/}
-
         <View style={{paddingVertical: 20, justifyContent: 'space-between', flexDirection: 'row', alignContent: 'center', alignItems: 'center', borderBottomColor: 'rgba(224, 224, 225, 1)', borderBottomWidth: 1}}>
           <View>
             <Text style={{
