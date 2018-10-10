@@ -109,7 +109,7 @@ export default class Payment extends Component {
 
           <View style={styles.totalParent}>
             <Text style={styles.textLight}>Total (USD)</Text>
-            <Text style={{ color: 'black', fontFamily: 'SF-UI-Text-Medium', fontSize: 15 }}>${this.getTotal(data) + 200}</Text>
+            <Text style={{ color: 'black', fontFamily: 'SF-UI-Text-Medium', fontSize: 15 }}>${this.getTotal(data) + 150.01+50.01}</Text>
           </View>
           {/***************************************************************/}
 
@@ -120,7 +120,7 @@ export default class Payment extends Component {
 
         </View>
         <TouchableOpacity onPress={() => console.log('Success!')}>
-          <GradientButton text={`CONFIRM - $${this.getTotal(data) + 200}`} round />
+          <GradientButton text={`CONFIRM - $${this.getTotal(data) + 150.01 + 50.01}`} round />
         </TouchableOpacity>
       </View>)
   }

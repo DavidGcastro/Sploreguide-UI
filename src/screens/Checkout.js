@@ -60,8 +60,12 @@ export default class Checkout extends Component {
 
 
   changeTimeSelected = (itemSelected) => {
-    console.log(itemSelected)
-    this.setState({ dateSelected: itemSelected.date, timeSelected: itemSelected.time })
+  
+    //this.setState({ dateSelected: itemSelected.date, timeSelected: itemSelected.time })
+    this.setState({
+      dateSelected: moment(itemSelected.data).format('MMMM DD' ), timeSelected: itemSelected.time
+    })
+
   }
 
   componentDidMount () {
@@ -70,7 +74,6 @@ export default class Checkout extends Component {
 
 
   render () {
-    console.log(this.state)
     let { showing } = this.state
     let { showCheckout, nav, title, image } = this.props
     let backWrapper, nextWrapper
@@ -82,7 +85,7 @@ export default class Checkout extends Component {
       nextWrapper = () => nav.navigate('TermsOfService', {
         image: this.state.image,
         title: this.state.title,
-        guests:[{ adults: this.state.adults, price: 100 }, { teens: this.state.teens, price: 100 }, { children: this.state.children, price: 80 }, { infants: this.state.infants, price: 50 }],
+        guests: [{ adults: this.state.adults, price: 100 }, { teens: this.state.teens, price: 100 }, { children: this.state.children, price: 80 }, { infants: this.state.infants, price: 50 }],
         dateSelected: this.state.dateSelected,
         timeSelected: this.state.timeSelected
       })
@@ -101,26 +104,29 @@ export default class Checkout extends Component {
             }
           </TouchableOpacity>
           <Text style={{ paddingTop: 8, fontSize: 16, fontFamily: 'SF-UI-Text-Light' }}>
-            {this.state.dateSelected && `${moment(this.state.dateSelected).format('MMMM DD')}, ${this.state.timeSelected || ''}`}
+            {this.state.dateSelected && `${this.state.dateSelected}  | ${this.state.timeSelected  || ''}`}
           </Text>
           {(this.state.timeSelected != '')
+      
             ? <TouchableOpacity onPress={() => nextWrapper()}>
               <Feather name='arrow-right' size={30} />
             </TouchableOpacity>
             : <Feather name='arrow-right' size={30} color={'#b2b2b2'} />
           }
+     
         </View>
         {showing === 'calendar'
           ? <CalendarScreen
             dateSelected={this.state.dateSelected}
             changeTimeSelected={this.changeTimeSelected} />
           : <PeopleQuantity title={title}
-            image={image}
-            title={title}
-            guests={[{ adults: this.state.adults, price: 100 }, { teens: this.state.teens, price: 100 }, { children: this.state.children, price: 80 }, { infants: this.state.infants, price: 50 }]}
+            adults={this.state.adults}
+            teens={this.state.teens}
+            infants={this.state.infants}
+            children={this.state.children}
             addOrSubtractPeople={this.addOrSubtractPeople}
             dateSelected={this.state.dateSelected}
-            timeSelected={this.state.timeSelected}
+            timeSelected={this.state.timeSelected} x
           />
         }
       </View>

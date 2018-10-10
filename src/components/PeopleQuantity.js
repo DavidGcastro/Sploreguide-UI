@@ -14,8 +14,8 @@ export default class PeopleQuantity extends Component {
   }
 
   render () {
-    let { dateSelected, image, title, addOrSubtractPeople, guests } = this.props
-    console.log(guests)
+    let { adults, teens, infants, children, addOrSubtractPeople } = this.props
+
     return (<View style={{ flex: 1, overflow: 'hidden', width: '100%', padding: 20, backgroundColor: 'white' }}>
       <View style={{ justifyContent: 'space-evenly', flex: 1 }}>
         {/************************************************************/}
@@ -25,7 +25,7 @@ export default class PeopleQuantity extends Component {
               fontSize: 17,
               color: 'rgba(36, 37, 61, 1)'
             }}>
-              Adults
+              Adult
             </Text>
             <Text style={{
               fontSize: 12,
@@ -45,7 +45,7 @@ export default class PeopleQuantity extends Component {
               width: 70
             }}
             >
-              {guests[0].adults}
+              {adults}
             </Text>
             <TouchableOpacity onPress={() => addOrSubtractPeople('add', 'adults')}>
               <Entypo name='circle-with-plus' size={30} color={'rgba(216, 216, 216, 1)'} />
@@ -61,7 +61,7 @@ export default class PeopleQuantity extends Component {
               fontSize: 17,
               color: 'rgba(36, 37, 61, 1)'
             }}>
-              Teens
+              Teen
             </Text>
             <Text style={{
               fontSize: 12,
@@ -81,7 +81,7 @@ export default class PeopleQuantity extends Component {
               width: 70
             }}
             >
-              {guests[1].teens}
+              {teens}
 
             </Text>
             <TouchableOpacity onPress={() => addOrSubtractPeople('add', 'teens')}>
@@ -118,7 +118,7 @@ export default class PeopleQuantity extends Component {
               width: 70
             }}
             >
-              {guests[2].children}
+              {children}
 
             </Text>
             <TouchableOpacity onPress={() => addOrSubtractPeople('add', 'children')} >
@@ -135,7 +135,7 @@ export default class PeopleQuantity extends Component {
               fontSize: 17,
               color: 'rgba(36, 37, 61, 1)'
             }}>
-              Infants
+              Infant
             </Text>
             <Text style={{
               fontSize: 12,
@@ -155,7 +155,7 @@ export default class PeopleQuantity extends Component {
               width: 70
             }}
             >
-              {guests[3].infants}
+              {infants}
 
             </Text>
             <TouchableOpacity onPress={() => addOrSubtractPeople('add', 'infants')}>

@@ -28,13 +28,6 @@ const TermsOfService = props => {
             <TermSection heading='SploreGuide Guarrantee' content='Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.' />
           </ScrollView>
         </View>
-        <View style={{ flex: 0.075, justifyContent: 'center', paddingVertical: 10 }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={{ fontFamily: 'SF-UI-Text-Light' }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$30.29</Text>  Per Person</Text>
-            <Text style={{ fontFamily: 'SF-UI-Text-Light' }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$1001.00</Text>  Total</Text>
-          </View>
-
-        </View>
       </View>
 
       <TouchableOpacity onPress={() => props.navigation.navigate('Payment', data)}>
@@ -44,5 +37,13 @@ const TermsOfService = props => {
 
   )
 }
+
+// <View style={{ flex: 0.075, justifyContent: 'center', paddingVertical: 10 }}>
+//   <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+//     <Text style={{ fontFamily: 'SF-UI-Text-Light' }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$30.29</Text>  Per Person</Text>
+//     <Text style={{ fontFamily: 'SF-UI-Text-Light' }}><Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$1001.00</Text>  Total</Text>
+//   </View>
+
+// </View>
 
 export default TermsOfService
