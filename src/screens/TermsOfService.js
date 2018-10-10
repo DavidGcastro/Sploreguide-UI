@@ -5,6 +5,8 @@ import TermSection from '../components/TermSection'
 import GradientButton from '../components/GradientButton'
 
 const TermsOfService = props => {
+  let data = props.navigation.state.params
+  console.log(data)
   return (
     <View style={{ flex: 1 }}>
       <View style={{
@@ -35,7 +37,7 @@ const TermsOfService = props => {
         </View>
       </View>
 
-      <TouchableOpacity onPress={() => props.navigation.navigate('Payment')}>
+      <TouchableOpacity onPress={() => props.navigation.navigate('Payment', data)}>
         <GradientButton text='ACCEPT' round />
       </TouchableOpacity>
     </View>

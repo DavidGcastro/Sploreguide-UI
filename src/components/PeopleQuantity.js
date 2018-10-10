@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Text, View, TouchableOpacity} from 'react-native'
+import { Text, View, TouchableOpacity } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 
 export default class PeopleQuantity extends Component {
@@ -14,36 +14,40 @@ export default class PeopleQuantity extends Component {
   }
 
   render () {
-    return (<View style={{flex: 1, overflow: 'hidden', width: '100%', padding: 20, backgroundColor: 'white'}}>
-      <View style={{justifyContent: 'space-evenly', flex: 1}}>
+    let { dateSelected, image, title, addOrSubtractPeople, guests } = this.props
+    console.log(guests)
+    return (<View style={{ flex: 1, overflow: 'hidden', width: '100%', padding: 20, backgroundColor: 'white' }}>
+      <View style={{ justifyContent: 'space-evenly', flex: 1 }}>
         {/************************************************************/}
-        <View style={{paddingVertical: 20, justifyContent: 'space-between', flexDirection: 'row', alignContent: 'center', alignItems: 'center', borderBottomColor: 'rgba(224, 224, 225, 1)', borderBottomWidth: 1}}>
+        <View style={{ paddingVertical: 20, justifyContent: 'space-between', flexDirection: 'row', alignContent: 'center', alignItems: 'center', borderBottomColor: 'rgba(224, 224, 225, 1)', borderBottomWidth: 1 }}>
           <View>
             <Text style={{
               fontSize: 17,
-              color: 'rgba(36, 37, 61, 1)'}}>
-               Adults
+              color: 'rgba(36, 37, 61, 1)'
+            }}>
+              Adults
             </Text>
             <Text style={{
               fontSize: 12,
               color: 'rgba(36, 37, 61, 0.5)'
             }}>
-            16+ Years
+              16+ Years
             </Text>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <TouchableOpacity onPress={() => this.state.adults !== 0 ? this.setState({adults: this.state.adults - 1}) : 0}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <TouchableOpacity onPress={() => addOrSubtractPeople('subtract', 'adults')}>
               <Entypo name='circle-with-minus' size={30} color={'rgba(216, 216, 216, 1)'} />
             </TouchableOpacity>
             <Text style={{
               color: 'rgba(36, 37, 61, 1)',
               fontSize: 24,
               textAlign: 'center',
-              width: 70}}
+              width: 70
+            }}
             >
-              {this.state.adults}
+              {guests[0].adults}
             </Text>
-            <TouchableOpacity onPress={() => this.setState({ adults: this.state.adults + 1 })}>
+            <TouchableOpacity onPress={() => addOrSubtractPeople('add', 'adults')}>
               <Entypo name='circle-with-plus' size={30} color={'rgba(216, 216, 216, 1)'} />
             </TouchableOpacity>
           </View>
@@ -63,22 +67,24 @@ export default class PeopleQuantity extends Component {
               fontSize: 12,
               color: 'rgba(36, 37, 61, 0.5)'
             }}>
-                    13 - 15 years
+              13 - 15 years
             </Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TouchableOpacity onPress={() => this.state.teens !== 0 ? this.setState({ teens: this.state.teens - 1 }) : 0} >
+            <TouchableOpacity onPress={() => addOrSubtractPeople('subtract', 'teens')}>
               <Entypo name='circle-with-minus' size={30} color={'rgba(216, 216, 216, 1)'} />
             </TouchableOpacity>
             <Text style={{
               color: 'rgba(36, 37, 61, 1)',
               fontSize: 24,
               textAlign: 'center',
-              width: 70}}
+              width: 70
+            }}
             >
-              {this.state.teens}
+              {guests[1].teens}
+
             </Text>
-            <TouchableOpacity onPress={() => this.setState({teens: this.state.teens + 1})}>
+            <TouchableOpacity onPress={() => addOrSubtractPeople('add', 'teens')}>
               <Entypo name='circle-with-plus' size={30} color={'rgba(216, 216, 216, 1)'} />
             </TouchableOpacity>
           </View>
@@ -92,28 +98,30 @@ export default class PeopleQuantity extends Component {
               fontSize: 17,
               color: 'rgba(36, 37, 61, 1)'
             }}>
-                    Children
+              Children
             </Text>
             <Text style={{
               fontSize: 12,
               color: 'rgba(36, 37, 61, 0.5)'
             }}>
-                    2 - 12 years
+              2 - 12 years
             </Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TouchableOpacity onPress={() => this.state.children !== 0 ? this.setState({ children: this.state.children - 1 }) : 0} >
+            <TouchableOpacity onPress={() => addOrSubtractPeople('subtract', 'children')} >
               <Entypo name='circle-with-minus' size={30} color={'rgba(216, 216, 216, 1)'} />
             </TouchableOpacity>
             <Text style={{
               color: 'rgba(36, 37, 61, 1)',
               fontSize: 24,
               textAlign: 'center',
-              width: 70}}
+              width: 70
+            }}
             >
-              {this.state.children}
+              {guests[2].children}
+
             </Text>
-            <TouchableOpacity onPress={() => this.setState({ children: this.state.children + 1 })} >
+            <TouchableOpacity onPress={() => addOrSubtractPeople('add', 'children')} >
               <Entypo name='circle-with-plus' size={30} color={'rgba(216, 216, 216, 1)'} />
             </TouchableOpacity>
           </View>
@@ -127,28 +135,30 @@ export default class PeopleQuantity extends Component {
               fontSize: 17,
               color: 'rgba(36, 37, 61, 1)'
             }}>
-                    Infants
+              Infants
             </Text>
             <Text style={{
               fontSize: 12,
               color: 'rgba(36, 37, 61, 0.5)'
             }}>
-                    Under 2 years
+              Under 2 years
             </Text>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <TouchableOpacity onPress={() => this.state.infants !== 0 ? this.setState({infants: this.state.infants - 1}) : 0}>
+            <TouchableOpacity onPress={() => addOrSubtractPeople('subtract', 'infants')}>
               <Entypo name='circle-with-minus' size={30} color={'rgba(216, 216, 216, 1)'} />
             </TouchableOpacity>
             <Text style={{
               color: 'rgba(36, 37, 61, 1)',
               fontSize: 24,
               textAlign: 'center',
-              width: 70}}
+              width: 70
+            }}
             >
-              {this.state.infants}
+              {guests[3].infants}
+
             </Text>
-            <TouchableOpacity onPress={() => this.setState({ infants: this.state.infants + 1 })}>
+            <TouchableOpacity onPress={() => addOrSubtractPeople('add', 'infants')}>
               <Entypo name='circle-with-plus' size={30} color={'rgba(216, 216, 216, 1)'} />
             </TouchableOpacity>
           </View>

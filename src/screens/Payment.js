@@ -5,27 +5,9 @@ import GradientButton from '../components/GradientButton'
 import styles from '../styles/payment'
 import { EvilIcons, Feather, FontAwesome } from '@expo/vector-icons'
 
-const dummyData = {
-  guests: [
-    { adult: 2, price: 100 },
-    { teen: 1, price: 80 },
-    { children: 2, price: 20 },
-    { infant: 2, price: 10 }
-  ],
-  image: require('../assets/img/experiences/ecuador.jpg'),
-  experienceName: 'Ecuador: Living Among Giants',
-  date: 'September 25, 2019',
-  time: '7:00PM - 9:00PM',
-  host: 'Juan Paredes'
-}
 
-const getTotal = () => dummyData.guests.reduce((accumulator, currentValue) => {
-  return accumulator + currentValue.price * currentValue[Object.keys(currentValue)[0]]
-}, dummyData.guests[0].price * dummyData.guests[0][Object.keys(dummyData.guests[0])[0]])
-
-console.log(getTotal())
 export default class Payment extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       useSavedCard: false
@@ -40,7 +22,13 @@ export default class Payment extends Component {
   handleCreditInput () {
 
   }
+
+  getTotal = x => x.guests.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue.price * currentValue[Object.keys(currentValue)[0]]
+  }, x.guests[0].price * x.guests[0][Object.keys(x.guests[0])[0]])
+
   render () {
+    let data = (this.props.navigation.state.params)
     return (
       <View style={{ flex: 1 }}>
         <View style={{
@@ -52,12 +40,12 @@ export default class Payment extends Component {
           <View style={styles.flexedBordered}>
             <Text style={styles.largeTextPadded}>Payment Details</Text>
             <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: 10, flexDirection: 'row', alignItems: 'center' }}>
-              <View>
-                <Text style={styles.smallTextPadded}>{dummyData.experienceName}</Text>
-                <Text style={[styles.smallText, {paddingBottom: 5}]}>{dummyData.date}</Text>
-                <Text style={styles.smallTextLight}>{dummyData.time}</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.smallTextPadded}>{data.title}</Text>
+                <Text style={[styles.smallText, { paddingBottom: 5 }]}>{data.dateSelected}</Text>
+                <Text style={styles.smallTextLight}>{data.timeSelected}</Text>
               </View>
-              <Image style={{width: 70, height: 70, borderRadius: 10}}source={dummyData.image} />
+              <Image style={{ width: 70, height: 70, borderRadius: 10 }} source={{ uri: data.image }} />
             </View>
           </View>
           {/***************************************************************/}
@@ -87,7 +75,7 @@ export default class Payment extends Component {
           {/***************************************************************/}
           <View style={styles.splitPaymentDetailParent}>
             <View>
-              {dummyData.guests.map((detail, i) => {
+              {data.guests.map((detail, i) => {
                 return <Text key={i} style={styles.textLight}>
                   <Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{detail[Object.keys(detail)[0]]}</Text>
                   {' x ' + Object.keys(detail)[0].slice(0, 1).toUpperCase() + Object.keys(detail)[0].slice(1)}
@@ -99,15 +87,16 @@ export default class Payment extends Component {
               borderRightColor: 'rgba(237, 237, 237, 1)'
             }} />
             <View style={{ paddingLeft: 10 }}>
-              {dummyData.guests.map((detail, i) => {
+              {data.guests.map((detail, i) => {
                 return <Text key={i} style={styles.textLight}>
                   <Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$ </Text>
                   {detail[Object.keys(detail)[1]] * detail[Object.keys(detail)[0]]}
                 </Text>
+
               })}
-              <Text style={[styles.textLight, {fontSize: 10}]}>
+              <Text style={[styles.textLight, { fontSize: 10 }]}>
                 <Text style={{ fontSize: 12, fontFamily: 'SF-UI-Text-Bold' }}>+ </Text>
-                    150.01 Tax
+                150.01 Tax
               </Text>
               <Text style={[styles.textLight, { fontSize: 10 }]}>
                 <Text style={{ fontSize: 12, fontFamily: 'SF-UI-Text-Bold' }}>+ </Text>
@@ -120,7 +109,7 @@ export default class Payment extends Component {
 
           <View style={styles.totalParent}>
             <Text style={styles.textLight}>Total (USD)</Text>
-            <Text style={{ color: 'black', fontFamily: 'SF-UI-Text-Medium', fontSize: 15 }}>${getTotal() + 200}</Text>
+            <Text style={{ color: 'black', fontFamily: 'SF-UI-Text-Medium', fontSize: 15 }}>${this.getTotal(data) + 200}</Text>
           </View>
           {/***************************************************************/}
 
@@ -131,10 +120,8 @@ export default class Payment extends Component {
 
         </View>
         <TouchableOpacity onPress={() => console.log('Success!')}>
-          <GradientButton text={`CONFIRM - $${getTotal() + 200}`} round />
+          <GradientButton text={`CONFIRM - $${this.getTotal(data) + 200}`} round />
         </TouchableOpacity>
       </View>)
   }
 }
-
-//<Text style={styles.smallTextPadded}>By {dummyData.host}</Text>
