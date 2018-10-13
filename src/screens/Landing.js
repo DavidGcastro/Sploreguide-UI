@@ -300,7 +300,10 @@ export default class Landing extends Component {
       <Query query={CURRENT_USER}>
         {({ loading, error, data }) => {
           if (loading) return 'Loading...'
-          if (error) return `Error! ${error.message}`
+          if (error) {
+            this.props.screenProps.deleteJWT()
+            return `Error! ${error.message}`
+          }
           favorites = data.currentUser.favorites
          // return defaultView
          return (
