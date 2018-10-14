@@ -2,15 +2,40 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, Image } from 'react-native'
 import GoBack from '../components/GoBack'
 import GradientButton from '../components/GradientButton'
+import PaymentModal from '../screens/PaymentModal'
 import styles from '../styles/payment'
 import { EvilIcons, Feather, FontAwesome } from '@expo/vector-icons'
-
-
+let data =
+{
+  "dateSelected": "October 13",
+  "guests": [
+    {
+      "adults": 2,
+      "price": 100,
+    },
+    {
+      "price": 100,
+      "teens": 1,
+    },
+    {
+      "children": 1,
+      "price": 80,
+    },
+    {
+      "infants": 0,
+      "price": 50,
+    },
+  ],
+  "image": "https://c1.staticflickr.com/5/4736/38834831924_7f757c80d3_b.jpg",
+  "timeSelected": "7:00 PM - 9:00PM",
+  "title": "Go kayaking in the Staten Island Bay",
+}
 export default class Payment extends Component {
   constructor() {
     super()
     this.state = {
-      useSavedCard: false
+      useSavedCard: false,
+      modalVisible: false
     }
     this.handleCreditCard = this.handleCreditCard.bind(this)
     this.handleCreditInput = this.handleCreditInput.bind(this)
@@ -27,8 +52,16 @@ export default class Payment extends Component {
     return accumulator + currentValue.price * currentValue[Object.keys(currentValue)[0]]
   }, x.guests[0].price * x.guests[0][Object.keys(x.guests[0])[0]])
 
+  confirmPayment = () => {
+    this.setState({ modalVisible: true })
+  }
+
+  hideModal = () => {
+    this.setState({ modalVisible: false })
+  }
+
   render () {
-    let data = (this.props.navigation.state.params)
+    console.log(this.state)
     return (
       <View style={{ flex: 1 }}>
         <View style={{
@@ -37,6 +70,7 @@ export default class Payment extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <GoBack color={'black'} />
           </TouchableOpacity>
+          <PaymentModal visible={this.state.modalVisible} data={data} hideModal={this.hideModal} />
           <View style={styles.flexedBordered}>
             <Text style={styles.largeTextPadded}>Payment Details</Text>
             <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: 10, flexDirection: 'row', alignItems: 'center' }}>
@@ -109,7 +143,7 @@ export default class Payment extends Component {
 
           <View style={styles.totalParent}>
             <Text style={styles.textLight}>Total (USD)</Text>
-            <Text style={{ color: 'black', fontFamily: 'SF-UI-Text-Medium', fontSize: 15 }}>${this.getTotal(data) + 150.01+50.01}</Text>
+            <Text style={{ color: 'black', fontFamily: 'SF-UI-Text-Medium', fontSize: 15 }}>${this.getTotal(data) + 150.01 + 50.01}</Text>
           </View>
           {/***************************************************************/}
 
@@ -119,7 +153,7 @@ export default class Payment extends Component {
           {/***************************************************************/}
 
         </View>
-        <TouchableOpacity onPress={() => console.log('Success!')}>
+        <TouchableOpacity onPress={() => this.confirmPayment()}>
           <GradientButton text={`CONFIRM - $${this.getTotal(data) + 150.01 + 50.01}`} round />
         </TouchableOpacity>
       </View>)

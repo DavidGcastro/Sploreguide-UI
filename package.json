@@ -63,6 +63,7 @@
     "react-native-hr-plus": "^1.0.6",
     "react-native-image-gradient": "^2.2.5",
     "react-native-iphone-x-helper": "^1.0.3",
+    "react-native-modal": "^6.5.0",
     "react-native-multi-slider": "^0.3.6",
     "react-native-pagination": "^1.5.5",
     "react-native-picker": "^4.3.7",
