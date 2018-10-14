@@ -5,31 +5,7 @@ import GradientButton from '../components/GradientButton'
 import PaymentModal from '../screens/PaymentModal'
 import styles from '../styles/payment'
 import { EvilIcons, Feather, FontAwesome } from '@expo/vector-icons'
-let data =
-{
-  "dateSelected": "October 13",
-  "guests": [
-    {
-      "adults": 2,
-      "price": 100,
-    },
-    {
-      "price": 100,
-      "teens": 1,
-    },
-    {
-      "children": 1,
-      "price": 80,
-    },
-    {
-      "infants": 0,
-      "price": 50,
-    },
-  ],
-  "image": "https://c1.staticflickr.com/5/4736/38834831924_7f757c80d3_b.jpg",
-  "timeSelected": "7:00 PM - 9:00PM",
-  "title": "Go kayaking in the Staten Island Bay",
-}
+
 export default class Payment extends Component {
   constructor() {
     super()
@@ -61,7 +37,9 @@ export default class Payment extends Component {
   }
 
   render () {
-    console.log(this.state)
+    let data = (this.props.navigation.state.params)
+    let total = this.getTotal(data) + 150.01 + 50.01
+
     return (
       <View style={{ flex: 1 }}>
         <View style={{
@@ -70,7 +48,7 @@ export default class Payment extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <GoBack color={'black'} />
           </TouchableOpacity>
-          <PaymentModal visible={this.state.modalVisible} data={data} hideModal={this.hideModal} />
+          <PaymentModal visible={this.state.modalVisible} data={data} hideModal={this.hideModal} total={total} />
           <View style={styles.flexedBordered}>
             <Text style={styles.largeTextPadded}>Payment Details</Text>
             <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: 10, flexDirection: 'row', alignItems: 'center' }}>

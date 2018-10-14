@@ -9,6 +9,9 @@ export default class PaymentModal extends Component {
     super()
   }
   render () {
+    let {dateSelected, title, timeSelected} = this.props.data
+    let {total} = this.props
+
     return (
       <View style={{ justifyContent: 'space-between'}}>
         <Modal isVisible={this.props.visible} onBackdropPress={() => this.props.hideModal()}
@@ -30,22 +33,22 @@ export default class PaymentModal extends Component {
               <View style={{ alignSelf: 'flex-start', justifyContent: 'space-between', flexDirection: 'row', width: 300 }}>
                 <View>
                   <Text style={{ fontFamily: 'SF-UI-Text-Regular', fontSize: 15, color: 'gray', paddingBottom: 5 }}>DATE</Text>
-                  <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 15, color: 'black' }}>October 10</Text>
+                  <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 15, color: 'black' }}>{dateSelected}</Text>
                 </View>
                 <View >
                   <Text style={{ fontFamily: 'SF-UI-Text-Regular', fontSize: 15, color: 'gray', paddingBottom: 5 }}>TIME</Text>
-                  <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 15, color: 'black' }}>7:00 - 10:00</Text>
+                  <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 15, color: 'black' }}>{timeSelected}</Text>
                 </View>
               </View>
               <View style={{ alignSelf: 'flex-start' }}>
                 <Text style={{ fontFamily: 'SF-UI-Text-Regular', fontSize: 15, color: 'gray', paddingBottom: 5 }}>EXPERIENCE</Text>
-                <Text style={{ fontFamily: 'SF-UI-Text-Regular', fontSize: 15, color: 'black' }}>Journey To The Center of The Earth</Text>
+                <Text style={{ fontFamily: 'SF-UI-Text-Regular', fontSize: 15, color: 'black' }}>{title}</Text>
               </View>
               <Text style={{color: 'grey', alignSelf: 'flex-start', fontSize: 15, fontFamily: 'SF-UI-Text-Regular'}}>Visa Credit Card Ending in 1234</Text>
               <View style={{ alignSelf: 'flex-start', justifyContent: 'space-between' }}>
                 <Text style={{ fontFamily: 'SF-UI-Text-Regular', fontSize: 15, color: 'gray', paddingBottom: 5 }}>TOTAL</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', width: 300, alignItems: 'center'}}>
-                  <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 15, color: 'black' }}>$2000</Text>
+                  <Text style={{ fontFamily: 'SF-UI-Text-Bold', fontSize: 15, color: 'black' }}>${total}</Text>
                   <LinearGradient
                     style={{ justifyContent: 'center', padding: 5, borderRadius: 3 }}
                     colors={['rgba(48, 35, 174, 1)', 'rgba(83, 160, 253, 1)']}

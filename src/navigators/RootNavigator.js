@@ -8,10 +8,10 @@ import Payment from '../screens/Payment'
 
 const RootNavigator = createStackNavigator(
   {
-    Payment: { screen: Payment },
     BottomTabNavigator: { screen: BottomTabNavigator },
     ViewAll: { screen: ViewAll },
     Experience: { screen: Experience },
+    Payment: { screen: Payment },
     TermsOfService: { screen: TermsOfService },
     Search: {
       screen: Search,
