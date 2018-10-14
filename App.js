@@ -12,8 +12,16 @@ import RootNavigator from './src/navigators/RootNavigator'
 import deviceStorage from './src/services/deviceStorage'
 import { ASYNC_JWT_KEY } from './src/constants'
 
+import { SG_SERVER } from 'react-native-dotenv'
+
+
+const sgURI = SG_SERVER
+  || `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME || 'localhost'}:3000`
+
+console.log(`SG App connected to ${sgURI}`)
+
 const httpLink = new HttpLink({
-  uri: `http:${process.env.REACT_NATIVE_PACKAGER_HOSTNAME}:3000/graphql`
+  uri: `${sgURI}/graphql`
 })
 
 const authLink = setContext(async (_, { headers }) => {
