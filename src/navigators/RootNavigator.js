@@ -23,7 +23,7 @@ const RootNavigator = createStackNavigator(
   },
   {
     navigationOptions: {
-      gesturesEnabled: false
+      gesturesEnabled: true
 
     },
     mode: 'modal',
