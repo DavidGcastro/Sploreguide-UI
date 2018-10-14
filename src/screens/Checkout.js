@@ -7,6 +7,7 @@ import PeopleQuantity from '../components/PeopleQuantity'
 
 export default class Checkout extends Component {
   state = {
+    totalPeople:0,
     showing: 'calendar',
     dateSelected: '',
     timeSelected: '',
@@ -23,7 +24,9 @@ export default class Checkout extends Component {
   }
 
   addOrSubtractPeople = (operation, age) => {
-
+    if(operation === 'add') this.setState({totalPeople: this.state.totalPeople + 1})
+    else if(this.state.totalPeople > 0) this.setState({ totalPeople: this.state.totalPeople - 1 })
+    console.log(this.state.totalPeople)
     if (operation === 'add') {
       if (age == 'adults') {
         this.setState({ adults: this.state.adults + 1 })
@@ -60,9 +63,7 @@ export default class Checkout extends Component {
 
 
   changeTimeSelected = (itemSelected) => {
-  
-    //this.setState({ dateSelected: itemSelected.date, timeSelected: itemSelected.time })
-    this.setState({
+      this.setState({
       dateSelected: moment(itemSelected.data).format('MMMM DD' ), timeSelected: itemSelected.time
     })
 
@@ -81,14 +82,18 @@ export default class Checkout extends Component {
       backWrapper = () => showCheckout(false)
       nextWrapper = () => this.changeShowing('quantity')
     } else if (showing === 'quantity') {
-      backWrapper = () => this.changeShowing('calendar')
-      nextWrapper = () => nav.navigate('TermsOfService', {
-        image: this.state.image,
-        title: this.state.title,
-        guests: [{ adults: this.state.adults, price: 100 }, { teens: this.state.teens, price: 100 }, { children: this.state.children, price: 80 }, { infants: this.state.infants, price: 50 }],
-        dateSelected: this.state.dateSelected,
-        timeSelected: this.state.timeSelected
-      })
+      
+         backWrapper = () => this.changeShowing('calendar')
+         nextWrapper = () => nav.navigate('TermsOfService', {
+           image: this.state.image,
+           title: this.state.title,
+           guests: [{ adults: this.state.adults, price: 100 }, { teens: this.state.teens, price: 100 }, { children: this.state.children, price: 80 }, { infants: this.state.infants, price: 50 }],
+           dateSelected: this.state.dateSelected,
+           timeSelected: this.state.timeSelected
+         })
+
+  
+     
     }
 
     return (
@@ -100,16 +105,16 @@ export default class Checkout extends Component {
             {(showing === 'calendar') ?
               <MaterialIcons name='close' size={30} />
               :
-              <Feather name='arrow-left' size={30} />
+              <Feather name='arrow-left' size={30}  />
             }
           </TouchableOpacity>
           <Text style={{ paddingTop: 8, fontSize: 16, fontFamily: 'SF-UI-Text-Light' }}>
             {this.state.dateSelected && `${this.state.dateSelected}  | ${this.state.timeSelected  || ''}`}
           </Text>
-          {(this.state.timeSelected != '')
+          {(this.state.timeSelected != '' && this.state.showing === 'calendar' || this.state.showing === 'quantity' && this.state.totalPeople > 0)
       
-            ? <TouchableOpacity onPress={() => nextWrapper()}>
-              <Feather name='arrow-right' size={30} />
+            ? <TouchableOpacity  onPress={() => nextWrapper()}>
+              <Feather name='arrow-right' size={30}/>
             </TouchableOpacity>
             : <Feather name='arrow-right' size={30} color={'#b2b2b2'} />
           }
