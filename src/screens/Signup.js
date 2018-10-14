@@ -46,16 +46,18 @@ import {
 let animations = {
   ...ifIphoneX(
     {
-      form: -200,
+      form: -220,
       marginBottomButton: 50,
       logoTop: -60,
-      top: 20
+      top: 20,
+      background: 'red'
     },
     {
-      form: -165,
+      form: -160,
       marginBottomButton: 40,
       logoTop: -67,
-      top: 0
+      top: 0,
+
     }
   )
 };
@@ -258,25 +260,31 @@ class Signup extends React.Component {
           }}
           colors={['rgba(255, 255, 255,.7)', 'rgba(255, 255, 255, 1)']}
           locations={[0, 0.5]}>
-          <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} style={{flex:1, justifyContent: 'space-around',}}>
             <View
               style={{
                 flex: 1,
                 alignContent: 'center',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginBottom: 20
+
+                backgroundColor: 'red'
               }}>
+              {/*****************************************************************/}
               <TouchableOpacity
                 style={{
-                  marginBottom: 51,
+
                   alignSelf: 'flex-start',
-                  top: animations.top
+                  top: animations.top,
+                  padding: 20,
+                  backgroundColor: 'pink'
                 }}
                 onPress={() => this.props.navigation.navigate('Home')}>
                 <GoBack />
               </TouchableOpacity>
-              <View style={styles.wrapper}>
+              {/*****************************************************************/}
+
+              <View style={[styles.wrapper, { backgroundColor: 'green' }]}>
                 <Animated.Image
                   resizeMode="contain"
                   style={{
@@ -293,14 +301,16 @@ class Signup extends React.Component {
                   source={require('../assets/img/title-gradient.png')}
                 />
               </View>
+              {/*****************************************************************/}
 
               <Animated.View
                 style={{
                   justifyContent: 'space-between',
                   width: '65%',
                   opacity: this.fade
+                  , backgroundColor: 'yellow'
                 }}>
-                <View style={styles.iconContainer}>
+                <View style={[styles.iconContainer, { backgroundColor: 'orange', flex: 1 }]}>
                   <TouchableOpacity onPress={this.useFB}>
                     <Image
                       style={styles.socialIcons}
@@ -311,28 +321,30 @@ class Signup extends React.Component {
                 </View>
                 <Hr text="OR" />
               </Animated.View>
+              {/*****************************************************************/}
+
               <Animated.View
                 style={{
-                  marginBottom: '10%',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  alignItems: 'center',
                   width: '100%',
-                  top: this.form
+                  backgroundColor: 'blue',
+                  top: this.form,
+                  alignItems: 'center', 
+             
+              
+                  // marginBottom: animations.marginBottomButton,
+                  // justifyContent: 'center',
+                  // alignContent: 'center',
+                  // alignItems: 'center',
+
+                  // width: '100%'
+            
                 }}>
-                <View
-                  style={{
-                    marginBottom: animations.marginBottomButton,
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                    alignItems: 'center',
-                    width: '100%'
-                  }}>
-                  <View style={formStyles.parent}>
+              
+                  <View style={[formStyles.parent, { backgroundColor: 'grey' }]}>
                     <View
                       style={{
                         flexDirection: 'row',
-                        paddingTop: 20,
+                        // paddingTop: 20,
                         alignItems: 'flex-end',
                         width: '100%'
                       }}>
@@ -400,7 +412,7 @@ class Signup extends React.Component {
                       {/*SECOND FORM*/}
                       <View
                         style={{
-                          width: '50%'
+                          width: '50%',
                         }}>
                         <Text style={formStyles.formText}>Sex</Text>
                         <View style={formStyles.inputIconContainerHalf}>
@@ -487,7 +499,9 @@ class Signup extends React.Component {
                         </View>
                       </View>
                     </View>
-                    <View style={{ paddingTop: 20 }}>
+                    <View style={{
+                      paddingTop: 10
+                    }}>
                       <Text style={formStyles.formText}>Email</Text>
                       <View style={formStyles.inputIconContainer}>
                         <Ionicons
@@ -515,7 +529,7 @@ class Signup extends React.Component {
                         />
                       </View>
                     </View>
-                    <View style={{ paddingTop: 20 }}>
+                    <View style={{ paddingTop: 10 }}>
                       <Text style={formStyles.formText}>Password</Text>
                       <View style={formStyles.inputIconContainer}>
                         <Ionicons
@@ -541,9 +555,9 @@ class Signup extends React.Component {
                       </View>
                     </View>
                   </View>
-                </View>
-
-                <Animated.View style={{ width: '90%', bottom: this.button }}>
+              </Animated.View>
+              {/************************************************************/}
+                <Animated.View style={{ width: '90%', bottom: this.button, backgroundColor:'pink', alignContent:'center', alignItems:'center' }}>
                   <View>
                     <Text
                       style={[
@@ -559,7 +573,9 @@ class Signup extends React.Component {
                     <GradientButton text="SIGNUP" />
                   </TouchableOpacity>
                 </Animated.View>
-              </Animated.View>
+              
+              {/*****************************************************************/}
+
             </View>
           </TouchableWithoutFeedback>
         </LinearGradient>

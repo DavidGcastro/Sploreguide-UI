@@ -221,6 +221,7 @@ class Login extends React.Component {
                 style={{
                   marginBottom: 51,
                   alignSelf: 'flex-start',
+                  padding: 30,
                   top: animations.top
                 }}
                 onPress={() => this.props.navigation.navigate('Home')}>
@@ -267,7 +268,6 @@ class Login extends React.Component {
 
               <Animated.View
                 style={{
-                  backgroundColor:'red',
                   justifyContent: 'space-between',
                   alignContent: 'center',
                   alignItems: 'center',
@@ -338,20 +338,23 @@ class Login extends React.Component {
                           </Text>
                         </TouchableOpacity>
                       </View>
+
                     </View>
+
                   </View>
                 </View>
+
                 <View>
                   <Text style={[formStyles.formText, { color: 'red' }]}>
                     {error}
                   </Text>
                 </View>
+                <TouchableOpacity
+                  style={{ width: '90%' }}
+                  onPress={this.useEmailLogin}>
+                  <GradientButton text="LOGIN" />
+                </TouchableOpacity>
               </Animated.View>
-              <TouchableOpacity
-                style={{ width: '90%' }}
-                onPress={this.useEmailLogin}>
-                <GradientButton text="LOGIN" />
-              </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>
         </LinearGradient>
