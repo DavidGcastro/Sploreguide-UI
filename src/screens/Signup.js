@@ -51,7 +51,7 @@ let animations = {
     },
     {
       form: -210,
-      logoTop: -50,
+      logoTop: -60,
     
 
     }
@@ -250,7 +250,7 @@ class Signup extends React.Component {
           locations={[0, 0.5]}>
           <TouchableOpacity
             style={{
-              padding: 20,
+              padding: 30,
             }}
             onPress={() => this.props.navigation.navigate('Home')}>
             <GoBack />

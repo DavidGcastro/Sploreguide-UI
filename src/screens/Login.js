@@ -219,7 +219,6 @@ class Login extends React.Component {
               }}>
               <TouchableOpacity
                 style={{
-                  marginBottom: 51,
                   alignSelf: 'flex-start',
                   padding: 30,
                   top: animations.top
