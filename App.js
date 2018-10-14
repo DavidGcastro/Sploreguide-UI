@@ -14,9 +14,8 @@ import { ASYNC_JWT_KEY } from './src/constants'
 
 import { SG_SERVER } from 'react-native-dotenv'
 
-
 const sgURI = SG_SERVER
-  || `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME || 'localhost'}:3000`
+  || `http://${process.env.REACT_NATIVE_PACKAGER_HOSTNAME || 'localhost'}:5000`
 
 console.log(`SG App connected to ${sgURI}`)
 
