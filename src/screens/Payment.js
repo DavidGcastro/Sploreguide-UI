@@ -88,10 +88,15 @@ export default class Payment extends Component {
           <View style={styles.splitPaymentDetailParent}>
             <View>
               {data.guests.map((detail, i) => {
-                return <Text key={i} style={styles.textLight}>
-                  <Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{detail[Object.keys(detail)[0]]}</Text>
-                  {' x ' + Object.keys(detail)[0].slice(0, 1).toUpperCase() + Object.keys(detail)[0].slice(1)}
-                </Text>
+               if (detail[Object.keys(detail)[0]] > 0){
+                return  <Text key={i} style={styles.textLight}>
+                    <Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>{detail[Object.keys(detail)[0]]}</Text>
+                    {' x ' + Object.keys(detail)[0].slice(0, 1).toUpperCase() + Object.keys(detail)[0].slice(1)}
+                  </Text>
+                }
+                else{
+                 return ''
+                }
               })}
             </View>
             <View style={{
@@ -100,10 +105,16 @@ export default class Payment extends Component {
             }} />
             <View style={{ paddingLeft: 10 }}>
               {data.guests.map((detail, i) => {
-                return <Text key={i} style={styles.textLight}>
-                  <Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$ </Text>
-                  {detail[Object.keys(detail)[1]] * detail[Object.keys(detail)[0]]}
-                </Text>
+                if (detail[Object.keys(detail)[0]] > 0 ){
+                  return <Text key={i} style={styles.textLight}>
+                    <Text style={{ fontSize: 15, fontFamily: 'SF-UI-Text-Bold' }}>$ </Text>
+                    {detail[Object.keys(detail)[1]] * detail[Object.keys(detail)[0]]}
+                  </Text>
+
+                }
+                else{
+                  return ''
+                }
 
               })}
               <Text style={[styles.textLight, { fontSize: 10 }]}>

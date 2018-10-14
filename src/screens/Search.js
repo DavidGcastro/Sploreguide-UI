@@ -151,6 +151,7 @@ export default class Search extends Component {
               label='Activities'
             />
             <ScrollView
+              showsVerticalScrollIndicator={false}
               horizontal
               contentContainerStyle={{
                 flexDirection: 'row'
