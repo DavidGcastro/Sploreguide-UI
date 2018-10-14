@@ -265,6 +265,7 @@ class Signup extends React.Component {
                 justifyContent: 'space-evenly',
              
               }}>
+              {/*******************************/}
               <View style={[styles.wrapper, {
               }]}>
                 <Animated.Image
@@ -522,7 +523,7 @@ class Signup extends React.Component {
                     </View>
                   </View>
                 </View>
-                {/************************************************************/}
+              
                 <Animated.View style={{ width: '90%'}}>
                   <View>
                     <Text
@@ -540,8 +541,8 @@ class Signup extends React.Component {
                     <GradientButton text="SIGNUP" />
                   </TouchableOpacity>
                 </Animated.View>
-                {/************************************************************/}
               </Animated.View>
+              {/************************************************************/}
             </View>
           </TouchableWithoutFeedback>
         </LinearGradient>
