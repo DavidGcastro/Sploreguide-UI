@@ -11,8 +11,8 @@ const RootNavigator = createStackNavigator(
     BottomTabNavigator: { screen: BottomTabNavigator },
     ViewAll: { screen: ViewAll },
     Experience: { screen: Experience },
-    TermsOfService: { screen: TermsOfService },
     Payment: { screen: Payment },
+    TermsOfService: { screen: TermsOfService },
     Search: {
       screen: Search,
       navigationOptions: {
@@ -22,7 +22,6 @@ const RootNavigator = createStackNavigator(
   },
   {
     navigationOptions: {
-
       gesturesEnabled: false
 
     },
