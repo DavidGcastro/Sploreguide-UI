@@ -20,7 +20,7 @@ const TermsOfService = props => {
             flex: 1
           }}>
           <Text style={{ fontSize: 25, fontFamily: 'SF-UI-Text-Bold', paddingVertical: 10 }}>Review The Guest Requirements</Text>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <TermSection border heading='From Your Host' content='Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla quis lorem ut libero malesuada feugiat. Sed porttitor lectus nibh.' />
             <TermSection border heading='Alchohol' content='Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel.' />
             <TermSection border heading='Legal' content='Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.' />            <TermSection heading='Age Requirements' content='Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.' />

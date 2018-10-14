@@ -34,14 +34,14 @@ class PreviewCard extends Component {
                 padding: 20
               }}>
               <View style={{ flexDirection: 'row', flex: 1 }}>
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                   <Ionicons
                     name={'ios-share-outline'}
                     size={25}
                     color={'white'}
                     style={{ paddingRight: 15 }}
                   />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <Mutation mutation={UPDATE_FAVORITES}>
                   { (updateUserFavorites, { data }) => (
                     <TouchableOpacity

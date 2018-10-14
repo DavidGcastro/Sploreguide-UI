@@ -137,14 +137,14 @@ export default class ExperienceFullScreen extends Component {
                 <View style={[landingStyles.bottomContainerIcons, {
                   paddingBottom: 0, paddingHorizontal: 0
                 }]}>
-                  <TouchableOpacity>
+                 {/* <TouchableOpacity>
                     <Ionicons
                       name={'ios-share-outline'}
                       size={25}
                       color={'white'}
                       style={{ paddingRight: 15 }}
                     />
-                  </TouchableOpacity>
+                 </TouchableOpacity>*/}
                   <Mutation mutation={UPDATE_FAVORITES}>
                   { (updateUserFavorites, { data }) => (
                     <TouchableOpacity
