@@ -48,7 +48,6 @@ export default class CalendarScreen extends React.Component {
 
     )
   }
-
   rowHasChanged (r1, r2) {
     return r1.time !== r2.time
   }
