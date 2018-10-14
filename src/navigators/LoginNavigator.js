@@ -5,6 +5,8 @@ import Signup from '../screens/Signup'
 
 const LoginNavigator = createStackNavigator(
   {
+    Login: { screen: Login },
+
     Home: {
       screen: Home,
       navigationOptions: {

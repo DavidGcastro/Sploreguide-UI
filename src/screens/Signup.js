@@ -259,7 +259,7 @@ class Signup extends React.Component {
           colors={['rgba(255, 255, 255,.7)', 'rgba(255, 255, 255, 1)']}
           locations={[0, 0.5]}>
           <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <SafeAreaView
+            <View
               style={{
                 flex: 1,
                 alignContent: 'center',
@@ -560,7 +560,7 @@ class Signup extends React.Component {
                   </TouchableOpacity>
                 </Animated.View>
               </Animated.View>
-            </SafeAreaView>
+            </View>
           </TouchableWithoutFeedback>
         </LinearGradient>
       </ImageBackground>

@@ -247,9 +247,10 @@ class Login extends React.Component {
               <Animated.View
                 style={{
                   justifyContent: 'space-between',
-                  width: '65%',
+                  width: '100%',
                   opacity: this.fade,
-                  height: 100
+                  height: 100,
+
                 }}>
                 >
                 <View style={styles.iconContainer}>
@@ -266,8 +267,8 @@ class Login extends React.Component {
 
               <Animated.View
                 style={{
-                  marginBottom: '10%',
-                  justifyContent: 'center',
+                  backgroundColor:'red',
+                  justifyContent: 'space-between',
                   alignContent: 'center',
                   alignItems: 'center',
                   width: '100%',
@@ -345,12 +346,12 @@ class Login extends React.Component {
                     {error}
                   </Text>
                 </View>
-                <TouchableOpacity
-                  style={{ width: '90%' }}
-                  onPress={this.useEmailLogin}>
-                  <GradientButton text="LOGIN" />
-                </TouchableOpacity>
               </Animated.View>
+              <TouchableOpacity
+                style={{ width: '90%' }}
+                onPress={this.useEmailLogin}>
+                <GradientButton text="LOGIN" />
+              </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>
         </LinearGradient>

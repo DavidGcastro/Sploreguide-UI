@@ -5,6 +5,7 @@ import ViewAll from '../screens/ViewAll'
 import Experience from '../screens/Experience'
 import TermsOfService from '../screens/TermsOfService'
 import Payment from '../screens/Payment'
+import Login from '../screens/Login'
 
 const RootNavigator = createStackNavigator(
   {
