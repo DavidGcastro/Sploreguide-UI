@@ -99,7 +99,7 @@ export default class Checkout extends Component {
     return (
       <View style={{ flex: 1 }} contentContainerStyle={{ justifyContent: 'center', flex: 1 }} >
         <View style={{
-          flexDirection: 'row', justifyContent: 'space-between', padding: 10, borderBottomColor: 'rgba(224, 224, 225, 1)', borderBottomWidth: 1
+          flexDirection: 'row', justifyContent: 'space-between', padding: 10, borderBottomColor: 'rgba(224, 224, 225, 1)', borderBottomWidth: 1, alignItems:'center'
         }}>
           <TouchableOpacity onPress={() => backWrapper()}>
             {(showing === 'calendar') ?
@@ -108,7 +108,7 @@ export default class Checkout extends Component {
               <Feather name='arrow-left' size={30}  />
             }
           </TouchableOpacity>
-          <Text style={{ paddingTop: 8, fontSize: 16, fontFamily: 'SF-UI-Text-Light' }}>
+          <Text style={{  fontSize: 16, fontFamily: 'SF-UI-Text-Bold' }}>
             {this.state.dateSelected && `${this.state.dateSelected}  | ${this.state.timeSelected  || ''}`}
           </Text>
           {(this.state.timeSelected != '' && this.state.showing === 'calendar' || this.state.showing === 'quantity' && this.state.totalPeople > 0)

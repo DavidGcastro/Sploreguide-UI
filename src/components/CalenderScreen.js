@@ -16,17 +16,22 @@ let markedDates = Object.keys(offerings).reduce((dateObject, date) => {
 }, {})
 
 export default class CalendarScreen extends React.Component {
+  state = {
+    selected: false
+  }
   renderItem (item, thing, ok) {
     let displayText = item.time
     displayText += item.text ? ` | ${item.text}` : ''
     return (
       <View style={styles.item}>
-        <TouchableOpacity onPress={() => this.props.changeTimeSelected(item)} >
+        <TouchableOpacity onPress={() => { 
+          this.props.changeTimeSelected(item)}
+        } >
           <Text
             data-txt={item.time}
             style={{ fontSize: 18, color: 'rgba(36, 37, 61, 1)', fontFamily: 'SF-UI-Text-Light' }}
           >
-            {displayText}
+             {displayText}
           </Text>
         </TouchableOpacity>
       </View>
@@ -56,8 +61,6 @@ export default class CalendarScreen extends React.Component {
     return (
       <Agenda
         markedDates={markedDates}
-        // callback that gets called on day press
-        // onDayPress={(day) => this.props.changeDateSelected(day)} */
         items={offerings}
         renderKnob={() => {
           return (<Entypo

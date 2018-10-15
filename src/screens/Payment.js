@@ -34,6 +34,7 @@ export default class Payment extends Component {
 
   hideModal = () => {
     this.setState({ modalVisible: false })
+    this.props.navigation.navigate('Landing')
   }
 
   render () {
