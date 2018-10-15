@@ -26,7 +26,7 @@ export default class Checkout extends Component {
   addOrSubtractPeople = (operation, age) => {
     if(operation === 'add') this.setState({totalPeople: this.state.totalPeople + 1})
     else if(this.state.totalPeople > 0) this.setState({ totalPeople: this.state.totalPeople - 1 })
-    console.log(this.state.totalPeople)
+    // console.log(this.state.totalPeople)
     if (operation === 'add') {
       if (age == 'adults') {
         this.setState({ adults: this.state.adults + 1 })

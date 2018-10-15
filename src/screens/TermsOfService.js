@@ -6,7 +6,7 @@ import GradientButton from '../components/GradientButton'
 
 const TermsOfService = props => {
   let data = props.navigation.state.params
-  console.log(data)
+  // console.log(data)
   return (
     <View style={{ flex: 1 }}>
       <View style={{
