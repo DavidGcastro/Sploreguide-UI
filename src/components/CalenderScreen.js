@@ -57,7 +57,7 @@ export default class CalendarScreen extends React.Component {
       <Agenda
         markedDates={markedDates}
         // callback that gets called on day press
-        /* onDayPress={(day) => this.props.changeDateSelected(day)} */
+        // onDayPress={(day) => this.props.changeDateSelected(day)} */
         items={offerings}
         renderKnob={() => {
           return (<Entypo

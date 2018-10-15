@@ -64,7 +64,7 @@ export default class Checkout extends Component {
 
   changeTimeSelected = (itemSelected) => {
       this.setState({
-      dateSelected: moment(itemSelected.data).format('MMMM DD' ), timeSelected: itemSelected.time
+      dateSelected: moment(itemSelected.date).format('MMMM DD' ), timeSelected: itemSelected.time
     })
 
   }
