@@ -4,19 +4,7 @@ import ExperienceFullScreen from '../components/ExperienceFullScreen'
 import GradientButton from '../components/GradientButton'
 import ExperienceFullCardInfo from '../components/ExperienceFullCardInfo'
 import Checkout from './Checkout'
-const dummyData = {
-  guests: [
-    { adult: 2, price: 100 },
-    { teen: 1, price: 80 },
-    { children: 2, price: 20 },
-    { infant: 2, price: 10 }
-  ],
-  image: require('../assets/img/experiences/ecuador.jpg'),
-  experienceName: 'Ecuador: Living Among Giants',
-  date: 'September 25, 2019',
-  time: '7:00PM - 9:00PM',
-  host: 'Juan Paredes'
-}
+
 
 
 export default class Experience extends React.Component {

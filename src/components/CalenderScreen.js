@@ -1,7 +1,7 @@
 import React from 'react'
 import { Agenda } from 'react-native-calendars'
 import { Entypo } from '@expo/vector-icons'
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
+import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native'
 
 const offerings = {
   '2018-10-22': [{ date: '2018-10-22', time: '7:00 PM - 9:00PM', text: '$2 cheaper' }, { date: '2018-10-22', time: '8:00 PM - 9:00PM' }, { date: '2018-10-22', time: '10:00 PM - 11:00PM' }],
@@ -16,17 +16,22 @@ let markedDates = Object.keys(offerings).reduce((dateObject, date) => {
 }, {})
 
 export default class CalendarScreen extends React.Component {
+  state = {
+    selected: false
+  }
   renderItem (item, thing, ok) {
     let displayText = item.time
     displayText += item.text ? ` | ${item.text}` : ''
     return (
       <View style={styles.item}>
-        <TouchableOpacity onPress={() => this.props.changeTimeSelected(item)} >
+        <TouchableOpacity onPress={() => { 
+          this.props.changeTimeSelected(item)}
+        } >
           <Text
             data-txt={item.time}
             style={{ fontSize: 18, color: 'rgba(36, 37, 61, 1)', fontFamily: 'SF-UI-Text-Light' }}
           >
-            {displayText}
+             {displayText}
           </Text>
         </TouchableOpacity>
       </View>
@@ -35,10 +40,19 @@ export default class CalendarScreen extends React.Component {
 
   renderEmptyDate () {
     return (
-      <View style={styles.emptyDate}><Text style={{paddingLeft: 20}}>Experience unavailable on this date.</Text></View>
+      <View style={[{ backgroundColor: '#eff3f7', justifyContent: 'space-evenly', flex: 1, alignItems: 'center' }]}>
+        <Text style={{fontFamily: 'SF-UI-Text-Light', fontSize: 15}}>Experience unavailable on this date.</Text>
+        <Image
+          style={{
+            width: 180,
+            height: 180
+          }}
+          source={require('../assets/img/compass2.gif')}
+        />
+      </View>
+
     )
   }
-
   rowHasChanged (r1, r2) {
     return r1.time !== r2.time
   }
@@ -47,8 +61,6 @@ export default class CalendarScreen extends React.Component {
     return (
       <Agenda
         markedDates={markedDates}
-        // callback that gets called on day press
-        /* onDayPress={(day) => this.props.changeDateSelected(day)} */
         items={offerings}
         renderKnob={() => {
           return (<Entypo

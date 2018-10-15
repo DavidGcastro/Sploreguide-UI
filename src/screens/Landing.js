@@ -139,14 +139,14 @@ export default class Landing extends Component {
               </View>
               <View>
                 <View style={landingStyles.bottomContainerIcons}>
-                  <TouchableOpacity>
+                 {/* <TouchableOpacity>
                     <Ionicons
                       name={'ios-share-outline'}
                       size={25}
                       color={'white'}
                       style={{ paddingRight: 15 }}
                     />
-                  </TouchableOpacity>
+                 </TouchableOpacity>*/}
                   <Mutation mutation={UPDATE_FAVORITES}>
                     { (updateUserFavorites, { data }) => (
                       <TouchableOpacity

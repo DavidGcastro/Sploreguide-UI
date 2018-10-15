@@ -27,7 +27,7 @@ const LoginNavigator = createStackNavigator(
   },
   {
     navigationOptions: {
-      gesturesEnabled: false
+      gesturesEnabled: true
     },
     initialRoute: Home }
 )

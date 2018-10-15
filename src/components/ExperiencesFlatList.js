@@ -10,6 +10,8 @@ const ExperiencesFlatList = ({ navigation, experiences, favoriteIds, confirm, re
       data={experiences}
       keyExtractor={_keyExtractor}
       extraData={favoriteIds}
+      showsVerticalScrollIndicator={false}
+
       renderItem={({item}) => {
         let isFavorite = favoriteIds.includes(item._id)
         return (

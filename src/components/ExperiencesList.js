@@ -1,17 +1,15 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import { View, TouchableOpacity, Text } from 'react-native'
+import { View, TouchableOpacity, Text, Image } from 'react-native'
 import GoBack from '../components/GoBack'
 import landingStyles from '../styles/landingStyles'
 import ExperiencesFlatList from '../components/ExperiencesFlatList'
 
-// (favoriteIds || backButton)
-// ? (
 const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, confirm, favoriteIds, navigation, blank }) => {
   return (
     <View style={{ flex: 1 }}>
-      { (backButton)
-        ? <View style={{flexDirection: 'row', alignItems: 'baseline', alignContent: 'center', justifyContent: 'space-between', marginTop: 28, marginHorizontal: 20, marginBottom: 15}}>
+      {(backButton)
+        ? <View style={{ flexDirection: 'row', alignItems: 'baseline', alignContent: 'center', justifyContent: 'space-between', marginTop: 28, marginHorizontal: 20, marginBottom: 15 }}>
           <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
             <GoBack color={'black'} />
           </TouchableOpacity>
@@ -45,19 +43,6 @@ const ExperiencesList = ({ dataName, backButton, title, innerQuery, variables, c
           }}
         </Query>
       </View>
-      {
-        ((!favoriteIds && blank) &&
-
-          (
-            <View style={{
-              alignItems: 'center',
-              flex: 1
-            }}>
-              <Text>{blank}</Text>
-            </View>
-          )
-        )
-      }
     </View>
   )
 }

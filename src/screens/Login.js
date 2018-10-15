@@ -219,8 +219,8 @@ class Login extends React.Component {
               }}>
               <TouchableOpacity
                 style={{
-                  marginBottom: 51,
                   alignSelf: 'flex-start',
+                  padding: 30,
                   top: animations.top
                 }}
                 onPress={() => this.props.navigation.navigate('Home')}>
@@ -247,9 +247,10 @@ class Login extends React.Component {
               <Animated.View
                 style={{
                   justifyContent: 'space-between',
-                  width: '65%',
+                  width: '100%',
                   opacity: this.fade,
-                  height: 100
+                  height: 100,
+
                 }}>
                 >
                 <View style={styles.iconContainer}>
@@ -266,8 +267,7 @@ class Login extends React.Component {
 
               <Animated.View
                 style={{
-                  marginBottom: '10%',
-                  justifyContent: 'center',
+                  justifyContent: 'space-between',
                   alignContent: 'center',
                   alignItems: 'center',
                   width: '100%',
@@ -337,9 +337,12 @@ class Login extends React.Component {
                           </Text>
                         </TouchableOpacity>
                       </View>
+
                     </View>
+
                   </View>
                 </View>
+
                 <View>
                   <Text style={[formStyles.formText, { color: 'red' }]}>
                     {error}

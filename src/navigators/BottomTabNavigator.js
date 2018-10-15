@@ -53,7 +53,7 @@ const BottomTabNavigator = createBottomTabNavigator(
   },
   {
     navigationOptions: {
-      gesturesEnabled: false,
+      gesturesEnabled: true,
       tabBarOptions: {
         activeTintColor: 'rgba(71, 118, 226, 1)',
         inactiveTintColor: 'rgba(212, 212, 215, 1)',

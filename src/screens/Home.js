@@ -24,7 +24,7 @@ const Home = props => {
       {/* PARENT */}
       <LinearGradient
         style={{ flex: 1 }}
-        colors={['rgba(48, 35, 174, 0.75)', 'rgba(83, 160, 253, 0.5)']}
+        colors={['rgba(48, 35, 174, 0.2)', 'rgba(83, 160, 253, 0.2)']}
         start={[0, 0]}>
         {/* OUTER */}
         <View
