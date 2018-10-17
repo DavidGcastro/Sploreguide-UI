@@ -28,6 +28,7 @@ import Activities from '../Activities'
 import PriceSlider from '../components/PriceSlider'
 let { width } = Dimensions.get('window')
 import ActivityScrollView from '../components/ActivityScrollView'
+import Price from '../components/Price';
 
 
 export default class Search extends Component {
@@ -35,8 +36,9 @@ export default class Search extends Component {
     location: '',
     query: {},
     date: new Date(),
-    priceRangeMin: '0',
-    priceRangeMax: '100'
+    selectedActivityIndex: -1,
+    priceRangeMin: 0,
+    priceRangeMax: 100
   }
 
 
@@ -49,6 +51,27 @@ export default class Search extends Component {
     }
   }
 
+  handlePriceChange = values => {
+    this.setState({
+      priceRangeMax: values[1],
+      priceRangeMin: values[0],
+      query: { ...this.state.query, priceRangeMin: values[0], priceRangeMax: values[1] }
+    })
+  }
+
+
+  changeActivity = (selectedActivityIndex, activity) => {
+    if (selectedActivityIndex == this.state.selectedActivityIndex) {
+      this.setState({ query: { ...this.state.query, activityType: '' }, selectedActivityIndex: -1 })
+
+    }
+    else {
+      this.setState({ selectedActivityIndex, query: { ...this.state.query, activityType: activity } })
+
+    }
+
+
+  }
   doSearch = () => {
     let searchDisplay = this.state.location
     if (this.state.selectedActivityIndex != -1) {
@@ -61,7 +84,8 @@ export default class Search extends Component {
   }
 
   render () {
-    let { selectedActivityIndex, query } = this.state
+    console.log(this.state.query)
+    let { query } = this.state
     let x = this.state.priceRangeMin
     let y = this.state.priceRangeMax
     let locationMatches = Locations
@@ -138,7 +162,6 @@ export default class Search extends Component {
               </Text>
               )}
           </View>
-          {/*<View style={{height: 300}}><GooglePlacesInput /></View>*/}
           {/* Activities */}
           <View style={styles.divider}>
             <InlineIcon
@@ -146,8 +169,9 @@ export default class Search extends Component {
               iconName='bolt'
               label='Activities'
             />
-            <ActivityScrollView changeActivity={this.changeActivity} />
+            <ActivityScrollView changeActivity={this.changeActivity} selectedActivityIndex={this.state.selectedActivityIndex} />
           </View>
+
           <View>
             <InlineIcon
               IconTag='FontAwesome'
@@ -155,40 +179,7 @@ export default class Search extends Component {
               label={`Price Range: $${x} - $${y}`}
             />
 
-            <MultiSlider
-              onValuesChange={values => {
-                this.setState({
-                  priceRangeMax: values[1],
-                  priceRangeMin: values[0],
-                  query: { ...query, priceRangeMin: values[0], priceRangeMax: values[1] }
-                })
-              }}
-              values={[Number(x), Number(y)]}
-              sliderLength={width - 60}
-              min={0}
-              max={500}
-              step={1}
-              allowOverlap
-              snapped
-              markerOffsetX={0}
-              markerStyle={{
-                height: 12,
-                width: 12,
-                borderColor: 'rgba(83, 160, 253, 1)',
-                borderWidth: 2,
-                backgroundColor: 'rgba(48, 35, 174, 1)',
-                shadowOffset: {
-                  width: 0,
-                  height: 0
-                },
-                shadowRadius: 2,
-                shadowOpacity: 10
-              }}
-              trackStyle={{
-                height: 3,
-                backgroundColor: 'rgba(83, 160, 253, 1)'
-              }}
-            />
+            <PriceSlider handlePriceChange={this.handlePriceChange} min = {x} max={y} />
           </View>
           <View style={styles.divider}>
             <InlineIcon IconTag='EvilIcons' iconName='clock' label='Dates' />
@@ -211,7 +202,7 @@ export default class Search extends Component {
               styleWeekend={false}
               innerStyle={styles.calenderStyle}
               onDateSelected={momentDate => this.setState({
-                query: { ...query, date: momentDate.toDate().getTime() }
+                query: { ...this.state.query, date: momentDate.toDate().getTime() }
               })}
             />
           </View>

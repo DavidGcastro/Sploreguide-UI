@@ -5,23 +5,8 @@ import ActivityCard from '../components/ActivityCard'
 import Activities from '../Activities'
 
 class ActivityScrollView extends Component {
-
-  
-   state = {
-      query: {},
-      selectedActivityIndex: -1
-    }
-  
-
-  changeActivity (selectedActivityIndex) {
-    if (selectedActivityIndex == this.state.selectedActivityIndex) {
-      selectedActivityIndex = -1
-    }
-    this.setState({ selectedActivityIndex })
-  }
-
   render () {
-    console.log(this.state)
+    let {changeActivity, selectedActivityIndex} = this.props
     return <ScrollView
       showsVerticalScrollIndicator={false}
       horizontal
@@ -30,12 +15,11 @@ class ActivityScrollView extends Component {
       }}>{
         Activities.map(
           (activity, index) =>
-            index === this.state.selectedActivityIndex ? (
+            index === selectedActivityIndex ? (
               <LinearGradientBorder key={index}>
                 <TouchableOpacity
                   onPress={() => {
-                    this.changeActivity(index)
-                    this.setState({ query: { ...this.query, activityType: '' } })
+                    changeActivity(index, activity)
                   }}
                 >
                   <ActivityCard
@@ -48,8 +32,7 @@ class ActivityScrollView extends Component {
               <TouchableOpacity
                 key={index}
                 onPress={() => {
-                  this.changeActivity(index)
-                  this.setState({ query: { ...this.query, activityType: activity } })
+                  changeActivity(index, activity)
                 }}
               >
                 <ActivityCard

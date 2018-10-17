@@ -1,22 +1,16 @@
 import React, { Component } from 'react'
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
+import {Dimensions} from 'react-native'
+let {width} = Dimensions.get('window')
 
 class PriceSlider extends Component {
-    state = {
-        query: {},
-        priceRangeMin: '0',
-        priceRangeMax: '100'
-    }
   render () {
+    let {handlePriceChange, min, max} = this.props
     return <MultiSlider
       onValuesChange={values => {
-        this.setState({
-          priceRangeMax: values[1],
-          priceRangeMin: values[0],
-          query: { ...query, priceRangeMin: values[0], priceRangeMax: values[1] }
-        })
+        handlePriceChange(values)
       }}
-      values={[Number(x), Number(y)]}
+      values={[min, max]}
       sliderLength={width - 60}
       min={0}
       max={500}
