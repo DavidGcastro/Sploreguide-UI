@@ -5,6 +5,7 @@ import ViewAll from '../screens/ViewAll'
 import Experience from '../screens/Experience'
 import TermsOfService from '../screens/TermsOfService'
 import Payment from '../screens/Payment'
+import Message from '../screens/Message'
 
 const RootNavigator = createStackNavigator(
   {
@@ -13,6 +14,7 @@ const RootNavigator = createStackNavigator(
     Experience: { screen: Experience },
     Payment: { screen: Payment },
     TermsOfService: { screen: TermsOfService },
+    Message: { screen: Message },
     Search: {
       screen: Search,
       navigationOptions: {

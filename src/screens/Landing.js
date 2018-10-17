@@ -20,7 +20,7 @@ import {
 } from 'react-native'
 import { LinearGradient } from 'expo'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import { Ionicons, SimpleLineIcons, MaterialIcons } from '@expo/vector-icons'
+import { Ionicons, Entypo, SimpleLineIcons, MaterialIcons } from '@expo/vector-icons'
 import Stars from '../components/Stars'
 import Heart from '../components/Heart'
 import CustomLoading from '../components/CustomLoading'
@@ -139,14 +139,6 @@ export default class Landing extends Component {
               </View>
               <View>
                 <View style={landingStyles.bottomContainerIcons}>
-                  {/* <TouchableOpacity>
-                    <Ionicons
-                      name={'ios-share-outline'}
-                      size={25}
-                      color={'white'}
-                      style={{ paddingRight: 15 }}
-                    />
-                 </TouchableOpacity>*/}
                   <Mutation mutation={UPDATE_FAVORITES}>
                     {(updateUserFavorites, { data }) => (
                       <TouchableOpacity
@@ -243,9 +235,9 @@ export default class Landing extends Component {
             })
           }>
           <Text style={landingStyles.viewAllText}>View More</Text>
-          <Ionicons
-            name='md-arrow-forward'
-            size={30}
+          <Entypo
+            name='chevron-thin-right'
+            size={24}
             color='rgba(48, 55, 64, 1)'
           />
         </TouchableOpacity>

@@ -1,8 +1,7 @@
 import React from 'react'
 import { Query } from 'react-apollo'
-import { CURRENT_USER } from '../queries'
 import ExperiencesList from '../components/ExperiencesList'
-import { GET_EXPERIENCES_BY_CATEGORY } from '../queries'
+import { GET_EXPERIENCES_BY_CATEGORY, CURRENT_USER } from '../queries'
 
 const ViewAll = props => {
   let category = props.navigation.getParam('category') || ['Top Trending', {category: 'Top Trending', limit: 10}]

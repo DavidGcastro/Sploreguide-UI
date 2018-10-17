@@ -53,6 +53,32 @@ const SEARCH_EXPERIENCES = gql`
   }${EXPERIENCE_FIELD_FRAGMENTS}
 `
 
+const GENERATE_CONVERSATION = gql`
+query getConversations($input: ConvoList!){
+  generateConversation(input: $input) {
+    content,
+    firstName,
+    lastName,
+    sender,
+    _id,
+    time_created
+  }
+}
+`
+
+const ALL_MESSAGES = gql`
+query allMessages($input: Convo!){
+  allMessages(input: $input) {
+    sender,
+    firstName,
+    lastName,
+    content,
+    _id,
+    time_created
+  }
+}
+`
+
 const CURRENT_USER = gql`
 {
   currentUser {
@@ -69,5 +95,7 @@ export {
   CURRENT_USER,
   GET_EXPERIENCES_BY_CATEGORY,
   GET_EXPERIENCES_BY_ID,
-  SEARCH_EXPERIENCES
+  SEARCH_EXPERIENCES,
+  GENERATE_CONVERSATION,
+  ALL_MESSAGES
 }

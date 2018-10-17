@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from 'react-navigation'
 import Favorites from '../screens/Favorites'
 import Temp3 from '../screens/Temp3'
-import Temp4 from '../screens/Temp4'
+import Inbox from '../screens/Inbox'
 import Temp5 from '../screens/Temp5'
 import Landing from '../screens/Landing'
 import { Ionicons, EvilIcons } from '@expo/vector-icons'
@@ -34,8 +34,8 @@ const BottomTabNavigator = createBottomTabNavigator(
         tabVisible: false
       }
     },
-    Temp4: {
-      screen: Temp4,
+    Inbox: {
+      screen: Inbox,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <EvilIcons name='envelope' size={40} color={tintColor} />
