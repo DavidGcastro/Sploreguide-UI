@@ -37,11 +37,11 @@ import SearchBar from '../components/SearchBar'
 let { width, height } = Dimensions.get('window')
 
 let categories = [
-  [ 'Top Trending', {category: "Top Trending", limit: 5}],
-  [ 'Highest Rated', {category: "Highest Rated", limit: 5} ],
-  [ 'Best Value', {category: "Best Value", limit: 5} ],
-  [ 'Weekend Picks', {category: "Weekend Picks", limit: 5} ],
-  [ 'Most Viewed', {category: "Most Viewed", limit: 5} ]
+  ['Top Trending', { category: "Top Trending", limit: 5 }],
+  ['Highest Rated', { category: "Highest Rated", limit: 5 }],
+  ['Best Value', { category: "Best Value", limit: 5 }],
+  ['Weekend Picks', { category: "Weekend Picks", limit: 5 }],
+  ['Most Viewed', { category: "Most Viewed", limit: 5 }]
 ]
 
 let offset = 0
@@ -81,7 +81,7 @@ export default class Landing extends Component {
     if (defaultImageCount === loadedImageCount) {
       defaultImageCount = 0
       loadedImageCount = 0
-      this.setState({loading: false})
+      this.setState({ loading: false })
     }
   }
 
@@ -104,7 +104,7 @@ export default class Landing extends Component {
         style={{ flex: 1 }}
         activeOpacity={0.75}
         onPress={() => this.props.navigation.navigate('Experience',
-        { item, previous: 'Landing', isFavorite, swipeUp: false })}
+          { item, previous: 'Landing', isFavorite, swipeUp: false })}
       >
         <View
           style={{
@@ -114,8 +114,8 @@ export default class Landing extends Component {
             shadowOpacity: 0.8
           }}>
           <ImageBackground
-            source={{uri: item.media[0]}}
-            onLoad={()=>{loadedImageCount+=1; this.removeDefaultLoading()}}
+            source={{ uri: item.media[0] }}
+            onLoad={() => { loadedImageCount += 1; this.removeDefaultLoading() }}
             imageStyle={{ borderRadius: 10 }}
             style={{
               flex: 1
@@ -139,7 +139,7 @@ export default class Landing extends Component {
               </View>
               <View>
                 <View style={landingStyles.bottomContainerIcons}>
-                 {/* <TouchableOpacity>
+                  {/* <TouchableOpacity>
                     <Ionicons
                       name={'ios-share-outline'}
                       size={25}
@@ -148,19 +148,19 @@ export default class Landing extends Component {
                     />
                  </TouchableOpacity>*/}
                   <Mutation mutation={UPDATE_FAVORITES}>
-                    { (updateUserFavorites, { data }) => (
+                    {(updateUserFavorites, { data }) => (
                       <TouchableOpacity
                         onPress={() => {
                           updateUserFavorites({ variables: { experienceId: item._id } })
                         }}
                       >
-                       <Heart isFavorite={isFavorite} />
+                        <Heart isFavorite={isFavorite} />
                       </TouchableOpacity>
                     )
                     }
                   </Mutation>
                 </View>
-                <View style={[landingStyles.bottomContainer, {borderBottomLeftRadius: 10}]}>
+                <View style={[landingStyles.bottomContainer, { borderBottomLeftRadius: 10 }]}>
                   <View
                     style={{
                       borderBottomColor: 'rgba(255, 255, 255, .3)',
@@ -212,7 +212,7 @@ export default class Landing extends Component {
     let query = {}
     let searchText = ''
     if (!lodash.isEmpty(this.props.navigation.state.params)) {
-      query =  this.props.navigation.state.params.query
+      query = this.props.navigation.state.params.query
       searchText = formatSearchQueryObject(query)
     }
 
@@ -229,7 +229,7 @@ export default class Landing extends Component {
           padding: 2,
           color: (searchText) ? 'black' : '#9b9b9b'
         }}>
-         {searchText || this.state.search}
+        {searchText || this.state.search}
       </Text>
 
     let categoryTitlePart = (
@@ -271,10 +271,10 @@ export default class Landing extends Component {
         data={categories}
         extraData={favs}
         keyExtractor={(_, index) => String(index)}
-        renderItem={({item}) =>
+        renderItem={({ item }) =>
           (<View style={{ flex: 1, height: cardHeight.height, marginBottom: 20 }}>
-            <Query query={GET_EXPERIENCES_BY_CATEGORY} variables={{input: item[1]}}>
-              {({loading, error, data}) => {
+            <Query query={GET_EXPERIENCES_BY_CATEGORY} variables={{ input: item[1] }}>
+              {({ loading, error, data }) => {
                 if (loading) return 'Loading...'
                 if (error) return `Error! ${error.message}`
                 let exps = data.getExperiences
@@ -305,39 +305,39 @@ export default class Landing extends Component {
             return `Error! ${error.message}`
           }
           favorites = data.currentUser.favorites
-         // return defaultView
-         return (
-          <View style={landingStyles.parent}>
-            <SearchBar
-              navigation={this.props.navigation}
-              search={search}
-              clear={!lodash.isEmpty(query)} />
-            {!lodash.isEmpty(query) && (
-              <Query
-                query={SEARCH_EXPERIENCES}
-                variables={{input: query}}
-              >
-                {({ loading, error, data, refetch }) => {
-                  let { searchExperiences } = data
+          // return defaultView
+          return (
+            <View style={landingStyles.parent}>
+              <SearchBar
+                navigation={this.props.navigation}
+                search={search}
+                clear={!lodash.isEmpty(query)} />
+              {!lodash.isEmpty(query) && (
+                <Query
+                  query={SEARCH_EXPERIENCES}
+                  variables={{ input: query }}
+                >
+                  {({ loading, error, data, refetch }) => {
+                    let { searchExperiences } = data
 
-                  return (
-                   <SearchResults
-                    searchExperiences={searchExperiences}
-                    navigation={this.props.navigation}
-                    favorites={favorites}
-                    refetch={refetch}
-                    />
-                  )
-                }}
-              </Query>
-            )}
+                    return (
+                      <SearchResults
+                        searchExperiences={searchExperiences}
+                        navigation={this.props.navigation}
+                        favorites={favorites}
+                        refetch={refetch}
+                      />
+                    )
+                  }}
+                </Query>
+              )}
 
-            {this.state.loading && <CustomLoading />}
-            {lodash.isEmpty(query) && categoryTitlePart}
-            {lodash.isEmpty(query) && scrollPart(favorites) }
+              {this.state.loading && <CustomLoading />}
+              {lodash.isEmpty(query) && categoryTitlePart}
+              {lodash.isEmpty(query) && scrollPart(favorites)}
 
-          </View>
-         )
+            </View>
+          )
         }}
       </Query>
     )

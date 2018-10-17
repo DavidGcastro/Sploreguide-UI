@@ -42,18 +42,19 @@ export default class Search extends Component {
     if (selectedActivityIndex == this.state.selectedActivityIndex) {
       selectedActivityIndex = -1
     }
-      this.setState({selectedActivityIndex})
+    this.setState({ selectedActivityIndex })
   }
 
   changeLocationText = (value) => {
-    this.setState({location: value })
+    this.setState({ location: value })
     if (value === '') {
       let query = Object.assign(this.state.query)
       delete query.location
-      this.setState({query})}
+      this.setState({ query })
+    }
   }
 
-   doSearch = () => {
+  doSearch = () => {
     let searchDisplay = this.state.location
     if (this.state.selectedActivityIndex != -1) {
       searchDisplay = `${searchDisplay} - ${Activities[this.state.selectedActivityIndex]}`
@@ -64,7 +65,7 @@ export default class Search extends Component {
     })
   }
 
-  render() {
+  render () {
     let { selectedActivityIndex, query } = this.state
     let x = this.state.priceRangeMin
     let y = this.state.priceRangeMax
@@ -79,13 +80,13 @@ export default class Search extends Component {
       })
       .slice(0, 4)
 
-      return (
+    return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.parent}>
           {/* SEARCH */}
           <View style={styles.firstChild}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Landing')}>
-              <GoBack color={'black'}/>
+              <GoBack color={'black'} />
             </TouchableOpacity>
             <TextInput
               autoFocus
@@ -106,27 +107,27 @@ export default class Search extends Component {
               locationMatches.map((location, index) => {
                 return (
                   (lodash.isEqual(location, query.location)) ?
-                  <LinearGradientBorder key={index}>
+                    <LinearGradientBorder key={index}>
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => {
+                          this.setState({
+                            location: location.borough || location.city,
+                            query: { ...query, location }
+                          })
+                          Keyboard.dismiss()
+                        }}
+                      >
+                        <Location location={formatLocationObject(location)} />
+                      </TouchableOpacity>
+                    </LinearGradientBorder>
+                    :
                     <TouchableOpacity
                       key={index}
                       onPress={() => {
                         this.setState({
                           location: location.borough || location.city,
-                          query: {...query, location }
-                        })
-                        Keyboard.dismiss()
-                      }}
-                    >
-                      <Location location={formatLocationObject(location)} />
-                    </TouchableOpacity>
-                  </LinearGradientBorder>
-                  :
-                  <TouchableOpacity
-                      key={index}
-                      onPress={() => {
-                        this.setState({
-                          location: location.borough || location.city,
-                          query: {...query, location }
+                          query: { ...query, location }
                         })
                         Keyboard.dismiss()
                       }}
@@ -137,10 +138,10 @@ export default class Search extends Component {
                 )
               })
             ) : (
-              <Text style={defaultStyles.informativeText}>
-                No Locations Found.
+                <Text style={defaultStyles.informativeText}>
+                  No Locations Found.
               </Text>
-            )}
+              )}
           </View>
           {/*<View style={{height: 300}}><GooglePlacesInput /></View>*/}
           {/* Activities */}
@@ -156,39 +157,37 @@ export default class Search extends Component {
               contentContainerStyle={{
                 flexDirection: 'row'
               }}>{
-              Activities.map(
-                (activity, index) =>
-                  index === selectedActivityIndex ? (
-                    <LinearGradientBorder key={index}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          this.changeActivity(index)
-                          this.setState({ query: {...query, activityType: ''}})
-                        }}
-                      >
-                        <ActivityCard
-                          IconTag='Ionicons'
-                          iconName='ios-hammer-outline'
-                          label={activity}
-                        />
-                      </TouchableOpacity>
-                    </LinearGradientBorder>
-                  ) : (
-                    <TouchableOpacity
-                      key={index}
-                      onPress={() => {
-                        this.changeActivity(index)
-                        this.setState({ query: {...query, activityType: activity}})
-                      }}
-                    >
-                      <ActivityCard
-                        IconTag='Ionicons'
-                        iconName='ios-hammer-outline'
-                        label={activity}
-                      />
-                    </TouchableOpacity>
-                  )
-              )}
+                Activities.map(
+                  (activity, index) =>
+                    index === selectedActivityIndex ? (
+                      <LinearGradientBorder key={index}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            this.changeActivity(index)
+                            this.setState({ query: { ...query, activityType: '' } })
+                          }}
+                        >
+                          <ActivityCard
+                            activity={activity}
+                            label={activity}
+                          />
+                        </TouchableOpacity>
+                      </LinearGradientBorder>
+                    ) : (
+                        <TouchableOpacity
+                          key={index}
+                          onPress={() => {
+                            this.changeActivity(index)
+                            this.setState({ query: { ...query, activityType: activity } })
+                          }}
+                        >
+                          <ActivityCard
+                            activity={activity}
+                            label={activity}
+                          />
+                        </TouchableOpacity>
+                      )
+                )}
 
             </ScrollView>
           </View>
@@ -204,7 +203,7 @@ export default class Search extends Component {
                 this.setState({
                   priceRangeMax: values[1],
                   priceRangeMin: values[0],
-                  query: {...query, priceRangeMin: values[0], priceRangeMax: values[1]}
+                  query: { ...query, priceRangeMin: values[0], priceRangeMax: values[1] }
                 })
               }}
               values={[Number(x), Number(y)]}
@@ -255,8 +254,8 @@ export default class Search extends Component {
               styleWeekend={false}
               innerStyle={styles.calenderStyle}
               onDateSelected={momentDate => this.setState({
-                query: {...query, date: momentDate.toDate().getTime()}
-              }) }
+                query: { ...query, date: momentDate.toDate().getTime() }
+              })}
             />
           </View>
 
