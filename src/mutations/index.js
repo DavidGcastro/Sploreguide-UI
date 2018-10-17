@@ -32,3 +32,11 @@ export const UPDATE_FAVORITES = gql`
     }
   }
 `
+
+export const SEND_MESSAGE = gql`
+  mutation sendMessages($content: String!, $firstName: String!, $lastName: String!, $sender: ID!, $receiver: ID! ) {
+    sendMessage(input: {content: $content, firstName: $firstName, lastName: $lastName, sender: $sender, receiver: $receiver}){
+      content
+    }
+  }
+`

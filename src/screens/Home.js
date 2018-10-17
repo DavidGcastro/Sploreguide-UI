@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   Text,
-  ImageBackground,
   View,
   Image,
   SafeAreaView,
