@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Dimensions, View, Text, TouchableOpacity, Image, PanResponder, Animated, StyleSheet, FlatList } from 'react-native'
 import landingStyles from '../styles/landingStyles'
 import { LinearGradient } from 'expo'
-import { Ionicons, SimpleLineIcons, Feather, Entypo} from '@expo/vector-icons'
+import { Ionicons, SimpleLineIcons, Entypo} from '@expo/vector-icons'
 import GradientBorder from '../components/GradientButton'
 import Stars from '../components/Stars'
 import Heart from '../components/Heart'
@@ -105,9 +105,9 @@ export default class ExperienceFullScreen extends Component {
                   onSwipeDownExperience(totalHeight, paddingBelow, rotate, fade)
                  return nav.navigate(previous)
                 }}>  
-                  <Feather
-                    name={'arrow-left'}
-                    size={30}
+                  <Entypo
+                    name={'chevron-thin-left'}
+                    size={24}
                     color={'white'}
                     style={{ paddingRight: 15 }} x
                   />

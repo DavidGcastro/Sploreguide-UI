@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView, View, Text, TouchableOpacity } from 'react-native'
 import moment from 'moment'
-import { MaterialIcons, Feather } from '@expo/vector-icons'
+import { MaterialIcons, Entypo } from '@expo/vector-icons'
 import CalendarScreen from '../components/CalenderScreen'
 import PeopleQuantity from '../components/PeopleQuantity'
 
@@ -105,7 +105,7 @@ export default class Checkout extends Component {
             {(showing === 'calendar') ?
               <MaterialIcons name='close' size={30} />
               :
-              <Feather name='arrow-left' size={30}  />
+              <Entypo name='chevron-thin-left' size={24}  />
             }
           </TouchableOpacity>
           <Text style={{  fontSize: 16, fontFamily: 'SF-UI-Text-Bold' }}>
@@ -114,9 +114,9 @@ export default class Checkout extends Component {
           {(this.state.timeSelected != '' && this.state.showing === 'calendar' || this.state.showing === 'quantity' && this.state.totalPeople > 0)
       
             ? <TouchableOpacity  onPress={() => nextWrapper()}>
-              <Feather name='arrow-right' size={30}/>
+              <Entypo name='chevron-thin-right' size={24}/>
             </TouchableOpacity>
-            : <Feather name='arrow-right' size={30} color={'#b2b2b2'} />
+            : <Entypo name='chevron-thin-right' size={24} color={'#b2b2b2'} />
           }
      
         </View>
