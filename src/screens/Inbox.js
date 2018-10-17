@@ -8,7 +8,7 @@ import GoBack from '../components/GoBack'
 import moment from 'moment';
 import { Left } from 'native-base';
 
-export default class Temp4 extends React.Component {
+export default class Inbox extends React.Component {
   state = {
     messages: []
   }
@@ -18,10 +18,7 @@ export default class Temp4 extends React.Component {
 
   _onPress = () => {
     console.log('hey there')
-  };
-
-
-
+  }
 
   render() {
 
@@ -30,7 +27,7 @@ export default class Temp4 extends React.Component {
       var hr = dt.getHours() % 12;
       var m = "0" + dt.getMinutes();
       var s = "0" + dt.getSeconds();
-      return hr + ':' + m.substr(-2) + ':' + s.substr(-2);
+      return hr + ':' + m.substr(-2) + ':' + s.substr(-2)
     }
 
     return (
