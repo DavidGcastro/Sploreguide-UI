@@ -178,7 +178,7 @@ export default class Search extends Component {
               iconName='money'
               label={`Price Range: $${x} - $${y}`}
             />
-
+            {/*PRICE RANGE*/}
             <PriceSlider handlePriceChange={this.handlePriceChange} min = {x} max={y} />
           </View>
           <View style={styles.divider}>
