@@ -25,25 +25,20 @@ import { formatLocationObject } from '../helpers/strings'
 import defaultStyles from '../styles/styles'
 import Locations from '../Locations'
 import Activities from '../Activities'
+import PriceSlider from '../components/PriceSlider'
 let { width } = Dimensions.get('window')
+import ActivityScrollView from '../components/ActivityScrollView'
 
 
 export default class Search extends Component {
   state = {
     location: '',
-    selectedActivityIndex: -1,
     query: {},
     date: new Date(),
     priceRangeMin: '0',
     priceRangeMax: '100'
   }
 
-  changeActivity (selectedActivityIndex) {
-    if (selectedActivityIndex == this.state.selectedActivityIndex) {
-      selectedActivityIndex = -1
-    }
-    this.setState({ selectedActivityIndex })
-  }
 
   changeLocationText = (value) => {
     this.setState({ location: value })
@@ -151,45 +146,7 @@ export default class Search extends Component {
               iconName='bolt'
               label='Activities'
             />
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              horizontal
-              contentContainerStyle={{
-                flexDirection: 'row'
-              }}>{
-                Activities.map(
-                  (activity, index) =>
-                    index === selectedActivityIndex ? (
-                      <LinearGradientBorder key={index}>
-                        <TouchableOpacity
-                          onPress={() => {
-                            this.changeActivity(index)
-                            this.setState({ query: { ...query, activityType: '' } })
-                          }}
-                        >
-                          <ActivityCard
-                            activity={activity}
-                            label={activity}
-                          />
-                        </TouchableOpacity>
-                      </LinearGradientBorder>
-                    ) : (
-                        <TouchableOpacity
-                          key={index}
-                          onPress={() => {
-                            this.changeActivity(index)
-                            this.setState({ query: { ...query, activityType: activity } })
-                          }}
-                        >
-                          <ActivityCard
-                            activity={activity}
-                            label={activity}
-                          />
-                        </TouchableOpacity>
-                      )
-                )}
-
-            </ScrollView>
+            <ActivityScrollView changeActivity={this.changeActivity} />
           </View>
           <View>
             <InlineIcon

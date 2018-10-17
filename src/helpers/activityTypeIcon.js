@@ -3,7 +3,7 @@ import {
   MaterialCommunityIcons,
   FontAwesome,
   MaterialIcons,
-  Entypo
+  Entypo, EvilIcons
 } from '@expo/vector-icons'
 import React from 'react'
 
@@ -38,6 +38,13 @@ const createComponent = activity => {
     case 'Entypo':
       return <Entypo
         size={35}
+        name={iconName}
+        style={{
+          color: 'rgba(132, 146, 166, 1)'
+        }}
+      />
+    case 'EvilIcons':
+      return <EvilIcons size={35}
         name={iconName}
         style={{
           color: 'rgba(132, 146, 166, 1)'
