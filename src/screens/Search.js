@@ -202,7 +202,7 @@ export default class Search extends Component {
               styleWeekend={false}
               innerStyle={styles.calenderStyle}
               onDateSelected={momentDate => this.setState({
-                query: { ...this.state.query, date: momentDate.toDate().getTime() }
+                query: { ...this.state.query, /*date: momentDate.toDate().getTime() */}
               })}
             />
           </View>
